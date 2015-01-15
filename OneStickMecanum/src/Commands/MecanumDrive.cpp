@@ -12,10 +12,19 @@ void MecanumDrive::Initialize() {
 }
 
 void MecanumDrive::Execute() {
-	double forward = -oi->getJoystick()->GetAxis(Joystick::kYAxis);
-	double right = oi->getJoystick()->GetAxis(Joystick::kXAxis);
-	double clockwise = oi->getJoystick()->GetAxis(Joystick::kZAxis);
-	// double theta = oi->getGyro()->GetAngle();
+	double forward;
+	double right;
+	double clockwise;
+
+	if(HALO) {
+		forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
+		right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
+		clockwise = oi->getJoystickLeft()->GetAxis(Joystick::kZAxis);
+	} else {
+		forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
+		right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
+		clockwise = oi->getJoystickRight()->GetAxis(Joystick::kZAxis);
+	}
 
 	if (fabs(forward) < OI_JOYSTICK_DRIVE_DEADBAND) {
 		forward = 0;
@@ -27,13 +36,7 @@ void MecanumDrive::Execute() {
 		clockwise = 0;
 	}
 
-	clockwise *= MECANUM_TUNING_CONSTANT;
-
-	// Field-oriented corrections
-	// TODO check for degrees / radians issues
-	/*double temp = forward*cos(theta) + right*sin(theta);
-	right = -forward*sin(theta) + right*cos(theta);
-	forward = temp;*/
+	clockwise *= MECANUM_ROTATION_CONSTANT;
 
 	// 'Kinematic transformation'
 	double frontLeft = forward + clockwise + right;
@@ -47,7 +50,7 @@ void MecanumDrive::Execute() {
 	if(abs(backLeft)>max) max = abs(backLeft);
 	if(abs(backRight)>max) max = abs(backRight);
 
-	if(max>1){
+	if(max>=1){
 		frontLeft /= max;
 		frontRight /= max;
 		backLeft /= max;

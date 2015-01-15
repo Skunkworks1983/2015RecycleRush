@@ -6,12 +6,13 @@
 class OI
 {
 private:
-	Joystick *joystick;
-	//Gyro *gyro;
+	Joystick *joystickLeft;
+	Joystick *joystickRight;
 public:
 	OI();
-	Joystick *getJoystick();
-	//Gyro *getGyro();
+	~OI();
+	Joystick *getJoystickLeft();
+	Joystick *getJoystickRight();
 };
 
 #endif

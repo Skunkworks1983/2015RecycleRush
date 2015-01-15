@@ -3,14 +3,19 @@
 
 OI::OI()
 {
-	joystick = new Joystick(OI_JOYSTICK);
-	//gyro = new Gyro(GYRO);
+	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
+	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
 }
 
-Joystick *OI::getJoystick() {
-	return joystick;
+OI::~OI() {
+	delete joystickLeft;
+	delete joystickRight;
 }
 
-/*Gyro *OI::getGyro() {
-	return gyro;
-}*/
+Joystick *OI::getJoystickLeft() {
+	return joystickLeft;
+}
+
+Joystick *OI::getJoystickRight() {
+	return joystickRight;
+}

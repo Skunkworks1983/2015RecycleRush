@@ -17,6 +17,11 @@ CommandBase::CommandBase() :
 
 }
 
+CommandBase::~CommandBase() {
+	delete driveBase;
+	delete oi;
+}
+
 void CommandBase::init()
 {
 	driveBase = new DriveBase();

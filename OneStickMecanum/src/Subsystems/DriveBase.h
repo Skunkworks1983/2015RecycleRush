@@ -14,6 +14,7 @@ private:
 	DRIVE_MOTOR_TYPE *motorBackRight;
 public:
 	DriveBase();
+	~DriveBase();
 	void InitDefaultCommand();
 	void setSpeed(double speedFrontLeft, double speedFrontRight,
 			double speedBackLeft, double speedBackRight);
