@@ -1,15 +1,15 @@
-#ifndef MecanumDrive_H
-#define MecanumDrive_H
+#ifndef ResetGyro_H
+#define ResetGyro_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class MecanumDrive: public CommandBase
+class ResetGyro: public CommandBase
 {
 private:
 	bool firstIteration;
 public:
-	MecanumDrive();
+	ResetGyro();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

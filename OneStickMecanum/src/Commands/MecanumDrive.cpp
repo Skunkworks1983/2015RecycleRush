@@ -1,10 +1,11 @@
 #include "MecanumDrive.h"
-
+#include "ResetGyro.h"
 #include <math.h>
 
 MecanumDrive::MecanumDrive() :
 		CommandBase("MecanumDrive") {
 	Requires(driveBase);
+	firstIteration = true;
 }
 
 void MecanumDrive::Initialize() {
@@ -12,6 +13,16 @@ void MecanumDrive::Initialize() {
 }
 
 void MecanumDrive::Execute() {
+	if(firstIteration){
+		bool is_calibrating = driveBase->getGyro()->IsCalibrating();
+		SmartDashboard::PutBoolean("Is calibrating", is_calibrating);
+		if ( !is_calibrating ) {
+			Wait( 0.2 );
+			driveBase->getGyro()->ZeroYaw();
+			firstIteration = false;
+		}
+	}
+
 	double forward;
 	double right;
 	double clockwise;
@@ -40,10 +51,11 @@ void MecanumDrive::Execute() {
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections
-	// TODO check for radians / degrees issues
 	double theta = driveBase->getGyro()->GetYaw();
-	theta *= M_PI / 180.0;
 	SmartDashboard::PutNumber("Gyro Angle", theta);
+	bool is_calibrating = driveBase->getGyro()->IsCalibrating();
+	SmartDashboard::PutBoolean("Is calibrating", is_calibrating);
+	theta *= M_PI / 180.0;
 	double temp = forward*cos(theta) + right*sin(theta);
 	right = -forward*sin(theta) + right*cos(theta);
 	forward = temp;

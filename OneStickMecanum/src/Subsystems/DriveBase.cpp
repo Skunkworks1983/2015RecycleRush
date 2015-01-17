@@ -14,11 +14,6 @@ DriveBase::DriveBase() :
 	serialPort = new SerialPort(57600,SerialPort::kMXP);
 	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort,update_rate_hz);
-	bool is_calibrating = gyro->IsCalibrating();
-	if ( !is_calibrating ) {
-		Wait( 0.3 );
-		gyro->ZeroYaw();
-	}
 
 	SetSetpoint(gyro->GetYaw());
 	this->SetOutputRange(-1, 1);

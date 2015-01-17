@@ -14,6 +14,7 @@
 #include "RobotMap.h"
 
 #include "Commands/Autonomous/Autonomous.h"
+#include "Commands/ResetGyro.h"
 
 
 Protobot::Protobot() {
@@ -33,9 +34,12 @@ void Protobot::RobotInit() {
 
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("Drive forward 1 second", Autonomous::createJustDrive(1.0f, 0.0f));
+	chooser->AddDefault("Blank", new Autonomous());
+	chooser->AddObject("Drive forward 1 second", Autonomous::createJustDrive(1.0f, 0.0f));
 	chooser->AddObject("Drive left 1 second", Autonomous::createJustDrive(1.0f, -90.0f));
-	SmartDashboard::PutData("Auto modes", chooser);
+	SmartDashboard::PutData("Auto Modes", chooser);
+
+	SmartDashboard::PutData("Zero yaw", new ResetGyro);
 }
 
 void Protobot::AutonomousInit() {
