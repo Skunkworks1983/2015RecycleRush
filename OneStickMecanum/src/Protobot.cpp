@@ -5,6 +5,7 @@
  *      Author: Administrator
  */
 
+#include <Commands/Automatic/AutoDrive.h>
 #include "Protobot.h"
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -12,27 +13,35 @@
 #include "CommandBase.h"
 #include "RobotMap.h"
 
-#include "Commands/MecanumDrive.h"
+#include "Commands/Autonomous/Autonomous.h"
+
 
 Protobot::Protobot() {
 	lw = NULL;
 	autonomousCommand = NULL;
+	chooser = NULL;
 }
 
 Protobot::~Protobot() {
 	delete autonomousCommand;
+	delete chooser;
 }
 
 void Protobot::RobotInit() {
 	CommandBase::init();
-	autonomousCommand = new MecanumDrive();
 	lw = LiveWindow::GetInstance();
+
+	// Create autonomous
+	chooser = new SendableChooser();
+	chooser->AddDefault("Drive forward 1 second", Autonomous::createJustDrive(1.0f, 0.0f));
+	chooser->AddObject("Drive left 1 second", Autonomous::createJustDrive(1.0f, -90.0f));
+	SmartDashboard::PutData("Auto modes", chooser);
 }
 
 void Protobot::AutonomousInit() {
-	if (autonomousCommand != NULL) {
-		autonomousCommand->Start();
-	}
+	Scheduler::GetInstance()->RemoveAll();
+	autonomousCommand = (Command *) chooser->GetSelected();
+	autonomousCommand->Start();
 }
 
 void Protobot::AutonomousPeriodic() {
@@ -61,7 +70,5 @@ void Protobot::TestInit() {
 void Protobot::TestPeriodic() {
 	lw->Run();
 }
-
-
 
 START_ROBOT_CLASS(Protobot);

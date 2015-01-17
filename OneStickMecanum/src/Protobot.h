@@ -16,6 +16,8 @@ class Protobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
+	SendableChooser *chooser;
+
 public:
 	Protobot();
 	~Protobot();

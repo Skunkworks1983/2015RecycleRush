@@ -16,15 +16,15 @@ void MecanumDrive::Execute() {
 	double right;
 	double clockwise;
 
-	if(HALO) {
+#if HALO
 		forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
 		right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
 		clockwise = oi->getJoystickLeft()->GetAxis(Joystick::kZAxis);
-	} else {
+#else
 		forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
 		right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
 		clockwise = oi->getJoystickRight()->GetAxis(Joystick::kZAxis);
-	}
+#endif
 
 	if (fabs(forward) < OI_JOYSTICK_DRIVE_DEADBAND) {
 		forward = 0;
@@ -38,24 +38,22 @@ void MecanumDrive::Execute() {
 
 	clockwise *= MECANUM_ROTATION_CONSTANT;
 
+#if FIELD_ORIENTED
+	// Field-oriented corrections
+	// TODO check for radians / degrees issues
+	double theta = driveBase->getGyro()->GetYaw();
+	theta *= M_PI / 180.0;
+	SmartDashboard::PutNumber("Gyro Angle", theta);
+	double temp = forward*cos(theta) + right*sin(theta);
+	right = -forward*sin(theta) + right*cos(theta);
+	forward = temp;
+#endif
+
 	// 'Kinematic transformation'
 	double frontLeft = forward + clockwise + right;
 	double frontRight = forward - clockwise - right;
 	double backLeft = forward + clockwise - right;
 	double backRight = forward - clockwise + right;
-
-	// Normalize to the max
-	double max = abs(frontLeft);
-	if(abs(frontRight)>max) max = abs(frontRight);
-	if(abs(backLeft)>max) max = abs(backLeft);
-	if(abs(backRight)>max) max = abs(backRight);
-
-	if(max>=1){
-		frontLeft /= max;
-		frontRight /= max;
-		backLeft /= max;
-		backRight /= max;
-	}
 
 	driveBase->setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
