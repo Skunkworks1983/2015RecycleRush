@@ -1,9 +1,9 @@
 #include "CommandBase.h"
-#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/DriveBase.h"
 #include "Commands/Scheduler.h"
 
 // Initialize a single static instance of all of your subsystems to NULL
-ExampleSubsystem* CommandBase::examplesubsystem = NULL;
+DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
 
 CommandBase::CommandBase(char const *name) :
@@ -17,11 +17,14 @@ CommandBase::CommandBase() :
 
 }
 
+CommandBase::~CommandBase() {
+	delete driveBase;
+	delete oi;
+}
+
 void CommandBase::init()
 {
-	// Create a single static instance of all of your subsystems. The following
-	// line should be repeated for each subsystem in the project.
-	examplesubsystem = new ExampleSubsystem();
+	driveBase = new DriveBase();
 
 	oi = new OI();
 }

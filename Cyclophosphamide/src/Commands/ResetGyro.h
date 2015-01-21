@@ -1,13 +1,15 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef ResetGyro_H
+#define ResetGyro_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class ExampleCommand: public CommandBase
+class ResetGyro: public CommandBase
 {
+private:
+	bool firstIteration;
 public:
-	ExampleCommand();
+	ResetGyro();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
