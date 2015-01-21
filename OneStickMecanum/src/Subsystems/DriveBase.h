@@ -26,6 +26,10 @@ public:
 			double speedBackLeft, double speedBackRight);
 	IMU *getGyro();
 	void setTargetAngle(double theta);
+
+	void stopPID();
+	void startPID();
+	double getError();
 };
 
 #endif

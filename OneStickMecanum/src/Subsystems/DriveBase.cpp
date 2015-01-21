@@ -17,8 +17,8 @@ DriveBase::DriveBase() :
 
 	SetSetpoint(gyro->GetYaw());
 	this->SetOutputRange(-1, 1);
-	this->SetInputRange(-180, 180); // TODO what actually is this?
-	// Enable();
+	this->SetInputRange(-180, 180);
+	Enable();
 }
 
 DriveBase::~DriveBase() {
@@ -38,13 +38,15 @@ double DriveBase::ReturnPIDInput() {
 
 void DriveBase::UsePIDOutput(double output) {
 	// TODO add correction in translation as well
-	double correction = output*MECANUM_CORRECTION_INTENSITY;
-	double frontLeft = motorFrontLeft->Get() + correction;
-	double frontRight = motorFrontRight->Get() - correction;
-	double backLeft = motorBackLeft->Get() + correction;
-	double backRight = motorBackRight->Get() - correction;
+	if(abs(output) > MECANUM_CORRECTION_THRESHOLD){
+		double correction = output*MECANUM_CORRECTION_INTENSITY;
+		double frontLeft = motorFrontLeft->Get() + correction;
+		double frontRight = motorFrontRight->Get() - correction;
+		double backLeft = motorBackLeft->Get() + correction;
+		double backRight = motorBackRight->Get() - correction;
 
-	setSpeed(frontLeft, frontRight, backLeft, backRight);
+		setSpeed(frontLeft, frontRight, backLeft, backRight);
+	}
 }
 
 void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -74,4 +76,16 @@ IMU *DriveBase::getGyro() {
 
 void DriveBase::setTargetAngle(double theta) {
 	SetSetpoint(theta);
+}
+
+void DriveBase::stopPID() {
+	this->Disable();
+}
+
+void DriveBase::startPID() {
+	this->Enable();
+}
+
+double DriveBase::getError() {
+	return fmod((gyro->GetYaw()-this->GetSetpoint()), 360.0);
 }

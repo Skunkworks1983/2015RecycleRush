@@ -10,15 +10,12 @@
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
 
-// Gyro
-#define GYRO 5
-#define GYRO_SENSITIVITY 0.012
-
 // Mecanum
-#define HALO false // alternative being tank + strafe
+#define ONE_STICK false
 #define FIELD_ORIENTED true
 #define MECANUM_ROTATION_CONSTANT -.5 // max 1
-#define MECANUM_CORRECTION_INTENSITY .1
+#define MECANUM_CORRECTION_INTENSITY .01
+#define MECANUM_CORRECTION_THRESHOLD 2.0
 
 // Auto
 #define AUTO_DRIVE_SPEED (0.25)
@@ -32,5 +29,6 @@
 #define OI_JOYSTICK_LEFT (0)
 #define OI_JOYSTICK_RIGHT (1)
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
+#define OI_JOYSTICK_ROT_DEADBAND (0.1)
 
 #endif

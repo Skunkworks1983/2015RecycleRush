@@ -27,7 +27,7 @@ void MecanumDrive::Execute() {
 	double right;
 	double clockwise;
 
-#if HALO
+#if ONE_STICK
 		forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
 		right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
 		clockwise = oi->getJoystickLeft()->GetAxis(Joystick::kZAxis);
@@ -43,8 +43,12 @@ void MecanumDrive::Execute() {
 	if (fabs(right) < OI_JOYSTICK_DRIVE_DEADBAND) {
 		right = 0;
 	}
-	if (fabs(clockwise) < OI_JOYSTICK_DRIVE_DEADBAND) {
+	if (fabs(clockwise) < OI_JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
+		SmartDashboard::PutBoolean("PID enabled", true);
+	} else {
+		SmartDashboard::PutBoolean("PID enabled", false);
+		driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 	}
 
 	clockwise *= MECANUM_ROTATION_CONSTANT;
@@ -68,6 +72,9 @@ void MecanumDrive::Execute() {
 	double backRight = forward - clockwise + right;
 
 	driveBase->setSpeed(frontLeft, frontRight, backLeft, backRight);
+
+	driveBase->UsePIDOutput(driveBase->getError());
+	SmartDashboard::PutNumber("PID error", driveBase->getError());
 }
 
 bool MecanumDrive::IsFinished() {
@@ -79,5 +86,5 @@ void MecanumDrive::End() {
 }
 
 void MecanumDrive::Interrupted() {
-
+	driveBase->setSpeed(0, 0, 0, 0);
 }
