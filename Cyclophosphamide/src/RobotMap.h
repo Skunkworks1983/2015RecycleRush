@@ -3,12 +3,22 @@
 
 #include "WPILib.h"
 
+// C++ changes
+#define me this
+#define floaterino float
+
 // DriveBase
 #define DRIVE_MOTOR_TYPE CANTalon
 #define DRIVE_MOTOR_FRONT_LEFT 1
 #define DRIVE_MOTOR_FRONT_RIGHT 0
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
+
+//Tote Intake
+#define TOTE_INTAKE_SENSOR 0
+#define TOTE_INTAKE_MOTOR 4
+#define TOTE_INTAKE_MOTOR_FULL 1.0
+#define TOTE_INTAKE_MOTOR_NONE 0.0
 
 // Mecanum
 #define ONE_STICK false
