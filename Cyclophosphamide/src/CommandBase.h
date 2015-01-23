@@ -21,6 +21,7 @@ public:
 	static void init();
 	// Create a single static instance of all of your subsystems
 	static DriveBase *driveBase;
+	static ToteIntakerino *tote_intakerino;
 	static OI *oi;
 };
 
