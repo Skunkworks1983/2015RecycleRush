@@ -1,6 +1,8 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+#include <Subsystems/CollecterinoArms.h>
+#include "Subsystems/ToteIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveBase.h"
@@ -12,6 +14,10 @@
  * CommandBase stores creates and stores each control system. To access a
  * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
  */
+
+class DriveBase;
+class CanCollecterino;
+class ToteIntakerino;
 class CommandBase: public Command
 {
 public:
@@ -21,6 +27,8 @@ public:
 	static void init();
 	// Create a single static instance of all of your subsystems
 	static DriveBase *driveBase;
+	static CanCollecterino *canCollecterino;
+	static ToteIntakerino *tote_intakerino;
 	static OI *oi;
 };
 
