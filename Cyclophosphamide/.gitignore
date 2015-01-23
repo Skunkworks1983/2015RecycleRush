@@ -1,9 +1,1 @@
-#Binary files
-*.o
-*.build
-*FRCUserProgram
 
-#Project files
-*.settings
-*.project
-*.cproject
