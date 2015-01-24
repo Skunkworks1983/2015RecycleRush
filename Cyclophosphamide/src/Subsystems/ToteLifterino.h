@@ -3,6 +3,8 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include <vector>
+using std::vector;
 
 /**
  * This is the crate lifter
@@ -13,15 +15,18 @@ private:
 	Encoder *positionEncoder;
 	Talon *RightLifter;
 	Talon *LeftLifter;
-	int destination;
-	bool at_destination;
+	vector<int> destinations;
 public:
 	ToteLifterino();
 	void InitDefaultCommand();
 	int getStackerPosition();
 	bool closeEnough(int value, int constant);
-	void setDestination(int position);
-	bool isAtDestination();
+	void addDestination(int position);
+	bool At(int position);
+	int getValue(int key);
+
+	void checkAtDestination();
+	void driveTowardsDestination();
 };
 
 #endif

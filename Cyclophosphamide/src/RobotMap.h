@@ -27,10 +27,10 @@
 #define TOTE_LIFTER_LEFT 5
 #define TOTE_LIFTER_RIGHT 6
 #define TOTE_LIFTER_SENSOR 0
-#define TOTE_LIFTER_KEY_POS_0 0
-#define TOTE_LIFTER_KEY_POS_1 1
-#define TOTE_LIFTER_KEY_POS_2 2
-#define TOTE_LIFTER_KEY_POS_3 3
+#define TOTE_LIFTER_KEY_POS_0 0 // bottom
+#define TOTE_LIFTER_KEY_POS_1 1 // scoring platform
+#define TOTE_LIFTER_KEY_POS_2 2 // the step
+#define TOTE_LIFTER_KEY_POS_3 3 // all the way up
 #define TOTE_LIFTER_KEY_POS_MOTION 4
 #define TOTE_LIFTER_VAL_POS_0 0
 #define TOTE_LIFTER_VAL_POS_1 100000
@@ -40,6 +40,8 @@
 #define TOTE_LIFTER_ENCODER_CA 1
 #define TOTE_LIFTER_ENCODER_CB 2
 #define TOTE_LIFTER_ENCODER_REVERSED false
+#define TOTE_LIFTER_UP_SPEED 100
+#define TOTE_LIFTER_DOWN_SPEED -100
 
 // Mecanum
 #define ONE_STICK false
