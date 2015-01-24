@@ -7,6 +7,7 @@ OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
 ToteIntakerino* CommandBase::toteIntakerino = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
+Craaaw* CommandBase::craaaw = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -25,6 +26,7 @@ CommandBase::~CommandBase() {
 	delete canCollecterino;
 	delete toteIntakerino;
 	delete toteLifterino;
+	delete craaaw;
 }
 
 void CommandBase::init()
@@ -34,4 +36,5 @@ void CommandBase::init()
 	toteIntakerino = new ToteIntakerino();
 	toteLifterino = new ToteLifterino();
 	oi = new OI();
+	craaaw = new Craaaw();
 }

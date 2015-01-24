@@ -1,12 +1,12 @@
 #ifndef Craaaw_H
-#define DriveBase_H
+#define Craaaw_H
 
 #include "Commands/PIDSubsystem.h"
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
 
-class Craaaw
+class Craaaw: public Subsystem
 {
 private:
 	//LIFT_MOTOR_TYPE *liftereeno;
@@ -17,7 +17,7 @@ private:
 public:
 	Craaaw();
 	~Craaaw();
-	void Toggle();
+	void toggle();
 	bool getInput();
 
 
