@@ -103,8 +103,8 @@ void DriveBase::execute() {
 	// 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;
 	double frontRight = forward - clockwise + right;
-	double backLeft = -forward + clockwise + right;
-	double backRight = -forward - clockwise - right;
+	double backLeft = forward + clockwise + right;
+	double backRight = forward - clockwise - right;
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }

@@ -28,11 +28,13 @@ private:
 	Joystick *joystickLeft;
 	Joystick *joystickRight;
 	SkunkButt *stackButton;
+	JoystickButton *craaawUnactuate;
 public:
 	OI();
 	~OI();
 	Joystick *getJoystickLeft();
 	Joystick *getJoystickRight();
+	bool getUnactuate();
 	bool checkStackFlag();
 };
 

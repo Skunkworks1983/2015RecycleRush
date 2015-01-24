@@ -1,8 +1,8 @@
-
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
 #include <Subsystems/CanCollecterino.h>
+#include <Subsystems/Craaaw.h>
 #include "Subsystems/ToteIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
@@ -23,6 +23,7 @@ class CanCollecterino;
 class ToteIntakerino;
 class ToteLifterino;
 class StackPusher;
+class Craaaw;
 class CommandBase: public Command
 {
 public:
@@ -32,11 +33,13 @@ public:
 	static void init();
 	// Create a single static instance of all of your subsystems
 	static DriveBase *driveBase;
+	static Craaaw *craaaw;
 	static CanCollecterino *canCollecterino;
-	static ToteIntakerino *tote_intakerino;
+	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static StackPusher *stackPusher;
 };
 
 #endif
+
