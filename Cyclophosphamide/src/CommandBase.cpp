@@ -1,3 +1,4 @@
+
 #include "CommandBase.h"
 #include "Subsystems/DriveBase.h"
 #include "Commands/Scheduler.h"
@@ -9,6 +10,7 @@ OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
 ToteIntakerino* CommandBase::tote_intakerino = NULL;
 StackPusher* CommandBase::stackPusher = NULL;
+ToteLifterino* CommandBase::toteLifterino = NULL;
 CommandBase::CommandBase(char const *name) :
 		Command(name) {
 }
@@ -23,13 +25,16 @@ CommandBase::~CommandBase() {
 	delete canCollecterino;
 	delete tote_intakerino;
 	delete oi;
+	delete stackPusher;
 }
 
 void CommandBase::init() {
 	driveBase = new DriveBase();
 	canCollecterino = new CanCollecterino();
 	tote_intakerino = new ToteIntakerino();
+	toteLifterino = new ToteLifterino();
 	oi = new OI();
 	stackPusher = new StackPusher();
+
 
 }

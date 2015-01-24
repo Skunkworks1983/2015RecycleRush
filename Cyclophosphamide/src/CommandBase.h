@@ -1,7 +1,8 @@
+
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include <Subsystems/CollecterinoArms.h>
+#include <Subsystems/CanCollecterino.h>
 #include "Subsystems/ToteIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
@@ -9,6 +10,7 @@
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/StackPusher.h"
+#include "Subsystems/ToteLifterino.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -19,6 +21,7 @@
 class DriveBase;
 class CanCollecterino;
 class ToteIntakerino;
+class ToteLifterino;
 class StackPusher;
 class CommandBase: public Command
 {
@@ -31,6 +34,7 @@ public:
 	static DriveBase *driveBase;
 	static CanCollecterino *canCollecterino;
 	static ToteIntakerino *tote_intakerino;
+	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static StackPusher *stackPusher;
 };

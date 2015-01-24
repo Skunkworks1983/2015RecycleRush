@@ -3,7 +3,6 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "RobotMap.h"
 
 class ToteIntakerino: public Subsystem
 {
@@ -14,7 +13,7 @@ public:
 	ToteIntakerino();
 	void InitDefaultCommand();
 	bool hasTote();
-	void setMotor(floaterino speed);
+	void setMotor(float speed);
 	void runIfTote();
 };
 

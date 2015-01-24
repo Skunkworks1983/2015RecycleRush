@@ -4,13 +4,13 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TurnDegree: public CommandBase
+class TurnTo: public CommandBase
 {
 private:
 	float targetAngle;
 	float angleRemaining;
 public:
-	TurnDegree(float targetAngle);
+	TurnTo(float targetAngle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

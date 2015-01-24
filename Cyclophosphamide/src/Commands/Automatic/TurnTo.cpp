@@ -1,4 +1,4 @@
-#include "TurnDegree.h"
+#include <Commands/Automatic/TurnTo.h>
 #include <cmath>
 
 TurnTo::TurnTo(float targetAngle) {
@@ -8,21 +8,12 @@ TurnTo::TurnTo(float targetAngle) {
 }
 
 void TurnTo::Initialize() {
-	driveBase->getGyro()->ZeroYaw();
+	driveBase->setTargetAngle(targetAngle);
 }
 
 void TurnTo::Execute() {
 	angleRemaining = targetAngle - driveBase->getGyro()->GetYaw();
-	float turnScaleFactor = fabs(angleRemaining) / AUTO_TURN_SLOW_DOWN;
-	float turnSpeed = fmin(AUTO_TURN_SPEED_MAX,
-			(AUTO_TURN_SPEED_RANGE * turnScaleFactor) + AUTO_TURN_SPEED_MIN)
-			* copysign(1.0, angleRemaining);
-
-	if (fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD) {
-		turnSpeed = 0;
-	}
-
-	driveBase->setSpeed(turnSpeed, -turnSpeed, turnSpeed, -turnSpeed);
+	driveBase->execute();
 }
 
 bool TurnTo::IsFinished() {
@@ -31,8 +22,10 @@ bool TurnTo::IsFinished() {
 
 void TurnTo::End() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 }
 
 void TurnTo::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 }

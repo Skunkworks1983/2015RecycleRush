@@ -37,6 +37,7 @@ void RefactorMeBot::RobotInit() {
 	chooser->AddDefault("Blank", new Autonomous());
 	chooser->AddObject("Drive forward 1 second", Autonomous::createJustDrive(1.0f, 0.0f));
 	chooser->AddObject("Drive left 1 second", Autonomous::createJustDrive(1.0f, -90.0f));
+	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	SmartDashboard::PutData("Zero yaw", new ResetGyro);
