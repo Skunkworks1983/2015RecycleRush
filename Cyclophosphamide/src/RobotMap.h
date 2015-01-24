@@ -31,4 +31,9 @@
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
 #define OI_JOYSTICK_ROT_DEADBAND (0.1)
 
+//Downward Dog Craaaw
+
+#define CRAAAW_CAN_DETECTOR 420
+#define CRAAAW_TOGGLE 0
+
 #endif
