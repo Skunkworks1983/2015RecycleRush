@@ -1,7 +1,7 @@
 #ifndef tote_intake_H
 #define tote_intake_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class tote_intake: public CommandBase

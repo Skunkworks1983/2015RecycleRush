@@ -10,13 +10,18 @@
 class ToteLifterino: public Subsystem
 {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
+	Encoder *positionEncoder;
+	Talon *RightLifter;
+	Talon *LeftLifter;
+	int destination;
+	bool at_destination;
 public:
 	ToteLifterino();
 	void InitDefaultCommand();
-
-
+	int getStackerPosition();
+	bool closeEnough(int value, int constant);
+	void setDestination(int position);
+	bool isAtDestination();
 };
 
 #endif
