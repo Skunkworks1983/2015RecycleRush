@@ -5,7 +5,8 @@
 // Initialize a single static instance of all of your subsystems to NULL
 DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
-ToteIntakerino CommandBase::tote_intakerino = NULL;
+ToteIntakerino* CommandBase::tote_intakerino = NULL;
+ToteLifterino* CommandBase::tote_lifterino = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -27,5 +28,6 @@ void CommandBase::init()
 {
 	driveBase = new DriveBase();
 	tote_intakerino = new ToteIntakerino();
+	tote_lifterino = new ToteLifterino();
 	oi = new OI();
 }

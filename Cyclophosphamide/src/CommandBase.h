@@ -4,6 +4,8 @@
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveBase.h"
+#include "Subsystems/ToteIntakerino.h"
+#include "Subsystems/ToteLifterino.h"
 #include "OI.h"
 #include "WPILib.h"
 
@@ -22,6 +24,7 @@ public:
 	// Create a single static instance of all of your subsystems
 	static DriveBase *driveBase;
 	static ToteIntakerino *tote_intakerino;
+	static ToteLifterino *tote_lifterino;
 	static OI *oi;
 };
 

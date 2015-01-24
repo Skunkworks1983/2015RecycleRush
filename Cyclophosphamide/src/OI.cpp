@@ -5,6 +5,7 @@ OI::OI()
 {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
+
 }
 
 OI::~OI() {
@@ -18,4 +19,12 @@ Joystick *OI::getJoystickLeft() {
 
 Joystick *OI::getJoystickRight() {
 	return joystickRight;
+}
+
+bool OI::checkStackFlag() {
+	if (stack_button_flag) {
+		stack_button_flag = false;
+		return true;
+	}
+	return false;
 }
