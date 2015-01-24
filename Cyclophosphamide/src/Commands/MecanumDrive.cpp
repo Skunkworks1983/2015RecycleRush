@@ -20,6 +20,7 @@ void MecanumDrive::Execute() {
 			Wait( 0.2 );
 			driveBase->getGyro()->ZeroYaw();
 			firstIteration = false;
+			driveBase->Enable();
 		}
 	}
 
@@ -45,13 +46,15 @@ void MecanumDrive::Execute() {
 	}
 	if (fabs(clockwise) < OI_JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
-		SmartDashboard::PutBoolean("PID enabled", true);
-	} else {
-		SmartDashboard::PutBoolean("PID enabled", false);
-		driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 	}
 
-	clockwise *= MECANUM_ROTATION_CONSTANT;
+	clockwise *= JOYSTICK_DEGREES_PER_TICK;
+
+	double targetAngle = driveBase->GetSetpoint() + 180 + clockwise;
+	targetAngle = fmod(targetAngle, 360.0);
+	targetAngle -= 180;
+
+	driveBase->SetSetpoint(targetAngle);
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections
@@ -65,15 +68,10 @@ void MecanumDrive::Execute() {
 	forward = temp;
 #endif
 
-	// 'Kinematic transformation'
-	double frontLeft = forward + clockwise + right;
-	double frontRight = forward - clockwise - right;
-	double backLeft = forward + clockwise - right;
-	double backRight = forward - clockwise + right;
+	driveBase->setForward(forward);
+	driveBase->setRight(right);
+	driveBase->execute();
 
-	driveBase->setSpeed(frontLeft, frontRight, backLeft, backRight);
-
-	driveBase->UsePIDOutput(driveBase->getError());
 	SmartDashboard::PutNumber("PID error", driveBase->getError());
 }
 
