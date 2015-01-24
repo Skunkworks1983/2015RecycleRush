@@ -14,7 +14,6 @@ void tote_lifter::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void tote_lifter::Execute()
 {
-	if (oi->)
 }
 
 // Make this return true when this Command no longer needs to run execute()
