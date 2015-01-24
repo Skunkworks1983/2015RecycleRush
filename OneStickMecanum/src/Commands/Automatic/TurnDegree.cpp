@@ -1,17 +1,17 @@
 #include "TurnDegree.h"
 #include <cmath>
 
-TurnDegree::TurnDegree(float targetAngle) {
+TurnTo::TurnTo(float targetAngle) {
 	Requires(driveBase);
 	this->targetAngle = targetAngle;
 	this->angleRemaining = 0;
 }
 
-void TurnDegree::Initialize() {
+void TurnTo::Initialize() {
 	driveBase->getGyro()->ZeroYaw();
 }
 
-void TurnDegree::Execute() {
+void TurnTo::Execute() {
 	angleRemaining = targetAngle - driveBase->getGyro()->GetYaw();
 	float turnScaleFactor = fabs(angleRemaining) / AUTO_TURN_SLOW_DOWN;
 	float turnSpeed = fmin(AUTO_TURN_SPEED_MAX,
@@ -25,14 +25,14 @@ void TurnDegree::Execute() {
 	driveBase->setSpeed(turnSpeed, -turnSpeed, turnSpeed, -turnSpeed);
 }
 
-bool TurnDegree::IsFinished() {
+bool TurnTo::IsFinished() {
 	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
 }
 
-void TurnDegree::End() {
+void TurnTo::End() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
-void TurnDegree::Interrupted() {
+void TurnTo::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }

@@ -13,9 +13,10 @@
 #define DRIVE_MOTOR_FRONT_RIGHT 0
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
-#define DRIVE_P 7/180
-#define DRIVE_I 100
-#define DRIVE_D 35
+#define DRIVE_P 5.0
+#define DRIVE_I 0.0
+#define DRIVE_D 0.0
+#define DRIVE_ASPECT_RATIO (60.0/69.0)
 
 //Tote Intake
 #define TOTE_INTAKE_SENSOR 0
@@ -63,8 +64,9 @@
 #define OI_JOYSTICK_RIGHT (1)
 #define OI_JOYSTICK_STACK 2
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
-#define OI_JOYSTICK_ROT_DEADBAND (0.1)
-#define JOYSTICK_DEGREES_PER_TICK 1
+#define OI_JOYSTICK_ROT_DEADBAND (0.15)
+#define JOYSTICK_DEGREES_PER_TICK 0.5 * DRIVE_P
+
 
 // Can Collector
 #define CAN_MOTOR_TYPE Talon
@@ -82,5 +84,9 @@
 #define CAN_POT_DOWN_POSITION 0.1
 #define CAN_UP_SPEED 1.0
 #define CAN_DOWN_SPEED -1.0
+
+//Downward Dog Craaaw
+#define CRAAAW_CAN_DETECTOR 420
+#define CRAAAW_TOGGLE 0
 
 #endif

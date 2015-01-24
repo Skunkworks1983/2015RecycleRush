@@ -15,6 +15,10 @@
  * CommandBase stores creates and stores each control system. To access a
  * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
  */
+class DriveBase;
+class CanCollecterino;
+class ToteIntakerino;
+class ToteLifterino;
 class CommandBase: public Command// Can Collector
 {
 public:

@@ -15,7 +15,7 @@ ToteLifterino::ToteLifterino() :
 
 void ToteLifterino::InitDefaultCommand()
 {
-	SetDefaultCommand(new tote_lifter());
+//	SetDefaultCommand(new ToteLifter());
 }
 
 bool ToteLifterino::closeEnough(int value, int constant) {

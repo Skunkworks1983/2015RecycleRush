@@ -1,37 +1,37 @@
-#include <Commands/ToteHandling/tote_intake.h>
+#include <Commands/ToteHandling/ToteIntake.h>
 
-tote_intake::tote_intake()
+ToteIntake::ToteIntake()
 {
 	Requires(toteIntakerino);
 }
 
 // Called just before this Command runs the first time
-void tote_intake::Initialize()
+void ToteIntake::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void tote_intake::Execute()
+void ToteIntake::Execute()
 {
 	toteIntakerino->runIfTote();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool tote_intake::IsFinished()
+bool ToteIntake::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
-void tote_intake::End()
+void ToteIntake::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void tote_intake::Interrupted()
+void ToteIntake::Interrupted()
 {
 
 }

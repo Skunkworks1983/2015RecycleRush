@@ -1,13 +1,13 @@
-#ifndef tote_lifter_H
-#define tote_lifter_H
+#ifndef ToteLifter_H
+#define ToteLifter_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class tote_lifter: public CommandBase
+class ToteLifter : public CommandBase
 {
 public:
-	tote_lifter();
+	ToteLifter();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
