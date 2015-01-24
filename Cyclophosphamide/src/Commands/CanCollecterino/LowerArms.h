@@ -1,7 +1,7 @@
 #ifndef LOWER_ARMS_H
 #define LOWER_ARMS_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class LowerArms: public CommandBase

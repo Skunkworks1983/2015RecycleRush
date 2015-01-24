@@ -1,7 +1,7 @@
 #ifndef COLLECT_H
 #define COLLECT_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class Collect: public CommandBase

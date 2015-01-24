@@ -6,7 +6,7 @@
 DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
-ToteIntakerino CommandBase::tote_intakerino = NULL;
+ToteIntakerino* CommandBase::tote_intakerino = NULL;
 CommandBase::CommandBase(char const *name) :
 		Command(name) {
 }
