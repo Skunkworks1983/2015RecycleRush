@@ -79,7 +79,7 @@ void MecanumDrive::Execute() {
 	 */
 	forward *= DRIVE_ASPECT_RATIO;
 
-	driveBase->setForward(forward);
+	driveBase->setForward(-forward);
 	driveBase->setRight(right);
 	driveBase->execute();
 
