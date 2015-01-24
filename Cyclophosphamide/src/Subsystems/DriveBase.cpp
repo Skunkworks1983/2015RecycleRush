@@ -15,19 +15,13 @@ DriveBase::DriveBase() :
 	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort,update_rate_hz);
 
-	// Configure PID controller
+	SetSetpoint(0.0);
 	this->SetOutputRange(-180, 180);
 	this->SetInputRange(-180, 180);
-	/*double p = SmartDashboard::GetNumber("P", DRIVE_P);
-	double i = SmartDashboard::GetNumber("I", DRIVE_I);
-	double d = SmartDashboard::GetNumber("D", DRIVE_D);
-	this->GetPIDController()->SetPID(p, i, d);*/
 
-	Enable();
-
-	forward = 0;
-	right = 0;
-	clockwise = 0;
+	forward = 0.0;
+	right = 0.0;
+	clockwise = 0.0;
 }
 
 DriveBase::~DriveBase() {
@@ -35,8 +29,6 @@ DriveBase::~DriveBase() {
 	delete motorFrontRight;
 	delete motorBackLeft;
 	delete motorBackRight;
-	delete gyro;
-	delete serialPort;
 }
 
 void DriveBase::InitDefaultCommand() {
@@ -50,16 +42,7 @@ double DriveBase::ReturnPIDInput() {
 void DriveBase::UsePIDOutput(double output) {
 	output /= 180.0;
 	SmartDashboard::PutNumber("PID output", output);
-	SmartDashboard::PutNumber("PID error", getError());
-
-	double frontLeft = output;
-	double frontRight = -output;
-	double backLeft = output;
-	double backRight = -output;
-
-	setSpeed(frontLeft, frontRight, backLeft, backRight);
-
-	// setClockwise(output);
+	setClockwise(-output);
 }
 
 void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -77,8 +60,8 @@ void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 		speedBackRight /= max;
 	}
 
-	motorFrontLeft->Set(-speedFrontLeft);
-	motorFrontRight->Set(speedFrontRight);
+	motorFrontLeft->Set(speedFrontLeft);
+	motorFrontRight->Set(-speedFrontRight);
 	motorBackLeft->Set(speedBackLeft);
 	motorBackRight->Set(-speedBackRight);
 }
@@ -91,16 +74,16 @@ void DriveBase::setTargetAngle(double theta) {
 	SetSetpoint(theta);
 }
 
-double DriveBase::getError() {
-	return gyro->GetYaw()-this->GetSetpoint();
+void DriveBase::stopPID() {
+	this->Disable();
 }
 
 void DriveBase::startPID() {
-	Enable();
+	this->Enable();
 }
 
-void DriveBase::stopPID() {
-	Disable();
+double DriveBase::getError() {
+	return (gyro->GetYaw()-this->GetSetpoint());
 }
 
 void DriveBase::setForward(double f) {
@@ -115,12 +98,12 @@ void DriveBase::setClockwise(double c) {
 	clockwise = c;
 }
 
-// Simple way of dealing with multiple threads.
 void DriveBase::execute() {
-	double speedFrontLeft = forward + clockwise + right;
-	double speedFrontRight = forward - clockwise - right;
-	double speedBackLeft = forward + clockwise - right;
-	double speedBackRight = forward - clockwise + right;
+	// 'Kinematic transformation'
+	double frontLeft = forward + clockwise + right;
+	double frontRight = forward - clockwise - right;
+	double backLeft = forward + clockwise - right;
+	double backRight = forward - clockwise + right;
 
-	setSpeed(speedFrontLeft, speedFrontRight, speedBackLeft, speedBackRight);
+	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
