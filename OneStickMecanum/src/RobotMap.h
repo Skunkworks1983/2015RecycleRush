@@ -13,7 +13,7 @@
 // Mecanum
 #define ONE_STICK false
 #define FIELD_ORIENTED true
-#define MECANUM_ROTATION_CONSTANT -.5 // max 1
+#define JOYSTICK_DEGREES_PER_TICK -.5 // max 1
 #define MECANUM_CORRECTION_INTENSITY .01
 #define MECANUM_CORRECTION_THRESHOLD 2.0
 

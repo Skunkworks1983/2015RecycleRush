@@ -16,6 +16,10 @@ private:
 
 	IMU *gyro;
 	SerialPort *serialPort;
+
+	double forward;
+	double right;
+	double clockwise;
 public:
 	DriveBase();
 	~DriveBase();
@@ -30,6 +34,11 @@ public:
 	void stopPID();
 	void startPID();
 	double getError();
+
+	void setForward(double f);
+	void setRight(double r);
+	void setClockwise(double c);
+	void execute();
 };
 
 #endif

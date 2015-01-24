@@ -4,7 +4,7 @@
 #include <cmath>
 
 DriveBase::DriveBase() :
-		PIDSubsystem("DriveBase", 1.0, 0.0, 0.0) {
+		PIDSubsystem("DriveBase", DRIVE_P, DRIVE_I, DRIVE_D) {
 	motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT);
 	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
 	motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT);
@@ -15,10 +15,13 @@ DriveBase::DriveBase() :
 	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort,update_rate_hz);
 
-	SetSetpoint(gyro->GetYaw());
-	this->SetOutputRange(-1, 1);
+	SetSetpoint(0.0);
+	this->SetOutputRange(-180, 180);
 	this->SetInputRange(-180, 180);
-	Enable();
+
+	forward = 0.0;
+	right = 0.0;
+	clockwise = 0.0;
 }
 
 DriveBase::~DriveBase() {
@@ -37,25 +40,18 @@ double DriveBase::ReturnPIDInput() {
 }
 
 void DriveBase::UsePIDOutput(double output) {
-	// TODO add correction in translation as well
-	if(abs(output) > MECANUM_CORRECTION_THRESHOLD){
-		double correction = output*MECANUM_CORRECTION_INTENSITY;
-		double frontLeft = motorFrontLeft->Get() + correction;
-		double frontRight = motorFrontRight->Get() - correction;
-		double backLeft = motorBackLeft->Get() + correction;
-		double backRight = motorBackRight->Get() - correction;
-
-		setSpeed(frontLeft, frontRight, backLeft, backRight);
-	}
+	output /= 180.0;
+	SmartDashboard::PutNumber("PID output", output);
+	setClockwise(-output);
 }
 
 void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
-	double max = abs(speedFrontLeft);
-	if(abs(speedFrontRight)>max) max = abs(speedFrontRight);
-	if(abs(speedBackLeft)>max) max = abs(speedBackLeft);
-	if(abs(speedBackRight)>max) max = abs(speedBackRight);
+	double max = fabs(speedFrontLeft);
+	if(fabs(speedFrontRight)>max) max = fabs(speedFrontRight);
+	if(fabs(speedBackLeft)>max) max = fabs(speedBackLeft);
+	if(fabs(speedBackRight)>max) max = fabs(speedBackRight);
 
 	if(max>=1){
 		speedFrontLeft /= max;
@@ -87,5 +83,27 @@ void DriveBase::startPID() {
 }
 
 double DriveBase::getError() {
-	return fmod((gyro->GetYaw()-this->GetSetpoint()), 360.0);
+	return (gyro->GetYaw()-this->GetSetpoint());
+}
+
+void DriveBase::setForward(double f) {
+	forward = f;
+}
+
+void DriveBase::setRight(double r) {
+	right = r;
+}
+
+void DriveBase::setClockwise(double c) {
+	clockwise = c;
+}
+
+void DriveBase::execute() {
+	// 'Kinematic transformation'
+	double frontLeft = forward + clockwise + right;
+	double frontRight = forward - clockwise - right;
+	double backLeft = forward + clockwise - right;
+	double backRight = forward - clockwise + right;
+
+	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }

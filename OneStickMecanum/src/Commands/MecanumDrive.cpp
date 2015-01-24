@@ -51,7 +51,7 @@ void MecanumDrive::Execute() {
 		driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 	}
 
-	clockwise *= MECANUM_ROTATION_CONSTANT;
+	clockwise *= JOYSTICK_DEGREES_PER_TICK;
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections
