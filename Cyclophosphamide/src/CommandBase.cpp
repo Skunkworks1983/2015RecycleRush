@@ -1,6 +1,7 @@
 #include "CommandBase.h"
 #include "Subsystems/DriveBase.h"
 #include "Commands/Scheduler.h"
+#include "Subsystems/StackPusher.h"
 
 // Initialize a single static instance of all of your subsystems to NULL
 DriveBase* CommandBase::driveBase = NULL;

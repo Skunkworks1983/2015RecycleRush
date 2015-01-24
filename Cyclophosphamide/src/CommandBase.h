@@ -8,6 +8,7 @@
 #include "Subsystems/DriveBase.h"
 #include "OI.h"
 #include "WPILib.h"
+#include "Subsystems/StackPusher.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.

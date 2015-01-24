@@ -1,5 +1,6 @@
 #include "StackPusher.h"
 #include "../RobotMap.h"
+#include "../Commands/PushStack.h"
 
 StackPusher::StackPusher() :
 		Subsystem("ExampleSubsystem")
@@ -18,7 +19,7 @@ void StackPusher::Pull(){
 }
 void StackPusher::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
+	SetDefaultCommand (new PushStack);// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
 }
 
