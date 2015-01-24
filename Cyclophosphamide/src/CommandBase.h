@@ -26,8 +26,8 @@ public:
 	// Create a single static instance of all of your subsystems
 	static DriveBase *driveBase;
 	static CanCollecterino *canCollecterino;
-	static ToteIntakerino *tote_intakerino;
-	static ToteLifterino *tote_lifterino;
+	static ToteIntakerino *toteIntakerino;
+	static ToteLifterino *toteLifterino;
 	static OI *oi;
 };
 

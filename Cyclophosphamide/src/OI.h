@@ -6,10 +6,28 @@
 class OI
 {
 private:
+	class SkunkButt : JoystickButton {
+	private:
+		bool flag;
+	public:
+		SkunkButt(GenericHID *joystick, int buttonNumber) : JoystickButton(joystick, buttonNumber) {
+		}
+		bool Get() {
+			if (flag) {
+				flag = false;
+				return true;
+			}
+			return false;
+		}
+
+		void onPressed() {
+			flag = true;
+		}
+	};
+
 	Joystick *joystickLeft;
 	Joystick *joystickRight;
-	Button *stack_button;
-	bool stack_button_flag;
+	SkunkButt *stackButton;
 public:
 	OI();
 	~OI();

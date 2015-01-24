@@ -2,7 +2,7 @@
 
 tote_lifter::tote_lifter()
 {
-	Requires(tote_lifterino);
+	Requires(toteLifterino);
 }
 
 // Called just before this Command runs the first time

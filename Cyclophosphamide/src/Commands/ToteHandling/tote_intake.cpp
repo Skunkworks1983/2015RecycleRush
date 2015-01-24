@@ -2,7 +2,7 @@
 
 tote_intake::tote_intake()
 {
-	Requires(tote_intakerino);
+	Requires(toteIntakerino);
 }
 
 // Called just before this Command runs the first time
@@ -14,7 +14,7 @@ void tote_intake::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void tote_intake::Execute()
 {
-	tote_intakerino->runIfTote();
+	toteIntakerino->runIfTote();
 }
 
 // Make this return true when this Command no longer needs to run execute()

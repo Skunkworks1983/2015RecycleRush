@@ -5,8 +5,8 @@
 DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
-ToteIntakerino* CommandBase::tote_intakerino = NULL;
-ToteLifterino* CommandBase::tote_lifterino = NULL;
+ToteIntakerino* CommandBase::toteIntakerino = NULL;
+ToteLifterino* CommandBase::toteLifterino = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -22,12 +22,16 @@ CommandBase::CommandBase() :
 CommandBase::~CommandBase() {
 	delete driveBase;
 	delete oi;
+	delete canCollecterino;
+	delete toteIntakerino;
+	delete toteLifterino;
 }
 
 void CommandBase::init()
 {
+	canCollecterino = new CanCollecterino();
 	driveBase = new DriveBase();
-	tote_intakerino = new ToteIntakerino();
-	tote_lifterino = new ToteLifterino();
+	toteIntakerino = new ToteIntakerino();
+	toteLifterino = new ToteLifterino();
 	oi = new OI();
 }

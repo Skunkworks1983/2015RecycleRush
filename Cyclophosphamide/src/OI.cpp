@@ -5,7 +5,7 @@ OI::OI()
 {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
-
+	stackButton = new SkunkButt(joystickLeft, OI_JOYSTICK_STACK);
 }
 
 OI::~OI() {
@@ -22,9 +22,5 @@ Joystick *OI::getJoystickRight() {
 }
 
 bool OI::checkStackFlag() {
-	if (stack_button_flag) {
-		stack_button_flag = false;
-		return true;
-	}
-	return false;
+	return stackButton->Get();
 }
