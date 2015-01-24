@@ -1,37 +1,38 @@
-#include <Commands/ToteHandling/tote_intake.h>
+#include "PushStack.h"
 
-tote_intake::tote_intake()
+PushStack::PushStack()
 {
-	Requires(toteIntakerino);
+	Requires(stackPusher);// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(chassis);
 }
 
 // Called just before this Command runs the first time
-void tote_intake::Initialize()
+void PushStack::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void tote_intake::Execute()
+void PushStack::Execute()
 {
-	toteIntakerino->runIfTote();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool tote_intake::IsFinished()
+bool PushStack::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
-void tote_intake::End()
+void PushStack::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void tote_intake::Interrupted()
+void PushStack::Interrupted()
 {
 
 }

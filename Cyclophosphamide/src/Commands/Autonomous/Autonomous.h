@@ -8,6 +8,7 @@ class Autonomous: public CommandGroup
 {
 public:
 	static Autonomous *createJustDrive(float duration, float heading);
+	static Autonomous *createTurnTo(double targetAngle);
 
 	Autonomous();
 	Autonomous(char *style);

@@ -13,9 +13,10 @@
 #define DRIVE_MOTOR_FRONT_RIGHT 0
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
-#define DRIVE_P 7/180
-#define DRIVE_I 100
-#define DRIVE_D 35
+#define DRIVE_P 5.0
+#define DRIVE_I 0.0
+#define DRIVE_D 0.0
+#define DRIVE_ASPECT_RATIO (60.0/69.0)
 
 //Tote Intake
 #define TOTE_INTAKE_SENSOR 0
@@ -27,10 +28,10 @@
 #define TOTE_LIFTER_LEFT 5
 #define TOTE_LIFTER_RIGHT 6
 #define TOTE_LIFTER_SENSOR 0
-#define TOTE_LIFTER_KEY_POS_0 0
-#define TOTE_LIFTER_KEY_POS_1 1
-#define TOTE_LIFTER_KEY_POS_2 2
-#define TOTE_LIFTER_KEY_POS_3 3
+#define TOTE_LIFTER_KEY_POS_0 0 // bottom
+#define TOTE_LIFTER_KEY_POS_1 1 // scoring platform
+#define TOTE_LIFTER_KEY_POS_2 2 // the step
+#define TOTE_LIFTER_KEY_POS_3 3 // all the way up
 #define TOTE_LIFTER_KEY_POS_MOTION 4
 #define TOTE_LIFTER_VAL_POS_0 0
 #define TOTE_LIFTER_VAL_POS_1 100000
@@ -40,6 +41,9 @@
 #define TOTE_LIFTER_ENCODER_CA 1
 #define TOTE_LIFTER_ENCODER_CB 2
 #define TOTE_LIFTER_ENCODER_REVERSED false
+#define TOTE_LIFTER_UP_SPEED 100
+#define TOTE_LIFTER_DOWN_SPEED -100
+
 // Mecanum
 #define ONE_STICK false
 #define FIELD_ORIENTED true
@@ -69,8 +73,9 @@
 
 #define OI_JOYSTICK_STACK 2
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
-#define OI_JOYSTICK_ROT_DEADBAND (0.1)
-#define JOYSTICK_DEGREES_PER_TICK 1
+#define OI_JOYSTICK_ROT_DEADBAND (0.15)
+#define JOYSTICK_DEGREES_PER_TICK 0.5 * DRIVE_P
+
 
 // Can Collector
 #define CAN_MOTOR_TYPE Talon
@@ -88,5 +93,13 @@
 #define CAN_POT_DOWN_POSITION 0.1
 #define CAN_UP_SPEED 1.0
 #define CAN_DOWN_SPEED -1.0
+
+//Downward Dog Craaaw
+#define CRAAAW_CAN_DETECTOR 420
+#define CRAAAW_TOGGLE 0
+
+//stack pusher
+#define PUSHER_LEFT 501
+#define PUSHER_RIGHT 502
 
 #endif

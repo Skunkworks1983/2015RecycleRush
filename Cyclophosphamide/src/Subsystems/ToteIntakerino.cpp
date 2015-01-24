@@ -10,8 +10,7 @@ ToteIntakerino::ToteIntakerino() :
 
 void ToteIntakerino::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+//	SetDefaultCommand(new ToteIntake());
 }
 
 // Put methods for controlling this subsystem
@@ -21,7 +20,7 @@ bool ToteIntakerino::hasTote() {
 	return isCanSensor->Get();
 }
 
-void ToteIntakerino::setMotor(floaterino speed) {
+void ToteIntakerino::setMotor(float speed) {
 	tote_rolly_motor->Set(speed);
 }
 

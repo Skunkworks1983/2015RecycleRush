@@ -1,13 +1,13 @@
-#ifndef tote_lifter_H
-#define tote_lifter_H
+#ifndef PushStack_H
+#define PushStack_H
 
-#include "../../CommandBase.h"
+#include "../CommandBase.h"
 #include "WPILib.h"
 
-class tote_lifter: public CommandBase
+class PushStack: public CommandBase
 {
 public:
-	tote_lifter();
+	PushStack();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

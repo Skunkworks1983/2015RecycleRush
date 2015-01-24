@@ -1,13 +1,16 @@
-#ifndef tote_intake_H
-#define tote_intake_H
+#ifndef TurnDegree_H
+#define TurnDegree_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class tote_intake: public CommandBase
+class TurnTo: public CommandBase
 {
+private:
+	float targetAngle;
+	float angleRemaining;
 public:
-	tote_intake();
+	TurnTo(float targetAngle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

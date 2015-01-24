@@ -15,9 +15,10 @@ DriveBase::DriveBase() :
 	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort,update_rate_hz);
 
+	this->SetOutputRange(-180.0, 180.0);
+	this->SetInputRange(-180.0, 180.0);
+	this->GetPIDController()->SetContinuous(true);
 	SetSetpoint(0.0);
-	this->SetOutputRange(-180, 180);
-	this->SetInputRange(-180, 180);
 
 	forward = 0.0;
 	right = 0.0;
@@ -42,7 +43,7 @@ double DriveBase::ReturnPIDInput() {
 void DriveBase::UsePIDOutput(double output) {
 	output /= 180.0;
 	SmartDashboard::PutNumber("PID output", output);
-	setClockwise(-output);
+	setClockwise(output);
 }
 
 void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -60,10 +61,10 @@ void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 		speedBackRight /= max;
 	}
 
-	motorFrontLeft->Set(speedFrontLeft);
-	motorFrontRight->Set(-speedFrontRight);
-	motorBackLeft->Set(speedBackLeft);
-	motorBackRight->Set(-speedBackRight);
+	motorFrontLeft->Set(-speedFrontLeft);
+	motorFrontRight->Set(speedFrontRight);
+	motorBackLeft->Set(-speedBackLeft);
+	motorBackRight->Set(speedBackRight);
 }
 
 IMU *DriveBase::getGyro() {
@@ -100,10 +101,10 @@ void DriveBase::setClockwise(double c) {
 
 void DriveBase::execute() {
 	// 'Kinematic transformation'
-	double frontLeft = forward + clockwise + right;
-	double frontRight = forward - clockwise - right;
-	double backLeft = forward + clockwise - right;
-	double backRight = forward - clockwise + right;
+	double frontLeft = forward + clockwise - right;
+	double frontRight = forward - clockwise + right;
+	double backLeft = -forward + clockwise + right;
+	double backRight = -forward - clockwise - right;
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
