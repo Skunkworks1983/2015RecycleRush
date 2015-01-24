@@ -57,4 +57,8 @@
 #define CAN_POT_DOWN_POSITION 0.1
 #define CAN_UP_SPEED 1.0
 #define CAN_DOWN_SPEED -1.0
+
+//stack pusher
+#define PUSHER_LEFT 501
+#define PUSHER_RIGHT 502
 #endif

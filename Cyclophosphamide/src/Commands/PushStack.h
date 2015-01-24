@@ -1,13 +1,13 @@
-#ifndef LIFT_ARMS_H
-#define LIFT_ARMS_H
+#ifndef PushStack_H
+#define PushStack_H
 
-#include "../../CommandBase.h"
+#include "../CommandBase.h"
 #include "WPILib.h"
 
-class LiftArms: public CommandBase
+class PushStack: public CommandBase
 {
 public:
-	LiftArms();
+	PushStack();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

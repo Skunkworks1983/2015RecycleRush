@@ -6,7 +6,8 @@
 DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
-ToteIntakerino CommandBase::tote_intakerino = NULL;
+ToteIntakerino* CommandBase::tote_intakerino = NULL;
+StackPusher* CommandBase::stackPusher = NULL;
 CommandBase::CommandBase(char const *name) :
 		Command(name) {
 }
@@ -28,4 +29,6 @@ void CommandBase::init() {
 	canCollecterino = new CanCollecterino();
 	tote_intakerino = new ToteIntakerino();
 	oi = new OI();
+	stackPusher = new StackPusher();
+
 }

@@ -18,6 +18,7 @@
 class DriveBase;
 class CanCollecterino;
 class ToteIntakerino;
+class StackPusher;
 class CommandBase: public Command
 {
 public:
@@ -30,6 +31,7 @@ public:
 	static CanCollecterino *canCollecterino;
 	static ToteIntakerino *tote_intakerino;
 	static OI *oi;
+	static StackPusher *stackPusher;
 };
 
 #endif
