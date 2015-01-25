@@ -5,7 +5,6 @@
 MecanumDrive::MecanumDrive() :
 		CommandBase("MecanumDrive") {
 	Requires(driveBase);
-	firstIteration = true;
 }
 
 void MecanumDrive::Initialize() {
@@ -13,16 +12,6 @@ void MecanumDrive::Initialize() {
 }
 
 void MecanumDrive::Execute() {
-	if(firstIteration){
-		bool is_calibrating = driveBase->getGyro()->IsCalibrating();
-		if ( !is_calibrating ) {
-			Wait( 0.2 );
-			driveBase->getGyro()->ZeroYaw();
-			firstIteration = false;
-			driveBase->Enable();
-		}
-	}
-
 	double forward;
 	double right;
 	double clockwise;

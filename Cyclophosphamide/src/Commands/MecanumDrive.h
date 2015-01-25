@@ -6,8 +6,6 @@
 
 class MecanumDrive: public CommandBase
 {
-private:
-	bool firstIteration;
 public:
 	MecanumDrive();
 	void Initialize();

@@ -66,6 +66,16 @@ void RefactorMeBot::TeleopPeriodic() {
 
 void RefactorMeBot::DisabledInit() {
 	Scheduler::GetInstance()->RemoveAll();
+	bool zeroed = false;
+	while(!zeroed) {
+		bool isCalibrating = CommandBase::driveBase->getGyro()->IsCalibrating();
+		if(!isCalibrating) {
+			Wait( 0.2 );
+			CommandBase::driveBase->getGyro()->ZeroYaw();
+			CommandBase::driveBase->Enable(); // enable the pid
+			zeroed = true;
+		}
+	}
 }
 
 void RefactorMeBot::TestInit() {
