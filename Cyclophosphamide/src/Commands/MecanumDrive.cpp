@@ -47,6 +47,8 @@ void MecanumDrive::Execute() {
 		clockwise = 0;
 	}
 
+	clockwise -= OI_JOYSTICK_ROT_DEADBAND;
+	clockwise = pow(clockwise, 3.0);
 	clockwise *= JOYSTICK_DEGREES_PER_TICK;
 
 	double targetAngle = driveBase->GetSetpoint() + clockwise;

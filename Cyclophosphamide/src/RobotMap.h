@@ -16,7 +16,7 @@
 #define DRIVE_P 5.0
 #define DRIVE_I 0.0
 #define DRIVE_D 0.0
-#define DRIVE_ASPECT_RATIO (60.0/69.0)
+#define DRIVE_ASPECT_RATIO (0.5)
 
 //Tote Intake
 #define TOTE_INTAKE_SENSOR 0
@@ -73,7 +73,7 @@
 
 #define OI_JOYSTICK_STACK 2
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
-#define OI_JOYSTICK_ROT_DEADBAND (0.15)
+#define OI_JOYSTICK_ROT_DEADBAND (0.1)
 #define JOYSTICK_DEGREES_PER_TICK 0.5 * DRIVE_P
 
 
