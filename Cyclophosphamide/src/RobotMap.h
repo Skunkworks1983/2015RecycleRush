@@ -13,9 +13,9 @@
 #define DRIVE_MOTOR_FRONT_RIGHT 0
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
-#define DRIVE_P 5.0
+#define DRIVE_P 3.0
 #define DRIVE_I 0.0
-#define DRIVE_D 0.0
+#define DRIVE_D 5.0
 #define DRIVE_ASPECT_RATIO (0.5)
 
 //Tote Intake
@@ -47,9 +47,6 @@
 // Mecanum
 #define ONE_STICK false
 #define FIELD_ORIENTED true
-#define MECANUM_ROTATION_CONSTANT -.5 // max 1
-#define MECANUM_CORRECTION_INTENSITY .01
-#define MECANUM_CORRECTION_THRESHOLD 2.0
 
 // Auto
 #define AUTO_DRIVE_SPEED (0.25)
@@ -64,7 +61,8 @@
 #define OI_JOYSTICK_RIGHT (1)
 #define OI_CRAAAW_UNACTUATE (1)
 #define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
-#define OI_JOYSTICK_ROT_DEADBAND (0.1)
+#define OI_JOYSTICK_ROT_DEADBAND (0.15)
+#define JOYSTICK_DEGREES_PER_TICK 8.0
 
 //Downward Dog Craaaw
 
@@ -72,10 +70,6 @@
 #define CRAAAW_TOGGLE 0
 
 #define OI_JOYSTICK_STACK 2
-#define OI_JOYSTICK_DRIVE_DEADBAND (0.05)
-#define OI_JOYSTICK_ROT_DEADBAND (0.1)
-#define JOYSTICK_DEGREES_PER_TICK 0.5 * DRIVE_P
-
 
 // Can Collector
 #define CAN_MOTOR_TYPE Talon

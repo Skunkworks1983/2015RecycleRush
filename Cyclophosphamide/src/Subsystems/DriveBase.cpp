@@ -99,6 +99,10 @@ void DriveBase::setClockwise(double c) {
 	clockwise = c;
 }
 
+double DriveBase::getClockwise() {
+	return clockwise;
+}
+
 void DriveBase::execute() {
 	// 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;

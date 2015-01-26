@@ -34,25 +34,33 @@ void MecanumDrive::Execute() {
 	}
 	if (fabs(clockwise) < OI_JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
+	} else {
+		double sign = clockwise > 0 ? 1.0 : -1.0;
+		clockwise -= OI_JOYSTICK_ROT_DEADBAND*sign;
 	}
 
-	clockwise -= OI_JOYSTICK_ROT_DEADBAND;
 	clockwise = pow(clockwise, 3.0);
 	clockwise *= JOYSTICK_DEGREES_PER_TICK;
 
-	double targetAngle = driveBase->GetSetpoint() + clockwise;
-	if(targetAngle > 180.0 ) {
-		targetAngle += 180.0;
-		targetAngle = fmod(targetAngle, 360.0);
-		targetAngle -= 180.0;
-	} else if (targetAngle < -180.0) {
-		targetAngle -= 180.0;
-		targetAngle = fmod(targetAngle, 360.0);
-		targetAngle += 180.0;
+	forward = pow(forward, 3.0);
+	right = pow(right, 3.0);
+
+	if(driveBase->getClockwise() < 0.9) {
+		double targetAngle = driveBase->GetSetpoint() + clockwise;
+		if(targetAngle > 180.0 ) {
+			targetAngle += 180.0;
+			targetAngle = fmod(targetAngle, 360.0);
+			targetAngle -= 180.0;
+		} else if (targetAngle < -180.0) {
+			targetAngle -= 180.0;
+			targetAngle = fmod(targetAngle, 360.0);
+			targetAngle += 180.0;
+		}
+
+		driveBase->SetSetpoint(targetAngle);
 	}
 
-	driveBase->SetSetpoint(targetAngle);
-	SmartDashboard::PutNumber("PID setpoint", targetAngle);
+	SmartDashboard::PutNumber("PID setpoint", driveBase->GetSetpoint());
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections
