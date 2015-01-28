@@ -1,16 +1,13 @@
-#ifndef TurnDegree_H
-#define TurnDegree_H
+#ifndef CraaawUnactuate_H
+#define CraaawUnactuate_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TurnTo: public CommandBase
+class CraaawUnactuate: public CommandBase
 {
-private:
-	float targetAngle;
-	float angleRemaining;
 public:
-	TurnTo(float targetAngle);
+	CraaawUnactuate();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

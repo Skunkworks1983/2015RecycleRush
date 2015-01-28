@@ -1,7 +1,8 @@
-#include <Subsystems/CollecterinoArms.h>
+#include <Subsystems/CanCollecterino.h>
 #include "../RobotMap.h"
 
-CanCollecterino::CanCollecterino(): Subsystem("CanCollecterino") {
+CanCollecterino::CanCollecterino() :
+		Subsystem("CanCollecterino") {
 	liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT);
 	liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT);
 	grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT);
@@ -45,7 +46,7 @@ void CanCollecterino::rest() {
 }
 
 int CanCollecterino::getPotValue() {
-	return (liftPotLeft->GetValue() + liftPotRight->GetValue())/2;
+	return (liftPotLeft->GetValue() + liftPotRight->GetValue()) / 2;
 }
 
 bool CanCollecterino::getCanSensor() {

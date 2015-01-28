@@ -1,31 +1,31 @@
-#include "TurnDegree.h"
+#include <Commands/Automatic/TurnTo.h>
 #include <cmath>
 
-TurnDegree::TurnDegree(float targetAngle) {
+TurnTo::TurnTo(float targetAngle) {
 	Requires(driveBase);
 	this->targetAngle = targetAngle;
 	this->angleRemaining = 0;
 }
 
-void TurnDegree::Initialize() {
+void TurnTo::Initialize() {
 	driveBase->setTargetAngle(targetAngle);
 }
 
-void TurnDegree::Execute() {
+void TurnTo::Execute() {
 	angleRemaining = targetAngle - driveBase->getGyro()->GetYaw();
-	// The PID should automagically do the rest
+	driveBase->execute();
 }
 
-bool TurnDegree::IsFinished() {
+bool TurnTo::IsFinished() {
 	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
 }
 
-void TurnDegree::End() {
+void TurnTo::End() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 }
 
-void TurnDegree::Interrupted() {
+void TurnTo::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
 }

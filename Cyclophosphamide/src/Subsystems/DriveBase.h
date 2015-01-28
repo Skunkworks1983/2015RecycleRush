@@ -38,6 +38,7 @@ public:
 	void setForward(double f);
 	void setRight(double r);
 	void setClockwise(double c);
+	double getClockwise();
 	void execute();
 };
 

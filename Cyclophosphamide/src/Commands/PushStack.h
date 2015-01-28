@@ -1,13 +1,13 @@
-#ifndef MECANUM_DRIVE_H
-#define MECANUM_DRIVE_H
+#ifndef PushStack_H
+#define PushStack_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class MecanumDrive: public CommandBase
+class PushStack: public CommandBase
 {
 public:
-	MecanumDrive();
+	PushStack();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

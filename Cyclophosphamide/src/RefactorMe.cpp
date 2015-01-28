@@ -37,9 +37,20 @@ void RefactorMeBot::RobotInit() {
 	chooser->AddDefault("Blank", new Autonomous());
 	chooser->AddObject("Drive forward 1 second", Autonomous::createJustDrive(1.0f, 0.0f));
 	chooser->AddObject("Drive left 1 second", Autonomous::createJustDrive(1.0f, -90.0f));
+	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	SmartDashboard::PutData("Zero yaw", new ResetGyro);
+	bool zeroed = false;
+	while(!zeroed) {
+		bool isCalibrating = CommandBase::driveBase->getGyro()->IsCalibrating();
+		if(!isCalibrating) {
+			Wait( 0.2 );
+			CommandBase::driveBase->getGyro()->ZeroYaw();
+			CommandBase::driveBase->Enable(); // enable the pid. May want to move this
+			zeroed = true;
+		}
+	}
 }
 
 void RefactorMeBot::AutonomousInit() {

@@ -1,16 +1,13 @@
-#ifndef TurnDegree_H
-#define TurnDegree_H
+#ifndef ToteLifter_H
+#define ToteLifter_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TurnTo: public CommandBase
+class ToteLifter : public CommandBase
 {
-private:
-	float targetAngle;
-	float angleRemaining;
 public:
-	TurnTo(float targetAngle);
+	ToteLifter();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

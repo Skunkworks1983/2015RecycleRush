@@ -1,5 +1,5 @@
-#ifndef TurnDegree_H
-#define TurnDegree_H
+#ifndef TURN_DEGREE_H
+#define TURN_DEGREE_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"

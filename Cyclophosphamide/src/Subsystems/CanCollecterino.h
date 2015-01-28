@@ -1,8 +1,10 @@
 #ifndef COLLECTERINO_ARMS_H
 #define COLLECTERINO_ARMS_H
 
+#include "Commands/PIDSubsystem.h"
 #include "WPILib.h"
 #include "RobotMap.h"
+#include "GyroDriver/IMU.h"
 
 class CanCollecterino: public Subsystem
 {

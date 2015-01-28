@@ -1,13 +1,13 @@
-#ifndef tote_intake_H
-#define tote_intake_H
+#ifndef TOTE_INTAKE_H
+#define TOTE_INTAKE_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
-class tote_intake: public CommandBase
+class ToteIntake : public CommandBase
 {
 public:
-	tote_intake();
+	ToteIntake();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

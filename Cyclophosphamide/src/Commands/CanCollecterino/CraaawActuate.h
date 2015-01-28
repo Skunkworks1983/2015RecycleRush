@@ -1,16 +1,13 @@
-#ifndef TurnDegree_H
-#define TurnDegree_H
+#ifndef CraaawActuate_H
+#define CraaawActuate_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TurnDegree: public CommandBase
+class CraaawActuate: public CommandBase
 {
-private:
-	float targetAngle;
-	float angleRemaining;
 public:
-	TurnDegree(float targetAngle);
+	CraaawActuate();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
