@@ -2,6 +2,7 @@
 #define COMMAND_BASE_H
 
 #include <Subsystems/CollecterinoArms.h>
+#include <Subsystems/AutoCanerino/AutoCanerinoPuck.h>
 #include "Subsystems/ToteIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
@@ -15,9 +16,10 @@
  * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
  */
 
-class DriveBase;
+class DriveBae;
 class CanCollecterino;
 class ToteIntakerino;
+class AutoCanerinoPuck;
 class CommandBase: public Command
 {
 public:
@@ -26,7 +28,8 @@ public:
 	~CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static DriveBase *driveBase;
+	static DriveBae *driveBase;
+	static AutoCanerinoPuck *autoCanerinoPuck;
 	static CanCollecterino *canCollecterino;
 	static ToteIntakerino *tote_intakerino;
 	static OI *oi;

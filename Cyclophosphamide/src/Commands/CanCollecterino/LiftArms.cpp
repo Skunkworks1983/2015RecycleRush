@@ -7,6 +7,7 @@ LiftArms::LiftArms() {
 void LiftArms::Initialize() {
 	canCollecterino->brakeArms(false);
 	canCollecterino->moveUpPosition();
+	Requires(canCollecterino);
 }
 
 void LiftArms::Execute() {

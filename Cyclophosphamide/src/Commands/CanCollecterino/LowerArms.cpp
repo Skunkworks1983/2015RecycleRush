@@ -7,6 +7,7 @@ LowerArms::LowerArms() {
 void LowerArms::Initialize() {
 	canCollecterino->brakeArms(false);
 	canCollecterino->moveDownPosition();
+	Requires(canCollecterino);
 }
 
 void LowerArms::Execute() {

@@ -6,7 +6,7 @@
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
 
-class DriveBase: public PIDSubsystem
+class DriveBae: public PIDSubsystem
 {
 private:
 	DRIVE_MOTOR_TYPE *motorFrontLeft;
@@ -17,8 +17,8 @@ private:
 	IMU *gyro;
 	SerialPort *serialPort;
 public:
-	DriveBase();
-	~DriveBase();
+	DriveBae();
+	~DriveBae();
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();

@@ -3,7 +3,7 @@
 #include "../Commands/MecanumDrive.h"
 #include <cmath>
 
-DriveBase::DriveBase() :
+DriveBae::DriveBae() :
 		PIDSubsystem("DriveBase", 1.0, 0.0, 0.0) {
 	motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT);
 	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
@@ -21,22 +21,22 @@ DriveBase::DriveBase() :
 	Enable();
 }
 
-DriveBase::~DriveBase() {
+DriveBae::~DriveBae() {
 	delete motorFrontLeft;
 	delete motorFrontRight;
 	delete motorBackLeft;
 	delete motorBackRight;
 }
 
-void DriveBase::InitDefaultCommand() {
+void DriveBae::InitDefaultCommand() {
 	SetDefaultCommand(new MecanumDrive);
 }
 
-double DriveBase::ReturnPIDInput() {
+double DriveBae::ReturnPIDInput() {
 	return gyro->GetYaw();
 }
 
-void DriveBase::UsePIDOutput(double output) {
+void DriveBae::UsePIDOutput(double output) {
 	// TODO add correction in translation as well
 	if(abs(output) > MECANUM_CORRECTION_THRESHOLD){
 		double correction = output*MECANUM_CORRECTION_INTENSITY;
@@ -49,7 +49,7 @@ void DriveBase::UsePIDOutput(double output) {
 	}
 }
 
-void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
+void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
 	double max = abs(speedFrontLeft);
@@ -70,22 +70,22 @@ void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorBackRight->Set(-speedBackRight);
 }
 
-IMU *DriveBase::getGyro() {
+IMU *DriveBae::getGyro() {
 	return gyro;
 }
 
-void DriveBase::setTargetAngle(double theta) {
+void DriveBae::setTargetAngle(double theta) {
 	SetSetpoint(theta);
 }
 
-void DriveBase::stopPID() {
+void DriveBae::stopPID() {
 	this->Disable();
 }
 
-void DriveBase::startPID() {
+void DriveBae::startPID() {
 	this->Enable();
 }
 
-double DriveBase::getError() {
+double DriveBae::getError() {
 	return fmod((gyro->GetYaw()-this->GetSetpoint()), 360.0);
 }

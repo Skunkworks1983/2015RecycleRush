@@ -1,7 +1,7 @@
 #include <Subsystems/CollecterinoArms.h>
 #include "../RobotMap.h"
 
-CanCollecterino::CanCollecterino() {
+CanCollecterino::CanCollecterino(): Subsystem("CanCollecterino") {
 	liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT);
 	liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT);
 	grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT);

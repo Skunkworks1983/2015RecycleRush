@@ -6,6 +6,7 @@ Collect::Collect() {
 
 void Collect::Initialize() {
 	canCollecterino->induct();
+	Requires(canCollecterino);
 }
 
 void Collect::Execute() {

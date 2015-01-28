@@ -3,7 +3,7 @@
 #include "../Commands/MecanumDrive.h"
 #include <cmath>
 
-DriveBase::DriveBase() :
+DriveBae::DriveBae() :
 		PIDSubsystem("DriveBase", DRIVE_P, DRIVE_I, DRIVE_D) {
 	motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT);
 	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
@@ -30,7 +30,7 @@ DriveBase::DriveBase() :
 	clockwise = 0;
 }
 
-DriveBase::~DriveBase() {
+DriveBae::~DriveBae() {
 	delete motorFrontLeft;
 	delete motorFrontRight;
 	delete motorBackLeft;
@@ -39,15 +39,15 @@ DriveBase::~DriveBase() {
 	delete serialPort;
 }
 
-void DriveBase::InitDefaultCommand() {
+void DriveBae::InitDefaultCommand() {
 	SetDefaultCommand(new MecanumDrive);
 }
 
-double DriveBase::ReturnPIDInput() {
+double DriveBae::ReturnPIDInput() {
 	return gyro->GetYaw();
 }
 
-void DriveBase::UsePIDOutput(double output) {
+void DriveBae::UsePIDOutput(double output) {
 	output /= 180.0;
 	SmartDashboard::PutNumber("PID output", output);
 	SmartDashboard::PutNumber("PID error", getError());
@@ -62,7 +62,7 @@ void DriveBase::UsePIDOutput(double output) {
 	// setClockwise(output);
 }
 
-void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
+void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
 	double max = fabs(speedFrontLeft);
@@ -83,40 +83,40 @@ void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorBackRight->Set(-speedBackRight);
 }
 
-IMU *DriveBase::getGyro() {
+IMU *DriveBae::getGyro() {
 	return gyro;
 }
 
-void DriveBase::setTargetAngle(double theta) {
+void DriveBae::setTargetAngle(double theta) {
 	SetSetpoint(theta);
 }
 
-double DriveBase::getError() {
+double DriveBae::getError() {
 	return gyro->GetYaw()-this->GetSetpoint();
 }
 
-void DriveBase::startPID() {
+void DriveBae::startPID() {
 	Enable();
 }
 
-void DriveBase::stopPID() {
+void DriveBae::stopPID() {
 	Disable();
 }
 
-void DriveBase::setForward(double f) {
+void DriveBae::setForward(double f) {
 	forward = f;
 }
 
-void DriveBase::setRight(double r) {
+void DriveBae::setRight(double r) {
 	right = r;
 }
 
-void DriveBase::setClockwise(double c) {
+void DriveBae::setClockwise(double c) {
 	clockwise = c;
 }
 
 // Simple way of dealing with multiple threads.
-void DriveBase::execute() {
+void DriveBae::execute() {
 	double speedFrontLeft = forward + clockwise + right;
 	double speedFrontRight = forward - clockwise - right;
 	double speedBackLeft = forward + clockwise - right;

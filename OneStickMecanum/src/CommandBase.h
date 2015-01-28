@@ -20,7 +20,7 @@ public:
 	~CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static DriveBase *driveBase;
+	static DriveBae *driveBase;
 	static OI *oi;
 };
 
