@@ -12,6 +12,9 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
+	enum PushState {
+		push = true, pull = false
+	};
 	StackPusher();
 	void InitDefaultCommand();
 	void Push();
