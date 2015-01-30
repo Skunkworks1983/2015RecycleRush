@@ -63,5 +63,8 @@ void ToteLifterino::driveTowardsDestination() {
 			RightLifter->Set(TOTE_LIFTER_DOWN_SPEED);
 			LeftLifter->Set(TOTE_LIFTER_DOWN_SPEED);
 		}
+	} else {
+		RightLifter->Set(0);
+		LeftLifter->Set(0);
 	}
 }
