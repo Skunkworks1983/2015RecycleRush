@@ -46,7 +46,7 @@ void MecanumDrive::Execute() {
 	right = pow(right, 3.0);
 
 	if(driveBase->getClockwise() < 0.9) {
-		double targetAngle = driveBase->GetSetpoint() + clockwise;
+		double targetAngle = driveBase->getSetpoint() + clockwise;
 		if(targetAngle > 180.0 ) {
 			targetAngle += 180.0;
 			targetAngle = fmod(targetAngle, 360.0);
@@ -57,10 +57,10 @@ void MecanumDrive::Execute() {
 			targetAngle += 180.0;
 		}
 
-		driveBase->SetSetpoint(targetAngle);
+		driveBase->setSetpoint(targetAngle);
 	}
 
-	SmartDashboard::PutNumber("PID setpoint", driveBase->GetSetpoint());
+	SmartDashboard::PutNumber("PID setpoint", driveBase->getSetpoint());
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections

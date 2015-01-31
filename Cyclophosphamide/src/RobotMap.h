@@ -13,10 +13,14 @@
 #define DRIVE_MOTOR_FRONT_RIGHT 10
 #define DRIVE_MOTOR_BACK_LEFT 3
 #define DRIVE_MOTOR_BACK_RIGHT 2
-#define DRIVE_P 3.0
-#define DRIVE_I 0.0
-#define DRIVE_D 5.0
+#define DRIVE_ROT_P  3.0
+#define DRIVE_ROT_I 0.0
+#define DRIVE_ROT_D 5.0
+#define DRIVE_DRIVE_P 1
+#define DRIVE_DRIVE_I 0
+#define DRIVE_DRIVE_D 0
 #define DRIVE_ASPECT_RATIO (0.5)
+#define DRIVE_TICKS_TO_DISTANCE 420
 
 //Tote Intake
 #define TOTE_INTAKE_SENSOR 0

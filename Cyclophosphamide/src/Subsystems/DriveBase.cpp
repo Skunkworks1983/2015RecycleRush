@@ -4,21 +4,22 @@
 #include <cmath>
 
 DriveBae::DriveBae() :
-		PIDSubsystem("DriveBase", DRIVE_P, DRIVE_I, DRIVE_D) {
+		Subsystem("DriveBase") {
 	motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT);
 	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
 	motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT);
 	motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT);
+	rotPID = new PIDController(DRIVE_ROT_P , DRIVE_ROT_I, DRIVE_ROT_D, gyro, this);
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600,SerialPort::kMXP);
 	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort,update_rate_hz);
 
-	this->SetOutputRange(-180.0, 180.0);
-	this->SetInputRange(-180.0, 180.0);
-	this->GetPIDController()->SetContinuous(true);
-	SetSetpoint(0.0);
+	rotPID->SetOutputRange(-180.0, 180.0);
+	rotPID->SetInputRange(-180.0, 180.0);
+	rotPID->SetContinuous(true);
+	rotPID->SetSetpoint(0.0);
 
 	forward = 0.0;
 	right = 0.0;
@@ -34,16 +35,6 @@ DriveBae::~DriveBae() {
 
 void DriveBae::InitDefaultCommand() {
 	SetDefaultCommand(new MecanumDrive);
-}
-
-double DriveBae::ReturnPIDInput() {
-	return gyro->GetYaw();
-}
-
-void DriveBae::UsePIDOutput(double output) {
-	output /= 180.0;
-	SmartDashboard::PutNumber("PID output", output);
-	setClockwise(output);
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -72,19 +63,19 @@ IMU *DriveBae::getGyro() {
 }
 
 void DriveBae::setTargetAngle(double theta) {
-	SetSetpoint(theta);
+	rotPID->SetSetpoint(theta);
 }
 
 void DriveBae::stopPID() {
-	this->Disable();
+	rotPID->Disable();
 }
 
 void DriveBae::startPID() {
-	this->Enable();
+	rotPID->Enable();
 }
 
 double DriveBae::getError() {
-	return (gyro->GetYaw()-this->GetSetpoint());
+	return (gyro->GetYaw()-rotPID->GetSetpoint());
 }
 
 void DriveBae::setForward(double f) {
@@ -111,4 +102,25 @@ void DriveBae::execute() {
 	double backRight = forward - clockwise - right;
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
+}
+void DriveBae::PIDWrite(float output){
+	output /= 180.0;
+	SmartDashboard::PutNumber("PID output", output);
+	setClockwise(output);
+}
+
+double DriveBae::PIDGet(){
+	return gyro->GetYaw();
+}
+
+double DriveBae::getSetpoint() {
+	return rotPID->GetSetpoint();
+}
+
+void DriveBae::setSetpoint(float f) {
+	rotPID->SetSetpoint(f);
+}
+
+DRIVE_MOTOR_TYPE *DriveBae::getSpecialMotor(){
+	return motorFrontLeft;
 }
