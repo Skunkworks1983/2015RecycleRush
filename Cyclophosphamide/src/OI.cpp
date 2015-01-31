@@ -36,6 +36,8 @@ OI::OI()
 OI::~OI() {
 	delete joystickLeft;
 	delete joystickRight;
+	delete stackButton;
+	delete craaawUnactuate;
 }
 
 Joystick *OI::getJoystickLeft() {

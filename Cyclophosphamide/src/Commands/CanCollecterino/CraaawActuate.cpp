@@ -15,7 +15,7 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	craaaw->getInput();
+	return craaaw->getInput();
 }
 
 void CraaawActuate::End() {

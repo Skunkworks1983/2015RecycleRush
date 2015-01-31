@@ -125,4 +125,8 @@
 #define PUSHER_LEFT 0
 #define PUSHER_RIGHT 1
 
+// Pneumatics
+#define COMPRESSOR_PRESSURE_SENSOR 0
+#define COMPRESSOR_RELAY 0
+
 #endif

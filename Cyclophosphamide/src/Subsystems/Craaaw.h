@@ -17,6 +17,7 @@ private:
 public:
 	Craaaw();
 	~Craaaw();
+	void InitDefaultCommand();
 	void toggle();
 	bool getInput();
 

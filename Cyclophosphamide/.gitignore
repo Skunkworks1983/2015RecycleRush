@@ -7,4 +7,6 @@
 *.settings
 *.project
 *.cproject
+build.properties
+build.xml
 /Debug/
