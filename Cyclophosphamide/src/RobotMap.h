@@ -1,6 +1,5 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
-
 #include "WPILib.h"
 
 // C++ changes
@@ -48,6 +47,8 @@
 // Mecanum
 #define ONE_STICK false
 #define FIELD_ORIENTED true
+#define LOAD_LEFT_ANGLE 30.0
+#define LOAD_RIGHT_ANGLE -30.0
 
 // Auto
 #define AUTO_DRIVE_SPEED (0.25)
@@ -76,6 +77,9 @@
 #define OI_JOYSTICKBUTTON_WRISTOUTNBUTTON 4
 #define OI_JOYSTICKBUTTON_ARMSUPBUTTON 5
 #define OI_JOYSTICKBUTTON_ARMSDOWNBUTTON 6
+#define OI_LOAD_LEFT 11
+#define OI_LOAD_RIGHT 12
+
 
 
 //Downward Dog Craaaw
@@ -116,9 +120,7 @@
 #define AUTO_CAN_PUT_BACK 420
 
 #define AUTO_CAN_DRIVE_BACK 420
-//Downward Dog Craaaw
-#define CRAAAW_CAN_DETECTOR 420
-#define CRAAAW_TOGGLE 0
+
 
 //stack pusher
 #define PUSHER_LEFT 0

@@ -68,6 +68,8 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorFrontRight->Set(-speedFrontRight);
 	motorBackLeft->Set(speedBackLeft);
 	motorBackRight->Set(-speedBackRight);
+
+	SmartDashboard::PutNumber("Encoder value", motorFrontLeft->GetEncPosition());
 }
 
 IMU *DriveBae::getGyro() {

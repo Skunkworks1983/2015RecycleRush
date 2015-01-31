@@ -10,15 +10,14 @@ PushStack::PushStack(StackPusher::PushState state, float timeout)
 // Called just before this Command runs the first time
 void PushStack::Initialize()
 {
-switch (state){
-case StackPusher::pull:
-	stackPusher->Pull();
-	break;
-case StackPusher::push:
-	stackPusher->Push();
-	break;
-};
-
+	switch (state){
+	case StackPusher::pull:
+		stackPusher->Pull();
+		break;
+	case StackPusher::push:
+		stackPusher->Push();
+		break;
+	};
 }
 
 // Called repeatedly when this Command is scheduled to run
