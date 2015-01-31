@@ -40,6 +40,8 @@ void RefactorMeBot::RobotInit() {
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	SmartDashboard::PutData("Zero yaw", new ResetGyro);
+
+	CommandBase::oi->registerButtonListeners();
 }
 
 void RefactorMeBot::AutonomousInit() {
