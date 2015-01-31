@@ -13,7 +13,7 @@ DriveBae::DriveBae() :
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600,SerialPort::kMXP);
-	uint8_t update_rate_hz = 50;
+	uint8_t update_rate_hz = 50; // ayy lmao
 	gyro = new IMU(serialPort,update_rate_hz);
 
 	rotPID->SetOutputRange(-180.0, 180.0);
