@@ -31,7 +31,6 @@ private:
 	Joystick *joystickLeft;
 	Joystick *joystickRight;
 	SkunkButt *stackButton;
-	JoystickButton *craaawUnactuate;
 	JoystickButton *pushButton;
 	JoystickButton *collectButton;
 	JoystickButton *actuateButton;
@@ -41,7 +40,7 @@ private:
 	JoystickButton *toteintakeButton;
 	JoystickButton *totelifterButton;
 	JoystickButton *motorfowardButton;
-	JoystickButton *motorbackardButton;
+	JoystickButton *motorbackwardButton;
 	JoystickButton *wristinButton;
 	JoystickButton *wristoutButton;
 	JoystickButton *armsupButton;

@@ -16,20 +16,19 @@ OI::OI()
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
 	stackButton = new SkunkButt(joystickLeft, OI_JOYSTICK_STACK);
-	craaawUnactuate = new JoystickButton(joystickLeft, OI_CRAAAW_UNACTUATE);
 	pushButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_PUSHBUTTON);
-	actuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_ACTUATEBUTTTON);
-	unactuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_UNACTUATEBUTTTON);
-	liftarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LIFTARMSBUTTTON);
-	lowerarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LOWERARMSBUTTTON);
-	toteintakeButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTEINTAKEBUTTTON);
-	totelifterButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTELIFTERBUTTTON);
-	motorfowardButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_MOTORFOWARDBUTTTON);
-	motorbackardButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_MOTORBACKARDBUTTTON);
-	wristinButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_WRISTINBUTTTON);
-	wristoutButton =  new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_WRISTOUTNBUTTTON);
-	armsupButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSUPBUTTTON);
-	armsdownButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSDOWNBUTTTON);
+	actuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_ACTUATEBUTTON);
+	unactuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_UNACTUATEBUTTON);
+	liftarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LIFTARMSBUTTON);
+	lowerarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LOWERARMSBUTTON);
+	toteintakeButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTEINTAKEBUTTON);
+	totelifterButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTELIFTERBUTTON);
+	motorfowardButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_MOTORFOWARDBUTTON);
+	motorbackwardButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_MOTORBACKWARDBUTTON);
+	wristinButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_WRISTINBUTTON);
+	wristoutButton =  new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_WRISTOUTNBUTTON);
+	armsupButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSUPBUTTON);
+	armsdownButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSDOWNBUTTON);
 
 }
 
@@ -37,7 +36,6 @@ OI::~OI() {
 	delete joystickLeft;
 	delete joystickRight;
 	delete stackButton;
-	delete craaawUnactuate;
 }
 
 Joystick *OI::getJoystickLeft() {
@@ -50,9 +48,22 @@ Joystick *OI::getJoystickRight() {
 void OI::registerButtonListeners() {
 	SAFE_BUTTON(pushButton, pushButton->WhenPressed(new PushPull()));
 	SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(actuateButton, actuateButton->WhenPressed(new CraaawActuate()));
+	SAFE_BUTTON(unactuateButton, unactuateButton->WhenPressed(new CraaawUnactuate()));
+	SAFE_BUTTON(liftarmsButton, liftarmsButton->WhenPressed(new LiftArms()));
+	SAFE_BUTTON(lowerarmsButton, lowerarmsButton->WhenPressed(new LowerArms()));
+	SAFE_BUTTON(toteintakeButton, toteintakeButton->WhenPressed(new ToteIntake()));
+	SAFE_BUTTON(totelifterButton, totelifterButton->WhenPressed(new ToteLifter()));
+	SAFE_BUTTON(motorfowardButton, motorfowardButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(motorbackwardButton,motorbackwardButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(wristinButton,wristinButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(wristoutButton,wristoutButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(armsupButton,armsupButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(armsdownButton,armsdownButton->WhenPressed(new Collect()));
 }
+
 bool OI::getUnactuate(){
-	return craaawUnactuate->Get();
+	return unactuateButton->Get();
 }
 
 bool OI::checkStackFlag() {
