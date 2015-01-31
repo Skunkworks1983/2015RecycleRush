@@ -40,6 +40,8 @@ void RefactorMeBot::RobotInit() {
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
 
+	CommandBase::oi->registerButtonListeners();
+
 	SmartDashboard::PutData("Zero yaw", new ResetGyro);
 	bool zeroed = false;
 	while(!zeroed) {

@@ -10,6 +10,8 @@ private:
 	private:
 		bool flag;
 	public:
+
+
 		SkunkButt(GenericHID *joystick, int buttonNumber) : JoystickButton(joystick, buttonNumber) {
 		}
 		bool Get() {
@@ -20,6 +22,7 @@ private:
 			return false;
 		}
 
+
 		void onPressed() {
 			flag = true;
 		}
@@ -29,6 +32,23 @@ private:
 	Joystick *joystickRight;
 	SkunkButt *stackButton;
 	JoystickButton *craaawUnactuate;
+	JoystickButton *pushButton;
+	JoystickButton *collectButton;
+	JoystickButton *actuateButton;
+	JoystickButton *unactuateButton;
+	JoystickButton *liftarmsButton;
+	JoystickButton *lowerarmsButton;
+	JoystickButton *toteintakeButton;
+	JoystickButton *totelifterButton;
+	JoystickButton *motorfowardButton;
+	JoystickButton *motorbackardButton;
+	JoystickButton *wristinButton;
+	JoystickButton *wristoutButton;
+	JoystickButton *armsupButton;
+	JoystickButton *armsdownButton;
+
+
+
 public:
 	OI();
 	~OI();
@@ -36,6 +56,7 @@ public:
 	Joystick *getJoystickRight();
 	bool getUnactuate();
 	bool checkStackFlag();
+	void registerButtonListeners();
 };
 
 #endif
