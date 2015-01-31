@@ -22,6 +22,8 @@ CommandBase::CommandBase() :
 CommandBase::~CommandBase() {
 	delete driveBase;
 	delete oi;
+	delete stackPusher;
+	delete pneumatics;
 }
 
 void CommandBase::init()

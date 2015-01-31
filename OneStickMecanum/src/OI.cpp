@@ -1,6 +1,8 @@
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/PushStack/PushPull.h"
+#include "Commands/PushStack/PushStack.h"
+#include "Subsystems/StackPusher.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -26,5 +28,5 @@ Joystick *OI::getJoystickRight() {
 }
 
 void OI::registerButtonListeners() {
-	SAFE_BUTTON(pushStackButton, pushStackButton->WhenPressed(new PushPull));
+	SAFE_BUTTON(pushStackButton, pushStackButton->WhenReleased(new PushPull()));
 }
