@@ -8,6 +8,7 @@
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/ToteHandling/ToteLifter.h"
 #include "Commands/CanCollecterino/Collect.h"
+#include "Commands/Automatic/TurnTo.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -31,6 +32,8 @@ OI::OI()
 	armsupButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSUPBUTTTON);
 	armsdownButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSDOWNBUTTTON);
 
+	leftLoadButton = new JoystickButton(joystickRight, OI_LOAD_LEFT);
+	rightLoadButton = new JoystickButton(joystickRight, OI_LOAD_RIGHT);
 }
 
 OI::~OI() {
@@ -38,6 +41,17 @@ OI::~OI() {
 	delete joystickRight;
 	delete stackButton;
 	delete craaawUnactuate;
+	delete pushButton;
+	delete actuateButton;
+	delete liftarmsButton;
+	delete toteintakeButton;
+	delete totelifterButton;
+	delete wristinButton;
+	delete wristoutButton;
+	delete armsupButton;
+	delete armsdownButton;
+	delete leftLoadButton;
+	delete rightLoadButton;
 }
 
 Joystick *OI::getJoystickLeft() {
@@ -48,8 +62,10 @@ Joystick *OI::getJoystickRight() {
 	return joystickRight;
 }
 void OI::registerButtonListeners() {
-	SAFE_BUTTON(pushButton, pushButton->WhenPressed(new PushPull()));
+	SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));
 	SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(leftLoadButton, leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
+	SAFE_BUTTON(rightLoadButton, rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
 }
 bool OI::getUnactuate(){
 	return craaawUnactuate->Get();

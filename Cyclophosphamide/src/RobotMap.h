@@ -48,6 +48,8 @@
 // Mecanum
 #define ONE_STICK false
 #define FIELD_ORIENTED true
+#define LOAD_LEFT_ANGLE 30.0
+#define LOAD_RIGHT_ANGLE -30.0
 
 // Auto
 #define AUTO_DRIVE_SPEED (0.25)
@@ -77,7 +79,8 @@
 #define OI_JOYSTICKBUTTON_WRISTOUTNBUTTTON 4
 #define OI_JOYSTICKBUTTON_ARMSUPBUTTTON 5
 #define OI_JOYSTICKBUTTON_ARMSDOWNBUTTTON 6
-
+#define OI_LOAD_LEFT 11
+#define OI_LOAD_RIGHT 12
 
 //Downward Dog Craaaw
 

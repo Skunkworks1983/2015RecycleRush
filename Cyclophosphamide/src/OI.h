@@ -10,8 +10,6 @@ private:
 	private:
 		bool flag;
 	public:
-
-
 		SkunkButt(GenericHID *joystick, int buttonNumber) : JoystickButton(joystick, buttonNumber) {
 		}
 		bool Get() {
@@ -47,7 +45,8 @@ private:
 	JoystickButton *armsupButton;
 	JoystickButton *armsdownButton;
 
-
+	JoystickButton *leftLoadButton;
+	JoystickButton *rightLoadButton;
 
 public:
 	OI();
