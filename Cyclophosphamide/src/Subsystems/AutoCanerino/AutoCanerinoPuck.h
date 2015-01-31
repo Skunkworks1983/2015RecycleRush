@@ -1,5 +1,5 @@
-#ifndef AUTO_COLLECTERINO_ARMS_H
-#define AUTO_COLLECTERINO_ARMS_H
+#ifndef AUTO_COLLECTERINO_PUCK_H
+#define AUTO_COLLECTERINO_PUCK_H
 
 #include "WPILib.h"
 #include "../../RobotMap.h"
