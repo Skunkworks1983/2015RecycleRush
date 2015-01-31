@@ -13,6 +13,7 @@
 #include "WPILib.h"
 #include "Subsystems/StackPusher.h"
 #include "Subsystems/ToteLifterino.h"
+#include "Subsystems/Pneumatics.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -27,6 +28,7 @@ class AutoCanerinoPuck;
 class ToteLifterino;
 class StackPusher;
 class Craaaw;
+class Pneumatics;
 class CommandBase: public Command
 {
 public:
@@ -43,6 +45,7 @@ public:
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static StackPusher *stackPusher;
+	static Pneumatics *pneumatics;
 };
 
 #endif
