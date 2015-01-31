@@ -1,26 +1,23 @@
 #include "StackPusher.h"
 #include "../RobotMap.h"
-#include "../Commands/PushStack/PushStack.h"
+#include "../Commands/PushStack/PushPull.h"
 
 StackPusher::StackPusher() :
-		Subsystem("ExampleSubsystem")
+		Subsystem("StackPusher")
 {
-right = new Solenoid(PUSHER_RIGHT);
-left = new Solenoid (PUSHER_LEFT);
+	solenoid = new DoubleSolenoid(COMPRESSOR_RELAY, PUSHER_RIGHT, PUSHER_LEFT);
 }
 
 void StackPusher::Push(){
-	right->Set(true);
-	left->Set(true);
+	solenoid->Set(DoubleSolenoid::kReverse);
 }
 void StackPusher::Pull(){
-	right->Set(false) ;
-	left->Set(false);
+	solenoid->Set(DoubleSolenoid::kForward);
 }
+
 void StackPusher::InitDefaultCommand()
 {
-	//SetDefaultCommand (new PushStack);// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+	// SetDefaultCommand (new PushPull);
 }
 
 // Put methods for controlling this subsystem
