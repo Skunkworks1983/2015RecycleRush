@@ -4,11 +4,11 @@
 #include <cmath>
 
 DriveBae::DriveBae() :
-		Subsystem("DriveBase") {
-	motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT);
-	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
-	motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT);
-	motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT);
+		Subsystem("DriveBae") {
+	SAFE_INIT(DRIVE_MOTOR_FRONT_LEFT, motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT););
+	SAFE_INIT(DRIVE_MOTOR_FRONT_RIGHT, motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT););
+	SAFE_INIT(DRIVE_MOTOR_BACK_LEFT, motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT););
+	SAFE_INIT(DRIVE_MOTOR_BACK_RIGHT, motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT););
 	rotPID = new PIDController(DRIVE_ROT_P , DRIVE_ROT_I, DRIVE_ROT_D, gyro, this);
 
 	// Initialize gyro stuff

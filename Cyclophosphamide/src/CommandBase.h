@@ -14,7 +14,7 @@
 #include "Subsystems/StackPusher.h"
 #include "Subsystems/ToteLifterino.h"
 #include "Subsystems/Pneumatics.h"
-#include "Subsystems/AutoCanerino/AutoCanerinoFourBar.h"
+//#include "Subsystems/AutoCanerino/AutoCanerinoFourBar.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -24,7 +24,7 @@
 
 class DriveBae;
 class CanCollecterino;
-class AutoCanerinoFourBar;
+//class AutoCanerinoFourBar;
 class ToteIntakerino;
 class AutoCanerinoPuck;
 class ToteLifterino;
@@ -42,7 +42,7 @@ public:
 	static DriveBae *driveBase;
 	static AutoCanerinoPuck *autoCanerinoPuck;
 	static Craaaw *craaaw;
-	static AutoCanerinoFourBar *autoCanerinoFourBar;
+	//static AutoCanerinoFourBar *autoCanerinoFourBar;
 	static CanCollecterino *canCollecterino;
 	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;

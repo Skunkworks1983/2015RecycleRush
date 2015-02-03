@@ -3,17 +3,17 @@
 
 CanCollecterino::CanCollecterino() :
 		Subsystem("CanCollecterino") {
-	liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT);
-	liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT);
-	grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT);
-	grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT);
+	SAFE_INIT(CAN_MOTOR_LIFT_LEFT, liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT););
+	SAFE_INIT(CAN_MOTOR_LIFT_RIGHT, liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT););
+	SAFE_INIT(CAN_MOTOR_GRAB_LEFT, grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT););
+	SAFE_INIT(CAN_MOTOR_GRAB_RIGHT, grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT););
 
-	canSensor = new DigitalInput(CAN_SENSOR);
+	SAFE_INIT(CAN_SENSOR, canSensor = new DigitalInput(CAN_SENSOR););
 
-	liftPotLeft = new AnalogInput(CAN_POT_LIFT_LEFT);
-	liftPotRight = new AnalogInput(CAN_POT_LIFT_RIGHT);
+	SAFE_INIT(CAN_POT_LIFT_LEFT, liftPotLeft = new AnalogInput(CAN_POT_LIFT_LEFT););
+	SAFE_INIT(CAN_POT_LIFT_RIGHT, liftPotRight = new AnalogInput(CAN_POT_LIFT_RIGHT););
 
-	brakingRelay = new Relay(CAN_BRAKE);
+	SAFE_INIT(CAN_BRAKE, brakingRelay = new Relay(CAN_BRAKE););
 }
 
 CanCollecterino::~CanCollecterino() {

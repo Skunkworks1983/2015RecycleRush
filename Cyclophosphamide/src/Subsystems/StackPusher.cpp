@@ -3,10 +3,10 @@
 #include "../Commands/PushStack/PushPull.h"
 
 StackPusher::StackPusher() :
-		Subsystem("StackPusher")
-{
-	solenoid = new DoubleSolenoid(COMPRESSOR_RELAY, PUSHER_RIGHT, PUSHER_LEFT);
+		Subsystem("StackPusher") {
+	SAFE_INIT(PUSHER_RIGHT, solenoid = new DoubleSolenoid(PUSHER_RIGHT, PUSHER_LEFT););
 }
+
 
 void StackPusher::Push(){
 	solenoid->Set(DoubleSolenoid::kReverse);
