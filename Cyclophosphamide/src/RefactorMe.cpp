@@ -44,9 +44,10 @@ void RefactorMeBot::RobotInit() {
 
 	SmartDashboard::PutData("Zero yaw", new ResetGyro);
 	bool zeroed = false;
+	double initialTime = GetFPGATime();
 	while(!zeroed) {
 		bool isCalibrating = CommandBase::driveBase->getGyro()->IsCalibrating();
-		if(!isCalibrating) {
+		if(!isCalibrating || GetFPGATime()-initialTime > GYRO_TIMEOUT) {
 			Wait( 0.2 );
 			CommandBase::driveBase->getGyro()->ZeroYaw();
 			CommandBase::driveBase->startPID(); // enable the pid. May want to move this

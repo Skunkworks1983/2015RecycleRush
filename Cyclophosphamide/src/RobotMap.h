@@ -21,6 +21,7 @@
 #define DRIVE_DRIVE_D 0
 #define DRIVE_ASPECT_RATIO (0.5)
 #define DRIVE_TICKS_TO_DISTANCE 420
+#define GYRO_TIMEOUT 5000 // milliseconds
 
 //Tote Intake
 #define TOTE_INTAKE_SENSOR 0
