@@ -49,7 +49,7 @@ void RefactorMeBot::RobotInit() {
 		if(!isCalibrating) {
 			Wait( 0.2 );
 			CommandBase::driveBase->getGyro()->ZeroYaw();
-			CommandBase::driveBase->Enable(); // enable the pid. May want to move this
+			CommandBase::driveBase->startPID(); // enable the pid. May want to move this
 			zeroed = true;
 		}
 	}
