@@ -3,22 +3,17 @@
 #include "../Commands/PushStack/PushStack.h"
 
 StackPusher::StackPusher() :
-		Subsystem("ExampleSubsystem")
-{
-right = new Solenoid(PUSHER_RIGHT);
-left = new Solenoid (PUSHER_LEFT);
+		Subsystem("ExampleSubsystem") {
+	SAFE_INIT(PUSHER_RIGHT, right = new DoubleSolenoid(PUSHER_RIGHT, PUSHER_LEFT););
 }
 
-void StackPusher::Push(){
-	right->Set(true);
-	left->Set(true);
+void StackPusher::Push() {
+	right->Set(DoubleSolenoid::kForward);
 }
-void StackPusher::Pull(){
-	right->Set(false) ;
-	left->Set(false);
+void StackPusher::Pull() {
+	right->Set(DoubleSolenoid::kReverse);
 }
-void StackPusher::InitDefaultCommand()
-{
+void StackPusher::InitDefaultCommand() {
 	//SetDefaultCommand (new PushStack);// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
 }

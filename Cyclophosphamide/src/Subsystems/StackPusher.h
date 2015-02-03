@@ -7,8 +7,7 @@
 class StackPusher: public Subsystem
 {
 private:
-	Solenoid *right;
-	Solenoid *left;
+	DoubleSolenoid *right;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:

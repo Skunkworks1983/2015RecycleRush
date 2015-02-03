@@ -2,9 +2,9 @@
 #include "../../RobotMap.h"
 
 AutoCanerinoPuck::AutoCanerinoPuck(): Subsystem("AutoCanerinoPuck") {
-	armActuate = new DoubleSolenoid(AUTO_CAN_ARM_ACTUATE);
-	wench = new AUTO_CAN_MOTOR_TYPE(AUTO_CAN_WINCH);
-	wenchPot = new AnalogInput(AUTO_CAN_PAAAT);
+	SAFE_INIT(AUTO_CAN_ARM_ACTUATE, armActuate = new DoubleSolenoid(AUTO_CAN_ARM_ACTUATE););
+	SAFE_INIT(AUTO_CAN_WINCH, wench = new AUTO_CAN_MOTOR_TYPE(AUTO_CAN_WINCH););
+	SAFE_INIT(AUTO_CAN_PAAAT, wenchPot = new AnalogInput(AUTO_CAN_PAAAT););
 }
 
 AutoCanerinoPuck::~AutoCanerinoPuck() {

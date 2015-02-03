@@ -17,12 +17,12 @@ OI::OI()
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
 	stackButton = new SkunkButt(joystickLeft, OI_JOYSTICK_STACK);
-	craaawUnactuate = new JoystickButton(joystickLeft, OI_CRAAAW_UNACTUATE);
 	pushButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_PUSHBUTTON);
 	actuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_ACTUATEBUTTTON);
 	unactuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_UNACTUATEBUTTTON);
 	liftarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LIFTARMSBUTTTON);
 	lowerarmsButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_LOWERARMSBUTTTON);
+	craaawUnactuate = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_CRAAAW_UNACTUATE);
 	toteintakeButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTEINTAKEBUTTTON);
 	totelifterButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_TOTELIFTERBUTTTON);
 	motorfowardButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_MOTORFOWARDBUTTTON);

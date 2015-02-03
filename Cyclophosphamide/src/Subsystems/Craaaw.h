@@ -9,19 +9,16 @@
 class Craaaw: public Subsystem
 {
 private:
-	//LIFT_MOTOR_TYPE *liftereeno;
-	DigitalInput *canDetected;
-	Solenoid *craaawLocker;
-
+	DigitalInput *canDetector;
+	DoubleSolenoid *craaawLocker;
+	bool stateOpen;
 
 public:
 	Craaaw();
 	~Craaaw();
 	void InitDefaultCommand();
 	void toggle();
-	bool getInput();
-
-
+	bool getCanDetector();
 };
 
 #endif
