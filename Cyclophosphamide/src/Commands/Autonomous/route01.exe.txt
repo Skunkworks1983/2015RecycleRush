@@ -1,1 +1,1 @@
-foward 50
+forward 50
