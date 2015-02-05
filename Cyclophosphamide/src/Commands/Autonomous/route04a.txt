@@ -1,0 +1,13 @@
+stacker down
+stacker intake
+reverse 45
+left 33
+stacker down
+stacker intake
+reverse 45
+left 33
+stacker down
+stacker intake
+reverse 107
+stacker down
+stacker expell

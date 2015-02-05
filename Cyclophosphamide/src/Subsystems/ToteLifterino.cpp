@@ -2,24 +2,22 @@
 #include "../RobotMap.h"
 
 ToteLifterino::ToteLifterino() :
-		Subsystem("ToteLifterino")
-{
+		Subsystem("ToteLifterino") {
 //	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	RightLifter = new Talon(TOTE_LIFTER_RIGHT);
-	LeftLifter = new Talon(TOTE_LIFTER_LEFT);
-	positionEncoder = new Encoder(TOTE_LIFTER_ENCODER_CA,
-			TOTE_LIFTER_ENCODER_CB,
-			TOTE_LIFTER_ENCODER_REVERSED);
+	SAFE_INIT(TOTE_LIFTER_RIGHT, RightLifter = new Talon(TOTE_LIFTER_RIGHT););
+	SAFE_INIT(TOTE_LIFTER_LEFT, LeftLifter = new Talon(TOTE_LIFTER_LEFT););
+	SAFE_INIT(TOTE_LIFTER_ENCODER_CA,
+			positionEncoder = new Encoder(TOTE_LIFTER_ENCODER_CA, TOTE_LIFTER_ENCODER_CB, TOTE_LIFTER_ENCODER_REVERSED););
 	destinations = vector<int>();
 }
 
-void ToteLifterino::InitDefaultCommand()
-{
+void ToteLifterino::InitDefaultCommand() {
 //	SetDefaultCommand(new ToteLifter());
 }
 
 bool ToteLifterino::closeEnough(int value, int constant) {
-	return ((value >= constant - TOTE_LIFTER_ENCODER_DEADBAND) && (value <= constant + TOTE_LIFTER_ENCODER_DEADBAND));
+	return ((value >= constant - TOTE_LIFTER_ENCODER_DEADBAND)
+			&& (value <= constant + TOTE_LIFTER_ENCODER_DEADBAND));
 }
 
 void ToteLifterino::addDestination(int destination) {

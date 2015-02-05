@@ -17,6 +17,7 @@ OI::OI()
 {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
+	/*
 	stackButton = new SkunkButt(joystickLeft, OI_JOYSTICK_STACK);
 	pushButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_PUSHBUTTON);
 	actuateButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_ACTUATEBUTTON);
@@ -33,11 +34,13 @@ OI::OI()
 	armsdownButton = new JoystickButton(joystickLeft, OI_JOYSTICKBUTTON_ARMSDOWNBUTTON);
 	leftLoadButton = new JoystickButton(joystickRight, OI_LOAD_LEFT);
 	rightLoadButton = new JoystickButton(joystickRight, OI_LOAD_RIGHT);
+	*/
 }
 
 OI::~OI() {
 	delete joystickLeft;
 	delete joystickRight;
+	/*
 	delete stackButton;
 	delete pushButton;
 	delete actuateButton;
@@ -50,6 +53,7 @@ OI::~OI() {
 	delete armsdownButton;
 	delete leftLoadButton;
 	delete rightLoadButton;
+	*/
 }
 
 Joystick *OI::getJoystickLeft() {
@@ -60,6 +64,7 @@ Joystick *OI::getJoystickRight() {
 	return joystickRight;
 }
 void OI::registerButtonListeners() {
+	/*
 	SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));
 	SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
 	SAFE_BUTTON(actuateButton, actuateButton->WhenPressed(new CraaawActuate()));
@@ -76,6 +81,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(armsdownButton,armsdownButton->WhenPressed(new Collect()));
 	SAFE_BUTTON(leftLoadButton, leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton, rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
+	*/
 
 }
 

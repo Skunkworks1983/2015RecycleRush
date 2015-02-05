@@ -4,32 +4,33 @@
 #include <cmath>
 #include "../Commands/CanCollecterino/CraaawActuate.h"
 
-Craaaw::Craaaw(): Subsystem("Craaaw"){
-	//liftereeno = new LIFT_MOTOR_TYPE(LIFT_MOTOR_CAN);
-	canDetected = new DigitalInput(CRAAAW_CAN_DETECTOR);
-	craaawLocker = new Solenoid(CRAAAW_TOGGLE);
+Craaaw::Craaaw() :
+		Subsystem("Craaaw") {
+	SAFE_INIT(CRAAAW_CAN_DETECTOR, canDetector = new DigitalInput(CRAAAW_CAN_DETECTOR););
+	SAFE_INIT(CRAAAW_LOCK_LEFT, craaawLocker = new DoubleSolenoid(CRAAAW_LOCK_LEFT, CRAAAW_LOCK_RIGHT););
+	stateOpen = true;
 }
 
-Craaaw::~Craaaw(){
-	delete canDetected;
+Craaaw::~Craaaw() {
+	delete canDetector;
 	delete craaawLocker;
-
 }
 
-void Craaaw::InitDefaultCommand(){
+void Craaaw::InitDefaultCommand() {
 	SetDefaultCommand(new CraaawActuate());
 }
 
-bool Craaaw::getInput(){
-	return canDetected->Get();
+bool Craaaw::getCanDetector() {
+	return canDetector->Get();
 }
 
-void Craaaw::toggle(){
-	if(getInput() == true){
-		craaawLocker->Set(true);
+void Craaaw::toggle() {
+	if (stateOpen) {
+		craaawLocker->Set(DoubleSolenoid::kForward);
+		stateOpen = false;
+	} else {
+		craaawLocker->Set(DoubleSolenoid::kReverse);
+		stateOpen = true;
 	}
-
 }
-
-
 

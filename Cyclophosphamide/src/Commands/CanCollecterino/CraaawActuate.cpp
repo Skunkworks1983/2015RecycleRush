@@ -15,7 +15,7 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	return craaaw->getInput();
+	return craaaw->getCanDetector();
 }
 
 void CraaawActuate::End() {
