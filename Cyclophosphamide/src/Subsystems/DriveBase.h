@@ -6,10 +6,10 @@
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
 
-class DriveBae: public Subsystem, public PIDOutput, public PIDSource
-{
+class DriveBae: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	PIDController *rotPID;
+
 	DRIVE_MOTOR_TYPE *motorFrontLeft;
 	DRIVE_MOTOR_TYPE *motorFrontRight;
 	DRIVE_MOTOR_TYPE *motorBackLeft;
@@ -21,9 +21,22 @@ private:
 	double forward;
 	double right;
 	double clockwise;
+
 public:
 	DriveBae();
 	~DriveBae();
+
+	enum MotorSide {
+		FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
+	};
+
+	struct EncoderZero {
+		double frontLeft;
+		double frontRight;
+		double backLeft;
+		double backRight;
+	};
+
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
@@ -38,6 +51,12 @@ public:
 	double getSetpoint();
 	void setSetpoint(float f);
 
+	EncoderZero* getZero();
+	void setPIDAll(double P, double I, double D);
+	void setAll(double setPoint);
+	void enablePIDAll(bool state);
+	bool withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy);
+
 	void setForward(double f);
 	void setRight(double r);
 	void setClockwise(double c);
@@ -45,7 +64,8 @@ public:
 	void execute();
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
-	DRIVE_MOTOR_TYPE *getSpecialMotor();
+
+	DRIVE_MOTOR_TYPE *getMotor(MotorSide side);
 };
 
 #endif

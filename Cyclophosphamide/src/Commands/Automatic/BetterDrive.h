@@ -9,9 +9,10 @@ class BetterDrive: public CommandBase
 private:
 	float targetDistance;
 	float distanceRemain;
-	float initialPos;
+	double targetAngle;
+	DriveBae::EncoderZero* billy;
 public:
-	BetterDrive(float distance);
+	BetterDrive(float distance, double angle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

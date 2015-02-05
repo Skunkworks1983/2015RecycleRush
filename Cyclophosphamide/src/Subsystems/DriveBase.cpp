@@ -9,12 +9,13 @@ DriveBae::DriveBae() :
 	motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT);
 	motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT);
 	motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT);
-	rotPID = new PIDController(DRIVE_ROT_P , DRIVE_ROT_I, DRIVE_ROT_D, gyro, this);
+	rotPID = new PIDController(DRIVE_ROT_P, DRIVE_ROT_I, DRIVE_ROT_D, gyro,
+			this);
 
 	// Initialize gyro stuff
-	serialPort = new SerialPort(57600,SerialPort::kMXP);
+	serialPort = new SerialPort(57600, SerialPort::kMXP);
 	uint8_t update_rate_hz = 50; // ayy lmao
-	gyro = new IMU(serialPort,update_rate_hz);
+	gyro = new IMU(serialPort, update_rate_hz);
 
 	rotPID->SetOutputRange(-180.0, 180.0);
 	rotPID->SetInputRange(-180.0, 180.0);
@@ -41,11 +42,14 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
 	double max = fabs(speedFrontLeft);
-	if(fabs(speedFrontRight)>max) max = fabs(speedFrontRight);
-	if(fabs(speedBackLeft)>max) max = fabs(speedBackLeft);
-	if(fabs(speedBackRight)>max) max = fabs(speedBackRight);
+	if (fabs(speedFrontRight) > max)
+		max = fabs(speedFrontRight);
+	if (fabs(speedBackLeft) > max)
+		max = fabs(speedBackLeft);
+	if (fabs(speedBackRight) > max)
+		max = fabs(speedBackRight);
 
-	if(max>=1){
+	if (max >= 1) {
 		speedFrontLeft /= max;
 		speedFrontRight /= max;
 		speedBackLeft /= max;
@@ -62,6 +66,61 @@ IMU *DriveBae::getGyro() {
 	return gyro;
 }
 
+void DriveBae::setPIDAll(double P, double I, double D) {
+	motorFrontLeft->SetPID(P, I, D);
+	motorFrontRight->SetPID(P, I, D);
+	motorBackLeft->SetPID(P, I, D);
+	motorBackRight->SetPID(P, I, D);
+
+}
+
+void DriveBae::setAll(double setPoint) {
+	motorFrontLeft->Set(setPoint);
+	motorFrontRight->Set(setPoint);
+	motorBackLeft->Set(setPoint);
+	motorBackRight->Set(setPoint);
+
+}
+
+bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy) {
+	SmartDashboard::PutNumber("EncoderTest", motorBackLeft->GetEncPosition());
+	if ((motorBackLeft->GetEncPosition() - billy->backLeft) - targetDistance < driveThreshhold
+			|| (motorFrontLeft->GetEncPosition() - billy->frontLeft) - targetDistance
+					< driveThreshhold
+			|| (motorFrontRight->GetEncPosition() - billy->backRight) - targetDistance
+					< driveThreshhold
+			|| (motorBackRight->GetEncPosition() - billy->frontRight) - targetDistance
+					< driveThreshhold) {
+		return true;
+	}
+	return false;
+}
+
+DriveBae::EncoderZero* DriveBae::getZero() {
+	EncoderZero* foo;
+	foo->backLeft = motorBackLeft->GetEncPosition();
+	foo->backRight = motorBackRight->GetEncPosition();
+	foo->frontLeft = motorFrontLeft->GetEncPosition();
+	foo->frontRight = motorFrontRight->GetEncPosition();
+	return foo;
+}
+
+void DriveBae::enablePIDAll(bool state) {
+	if (state) {
+		motorFrontLeft->EnableControl();
+		motorFrontRight->EnableControl();
+		motorBackLeft->EnableControl();
+		motorBackRight->EnableControl();
+
+	} else {
+		motorFrontLeft->Disable();
+		motorFrontRight->Disable();
+		motorBackLeft->Disable();
+		motorBackRight->Disable();
+
+	}
+}
+
 void DriveBae::setTargetAngle(double theta) {
 	rotPID->SetSetpoint(theta);
 }
@@ -75,7 +134,7 @@ void DriveBae::startPID() {
 }
 
 double DriveBae::getError() {
-	return (gyro->GetYaw()-rotPID->GetSetpoint());
+	return (gyro->GetYaw() - rotPID->GetSetpoint());
 }
 
 void DriveBae::setForward(double f) {
@@ -95,7 +154,7 @@ double DriveBae::getClockwise() {
 }
 
 void DriveBae::execute() {
-	// 'Kinematic transformation'
+// 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;
 	double frontRight = forward - clockwise + right;
 	double backLeft = forward + clockwise + right;
@@ -103,13 +162,13 @@ void DriveBae::execute() {
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
-void DriveBae::PIDWrite(float output){
+void DriveBae::PIDWrite(float output) {
 	output /= 180.0;
 	SmartDashboard::PutNumber("PID output", output);
 	setClockwise(output);
 }
 
-double DriveBae::PIDGet(){
+double DriveBae::PIDGet() {
 	return gyro->GetYaw();
 }
 
@@ -121,6 +180,15 @@ void DriveBae::setSetpoint(float f) {
 	rotPID->SetSetpoint(f);
 }
 
-DRIVE_MOTOR_TYPE *DriveBae::getSpecialMotor(){
-	return motorFrontLeft;
+DRIVE_MOTOR_TYPE *DriveBae::getMotor(MotorSide side) {
+	switch (side) {
+	case MotorSide::FRONT_LEFT:
+		return motorFrontLeft;
+	case MotorSide::FRONT_RIGHT:
+		return motorFrontRight;
+	case MotorSide::BACK_LEFT:
+		return motorBackLeft;
+	case MotorSide::BACK_RIGHT:
+		return motorBackRight;
+	}
 }

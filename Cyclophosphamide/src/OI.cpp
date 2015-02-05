@@ -9,6 +9,7 @@
 #include "Commands/ToteHandling/ToteLifter.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
+#include "Commands/Automatic/BetterDrive.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -68,7 +69,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteintakeButton, toteintakeButton->WhenPressed(new ToteIntake()));
 	SAFE_BUTTON(totelifterButton, totelifterButton->WhenPressed(new ToteLifter()));
 	SAFE_BUTTON(motorfowardButton, motorfowardButton->WhenPressed(new Collect()));
-	SAFE_BUTTON(motorbackwardButton,motorbackwardButton->WhenPressed(new Collect()));
+	SAFE_BUTTON(motorbackwardButton,motorbackwardButton->WhenPressed(new BetterDrive(10000, 0)));
 	SAFE_BUTTON(wristinButton,wristinButton->WhenPressed(new Collect()));
 	SAFE_BUTTON(wristoutButton,wristoutButton->WhenPressed(new Collect()));
 	SAFE_BUTTON(armsupButton,armsupButton->WhenPressed(new Collect()));
