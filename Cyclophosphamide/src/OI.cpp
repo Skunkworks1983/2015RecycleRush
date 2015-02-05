@@ -1,3 +1,4 @@
+#include <Commands/ToteHandling/LiftToHeight.h>
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/PushStack/PushPull.h"
@@ -6,7 +7,6 @@
 #include "Commands/CanCollecterino/LiftArms.h"
 #include "Commands/CanCollecterino/LowerArms.h"
 #include "Commands/ToteHandling/ToteIntake.h"
-#include "Commands/ToteHandling/ToteLifter.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
 #include "Commands/Automatic/BetterDrive.h"
@@ -72,7 +72,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(liftarmsButton, liftarmsButton->WhenPressed(new LiftArms()));
 	SAFE_BUTTON(lowerarmsButton, lowerarmsButton->WhenPressed(new LowerArms()));
 	SAFE_BUTTON(toteintakeButton, toteintakeButton->WhenPressed(new ToteIntake()));
-	SAFE_BUTTON(totelifterButton, totelifterButton->WhenPressed(new ToteLifter()));
+	SAFE_BUTTON(totelifterButton, totelifterButton->WhenPressed(new LiftToHeight(0)));
 	SAFE_BUTTON(motorfowardButton, motorfowardButton->WhenPressed(new Collect()));
 	SAFE_BUTTON(motorbackwardButton,motorbackwardButton->WhenPressed(new BetterDrive(10000, 0)));
 	SAFE_BUTTON(wristinButton,wristinButton->WhenPressed(new Collect()));

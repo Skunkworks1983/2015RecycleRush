@@ -4,10 +4,15 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ToteLifter : public CommandBase
+class LiftToHeight : public CommandBase
 {
+private:
+	double destination;
+	double startingPos;
+	double motorSpeed;
+	double oldDiff;
 public:
-	ToteLifter();
+	LiftToHeight(double destination);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

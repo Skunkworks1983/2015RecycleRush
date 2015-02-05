@@ -15,11 +15,11 @@ private:
 	/**
 	 * Sensor of whether or not the subsystem contains a tote or not.
 	 */
-	DigitalInput *isCanSensor;
+	DigitalInput *isToteSensor;
 	/**
 	 * Motor that controls the rollers that pull the totes in
 	 */
-	Talon *tote_rolly_motor;
+	Talon *toteIntakeMotor;
 public:
 	/**
 	 * Default constructor

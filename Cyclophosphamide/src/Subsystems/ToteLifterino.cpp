@@ -4,65 +4,53 @@
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
 //	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	SAFE_INIT(TOTE_LIFTER_RIGHT, RightLifter = new Talon(TOTE_LIFTER_RIGHT););
-	SAFE_INIT(TOTE_LIFTER_LEFT, LeftLifter = new Talon(TOTE_LIFTER_LEFT););
+	SAFE_INIT(TOTE_LIFTER_RIGHT, rightMotor = new Talon(TOTE_LIFTER_RIGHT););
+	SAFE_INIT(TOTE_LIFTER_LEFT, leftMotor = new Talon(TOTE_LIFTER_LEFT););
 	SAFE_INIT(TOTE_LIFTER_ENCODER_CA,
-			positionEncoder = new Encoder(TOTE_LIFTER_ENCODER_CA, TOTE_LIFTER_ENCODER_CB, TOTE_LIFTER_ENCODER_REVERSED););
-	destinations = vector<int>();
+			encoder = new Encoder(TOTE_LIFTER_ENCODER_CA, TOTE_LIFTER_ENCODER_CB, TOTE_LIFTER_ENCODER_REVERSED););
+	SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
+			toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
+	encoder->Reset();
+
+	pidOutput = new DoubleMotorPIDOutput(leftMotor, rightMotor);
+
+	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
+	TOTE_LIFTER_PID_D, encoder, pidOutput);
 }
 
 void ToteLifterino::InitDefaultCommand() {
-//	SetDefaultCommand(new ToteLifter());
+
 }
 
-bool ToteLifterino::closeEnough(int value, int constant) {
-	return ((value >= constant - TOTE_LIFTER_ENCODER_DEADBAND)
-			&& (value <= constant + TOTE_LIFTER_ENCODER_DEADBAND));
+Encoder *ToteLifterino::getEncoder() {
+	return encoder;
 }
 
-void ToteLifterino::addDestination(int destination) {
-	destinations.push_back(destination);
+bool ToteLifterino::closeEnough(int destination) {
+	//broken
+	//return (encoder->GetDistance() >= destination - TOTE_LIFTER_ENCODER_DEADBAND);
+	return false;
 }
 
-bool ToteLifterino::At(int position) {
-	int constant = getValue(position);
-
-	return closeEnough(positionEncoder->Get(), constant);
+bool ToteLifterino::isToteUnder() {
+	return toteUnderInput->Get();
 }
 
-int ToteLifterino::getValue(int key) {
-	switch (key) {
-	case TOTE_LIFTER_KEY_POS_0:
-		return TOTE_LIFTER_VAL_POS_0;
-	case TOTE_LIFTER_KEY_POS_1:
-		return TOTE_LIFTER_VAL_POS_1;
-	case TOTE_LIFTER_KEY_POS_2:
-		return TOTE_LIFTER_VAL_POS_2;
-	case TOTE_LIFTER_KEY_POS_3:
-		return TOTE_LIFTER_VAL_POS_3;
-	}
+void ToteLifterino::setMotors(double speed) {
+	leftMotor->Set(speed);
+	rightMotor->Set(-speed);	//maybe doesnt need to be negative?
 }
 
-void ToteLifterino::checkAtDestination() {
-	if (At(destinations[0])) {
-		destinations.erase(destinations.begin());
-	}
-}
-
-void ToteLifterino::driveTowardsDestination() {
-	checkAtDestination();
-
-	if (destinations.size() > 0) { // if there are new destinations
-		int myPosition = positionEncoder->Get();
-		if (myPosition < getValue(destinations[0])) {
-			RightLifter->Set(TOTE_LIFTER_UP_SPEED);
-			LeftLifter->Set(TOTE_LIFTER_UP_SPEED);
-		} else {
-			RightLifter->Set(TOTE_LIFTER_DOWN_SPEED);
-			LeftLifter->Set(TOTE_LIFTER_DOWN_SPEED);
-		}
+#if TOTE_LIFTER_USING_PID
+void ToteLifterino::enablePID(bool enable) {
+	if(enable) {
+		pid->Enable();
 	} else {
-		RightLifter->Set(0);
-		LeftLifter->Set(0);
+		pid->Disable();
 	}
 }
+
+void ToteLifterino::setSetPoints(double setPoint) {
+	pid->SetSetpoint(setPoint);
+}
+#endif

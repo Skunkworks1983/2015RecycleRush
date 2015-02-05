@@ -10,7 +10,6 @@
 	}
 
 // C++ changes
-#define me this
 #define floaterino float
 #define returnerino return
 
@@ -55,6 +54,14 @@
 #define TOTE_LIFTER_ENCODER_REVERSED false
 #define TOTE_LIFTER_UP_SPEED 100
 #define TOTE_LIFTER_DOWN_SPEED -100
+#define TOTE_LIFTER_TOTE_INPUT 0x420
+
+#define TOTE_LIFTER_PID_P 1
+#define TOTE_LIFTER_PID_I 1
+#define TOTE_LIFTER_PID_D 1
+#define TOTE_LIFTER_USING_PID true
+
+#define LIFT_TO_HEIGHT_CONSTANT 1
 
 // Mecanum
 #define ONE_STICK false
