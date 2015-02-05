@@ -1,6 +1,6 @@
 #include "BetterDrive.h"
-#define DRIVE_TICKS_TO_DISTANCE 0.0
 #define AUTO_DRIVE_THRESHHOLD 0.0
+
 BetterDrive::BetterDrive(float distance, double angle) {
 	Requires(driveBase);
 	targetAngle = angle;
