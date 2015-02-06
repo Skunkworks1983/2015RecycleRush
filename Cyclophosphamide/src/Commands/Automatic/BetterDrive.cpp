@@ -30,6 +30,7 @@ bool BetterDrive::IsFinished() {
 void BetterDrive::End() {
 	driveBase->setAll(0);
 	driveBase->enablePIDAll(false);
+	delete billy;
 
 }
 
