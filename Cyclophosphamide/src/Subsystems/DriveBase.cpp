@@ -81,7 +81,7 @@ void DriveBae::setAll(double setPoint) {
 	motorBackRight->Set(setPoint);
 
 }
-
+//ayy lmao
 bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy) {
 	SmartDashboard::PutNumber("EncoderTest", motorBackLeft->GetEncPosition());
 	if ((motorBackLeft->GetEncPosition() - billy->backLeft) - targetDistance < driveThreshhold
