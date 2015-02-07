@@ -22,6 +22,7 @@ private:
 public:
 	CanCollecterino();
 	~CanCollecterino();
+	void InitDefaultCommand();
 	void setGrab(float value);
 	bool wristWithinBounds(float setpoint, float bounds);
 	void setWrist(float value);

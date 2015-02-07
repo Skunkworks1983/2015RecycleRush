@@ -20,8 +20,8 @@ CanCollecterino::CanCollecterino() :
 	SAFE_INIT(CAN_SENSOR, canSensor = new DigitalInput(CAN_SENSOR););
 
 	SAFE_INIT(CAN_BRAKE, brakingRelay = new Relay(CAN_BRAKE););
-	liftMotorLeft->SetPID(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D);
-	liftMotorRight->SetPID(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D);
+//	liftMotorLeft->SetPID(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D);
+//	liftMotorRight->SetPID(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D);
 }
 
 CanCollecterino::~CanCollecterino() {
@@ -35,6 +35,10 @@ CanCollecterino::~CanCollecterino() {
 	delete canSensor;
 
 	delete brakingRelay;
+}
+
+void CanCollecterino::InitDefaultCommand() {
+
 }
 
 void CanCollecterino::setArms(float value) {
