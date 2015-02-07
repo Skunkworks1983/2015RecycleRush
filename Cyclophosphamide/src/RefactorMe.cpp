@@ -6,6 +6,7 @@
  */
 
 #include <Commands/Automatic/AutoDrive.h>
+#include <Commands/Drivebase/ZeroGyro.h>
 #include <RefactorMe.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -14,7 +15,6 @@
 #include "RobotMap.h"
 
 #include "Commands/Autonomous/Autonomous.h"
-#include "Commands/ResetGyro.h"
 
 
 RefactorMeBot::RefactorMeBot() {
@@ -42,7 +42,7 @@ void RefactorMeBot::RobotInit() {
 
 	CommandBase::oi->registerButtonListeners();
 
-	SmartDashboard::PutData("Zero yaw", new ResetGyro);
+	SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 	bool zeroed = false;
 	double initialTime = GetFPGATime();
 	while(!zeroed) {

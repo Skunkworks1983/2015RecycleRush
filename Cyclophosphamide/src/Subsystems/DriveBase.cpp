@@ -1,6 +1,6 @@
 #include "DriveBase.h"
 #include "../RobotMap.h"
-#include "../Commands/MecanumDrive.h"
+#include "../Commands/Drivebase/MecanumDrive.h"
 #include <cmath>
 
 DriveBae::DriveBae() :
@@ -18,6 +18,7 @@ DriveBae::DriveBae() :
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
 	uint8_t update_rate_hz = 50; // ayy lmao
 	gyro = new IMU(serialPort, update_rate_hz);
+	gyroEnabled = gyro != NULL;
 
 	rotPID = new PIDController(DRIVE_ROT_P, DRIVE_ROT_I, DRIVE_ROT_D, gyro,
 			this);
@@ -37,6 +38,9 @@ DriveBae::~DriveBae() {
 	delete motorFrontRight;
 	delete motorBackLeft;
 	delete motorBackRight;
+	delete rotPID;
+	delete serialPort;
+	delete gyro;
 }
 
 void DriveBae::InitDefaultCommand() {
@@ -47,12 +51,15 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
 	double max = fabs(speedFrontLeft);
-	if (fabs(speedFrontRight) > max)
+	if (fabs(speedFrontRight) > max) {
 		max = fabs(speedFrontRight);
-	if (fabs(speedBackLeft) > max)
+	}
+	if (fabs(speedBackLeft) > max) {
 		max = fabs(speedBackLeft);
-	if (fabs(speedBackRight) > max)
+	}
+	if (fabs(speedBackRight) > max) {
 		max = fabs(speedBackRight);
+	}
 
 	if (max >= 1) {
 		speedFrontLeft /= max;
@@ -71,12 +78,19 @@ IMU *DriveBae::getGyro() {
 	return gyro;
 }
 
+void DriveBae::setGyroEnabled(bool enable) {
+	gyroEnabled = enable;
+}
+
+bool DriveBae::isGyroEnabled() {
+	return gyroEnabled;
+}
+
 void DriveBae::setPIDAll(double P, double I, double D) {
 	motorFrontLeft->SetPID(P, I, D);
 	motorFrontRight->SetPID(P, I, D);
 	motorBackLeft->SetPID(P, I, D);
 	motorBackRight->SetPID(P, I, D);
-
 }
 
 void DriveBae::setAll(double setPoint) {
@@ -84,7 +98,6 @@ void DriveBae::setAll(double setPoint) {
 	motorFrontRight->Set(setPoint);
 	motorBackLeft->Set(setPoint);
 	motorBackRight->Set(setPoint);
-
 }
 
 bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance,
@@ -118,13 +131,11 @@ void DriveBae::enablePIDAll(bool state) {
 		motorFrontRight->EnableControl();
 		motorBackLeft->EnableControl();
 		motorBackRight->EnableControl();
-
 	} else {
 		motorFrontLeft->Disable();
 		motorFrontRight->Disable();
 		motorBackLeft->Disable();
 		motorBackRight->Disable();
-
 	}
 }
 

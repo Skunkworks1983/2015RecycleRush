@@ -17,6 +17,7 @@ private:
 
 	IMU *gyro;
 	SerialPort *serialPort;
+	bool gyroEnabled;
 
 	double forward;
 	double right;
@@ -50,6 +51,8 @@ public:
 	double getError();
 	double getSetpoint();
 	void setSetpoint(float f);
+	void setGyroEnabled(bool enable);
+	bool isGyroEnabled();
 
 	EncoderZero* getZero();
 	void setPIDAll(double P, double I, double D);
