@@ -43,7 +43,7 @@ void ToteLifterino::setMotors(double speed) {
 
 #if TOTE_LIFTER_USING_PID
 void ToteLifterino::enablePID(bool enable) {
-	if(enable) {
+	if (enable) {
 		pid->Enable();
 	} else {
 		pid->Disable();
@@ -51,6 +51,6 @@ void ToteLifterino::enablePID(bool enable) {
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
-	pid->SetSetpoint(setPoint);
+	pid->SetSetpoint(setPoint / TOTE_LIFTER_TICKS_PER_INCH);
 }
 #endif

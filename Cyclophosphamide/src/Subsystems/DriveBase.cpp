@@ -5,17 +5,22 @@
 
 DriveBae::DriveBae() :
 		Subsystem("DriveBae") {
-	SAFE_INIT(DRIVE_MOTOR_FRONT_LEFT, motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT););
-	SAFE_INIT(DRIVE_MOTOR_FRONT_RIGHT, motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT););
-	SAFE_INIT(DRIVE_MOTOR_BACK_LEFT, motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT););
-	SAFE_INIT(DRIVE_MOTOR_BACK_RIGHT, motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT););
+	SAFE_INIT(DRIVE_MOTOR_FRONT_LEFT,
+			motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT););
+	SAFE_INIT(DRIVE_MOTOR_FRONT_RIGHT,
+			motorFrontRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_RIGHT););
+	SAFE_INIT(DRIVE_MOTOR_BACK_LEFT,
+			motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT););
+	SAFE_INIT(DRIVE_MOTOR_BACK_RIGHT,
+			motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT););
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
 	uint8_t update_rate_hz = 50; // ayy lmao
 	gyro = new IMU(serialPort, update_rate_hz);
 
-	rotPID = new PIDController(DRIVE_ROT_P , DRIVE_ROT_I, DRIVE_ROT_D, gyro, this);
+	rotPID = new PIDController(DRIVE_ROT_P, DRIVE_ROT_I, DRIVE_ROT_D, gyro,
+			this);
 
 	rotPID->SetOutputRange(-180.0, 180.0);
 	rotPID->SetInputRange(-180.0, 180.0);
@@ -82,22 +87,24 @@ void DriveBae::setAll(double setPoint) {
 
 }
 
-bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy) {
+bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance,
+		EncoderZero* billy) {
 	SmartDashboard::PutNumber("EncoderTest", motorBackLeft->GetEncPosition());
-	if ((motorBackLeft->GetEncPosition() - billy->backLeft) - targetDistance < driveThreshhold
-			|| (motorFrontLeft->GetEncPosition() - billy->frontLeft) - targetDistance
-					< driveThreshhold
-			|| (motorFrontRight->GetEncPosition() - billy->backRight) - targetDistance
-					< driveThreshhold
-			|| (motorBackRight->GetEncPosition() - billy->frontRight) - targetDistance
-					< driveThreshhold) {
+	if ((motorBackLeft->GetEncPosition() - billy->backLeft) - targetDistance
+			< driveThreshhold
+			|| (motorFrontLeft->GetEncPosition() - billy->frontLeft)
+					- targetDistance < driveThreshhold
+			|| (motorFrontRight->GetEncPosition() - billy->backRight)
+					- targetDistance < driveThreshhold
+			|| (motorBackRight->GetEncPosition() - billy->frontRight)
+					- targetDistance < driveThreshhold) {
 		return true;
 	}
 	return false;
 }
 
 DriveBae::EncoderZero* DriveBae::getZero() {
-	EncoderZero* foo;
+	EncoderZero* foo = new DriveBae::EncoderZero();
 	foo->backLeft = motorBackLeft->GetEncPosition();
 	foo->backRight = motorBackRight->GetEncPosition();
 	foo->frontLeft = motorFrontLeft->GetEncPosition();
