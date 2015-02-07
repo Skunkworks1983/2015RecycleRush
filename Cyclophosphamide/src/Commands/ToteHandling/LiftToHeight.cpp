@@ -1,6 +1,6 @@
-#include <Commands/ToteHandling/LiftToHeight.h>
+#include "LiftToHeight.h"
 
-LiftToHeight::LiftToHeight(double destination) {
+LiftToHeight::LiftToHeight(double destination) : CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
 	motorSpeed = 1;

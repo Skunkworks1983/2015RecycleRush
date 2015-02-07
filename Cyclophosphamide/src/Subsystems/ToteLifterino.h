@@ -8,11 +8,8 @@
 
 class ToteLifterino: public Subsystem {
 private:
-	Encoder *encoder;
 	DigitalInput *toteUnderInput;
-	Talon *rightMotor,*leftMotor;
-	PIDController *pid;
-	DoubleMotorPIDOutput *pidOutput;
+	CANTalon *rightMotor,*leftMotor;
 public:
 	/**
 	 * Default Constructor. Normal Initialization
@@ -28,7 +25,8 @@ public:
 	 *
 	 * @Ross
 	 */
-	Encoder *getEncoder();
+	CANTalon *getLeftMotor();
+	CANTalon *getRightMotor();
 
 	bool isToteUnder();
 	/**
