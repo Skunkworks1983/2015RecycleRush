@@ -1,28 +1,24 @@
-#include <Commands/CanCollecterino/Craaaw/CraaawUnactuate.h>
+#include "CraaawUnactuate.h"
 #include "CraaawActuate.h"
 
-CraaawUnactuate::CraaawUnactuate() {
+CraaawUnactuate::CraaawUnactuate()
+{
+	AddSequential(new CraaawActuate(false));
+	AddSequential(new CraaawActuate(true));
+	// Add Commands here:
+	// e.g. AddSequential(new Command1());
+	//      AddSequential(new Command2());
+	// these will run in order.
 
-}
+	// To run multiple commands at the same time,
+	// use AddParallel()
+	// e.g. AddParallel(new Command1());
+	//      AddSequential(new Command2());
+	// Command1 and Command2 will run in parallel.
 
-void CraaawUnactuate::Initialize() {
-	Requires(craaaw);
-
-}
-
-void CraaawUnactuate::Execute() {
-
-}
-
-bool CraaawUnactuate::IsFinished() {
-	return oi->getUnactuate();
-}
-
-void CraaawUnactuate::End() {
-	craaaw->toggle();
-	new CraaawActuate();
-}
-
-void CraaawUnactuate::Interrupted() {
-
+	// A command group will require all of the subsystems that each member
+	// would require.
+	// e.g. if Command1 requires chassis, and Command2 requires arm,
+	// a CommandGroup containing them would require both the chassis and the
+	// arm.
 }

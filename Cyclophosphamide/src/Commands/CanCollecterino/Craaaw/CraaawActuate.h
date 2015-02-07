@@ -6,8 +6,11 @@
 
 class CraaawActuate: public CommandBase
 {
+private:
+	bool waitForInput;
+
 public:
-	CraaawActuate();
+	CraaawActuate(bool waitForInput);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
