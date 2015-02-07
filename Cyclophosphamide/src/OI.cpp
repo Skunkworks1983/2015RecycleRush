@@ -1,11 +1,11 @@
+#include <Commands/CanCollecterino/Arms/MoveArms.h>
 #include <Commands/ToteHandling/LiftToHeight.h>
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/PushStack/PushPull.h"
-#include "Commands/CanCollecterino/CraaawActuate.h"
-#include "Commands/CanCollecterino/CraaawUnactuate.h"
-#include "Commands/CanCollecterino/LiftArms.h"
-#include "Commands/CanCollecterino/LowerArms.h"
+#include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
+#include "Commands/CanCollecterino/Craaaw/CraaawUnactuate.h"
+#include "Commands/CanCollecterino/Arms/MoveArms.h"
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"

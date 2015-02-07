@@ -13,23 +13,22 @@ private:
 	CAN_MOTOR_TYPE *liftMotorRight;
 	CAN_MOTOR_TYPE *grabMotorLeft;
 	CAN_MOTOR_TYPE *grabMotorRight;
+	CAN_MOTOR_TYPE *wristMotorLeft;
+	CAN_MOTOR_TYPE *wristMotorRight;
 
 	DigitalInput *canSensor;
-
-	AnalogInput *liftPotLeft;
-	AnalogInput *liftPotRight;
 
 	Relay *brakingRelay;
 public:
 	CanCollecterino();
 	~CanCollecterino();
-	void induct();
-	void expel();
-	void rest();
-	int getPotValue();
+	void setGrab(float value);
+	bool wristWithinBounds(float setpoint, float bounds);
+	void setWrist(float value);
+	void setArms(float value);
+	void disableArms();
+	int armsWithinBounds(float setpoint, float bounds);
 	bool getCanSensor();
-	void moveUpPosition();
-	void moveDownPosition();
 	void brakeArms(bool brake);
 };
 

@@ -4,10 +4,10 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Collect: public CommandGroup
+class PutUp: public CommandGroup
 {
 public:
-	Collect();
+	PutUp();
 };
 
 #endif

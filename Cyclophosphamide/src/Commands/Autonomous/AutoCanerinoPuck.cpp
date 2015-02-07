@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
+#include <Commands/AutoCanCollecterino/Wencherino.h>
 #include "Autonomous.h"
-#include "../AutoCanCollecterino/Wincherino.h"
 #include "../AutoCanCollecterino/Armerino.h"
 
 Autonomous *Autonomous::createAutoCanerinoPuck() {
