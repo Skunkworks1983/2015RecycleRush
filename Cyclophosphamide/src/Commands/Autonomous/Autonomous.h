@@ -7,7 +7,8 @@
 class Autonomous: public CommandGroup
 {
 public:
-	static Autonomous *createJustDrive(float duration, float heading);
+	static Autonomous *createDriveDistance(float distance, float heading);
+	static Autonomous *createDriveDuration(float duration, float heading);
 	static Autonomous *createTurnTo(double targetAngle);
 	static Autonomous *createAutoCanerinoPuck();
 
