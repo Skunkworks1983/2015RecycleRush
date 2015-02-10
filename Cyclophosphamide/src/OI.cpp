@@ -1,3 +1,4 @@
+#include <Commands/Automatic/BestDrive.h>
 #include <Commands/CanCollecterino/Arms/MoveArms.h>
 #include <Commands/ToteHandling/LiftToHeight.h>
 #include "OI.h"
@@ -9,7 +10,6 @@
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
-#include "Commands/Automatic/BetterDrive.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 

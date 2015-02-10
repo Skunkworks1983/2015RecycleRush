@@ -5,7 +5,7 @@
  *      Author: Administrator
  */
 
-#include <Commands/Automatic/AutoDrive.h>
+#include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <RefactorMe.h>
 #include "WPILib.h"
@@ -35,7 +35,7 @@ void RefactorMeBot::RobotInit() {
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 1000 ticks", Autonomous::createDriveDistance(360.0f, 0.0f));
+	chooser->AddObject("Drive forward 1000 ticks", Autonomous::createDriveDistance(360.0f, BestDrive::forward));
 	chooser->AddObject("Drive forward 1 second", Autonomous::createDriveDuration(1.0f, -90.0f));
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
