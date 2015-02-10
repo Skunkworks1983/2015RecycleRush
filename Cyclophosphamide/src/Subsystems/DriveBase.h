@@ -31,13 +31,6 @@ public:
 		FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
 	};
 
-	struct EncoderZero {
-		double frontLeft;
-		double frontRight;
-		double backLeft;
-		double backRight;
-	};
-
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
@@ -54,13 +47,12 @@ public:
 	void setGyroEnabled(bool enable);
 	bool isGyroEnabled();
 
-	EncoderZero* getZero();
 	void setPIDAll(double P, double I, double D);
 	void setAll(double setPoint);
 	void enablePIDAll(bool state);
 	void setModeAll(CANTalon::ControlMode mode);
 	void zeroEncoders();
-	bool withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy);
+	bool withinThreshhold(double driveThreshhold, double targetDistance);
 
 	void setForward(double f);
 	void setRight(double r);

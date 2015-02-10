@@ -17,7 +17,7 @@ AutoDrive::AutoDrive(float t, float theta) {
 }
 
 void AutoDrive::Initialize() {
-	driveBase->setModeAll(CANTalon::kSpeed);
+	driveBase->setModeAll(CANSpeedController::kPosition);
 	targetTime = getTime() + duration;
 }
 

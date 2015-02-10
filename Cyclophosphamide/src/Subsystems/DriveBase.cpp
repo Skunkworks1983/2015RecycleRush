@@ -119,29 +119,17 @@ void DriveBae::zeroEncoders() {
 	motorBackRight->SetPosition(0);
 }
 
-bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance,
-		EncoderZero* billy) {
-	SmartDashboard::PutNumber("EncoderTest", motorBackLeft->GetEncPosition());
-	if ((motorBackLeft->GetEncPosition() - billy->backLeft) - targetDistance
-			< driveThreshhold
-			|| (motorFrontLeft->GetEncPosition() - billy->frontLeft)
-					- targetDistance < driveThreshhold
-			|| (motorFrontRight->GetEncPosition() - billy->backRight)
-					- targetDistance < driveThreshhold
-			|| (motorBackRight->GetEncPosition() - billy->frontRight)
-					- targetDistance < driveThreshhold) {
+bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance) {
+	if (abs(motorBackLeft->GetEncPosition()) - targetDistance < driveThreshhold
+			|| abs(motorFrontLeft->GetEncPosition()) - targetDistance
+					< driveThreshhold
+			|| abs(motorFrontRight->GetEncPosition()) - targetDistance
+					< driveThreshhold
+			|| abs(motorBackRight->GetEncPosition()) - targetDistance
+					< driveThreshhold) {
 		return true;
 	}
 	return false;
-}
-
-DriveBae::EncoderZero* DriveBae::getZero() {
-	EncoderZero* foo = new DriveBae::EncoderZero();
-	foo->backLeft = motorBackLeft->GetEncPosition();
-	foo->backRight = motorBackRight->GetEncPosition();
-	foo->frontLeft = motorFrontLeft->GetEncPosition();
-	foo->frontRight = motorFrontRight->GetEncPosition();
-	return foo;
 }
 
 void DriveBae::enablePIDAll(bool state) {

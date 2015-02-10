@@ -15,7 +15,6 @@ void BetterDrive::Initialize() {
 	driveBase->enablePIDAll(true);
 	driveBase->setPIDAll(DRIVE_DRIVE_P, DRIVE_DRIVE_I, DRIVE_DRIVE_D);
 	driveBase->setAll(targetDistance);
-	billy = driveBase->getZero();
 	SmartDashboard::PutNumber("Initial enc value", driveBase->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
 }
 
@@ -28,14 +27,13 @@ void BetterDrive::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BetterDrive::IsFinished() {
-	return driveBase->withinThreshhold(AUTO_DRIVE_THRESHHOLD, targetDistance, billy);
+	return driveBase->withinThreshhold(AUTO_DRIVE_THRESHHOLD, targetDistance);
 }
 
 // Called once after isFinished returns true
 void BetterDrive::End() {
 	driveBase->setAll(0);
 	driveBase->enablePIDAll(false);
-	delete billy;
 	SmartDashboard::PutNumber("Final enc value", driveBase->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
 }
 

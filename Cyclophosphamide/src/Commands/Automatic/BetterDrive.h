@@ -10,7 +10,6 @@ private:
 	float targetDistance;
 	float distanceRemain;
 	double targetAngle;
-	DriveBae::EncoderZero* billy;
 public:
 	BetterDrive(float distance, double angle);
 	void Initialize();
