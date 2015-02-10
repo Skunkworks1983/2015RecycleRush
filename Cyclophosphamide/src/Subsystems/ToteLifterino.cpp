@@ -10,13 +10,22 @@ ToteLifterino::ToteLifterino() :
 			toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
 #if TOTE_LIFTER_USING_PID
 	leftMotor->SetPID(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I, TOTE_LIFTER_PID_D);
-	//rightMotor->SetPID(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I, TOTE_LIFTER_PID_D);
-#endif
 	leftMotor->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	leftMotor->SetPosition(0);
+
+	rightMotor->SetControlMode(CANSpeedController::kFollower);
+	rightMotor->Set(TOTE_LIFTER_LEFT);
+	rightMotor->SetSensorDirection(true);
+#endif
+	elevatorTopInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT);
+
 }
 
 void ToteLifterino::InitDefaultCommand() {
+}
+
+bool ToteLifterino::getElevatorDigitalInput() {
+	return elevatorTopInput->Get();
 }
 
 CANTalon *ToteLifterino::getLeftMotor() {
@@ -40,10 +49,10 @@ bool ToteLifterino::isToteUnder() {
 void ToteLifterino::setMotors(double speed) {
 	if (speed == 0) {
 		leftMotor->StopMotor();
-		//rightMotor->StopMotor();
+		rightMotor->StopMotor();
 	} else {
 		leftMotor->Set(speed);
-		//rightMotor->Set(-speed);	//maybe doesnt need to be negative?
+		rightMotor->Set(-speed);	//maybe doesnt need to be negative?
 	}
 }
 
@@ -51,16 +60,15 @@ void ToteLifterino::setMotors(double speed) {
 void ToteLifterino::enablePID(bool enable) {
 	if (enable) {
 		leftMotor->EnableControl();
-		//rightMotor->EnableControl();
+		rightMotor->EnableControl();
 	} else {
 		leftMotor->Disable();
-		//rightMotor->Disable();
+		rightMotor->Disable();
 	}
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
-	//rightMotor->SetPosition(leftMotor->GetEncPosition() + setPoint * TOTE_LIFTER_TICKS_PER_INCH);
-
+	rightMotor->Set(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
 	leftMotor->Set(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
 }
 #endif
