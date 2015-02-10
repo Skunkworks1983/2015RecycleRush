@@ -9,6 +9,7 @@ MecanumDrive::MecanumDrive() :
 
 void MecanumDrive::Initialize() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setModeAll(CANSpeedController::kSpeed);
 }
 
 void MecanumDrive::Execute() {
@@ -65,13 +66,13 @@ void MecanumDrive::Execute() {
 			driveBase->setSetpoint(targetAngle);
 		}
 
-		SmartDashboard::PutNumber("PID setpoint", driveBase->getSetpoint());
-		SmartDashboard::PutNumber("PID error", driveBase->getError());
+		//SmartDashboard::PutNumber("PID setpoint", driveBase->getSetpoint());
+		//SmartDashboard::PutNumber("PID error", driveBase->getError());
 
 #if FIELD_ORIENTED
 	// Field-oriented corrections
 		double theta = driveBase->getGyro()->GetYaw();
-		SmartDashboard::PutNumber("Gyro Angle", theta);
+		//SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward*cos(theta) + right*sin(theta);
 		right = -forward*sin(theta) + right*cos(theta);

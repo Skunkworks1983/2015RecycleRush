@@ -10,6 +10,8 @@ BetterDrive::BetterDrive(float distance, double angle) {
 
 // Called just before this Command runs the first time
 void BetterDrive::Initialize() {
+	driveBase->zeroEncoders();
+	driveBase->setModeAll(CANSpeedController::kPosition);
 	driveBase->enablePIDAll(true);
 	driveBase->setPIDAll(DRIVE_DRIVE_P, DRIVE_DRIVE_I, DRIVE_DRIVE_D);
 	driveBase->setAll(targetDistance);
@@ -21,6 +23,7 @@ void BetterDrive::Initialize() {
 void BetterDrive::Execute() {
 	// ayy lma0
 	SmartDashboard::PutNumber("Current enc value", driveBase->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
+	SmartDashboard::PutNumber("Drive PID setpoint", driveBase->getMotor(DriveBae::FRONT_LEFT)->GetSetpoint());
 }
 
 // Make this return true when this Command no longer needs to run execute()

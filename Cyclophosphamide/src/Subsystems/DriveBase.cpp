@@ -13,6 +13,11 @@ DriveBae::DriveBae() :
 			motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT););
 	SAFE_INIT(DRIVE_MOTOR_BACK_RIGHT,
 			motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT););
+	motorFrontLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
+	motorFrontRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
+	motorBackLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
+	motorBackRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
+	setModeAll(CANSpeedController::kPosition);
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
@@ -98,6 +103,20 @@ void DriveBae::setAll(double setPoint) {
 	motorFrontRight->Set(setPoint);
 	motorBackLeft->Set(setPoint);
 	motorBackRight->Set(setPoint);
+}
+
+void DriveBae::setModeAll(CANSpeedController::ControlMode mode) {
+	motorFrontLeft->SetControlMode(mode);
+	motorFrontRight->SetControlMode(mode);
+	motorBackLeft->SetControlMode(mode);
+	motorBackRight->SetControlMode(mode);
+}
+
+void DriveBae::zeroEncoders() {
+	motorFrontLeft->SetPosition(0);
+	motorFrontRight->SetPosition(0);
+	motorBackLeft->SetPosition(0);
+	motorBackRight->SetPosition(0);
 }
 
 bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance,

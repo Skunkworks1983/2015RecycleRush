@@ -58,6 +58,8 @@ public:
 	void setPIDAll(double P, double I, double D);
 	void setAll(double setPoint);
 	void enablePIDAll(bool state);
+	void setModeAll(CANTalon::ControlMode mode);
+	void zeroEncoders();
 	bool withinThreshhold(double driveThreshhold, double targetDistance, EncoderZero* billy);
 
 	void setForward(double f);
