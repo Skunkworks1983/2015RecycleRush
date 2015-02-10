@@ -2,5 +2,4 @@
 #include "Arms/MoveArms.h"
 PutUp::PutUp() {
 	AddSequential(new MoveArms(true));
-//	AddSequential(new );
 }
