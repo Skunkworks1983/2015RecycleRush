@@ -43,6 +43,9 @@ void CanCollecterino::InitDefaultCommand() {
 
 void CanCollecterino::setArms(float value) {
 	brakeArms(false);
+	liftMotorLeft->SetPosition(0);
+	liftMotorRight->SetPosition(0);
+
 	liftMotorLeft->EnableControl();
 	liftMotorRight->EnableControl();
 	liftMotorLeft->PIDWrite(value);
@@ -64,13 +67,25 @@ bool CanCollecterino::wristWithinBounds(float setpoint, float bounds) {
 }
 
 void CanCollecterino::setWrist(float value) {
-	wristMotorLeft->Set(value);
-	wristMotorRight->Set(value);
+	if (value == 0) {
+		wristMotorLeft->Disable();
+		wristMotorRight->Disable();
+	}
+	else {
+		wristMotorLeft->Set(value);
+		wristMotorRight->Set(value);
+	}
 }
 
 void CanCollecterino::setGrab(float value) {
-	grabMotorLeft->Set(value);
-	grabMotorRight->Set(value);
+	if (value == 0) {
+		grabMotorLeft->Disable();
+		grabMotorRight->Disable();
+	}
+	else {
+		grabMotorLeft->Set(value);
+		grabMotorRight->Set(value);
+	}
 }
 
 int CanCollecterino::armsWithinBounds(float setpoint, float  bounds) {
@@ -87,8 +102,7 @@ bool CanCollecterino::getCanSensor() {
 
 void CanCollecterino::brakeArms(bool brake) {
 	if (brake) {
-		liftMotorLeft->Set(0.0);
-		liftMotorRight->Set(0.0);
+		disableArms();
 		brakingRelay->Set(Relay::kOff);
 	}
 
