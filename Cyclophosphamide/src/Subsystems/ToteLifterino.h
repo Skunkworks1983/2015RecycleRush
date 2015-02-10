@@ -8,7 +8,7 @@
 
 class ToteLifterino: public Subsystem {
 private:
-	DigitalInput *toteUnderInput;
+	DigitalInput *toteUnderInput, *elevatorTopInput;
 	CANTalon *rightMotor,*leftMotor;
 public:
 	/**
@@ -19,6 +19,8 @@ public:
 	 * Does nothing because SetDefaultCommand call creates circular includes and compile errors
 	 */
 	void InitDefaultCommand();
+
+	bool getElevatorDigitalInput();
 
 	/**
 	 * Returns the encoder
