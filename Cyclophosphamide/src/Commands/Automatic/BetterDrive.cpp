@@ -10,6 +10,7 @@ BetterDrive::BetterDrive(float distance, double angle) {
 
 // Called just before this Command runs the first time
 void BetterDrive::Initialize() {
+	driveBase->startRotPID();
 	driveBase->zeroEncoders();
 	driveBase->setModeAll(CANSpeedController::kPosition);
 	driveBase->enablePIDAll(true);
