@@ -28,7 +28,7 @@ CommandBase::~CommandBase() {
 	delete canCollecterino;
 	delete autoCanerinoPuck;
 	//delete toteIntakerino;
-	//delete toteLifterino;
+	delete toteLifterino;
 	delete oi;
 	delete stackPusher;
 	delete craaaw;
@@ -36,12 +36,11 @@ CommandBase::~CommandBase() {
 }
 
 void CommandBase::init() {
-	driveBase = new DriveBae();
-	printf("Ross got past DriveBae initialization");
+	//driveBase = new DriveBae();
 	canCollecterino = new CanCollecterino();
 	autoCanerinoPuck = new AutoCanerinoPuck();
 	//toteIntakerino = new ToteIntakerino();
-	//toteLifterino = new ToteLifterino();
+	toteLifterino = new ToteLifterino();
 	oi = new OI();
 	stackPusher = new StackPusher();
 	craaaw = new Craaaw();
