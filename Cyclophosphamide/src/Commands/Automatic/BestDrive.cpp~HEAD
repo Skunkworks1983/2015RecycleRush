@@ -1,4 +1,4 @@
-#include "BetterDrive.h"
+#include <Commands/Automatic/BestDrive.h>
 #define AUTO_DRIVE_THRESHHOLD 0.0
 
 BetterDrive::BetterDrive(float distance, double angle) {

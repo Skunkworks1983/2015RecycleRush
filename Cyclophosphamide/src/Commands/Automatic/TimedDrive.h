@@ -4,7 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class AutoDrive: public CommandBase
+class TimedDrive: public CommandBase
 {
 private:
 	long targetTime;
@@ -16,7 +16,7 @@ private:
 	// TODO remove when we get encoders
 	unsigned long getTime();
 public:
-	AutoDrive(float duration, float heading);
+	TimedDrive(float duration, float heading);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -4,21 +4,22 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class BetterDrive: public CommandBase
+class BestDrive: public CommandBase
 {
+public:
+	enum Direction {
+		forward, reverse, left, right
+	};
 private:
 	float targetDistance;
-	float distanceRemain;
-	double targetAngle;
+	Direction direction;
 public:
-	BetterDrive(float distance, double angle);
+	BestDrive(float distance, Direction direction);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
-
-
 };
 
 #endif

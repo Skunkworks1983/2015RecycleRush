@@ -5,11 +5,11 @@
  *      Author: Administrator
  */
 
+#include <Commands/Automatic/TimedDrive.h>
 #include "Autonomous.h"
-#include "../Automatic/AutoDrive.h"
 
 Autonomous *Autonomous::createDriveDuration(float duration, float heading) {
 	Autonomous *cmd = new Autonomous("Autonomous-DriveDuration");
-	cmd->AddSequential(new AutoDrive(duration, heading));
+	cmd->AddSequential(new TimedDrive(duration, heading));
 	return cmd;
 }

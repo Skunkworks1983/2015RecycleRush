@@ -8,6 +8,7 @@ TurnTo::TurnTo(float targetAngle) {
 }
 
 void TurnTo::Initialize() {
+	driveBase->startRotPID();
 	driveBase->setTargetAngle(targetAngle);
 }
 
