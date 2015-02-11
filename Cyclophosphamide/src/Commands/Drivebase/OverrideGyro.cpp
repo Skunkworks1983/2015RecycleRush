@@ -10,12 +10,12 @@ OverrideGyro::OverrideGyro(bool override)
 void OverrideGyro::Initialize()
 {
 	if(override) {
-		driveBase->stopPID();
+		driveBase->stopRotPID();
 		driveBase->setGyroEnabled(false);
 	} else {
 		driveBase->setGyroEnabled(true);
 		driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
-		driveBase->startPID();
+		driveBase->startRotPID();
 	}
 }
 

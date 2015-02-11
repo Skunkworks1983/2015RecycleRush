@@ -39,8 +39,8 @@ public:
 	IMU *getGyro();
 	void setTargetAngle(double theta);
 
-	void stopPID();
-	void startPID();
+	void stopRotPID();
+	void startRotPID();
 	double getError();
 	double getSetpoint();
 	void setSetpoint(float f);

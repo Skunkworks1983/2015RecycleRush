@@ -13,15 +13,20 @@ DriveBae::DriveBae() :
 			motorBackLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_LEFT););
 	SAFE_INIT(DRIVE_MOTOR_BACK_RIGHT,
 			motorBackRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_BACK_RIGHT););
+
+	// Set ticks per revolution
 	motorFrontLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorFrontRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
-	setModeAll(CANSpeedController::kPosition);
+
+	// Invert encoders on one side
+	motorFrontRight->SetSensorDirection(true);
+	motorBackRight->SetSensorDirection(true);
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
-	uint8_t update_rate_hz = 50; // ayy lmao
+	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort, update_rate_hz);
 	gyroEnabled = gyro != NULL;
 
@@ -150,12 +155,14 @@ void DriveBae::setTargetAngle(double theta) {
 	rotPID->SetSetpoint(theta);
 }
 
-void DriveBae::stopPID() {
+void DriveBae::stopRotPID() {
 	rotPID->Disable();
 }
 
-void DriveBae::startPID() {
-	rotPID->Enable();
+void DriveBae::startRotPID() {
+	if(gyroEnabled) {
+		rotPID->Enable();
+	}
 }
 
 double DriveBae::getError() {

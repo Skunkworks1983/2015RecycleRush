@@ -1,8 +1,8 @@
-#include <Commands/Automatic/AutoDrive.h>
+#include <Commands/Automatic/TimedDrive.h>
 #include <chrono>
 #include <cmath>
 
-AutoDrive::AutoDrive(float t, float theta) {
+TimedDrive::TimedDrive(float t, float theta) {
 	Requires(driveBase);
 	duration = (long) t * 1000;
 	timePassed = 0;
@@ -16,33 +16,33 @@ AutoDrive::AutoDrive(float t, float theta) {
 	forwardSlashSpeed = forward - right;
 }
 
-void AutoDrive::Initialize() {
+void TimedDrive::Initialize() {
 	driveBase->setModeAll(CANSpeedController::kPosition);
 	targetTime = getTime() + duration;
 }
 
-void AutoDrive::Execute() {
+void TimedDrive::Execute() {
 	timePassed = getTime();
 	driveBase->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
 			backSlashSpeed);
 }
 
-bool AutoDrive::IsFinished() {
+bool TimedDrive::IsFinished() {
 	if (timePassed > targetTime) {
 		return true;
 	}
 	return false;
 }
 
-void AutoDrive::End() {
+void TimedDrive::End() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
-void AutoDrive::Interrupted() {
+void TimedDrive::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
-unsigned long AutoDrive::getTime() {
+unsigned long TimedDrive::getTime() {
 	using namespace std::chrono;
 	unsigned long ms = duration_cast<milliseconds>(
 			high_resolution_clock::now().time_since_epoch()).count();
