@@ -11,7 +11,8 @@ public:
 	static Autonomous *createDriveDistance(float distance, BestDrive::Direction direction);
 	static Autonomous *createDriveDuration(float duration, float heading);
 	static Autonomous *createTurnTo(double targetAngle);
-	static Autonomous *createAutoCanerinoPuck();
+	static Autonomous *createTripleTote();
+	static Autonomous *createTurningTripleTote();
 
 	Autonomous();
 	Autonomous(char *style);

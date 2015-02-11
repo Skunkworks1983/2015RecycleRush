@@ -60,10 +60,14 @@ void RefactorMeBot::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	autonomousCommand = (Command *) chooser->GetSelected();
 	autonomousCommand->Start();
+
+	float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
+	CommandBase::driveBase->getGyro()->SetYawPitchRoll(startingOffset, 0.0f, 0.0f, 0.0f);
 }
 
 void RefactorMeBot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+	WatchDogg();
 }
 
 void RefactorMeBot::TeleopInit() {
@@ -75,6 +79,7 @@ void RefactorMeBot::TeleopInit() {
 
 void RefactorMeBot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	WatchDogg();
 }
 
 void RefactorMeBot::DisabledInit() {
@@ -87,6 +92,11 @@ void RefactorMeBot::TestInit() {
 
 void RefactorMeBot::TestPeriodic() {
 	lw->Run();
+}
+
+void RefactorMeBot::WatchDogg() {
+	// there are no dogs to watch
+	// ayy lmao
 }
 
 START_ROBOT_CLASS(RefactorMeBot);
