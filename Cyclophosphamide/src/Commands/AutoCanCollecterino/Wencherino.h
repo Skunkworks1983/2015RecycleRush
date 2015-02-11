@@ -4,7 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class Wincherino: public CommandBase
+class Wencherino: public CommandBase
 {
 private:
 	AutoCanerinoPuck value;
@@ -12,7 +12,7 @@ private:
 	bool pull;
 
 public:
-	Wincherino(AutoCanerinoPuck::WinchSetting winchSetting);
+	Wencherino(AutoCanerinoPuck::WenchSetting wenchSetting);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -1,38 +1,38 @@
 #include <Commands/AutoCanCollecterino/Wencherino.h>
 
-Wincherino::Wincherino(AutoCanerinoPuck::WinchSetting winchSetting) {
+Wencherino::Wencherino(AutoCanerinoPuck::WenchSetting winchSetting) {
 	switch(winchSetting) {
-		case AutoCanerinoPuck::WinchSetting::bringIn:
+		case AutoCanerinoPuck::WenchSetting::bringIn:
 			setPoint = AUTO_CAN_PULL_DIST;
 			pull = true;
 			break;
-		case AutoCanerinoPuck::WinchSetting::letDown:
+		case AutoCanerinoPuck::WenchSetting::letDown:
 			setPoint = AUTO_CAN_LET_DOWN;
 			pull = false;
 			break;
-		case AutoCanerinoPuck::WinchSetting::putBack:
+		case AutoCanerinoPuck::WenchSetting::putBack:
 			setPoint = AUTO_CAN_PUT_BACK;
 			pull = false;
 			break;
 	}
 }
 
-void Wincherino::Initialize() {
+void Wencherino::Initialize() {
 	autoCanerinoPuck->wenchSet(pull);
 }
 
-void Wincherino::Execute() {
+void Wencherino::Execute() {
 
 }
 
-bool Wincherino::IsFinished() {
+bool Wencherino::IsFinished() {
 	return autoCanerinoPuck->wenchGetPosition() == setPoint;
 }
 
-void Wincherino::End() {
+void Wencherino::End() {
 	autoCanerinoPuck->wenchStop();
 }
 
-void Wincherino::Interrupted() {
+void Wencherino::Interrupted() {
 
 }

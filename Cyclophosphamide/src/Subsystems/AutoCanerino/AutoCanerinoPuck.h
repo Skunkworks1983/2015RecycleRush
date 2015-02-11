@@ -12,7 +12,7 @@ private:
 	AnalogInput *wenchPot;
 
 public:
-	enum WinchSetting {
+	enum WenchSetting {
 		letDown,
 		bringIn,
 		putBack

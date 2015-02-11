@@ -12,10 +12,10 @@
 Autonomous *Autonomous::createAutoCanerinoPuck() {
 	Autonomous *cmd = new Autonomous("Autonomous-AutoCanerinoPuck");
 	cmd->AddSequential(new Armerino(false));
-	cmd->AddParallel(new Wincherino(AutoCanerinoPuck::WinchSetting::bringIn));
+	cmd->AddParallel(new Wencherino(AutoCanerinoPuck::WenchSetting::bringIn));
 	cmd->AddParallel(createDriveDistance(AUTO_CAN_DRIVE_BACK, 0));
 	cmd->AddParallel(new Armerino(true));
-	cmd->AddSequential(new Wincherino(AutoCanerinoPuck::WinchSetting::letDown));
-	cmd->AddSequential(new Wincherino(AutoCanerinoPuck::WinchSetting::bringIn));
+	cmd->AddSequential(new Wencherino(AutoCanerinoPuck::WenchSetting::letDown));
+	cmd->AddSequential(new Wencherino(AutoCanerinoPuck::WenchSetting::bringIn));
 	return cmd;
 }
