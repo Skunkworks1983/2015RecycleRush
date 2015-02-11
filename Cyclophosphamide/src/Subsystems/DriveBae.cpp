@@ -150,11 +150,11 @@ void DriveBae::setTargetAngle(double theta) {
 	rotPID->SetSetpoint(theta);
 }
 
-void DriveBae::stopPID() {
+void DriveBae::stopRotPID() {
 	rotPID->Disable();
 }
 
-void DriveBae::startPID() {
+void DriveBae::startRotPID() {
 	rotPID->Enable();
 }
 
