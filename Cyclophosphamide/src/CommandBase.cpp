@@ -1,5 +1,5 @@
 #include "CommandBase.h"
-#include "Subsystems/DriveBase.h"
+#include "Subsystems/DriveBae.h"
 #include "Commands/Scheduler.h"
 #include "Subsystems/StackPusher.h"
 
@@ -38,7 +38,6 @@ CommandBase::~CommandBase() {
 void CommandBase::init() {
 	//driveBase = new DriveBae();
 	canCollecterino = new CanCollecterino();
-	autoCanerinoPuck = new AutoCanerinoPuck();
 	//toteIntakerino = new ToteIntakerino();
 	toteLifterino = new ToteLifterino();
 	oi = new OI();

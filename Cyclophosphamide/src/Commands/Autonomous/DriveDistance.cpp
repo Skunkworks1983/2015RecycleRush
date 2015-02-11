@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
+#include <Commands/Automatic/BestDrive.h>
 #include "Autonomous.h"
-#include "../Automatic/BetterDrive.h"
 
 Autonomous *Autonomous::createDriveDistance(float distance, float heading) {
 	Autonomous *cmd = new Autonomous("Autonomous-DriveDistance");
