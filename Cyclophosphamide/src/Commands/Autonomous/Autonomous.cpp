@@ -1,5 +1,6 @@
 #include "Autonomous.h"
 #include "../Automatic/BestDrive.h"
+#include "../Automatic/TurnTo.h"
 
 Autonomous::Autonomous() :
 		CommandGroup("Autonomous-Blank") {
@@ -19,8 +20,20 @@ Autonomous::Autonomous(int argc, char **argv) :
 		sscanf(argv[i], "%c\t%c%c\t%f", &cmdType, &typeA, &typeB, &arg);
 		Command *use = NULL;
 		switch (AUTO_SCRIPT_CHARMASK(typeA, typeB)) {
-		case AUTO_SCRIPT_CHARMASK('d', 'd'):
-			//use = new BestDrive(arg);
+		case AUTO_SCRIPT_CHARMASK('d', 'f'):
+			use = new BestDrive(arg, BestDrive::Direction::forward);
+			break;
+		case AUTO_SCRIPT_CHARMASK('d', 'b'):
+			use = new BestDrive(arg, BestDrive::Direction::backward);
+			break;
+		case AUTO_SCRIPT_CHARMASK('d', 'r'):
+			use = new BestDrive(arg, BestDrive::Direction::right);
+			break;
+		case AUTO_SCRIPT_CHARMASK('d', 'l'):
+			use = new BestDrive(arg, BestDrive::Direction::left);
+			break;
+		case AUTO_SCRIPT_CHARMASK('t', 't'):
+			use = new TurnTo(arg);
 			break;
 		default:
 			break;
