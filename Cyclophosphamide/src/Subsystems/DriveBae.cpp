@@ -205,6 +205,10 @@ void DriveBae::setSetpoint(float f) {
 	rotPID->SetSetpoint(f);
 }
 
+void DriveBae::zeroPIDOutput() {
+	rotPID->SetSetpoint(gyro->GetYaw());
+}
+
 DRIVE_MOTOR_TYPE *DriveBae::getMotor(MotorSide side) {
 	switch (side) {
 	case MotorSide::FRONT_LEFT:

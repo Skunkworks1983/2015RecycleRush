@@ -12,10 +12,17 @@
 #include <pthread.h>
 
 class StallableMotor {
+private:
+	CANTalon *stallableified;
+	pthread_t stallThread;
+
+	static void *InitHelper(void *classref);
+	void* StallCheck(void*);
+	void ThreadInit();
+
 public:
-	static void* StallCheck(void*);
-	static void ThreadKill(pthread_t stallThread);
-	static pthread_t ThreadInit(CANTalon *stallableified);
+	StallableMotor(CANTalon *stallablefied);
+	void ThreadKill();
 };
 
 #endif /* SRC_UTILITIES_STALLABLEMOTOR_H_ */
