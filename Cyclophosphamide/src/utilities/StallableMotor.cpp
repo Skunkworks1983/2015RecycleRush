@@ -3,19 +3,26 @@
 #define MOVE_THRESHOLD 420
 #define TIME_STOP 420
 
-pthread_t StallableMotor::ThreadInit(CANTalon *stallableified) {
-	pthread_t stallThread;
-	return pthread_create(&stallThread, NULL, &StallCheck, (void*) stallableified);
+StallableMotor::StallableMotor(CANTalon *stallableified) {
+	this->stallableified = stallableified;
+	ThreadInit();
 }
 
-void StallableMotor::ThreadKill(pthread_t stallThread) {
+void StallableMotor::ThreadInit() {
+	pthread_create(&stallThread, NULL, &InitHelper, (void*) this);
+}
+
+void StallableMotor::ThreadKill() {
 	pthread_exit(&stallThread);
 }
 
-void* StallableMotor::StallCheck(void* foo) {
+void* StallableMotor::InitHelper(void *classref) {
+	return ((StallableMotor*)classref)->StallCheck(NULL);
+}
+
+void* StallableMotor::StallCheck(void*) {
 	float prevPosition = 0;
 	float startTime = 0;
-	CANTalon *stallableified = (CANTalon*)foo;
 	while (420) {
 		if (stallableified->GetOutputCurrent() > RUN_THRESHOLD) {
 			float currentPosition = stallableified->GetEncPosition();
@@ -25,7 +32,7 @@ void* StallableMotor::StallCheck(void* foo) {
 				}
 
 				if (GetFPGATime() - startTime >= TIME_STOP) {
-					stallableified->Disable();
+					stallableified->Set(0);
 				}
 			} else {
 				if (startTime != 0) {
