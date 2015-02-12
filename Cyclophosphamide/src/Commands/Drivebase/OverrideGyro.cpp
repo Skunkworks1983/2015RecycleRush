@@ -14,7 +14,7 @@ void OverrideGyro::Initialize()
 		driveBase->setGyroEnabled(false);
 	} else {
 		driveBase->setGyroEnabled(true);
-		driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
+		driveBase->zeroPIDOutput();
 		driveBase->startRotPID();
 	}
 }

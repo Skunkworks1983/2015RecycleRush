@@ -46,6 +46,7 @@ public:
 	void setSetpoint(float f);
 	void setGyroEnabled(bool enable);
 	bool isGyroEnabled();
+	void zeroPIDOutput();
 
 	void setPIDAll(double P, double I, double D);
 	void setAll(double setPoint);

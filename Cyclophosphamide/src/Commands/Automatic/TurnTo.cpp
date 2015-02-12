@@ -23,10 +23,10 @@ bool TurnTo::IsFinished() {
 
 void TurnTo::End() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
+	driveBase->zeroPIDOutput();
 }
 
 void TurnTo::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBase->setTargetAngle(driveBase->getGyro()->GetYaw());
+	driveBase->zeroPIDOutput();
 }
