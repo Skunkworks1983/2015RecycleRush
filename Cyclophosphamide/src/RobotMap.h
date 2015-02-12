@@ -108,6 +108,8 @@
 #define OI_LOAD_LEFT 11
 #define OI_LOAD_RIGHT 12
 #define OI_JOYSTICK_STACK 2
+#define OI_LINEARPOT_MAX 4.20
+#define OI_LINEARPOT_TOTE_LIFTER_OVR_PORT 2
 
 // Can Collector
 #define CAN_MOTOR_TYPE CANTalon

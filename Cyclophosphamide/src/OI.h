@@ -37,6 +37,7 @@ private:
 		~OI();
 		Joystick *getJoystickLeft();
 		Joystick *getJoystickRight();
+		double getAnalogValue(int input);
 		bool getUnactuate();
 		void registerButtonListeners();
 		bool isJoystickButtonPressed(bool isLeft, int val);

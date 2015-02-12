@@ -87,6 +87,13 @@ Joystick *OI::getJoystickLeft() {
 Joystick *OI::getJoystickRight() {
 	return joystickRight;
 }
+
+double OI::getAnalogValue(int input){
+	//find input at port %input%
+	//return analog value for that device
+	return 0.0;
+}
+
 void OI::registerButtonListeners() {
 	/*
 	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));

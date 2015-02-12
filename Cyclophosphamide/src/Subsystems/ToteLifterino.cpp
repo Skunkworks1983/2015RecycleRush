@@ -6,8 +6,7 @@
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
 //	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	SAFE_INIT(TOTE_LIFTER_RIGHT,
-			rightMotor = new CANTalon(TOTE_LIFTER_RIGHT););
+	SAFE_INIT(TOTE_LIFTER_RIGHT, rightMotor = new CANTalon(TOTE_LIFTER_RIGHT););
 	SAFE_INIT(TOTE_LIFTER_LEFT, leftMotor = new CANTalon(TOTE_LIFTER_LEFT););
 	SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
 			toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
@@ -52,6 +51,10 @@ void ToteLifterino::enablePID(bool enable) {
 	} else {
 		leftMotor->Disable();
 		rightMotor->Disable();
+		leftMotor->SetControlMode(
+				CANSpeedController::ControlMode::kPercentVbus);
+		rightMotor->SetControlMode(
+				CANSpeedController::ControlMode::kPercentVbus);
 	}
 }
 
