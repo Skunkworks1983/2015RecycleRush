@@ -3,7 +3,7 @@
 UpdateCompressor::UpdateCompressor() :
 	CommandBase("UpdateCompressor")
 {
-	// Requires(pneumatics);
+	Requires(pneumatics);
 }
 
 // Called just before this Command runs the first time
@@ -16,8 +16,9 @@ void UpdateCompressor::Initialize()
 void UpdateCompressor::Execute()
 {
 	if (ticksSinceUpdate > 10) {
-		// bool state = pneumatics->isBelowPressure();
-		// pneumatics->setState(state);
+		bool state = pneumatics->isBelowPressure();
+		SmartDashboard::PutBoolean("pressure", state);
+		pneumatics->setState(state);
 		ticksSinceUpdate = 0;
 	}
 	++ticksSinceUpdate;
@@ -32,7 +33,7 @@ bool UpdateCompressor::IsFinished()
 // Called once after isFinished returns true
 void UpdateCompressor::End()
 {
-	// pneumatics->setState(false);
+	pneumatics->setState(false);
 }
 
 // Called when another command which requires one or more of the same
