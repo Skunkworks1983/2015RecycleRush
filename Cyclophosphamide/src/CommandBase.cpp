@@ -12,7 +12,7 @@ ToteIntakerino* CommandBase::toteIntakerino = NULL;
 StackPusher* CommandBase::stackPusher = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
 Craaaw* CommandBase::craaaw = NULL;
-// Pneumatics* CommandBase::pneumatics = NULL;
+Pneumatics* CommandBase::pneumatics = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name) {
@@ -26,22 +26,22 @@ CommandBase::CommandBase() :
 CommandBase::~CommandBase() {
 	delete driveBase;
 	delete canCollecterino;
-	delete autoCanerinoPuck;
-	//delete toteIntakerino;
+	//delete autoCanerinoPuck;
+	delete toteIntakerino;
 	delete toteLifterino;
 	delete oi;
 	delete stackPusher;
 	delete craaaw;
-	// delete pneumatics;
+	delete pneumatics;
 }
 
 void CommandBase::init() {
-	//driveBase = new DriveBae();
+	driveBase = new DriveBae();
 	canCollecterino = new CanCollecterino();
-	//toteIntakerino = new ToteIntakerino();
+	toteIntakerino = new ToteIntakerino();
 	toteLifterino = new ToteLifterino();
 	oi = new OI();
 	stackPusher = new StackPusher();
 	craaaw = new Craaaw();
-	// pneumatics = new Pneumatics();
+	pneumatics = new Pneumatics();
 }
