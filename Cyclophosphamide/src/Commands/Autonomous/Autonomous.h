@@ -16,6 +16,7 @@ public:
 
 	Autonomous();
 	Autonomous(char *style);
+	Autonomous(int argc, char **argv);
 	virtual void Initialize();
 	~Autonomous();
 };
