@@ -9,6 +9,13 @@
 		thingy \
 	}
 
+// Autonomous Configuration Settings
+#define AUTO_SCRIPT_MAXLENGTH	(256)
+#define AUTO_SCRIPT_MAXLINES	(64)
+#define AUTO_SCRIPT_COMMAND_MAXLENGTH	(20)
+#define AUTO_SCRIPT_LOCATIONS	"/c/automagic/"
+#define AUTO_SCRIPT_CHARMASK(a,b) ((((int)a) << 8) | ((int)b))
+
 // C++ changes
 #define floaterino float
 #define returnerino return
@@ -44,21 +51,18 @@
 #define TOTE_LIFTER_ENCODER_CA DOESNT_EXIST
 #define TOTE_LIFTER_ENCODER_CB DOESNT_EXIST
 #define TOTE_LIFTER_ENCODER_REVERSED false
-#define TOTE_LIFTER_UP_SPEED 100
-#define TOTE_LIFTER_DOWN_SPEED -100
-#define TOTE_LIFTER_TOTE_INPUT 0
-#define TOTE_LIFTER_TICKS_PER_INCH 2000
+#define TOTE_LIFTER_TOTE_INPUT 6
+#define TOTE_LIFTER_TICKS_PER_INCH 1000
 
-#define TOTE_LIFTER_PID_P .2
-#define TOTE_LIFTER_PID_I 0
+#define TOTE_LIFTER_PID_P .05
+#define TOTE_LIFTER_PID_I .001
 #define TOTE_LIFTER_PID_D 0
-#define TOTE_LIFTER_USING_PID true
 
 #define TOTE_LIFTER_HIGH 10
 #define TOTE_LIFTER_MID 5
 #define TOTE_LIFTER_LOW 1
 #define TOTE_LIFTER_FLOOR 0
-#define TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT 1
+#define TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT 4
 
 #define LIFT_TO_HEIGHT_CONSTANT 1
 

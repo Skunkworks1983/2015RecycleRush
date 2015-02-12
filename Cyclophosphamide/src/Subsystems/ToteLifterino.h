@@ -5,11 +5,12 @@
 #include "WPILib.h"
 #include "robotmap.h"
 #include "../utilities/DoubleMotorPIDOutput.h"
+#include "ctre/CanTalonSRX.h"
 
 class ToteLifterino: public Subsystem {
 private:
 	DigitalInput *toteUnderInput, *elevatorTopInput;
-	CANTalon *rightMotor,*leftMotor;
+	CANTalon *rightMotor, *leftMotor;
 public:
 	/**
 	 * Default Constructor. Normal Initialization
@@ -38,13 +39,9 @@ public:
 	 * @return if the value is close enough to the constant
 	 */
 	bool closeEnough(int destination);
-
-	void setMotors(double speed);
-
-#if TOTE_LIFTER_USING_PID
+	void setMotorSpeed(double speed);
 	void setSetPoints(double setPoint);
 	void enablePID(bool enable);
-#endif
 
 };
 

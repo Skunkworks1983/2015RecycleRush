@@ -16,9 +16,6 @@
 OI::OI() {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
-	goToLowElevator = new JoystickButton(joystickLeft,1);
-	goToMidElevator = new JoystickButton(joystickLeft,2);
-	goToHighElevator = new JoystickButton(joystickLeft,3);
 	/*
 	 stackButton = new NOTSKUNKBUTT(joystickLeft, OI_JOYSTICK_STACK);
 	 pushButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_PUSHBUTTON);
@@ -37,6 +34,7 @@ OI::OI() {
 	 leftLoadButton = new JoystickButton(joystickRight, OI_LOAD_LEFT);
 	 rightLoadButton = new JoystickButton(joystickRight, OI_LOAD_RIGHT);
 	 */
+	//toteLifterOverride = new Button(5);
 }
 
 OI::~OI() {
@@ -87,14 +85,16 @@ void OI::registerButtonListeners() {
 	 SAFE_BUTTON(leftLoadButton, leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
 	 SAFE_BUTTON(rightLoadButton, rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
 	 */
-	SAFE_BUTTON(goToHighElevator,
-			goToHighElevator->WhenPressed(new LiftToHeight(TOTE_LIFTER_HIGH)))
-	SAFE_BUTTON(goToMidElevator,
-			goToMidElevator->WhenPressed(new LiftToHeight(TOTE_LIFTER_MID)))
-	SAFE_BUTTON(goToLowElevator,
-			goToLowElevator->WhenPressed(new LiftToHeight(TOTE_LIFTER_LOW)))
-
 }
+
+bool OI::isJoystickButtonPressed(bool isLeft, int val){
+	if(isLeft){
+		return val > 0 && val < joystickLeft->GetButtonCount() && joystickLeft->GetRawButton(val);
+	}else{
+		return val > 0 && val < joystickRight->GetButtonCount() && joystickRight->GetRawButton(val);
+	}
+}
+
 
 bool OI::getUnactuate() {
 	return unactuateButton->Get();

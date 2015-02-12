@@ -30,14 +30,15 @@ private:
 		JoystickButton *goToMidElevator;
 		JoystickButton *goToLowElevator;
 
+		Button *toteLifterOverride;
 	public:
 		OI();
 		~OI();
 		Joystick *getJoystickLeft();
 		Joystick *getJoystickRight();
 		bool getUnactuate();
-		bool checkStackFlag();
 		void registerButtonListeners();
+		bool isJoystickButtonPressed(bool isLeft, int val);
 	};
 
 #endif

@@ -7,10 +7,8 @@
 class LiftToHeight : public CommandBase
 {
 private:
-	double destination;
-	double startingPos;
-	double motorSpeed;
-	double oldDiff;
+	double destination, oldDest;
+	int count;
 public:
 	LiftToHeight(double destination);
 	void Initialize();
