@@ -9,7 +9,7 @@ MecanumDrive::MecanumDrive() :
 
 void MecanumDrive::Initialize() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBase->setModeAll(CANSpeedController::kSpeed);
+	driveBase->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
 }
 
 void MecanumDrive::Execute() {

@@ -14,7 +14,8 @@ private:
 		JoystickButton *unactuateButton;
 		JoystickButton *liftarmsButton;
 		JoystickButton *lowerarmsButton;
-		JoystickButton *toteintakeButton;
+		JoystickButton *toteIntakeButtonForward;
+		JoystickButton *toteIntakeButtonReverse;
 		JoystickButton *totelifterButton;
 		JoystickButton *motorfowardButton;
 		JoystickButton *motorbackwardButton;

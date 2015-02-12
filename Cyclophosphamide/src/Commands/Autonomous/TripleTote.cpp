@@ -15,18 +15,18 @@
 Autonomous *Autonomous::createTripleTote() {
 	Autonomous *cmd = new Autonomous("Autonomous-TripleTote");
 	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::forward*/));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::stop*/));
+	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
+	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(45, BestDrive::reverse));
 	cmd->AddSequential(new BestDrive(33, BestDrive::left));
 	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::forward*/));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::stop*/));
+	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
+	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(45, BestDrive::reverse));
 	cmd->AddSequential(new BestDrive(33, BestDrive::left));
 	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::forward*/));
-	cmd->AddSequential(new ToteIntake(/*ToteLifterino::stop*/));
+	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
+	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(107, BestDrive::reverse));
 	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
 	cmd->AddSequential(new PushPull());
