@@ -8,7 +8,7 @@ class BestDrive: public CommandBase
 {
 public:
 	enum Direction {
-		forward, reverse, left, right
+		forward, backward, left, right
 	};
 private:
 	float targetDistance;
