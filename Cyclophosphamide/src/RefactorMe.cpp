@@ -18,7 +18,6 @@
 
 #include "Commands/Autonomous/Autonomous.h"
 
-
 RefactorMeBot::RefactorMeBot() {
 	lw = NULL;
 	autonomousCommand = NULL;
@@ -37,23 +36,27 @@ void RefactorMeBot::RobotInit() {
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 1000 ticks", Autonomous::createDriveDistance(360.0f, BestDrive::forward));
-	chooser->AddObject("Drive forward 1 second", Autonomous::createDriveDuration(1.0f, -90.0f));
+	chooser->AddObject("Drive forward 1000 ticks",
+			Autonomous::createDriveDistance(360.0f, BestDrive::forward));
+	chooser->AddObject("Drive forward 1 second",
+			Autonomous::createDriveDuration(1.0f, -90.0f));
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	CommandBase::oi->registerButtonListeners();
 
 	SmartDashboard::PutData("Zero yaw", new ZeroGyro);
-	bool zeroed = false;
-	double initialTime = GetFPGATime();
-	while(!zeroed) {
-		bool isCalibrating = false; //CommandBase::driveBae->getGyro()->IsCalibrating();
-		if(!isCalibrating || GetFPGATime()-initialTime > GYRO_TIMEOUT) {
-			Wait( 0.2 );
-			CommandBase::driveBae->getGyro()->ZeroYaw();
-			CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
-			zeroed = true;
+	if (CommandBase::driveBae != NULL) {
+		bool zeroed = false;
+		double initialTime = GetFPGATime();
+		while (!zeroed) {
+			bool isCalibrating = false; //CommandBase::driveBae->getGyro()->IsCalibrating();
+			if (!isCalibrating || GetFPGATime() - initialTime > GYRO_TIMEOUT) {
+				Wait(0.2);
+				CommandBase::driveBae->getGyro()->ZeroYaw();
+				CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
+				zeroed = true;
+			}
 		}
 	}
 }
@@ -66,7 +69,8 @@ void RefactorMeBot::AutonomousInit() {
 	//autonomousCommand->Start();
 
 	float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
-	CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f, 0.0f, 0.0f);
+	CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f,
+			0.0f, 0.0f);
 }
 
 void RefactorMeBot::AutonomousPeriodic() {
