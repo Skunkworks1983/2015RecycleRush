@@ -1,6 +1,18 @@
 #include "Autonomous.h"
 #include "../Automatic/BestDrive.h"
 #include "../Automatic/TurnTo.h"
+#include "../CanCollecterino/Arms/Induct.h"
+#include "../CanCollecterino/Arms/MoveArms.h"
+#include "../CanCollecterino/Arms/MoveWrist.h"
+#include "../CanCollecterino/Craaaw/CraaawActuate.h"
+#include "../CanCollecterino/Craaaw/CraaawUnactuate.h"
+#include "../CanCollecterino/Collect.h"
+#include "../CanCollecterino/PutUp.h"
+#include "../CanCollecterino/SetDown.h"
+#include "../PushStack/PushPull.h"
+#include "../PushStack/PushStack.h"
+#include "../ToteHandling/LiftToHeight.h"
+#include "../ToteHandling/ToteIntake.h"
 
 Autonomous::Autonomous() :
 		CommandGroup("Autonomous-Blank") {
@@ -44,17 +56,23 @@ Autonomous::Autonomous(int argc, char **argv) :
 		case AUTO_SCRIPT_CHARMASK('c','c'):
 			use = new Collect();
 			break;
-		case AUTO_SCRIPT_CHARMASK('t','i'):
-			use = new ToteIntake();
+		case AUTO_SCRIPT_CHARMASK('t','i'):// tote intake forward
+			use = new ToteIntake(ToteIntake::Direction::forward);
 			break;
+		case AUTO_SCRIPT_CHARMASK('t','o'):// tote reverse forward
+					use = new ToteIntake(ToteIntake::Direction::reverse);
+					break;
+		case AUTO_SCRIPT_CHARMASK('t','s'):// tote intake stop
+					use = new ToteIntake(ToteIntake::Direction::stopped);
+					break;
 		case AUTO_SCRIPT_CHARMASK('t','l'):
-			use = new LiftToHeight();
+			use = new LiftToHeight((double)arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('p','i'):
-			use = new PushStack(StackPusher::PushState::pull);
+			use = new PushStack(StackPusher::PushState::pull, arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('p','o'):
-			use = new PushStack(StackPusher::PushState::push);
+			use = new PushStack(StackPusher::PushState::push, arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('p','p'):
 			use = new PushPull();
@@ -81,7 +99,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new MoveArms(true);
 			break;
 		case AUTO_SCRIPT_CHARMASK('a','d')://Arms down
-			use = new MoveArms(down);
+			use = new MoveArms(false);
 			break;
 		case AUTO_SCRIPT_CHARMASK('w','o')://wrist open
 			use = new MoveWrist(true);
