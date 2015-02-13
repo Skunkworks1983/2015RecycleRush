@@ -49,10 +49,13 @@ void MecanumDrive::Execute() {
 	 * so there's a leftover error that causes latency when turning in the
 	 * opposite direction. This corrects for that.
 	 */
+	/*
+	 *This breaks it...
 	if ((clockwise > 0 && driveBase->getError() < 0)
 			|| (clockwise < 0 && driveBase->getError() > 0)) {
 		driveBase->zeroPIDOutput();
 	}
+	*/
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
