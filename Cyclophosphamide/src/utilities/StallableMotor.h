@@ -9,19 +9,22 @@
 #define SRC_UTILITIES_STALLABLEMOTOR_H_
 
 #include "WPILib.h"
+#include "../RobotMap.h"
 #include <pthread.h>
 
 class StallableMotor {
 private:
 	CANTalon *stallableified;
 	pthread_t stallThread;
+	float currentThreshold;
 
 	static void *InitHelper(void *classref);
 	void* StallCheck(void*);
 	void ThreadInit();
+	unsigned long getTime();
 
 public:
-	StallableMotor(CANTalon *stallablefied);
+	StallableMotor(CANTalon *stallablefied, float currentThreshold);
 	void ThreadKill();
 };
 

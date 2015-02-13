@@ -2,7 +2,7 @@
 
 OverrideGyro::OverrideGyro(bool override)
 {
-	Requires(driveBase);
+	Requires(driveBae);
 	this->override = override;
 }
 
@@ -10,12 +10,12 @@ OverrideGyro::OverrideGyro(bool override)
 void OverrideGyro::Initialize()
 {
 	if(override) {
-		driveBase->stopRotPID();
-		driveBase->setGyroEnabled(false);
+		driveBae->stopRotPID();
+		driveBae->setGyroEnabled(false);
 	} else {
-		driveBase->setGyroEnabled(true);
-		driveBase->zeroPIDOutput();
-		driveBase->startRotPID();
+		driveBae->setGyroEnabled(true);
+		driveBae->zeroPIDOutput();
+		driveBae->startRotPID();
 	}
 }
 

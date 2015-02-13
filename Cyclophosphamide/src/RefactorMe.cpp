@@ -46,11 +46,11 @@ void RefactorMeBot::RobotInit() {
 	bool zeroed = false;
 	double initialTime = GetFPGATime();
 	while(!zeroed) {
-		bool isCalibrating = CommandBase::driveBase->getGyro()->IsCalibrating();
+		bool isCalibrating = false; //CommandBase::driveBae->getGyro()->IsCalibrating();
 		if(!isCalibrating || GetFPGATime()-initialTime > GYRO_TIMEOUT) {
 			Wait( 0.2 );
-			CommandBase::driveBase->getGyro()->ZeroYaw();
-			CommandBase::driveBase->startRotPID(); // enable the pid. May want to move this
+			CommandBase::driveBae->getGyro()->ZeroYaw();
+			CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
 			zeroed = true;
 		}
 	}
@@ -62,7 +62,7 @@ void RefactorMeBot::AutonomousInit() {
 	autonomousCommand->Start();
 
 	float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
-	CommandBase::driveBase->getGyro()->SetYawPitchRoll(startingOffset, 0.0f, 0.0f, 0.0f);
+	CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f, 0.0f, 0.0f);
 }
 
 void RefactorMeBot::AutonomousPeriodic() {

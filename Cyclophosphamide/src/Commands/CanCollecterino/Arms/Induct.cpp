@@ -1,11 +1,12 @@
 #include <Commands/CanCollecterino/Arms/Induct.h>
 
 Induct::Induct() {
+	fuck = 0;
+	Requires(canCollecterino);
 }
 
 void Induct::Initialize() {
 	canCollecterino->setGrab(CAN_GRAB_SPEED);
-	Requires(canCollecterino);
 }
 
 void Induct::Execute() {
@@ -13,6 +14,7 @@ void Induct::Execute() {
 }
 
 bool Induct::IsFinished() {
+	canCollecterino->StallDiag();
 	return canCollecterino->getCanSensor();
 }
 
@@ -21,5 +23,5 @@ void Induct::End() {
 }
 
 void Induct::Interrupted() {
-
+	canCollecterino->setGrab(0);
 }

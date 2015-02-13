@@ -4,10 +4,9 @@
 #include "Subsystems/StackPusher.h"
 
 // Initialize a single static instance of all of your subsystems to NULL
-DriveBae* CommandBase::driveBase = NULL;
+DriveBae* CommandBase::driveBae = NULL;
 OI* CommandBase::oi = NULL;
 CanCollecterino* CommandBase::canCollecterino = NULL;
-AutoCanerinoPuck* CommandBase::autoCanerinoPuck = NULL;
 ToteIntakerino* CommandBase::toteIntakerino = NULL;
 StackPusher* CommandBase::stackPusher = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
@@ -24,9 +23,8 @@ CommandBase::CommandBase() :
 }
 
 CommandBase::~CommandBase() {
-	delete driveBase;
+	delete driveBae;
 	delete canCollecterino;
-	//delete autoCanerinoPuck;
 	delete toteIntakerino;
 	delete toteLifterino;
 	delete oi;
@@ -36,12 +34,12 @@ CommandBase::~CommandBase() {
 }
 
 void CommandBase::init() {
-	driveBase = new DriveBae();
+	driveBae = new DriveBae();
 	canCollecterino = new CanCollecterino();
-	toteIntakerino = new ToteIntakerino();
-	toteLifterino = new ToteLifterino();
+//	toteIntakerino = new ToteIntakerino();
+//	toteLifterino = new ToteLifterino();
 	oi = new OI();
-	stackPusher = new StackPusher();
-	craaaw = new Craaaw();
-	pneumatics = new Pneumatics();
+//	stackPusher = new StackPusher();
+//	craaaw = new Craaaw();
+//	pneumatics = new Pneumatics();
 }

@@ -7,7 +7,7 @@
 class MoveWrist: public CommandBase
 {
 private:
-	float setpoint;
+	DoubleSolenoid::Value setpoint;
 
 public:
 	MoveWrist(bool open);

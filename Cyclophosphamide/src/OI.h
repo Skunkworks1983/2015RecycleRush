@@ -31,6 +31,8 @@ private:
 		JoystickButton *goToMidElevator;
 		JoystickButton *goToLowElevator;
 
+		JoystickButton *dickAss;
+
 		Button *toteLifterOverride;
 	public:
 		OI();

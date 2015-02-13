@@ -3,7 +3,7 @@
 #include <cmath>
 
 TimedDrive::TimedDrive(float t, float theta) {
-	Requires(driveBase);
+	Requires(driveBae);
 	duration = (long) t * 1000;
 	timePassed = 0;
 	targetTime = 0;
@@ -17,13 +17,13 @@ TimedDrive::TimedDrive(float t, float theta) {
 }
 
 void TimedDrive::Initialize() {
-	driveBase->setModeAll(CANSpeedController::kPosition);
+	driveBae->setModeAll(CANSpeedController::kPosition);
 	targetTime = getTime() + duration;
 }
 
 void TimedDrive::Execute() {
 	timePassed = getTime();
-	driveBase->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
+	driveBae->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
 			backSlashSpeed);
 }
 
@@ -35,11 +35,11 @@ bool TimedDrive::IsFinished() {
 }
 
 void TimedDrive::End() {
-	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
 void TimedDrive::Interrupted() {
-	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
 unsigned long TimedDrive::getTime() {
