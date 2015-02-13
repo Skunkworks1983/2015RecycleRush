@@ -4,13 +4,15 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "robotmap.h"
-#include "../utilities/DoubleMotorPIDOutput.h"
-#include "ctre/CanTalonSRX.h"
+#include "../utilities/DoubleMotorPIDWrapper.h"
 
 class ToteLifterino: public Subsystem {
 private:
 	DigitalInput *toteUnderInput, *elevatorTopInput;
-	CANTalon *rightMotor, *leftMotor;
+	Talon *rightMotor, *leftMotor;
+	Encoder *encoder;
+	DoubleMotorPIDWrapper *pid;
+	bool pidEnabled;
 public:
 	/**
 	 * Default Constructor. Normal Initialization
@@ -23,13 +25,12 @@ public:
 
 	bool getElevatorDigitalInput();
 
-	/**
-	 * Returns the encoder
-	 *
-	 * @Ross
-	 */
-	CANTalon *getLeftMotor();
-	CANTalon *getRightMotor();
+	Talon *getLeftMotor();
+	Talon *getRightMotor();
+
+	DoubleMotorPIDWrapper *getPID();
+
+	double getEncPosition();
 
 	bool isToteUnder();
 	/**

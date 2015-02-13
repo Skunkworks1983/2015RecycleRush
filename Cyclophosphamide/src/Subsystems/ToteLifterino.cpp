@@ -6,14 +6,24 @@
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
 //	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	SAFE_INIT(TOTE_LIFTER_RIGHT, rightMotor = new CANTalon(TOTE_LIFTER_RIGHT););
-	SAFE_INIT(TOTE_LIFTER_LEFT, leftMotor = new CANTalon(TOTE_LIFTER_LEFT););
-	SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
-			toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
+	SAFE_INIT(TOTE_LIFTER_RIGHT, rightMotor = new Talon(TOTE_LIFTER_RIGHT););
+	SAFE_INIT(TOTE_LIFTER_LEFT, leftMotor = new Talon(TOTE_LIFTER_LEFT););
+	//SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
+	//		toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
 	//elevatorTopInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT);
+	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
+	pid = new DoubleMotorPIDWrapper(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
+			TOTE_LIFTER_PID_D, leftMotor,rightMotor, encoder);
+
 	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
+
+	encoder->Reset();
+}
+
+double ToteLifterino::getEncPosition(){
+	return encoder->GetDistance();
 }
 
 void ToteLifterino::InitDefaultCommand() {
@@ -24,11 +34,11 @@ bool ToteLifterino::getElevatorDigitalInput() {
 	return elevatorTopInput->Get();
 }
 
-CANTalon *ToteLifterino::getLeftMotor() {
+Talon *ToteLifterino::getLeftMotor() {
 	return leftMotor;
 }
 
-CANTalon *ToteLifterino::getRightMotor() {
+Talon *ToteLifterino::getRightMotor() {
 	return rightMotor;
 }
 
@@ -37,25 +47,19 @@ bool ToteLifterino::isToteUnder() {
 }
 
 void ToteLifterino::enablePID(bool enable) {
-	if (enable) {
-		leftMotor->SetPID(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
+	pidEnabled = enable;
+	if (pidEnabled) {
+		pid->setPID(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
 		TOTE_LIFTER_PID_D);
-		leftMotor->SetControlMode(CANSpeedController::ControlMode::kPosition);
-		leftMotor->SetPosition(0);
 
-		rightMotor->SetControlMode(CANSpeedController::ControlMode::kFollower);
-		rightMotor->Set(TOTE_LIFTER_LEFT);
-
-		rightMotor->EnableControl();
-		leftMotor->EnableControl();
+		pid->enable(true);
 	} else {
-		leftMotor->Disable();
-		rightMotor->Disable();
-		leftMotor->SetControlMode(
-				CANSpeedController::ControlMode::kPercentVbus);
-		rightMotor->SetControlMode(
-				CANSpeedController::ControlMode::kPercentVbus);
+		pid->enable(false);
 	}
+}
+
+DoubleMotorPIDWrapper *ToteLifterino::getPID(){
+	return pid;
 }
 
 //disables the pid

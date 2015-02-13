@@ -16,27 +16,22 @@ void LiftToHeight::Initialize() {
 void LiftToHeight::Execute() {
 	//Nothing?
 	if (count++ > 25) {
-		if (toteLifterino->getLeftMotor()->GetP()
-				!= SmartDashboard::GetNumber("P")) {
-			toteLifterino->getLeftMotor()->SetP(SmartDashboard::GetNumber("P"));
-		}
-		if (toteLifterino->getLeftMotor()->GetI()
-				!= SmartDashboard::GetNumber("I")) {
-			toteLifterino->getLeftMotor()->SetI(SmartDashboard::GetNumber("I"));
-		}
-		if (toteLifterino->getLeftMotor()->GetI()
-				!= SmartDashboard::GetNumber("I")) {
-			toteLifterino->getLeftMotor()->SetI(SmartDashboard::GetNumber("I"));
+		if (toteLifterino->getPID()->getP() != SmartDashboard::GetNumber("P")
+				|| toteLifterino->getPID()->getI()
+						!= SmartDashboard::GetNumber("I")
+				|| toteLifterino->getPID()->getD()
+						!= SmartDashboard::GetNumber("D")) {
+			toteLifterino->getPID()->setPID(SmartDashboard::GetNumber("P"),
+					SmartDashboard::GetNumber("I"),
+					SmartDashboard::GetNumber("D"));
 		}
 	}
 
 	SmartDashboard::PutNumber("Encoder Value:",
-			toteLifterino->getLeftMotor()->GetEncPosition());
+			toteLifterino->getEncPosition());
 	SmartDashboard::PutNumber("MotorSetPoint",
-			toteLifterino->getLeftMotor()->GetSetpoint());
-	SmartDashboard::PutNumber("MotorSpeed",
-			toteLifterino->getLeftMotor()->GetSpeed());
-	SmartDashboard::PutNumber("Destination", destination);
+			toteLifterino->getPID()->getSetPoint());
+	SmartDashboard::PutNumber("Local Destination", destination);
 
 	if (oi->isJoystickButtonPressed(true, 1)) {
 		destination = TOTE_LIFTER_FLOOR;
@@ -52,25 +47,14 @@ void LiftToHeight::Execute() {
 		toteLifterino->setSetPoints(destination);
 		oldDest = destination;
 	}
-	//failsafe could not work
-//	if (toteLifterino->getElevatorDigitalInput() && destination < 0) {
-//		toteLifterino->getLeftMotor()->SetPosition(0);
-//		End();
-//	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
-	//don't end when at destination becuase it needs to hold the totes up until there is a tote under
+	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
 	return false;
-	//if (destination != TOTE_LIFTER_FLOOR) {
-	//	return toteLifterino->isToteUnder();
-	/* else {
-	 return toteLifterino->getLeftMotor()->GetEncPosition()
-	 + TOTE_LIFTER_ENCODER_DEADBAND < TOTE_LIFTER_FLOOR
-	 || toteLifterino->getLeftMotor()->GetEncPosition()
-	 - TOTE_LIFTER_ENCODER_DEADBAND > TOTE_LIFTER_FLOOR;
-	 }*/
+	// return toteLifterino->getElevatorDigitalInput() && destination < 0
+	// return toteLifterino->isToteUnder();
 }
 
 // Called once after isFinished returns true
