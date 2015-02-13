@@ -75,7 +75,7 @@ void ToteLifterino::setMotorSpeed(double speed) {
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
-	pid->SetSetpoint(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
+	pid->SetSetpoint(setPoint * TOTE_LIFTER_TICKS_PER_REV);
 }
 
 void ToteLifterino::PIDWrite(float f) {
