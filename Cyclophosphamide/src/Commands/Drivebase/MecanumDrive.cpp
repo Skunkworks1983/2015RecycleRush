@@ -4,12 +4,12 @@
 
 MecanumDrive::MecanumDrive() :
 		CommandBase("MecanumDrive") {
-	Requires(driveBase);
+	Requires(driveBae);
 }
 
 void MecanumDrive::Initialize() {
-	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBase->setModeAll(CANSpeedController::kSpeed);
+	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setModeAll(CANSpeedController::kSpeed);
 }
 
 void MecanumDrive::Execute() {
@@ -49,9 +49,9 @@ void MecanumDrive::Execute() {
 	 * so there's a leftover error that causes latency when turning in the
 	 * opposite direction. This corrects for that.
 	 */
-	if ((clockwise > 0 && driveBase->getError() < 0)
-			|| (clockwise < 0 && driveBase->getError() > 0)) {
-		driveBase->zeroPIDOutput();
+	if ((clockwise > 0 && driveBae->getError() < 0)
+			|| (clockwise < 0 && driveBae->getError() > 0)) {
+		driveBae->zeroPIDOutput();
 	}
 
 	// Cube inputs for fine control
@@ -59,11 +59,11 @@ void MecanumDrive::Execute() {
 	forward = pow(forward, 3.0);
 	right = pow(right, 3.0);
 
-	if (driveBase->isGyroEnabled()) {
+	if (driveBae->isGyroEnabled()) {
 		clockwise *= JOYSTICK_DEGREES_PER_TICK;
 		// Don't increase the angle if the PIDOutput is already maxed
-		if (driveBase->getClockwise() < 0.9) {
-			double targetAngle = driveBase->getSetpoint() + clockwise;
+		if (driveBae->getClockwise() < 0.9) {
+			double targetAngle = driveBae->getSetpoint() + clockwise;
 			if (targetAngle > 180.0) {
 				targetAngle += 180.0;
 				targetAngle = fmod(targetAngle, 360.0);
@@ -74,7 +74,7 @@ void MecanumDrive::Execute() {
 				targetAngle += 180.0;
 			}
 
-			driveBase->setSetpoint(targetAngle);
+			driveBae->setSetpoint(targetAngle);
 		}
 
 		//SmartDashboard::PutNumber("PID setpoint", driveBase->getSetpoint());
@@ -82,7 +82,7 @@ void MecanumDrive::Execute() {
 
 #if FIELD_ORIENTED
 		// Field-oriented corrections
-		double theta = driveBase->getGyro()->GetYaw();
+		double theta = driveBae->getGyro()->GetYaw();
 		//SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
@@ -91,7 +91,7 @@ void MecanumDrive::Execute() {
 #endif
 	} else { // If the gyro is not enabled
 		// Set the speed directly without using PID
-		driveBase->setClockwise(clockwise);
+		driveBae->setClockwise(clockwise);
 	}
 
 	/*
@@ -100,9 +100,9 @@ void MecanumDrive::Execute() {
 	 */
 	forward *= DRIVE_ASPECT_RATIO;
 
-	driveBase->setForward(-forward);
-	driveBase->setRight(right);
-	driveBase->execute();
+	driveBae->setForward(-forward);
+	driveBae->setRight(right);
+	driveBae->execute();
 }
 
 bool MecanumDrive::IsFinished() {
@@ -110,9 +110,9 @@ bool MecanumDrive::IsFinished() {
 }
 
 void MecanumDrive::End() {
-	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
 void MecanumDrive::Interrupted() {
-	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 }

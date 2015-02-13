@@ -2,7 +2,7 @@
 
 ZeroGyro::ZeroGyro()
 {
-	Requires(driveBase);
+	Requires(driveBae);
 	firstIteration = true;
 }
 
@@ -14,10 +14,10 @@ void ZeroGyro::Initialize()
 void ZeroGyro::Execute()
 {
 	if(firstIteration){
-		bool is_calibrating = driveBase->getGyro()->IsCalibrating();
+		bool is_calibrating = driveBae->getGyro()->IsCalibrating();
 		if ( !is_calibrating ) {
 			Wait( 0.3 );
-			driveBase->getGyro()->ZeroYaw();
+			driveBae->getGyro()->ZeroYaw();
 			firstIteration = false;
 		}
 	}
@@ -32,12 +32,12 @@ bool ZeroGyro::IsFinished()
 // Called once after isFinished returns true
 void ZeroGyro::End()
 {
-	driveBase->setTargetAngle(0.0);
+	driveBae->setTargetAngle(0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ZeroGyro::Interrupted()
 {
-	driveBase->setTargetAngle(0.0);
+	driveBae->setTargetAngle(0.0);
 }

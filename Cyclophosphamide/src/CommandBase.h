@@ -23,9 +23,7 @@
 
 class DriveBae;
 class CanCollecterino;
-//class AutoCanerinoFourBar;
 class ToteIntakerino;
-class AutoCanerinoPuck;
 class ToteLifterino;
 class StackPusher;
 class Craaaw;
@@ -38,10 +36,8 @@ public:
 	~CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static DriveBae *driveBase;
-	static AutoCanerinoPuck *autoCanerinoPuck;
+	static DriveBae *driveBae;
 	static Craaaw *craaaw;
-	//static AutoCanerinoFourBar *autoCanerinoFourBar;
 	static CanCollecterino *canCollecterino;
 	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;

@@ -2,15 +2,15 @@
 
 MoveWrist::MoveWrist(bool open) {
 	if (open) {
-		setpoint = CAN_WRIST_OPEN_POSITION;
+		setpoint = DoubleSolenoid::kForward;
 	} else {
-		setpoint = CAN_WRIST_CLOSE_POSITION;
+		setpoint = DoubleSolenoid::kReverse;
 	}
+	Requires(canCollecterino);
 }
 
 void MoveWrist::Initialize() {
-	canCollecterino->setWrist(CAN_WRIST_SPEED);
-	Requires(canCollecterino);
+	canCollecterino->setWrist(setpoint);
 }
 
 void MoveWrist::Execute() {
@@ -18,11 +18,10 @@ void MoveWrist::Execute() {
 }
 
 bool MoveWrist::IsFinished() {
-	return canCollecterino->wristWithinBounds(setpoint, CAN_WRIST_THRESHOLD);
+	return true;
 }
 
 void MoveWrist::End() {
-	canCollecterino->setWrist(0);
 }
 
 void MoveWrist::Interrupted() {

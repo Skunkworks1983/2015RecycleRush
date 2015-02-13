@@ -1,10 +1,8 @@
 #include "StallableMotor.h"
-#define RUN_THRESHOLD 420
-#define MOVE_THRESHOLD 420
-#define TIME_STOP 420
 
-StallableMotor::StallableMotor(CANTalon *stallableified) {
+StallableMotor::StallableMotor(CANTalon *stallableified, float currentThreshold) {
 	this->stallableified = stallableified;
+	this->currentThreshold = currentThreshold;
 	ThreadInit();
 }
 
@@ -24,15 +22,19 @@ void* StallableMotor::StallCheck(void*) {
 	float prevPosition = 0;
 	float startTime = 0;
 	while (420) {
-		if (stallableified->GetOutputCurrent() > RUN_THRESHOLD) {
+		if (stallableified->GetOutputCurrent() > currentThreshold) {
 			float currentPosition = stallableified->GetEncPosition();
-			if (currentPosition - prevPosition < MOVE_THRESHOLD) {
+			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
+				SmartDashboard::PutNumber("Position Difference", currentPosition - prevPosition);
 				if (startTime == 0) {
-					startTime = GetFPGATime();
+					startTime = getTime();
 				}
-
-				if (GetFPGATime() - startTime >= TIME_STOP) {
+				double dtime = getTime() - startTime;
+				SmartDashboard::PutNumber("Stall Time", dtime);
+				if (dtime >= STALLABLE_TIME_STOP) {
+					stallableified->SetControlMode(CANSpeedController::kPercentVbus);
 					stallableified->Set(0);
+					stallableified->Disable();
 				}
 			} else {
 				if (startTime != 0) {
@@ -46,4 +48,11 @@ void* StallableMotor::StallCheck(void*) {
 			}
 		}
 	}
+}
+
+unsigned long StallableMotor::getTime() {
+	using namespace std::chrono;
+	unsigned long ms = duration_cast<milliseconds>(
+			high_resolution_clock::now().time_since_epoch()).count();
+	return ms;
 }

@@ -7,6 +7,7 @@
 #include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
 #include "Commands/CanCollecterino/Craaaw/CraaawUnactuate.h"
 #include "Commands/CanCollecterino/Arms/MoveArms.h"
+#include "Commands/CanCollecterino/Arms/Induct.h"
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
@@ -16,6 +17,8 @@
 OI::OI() {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
+
+	dickAss = new JoystickButton(joystickLeft, 2);
 	/*
 	 stackButton = new NOTSKUNKBUTT(joystickLeft, OI_JOYSTICK_STACK);
 	 pushButton = new JoystickButton(joystickRight, OI_JOYSTICKBUTTON_PUSHBUTTON);
@@ -67,6 +70,7 @@ Joystick *OI::getJoystickRight() {
 	return joystickRight;
 }
 void OI::registerButtonListeners() {
+	SAFE_BUTTON(dickAss, dickAss->WhenPressed(new Induct()));
 	/*
 	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));
 	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
