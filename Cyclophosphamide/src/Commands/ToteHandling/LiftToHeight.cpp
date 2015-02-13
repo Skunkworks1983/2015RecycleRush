@@ -55,25 +55,14 @@ void LiftToHeight::Execute() {
 		toteLifterino->setSetPoints(destination);
 		oldDest = destination;
 	}
-	//failsafe could not work
-//	if (toteLifterino->getElevatorDigitalInput() && destination < 0) {
-//		toteLifterino->getLeftMotor()->SetPosition(0);
-//		End();
-//	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
-	//don't end when at destination becuase it needs to hold the totes up until there is a tote under
+	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
 	return false;
-	//if (destination != TOTE_LIFTER_FLOOR) {
-	//	return toteLifterino->isToteUnder();
-	/* else {
-	 return toteLifterino->getLeftMotor()->GetEncPosition()
-	 + TOTE_LIFTER_ENCODER_DEADBAND < TOTE_LIFTER_FLOOR
-	 || toteLifterino->getLeftMotor()->GetEncPosition()
-	 - TOTE_LIFTER_ENCODER_DEADBAND > TOTE_LIFTER_FLOOR;
-	 }*/
+	// return toteLifterino->getElevatorDigitalInput() && destination < 0
+	// return toteLifterino->isToteUnder();
 }
 
 // Called once after isFinished returns true

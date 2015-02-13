@@ -4,8 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "robotmap.h"
-#include "../utilities/DoubleMotorPIDOutput.h"
-#include "ctre/CanTalonSRX.h"
+#include "../utilities/DoubleMotorPIDWrapper.h"
 
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
