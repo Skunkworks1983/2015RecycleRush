@@ -7,10 +7,12 @@
 #include "../utilities/DoubleMotorPIDOutput.h"
 #include "ctre/CanTalonSRX.h"
 
-class ToteLifterino: public Subsystem {
+class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	DigitalInput *toteUnderInput, *elevatorTopInput;
 	CANTalon *rightMotor, *leftMotor;
+	PIDController *pid;
+	Encoder *encoder;
 public:
 	/**
 	 * Default Constructor. Normal Initialization
@@ -30,6 +32,8 @@ public:
 	 */
 	CANTalon *getLeftMotor();
 	CANTalon *getRightMotor();
+	Encoder *getEncoder();
+	PIDController *getPID();
 
 	bool isToteUnder();
 	/**
@@ -43,6 +47,8 @@ public:
 	void setSetPoints(double setPoint);
 	void enablePID(bool enable);
 
+	virtual void PIDWrite(float f);
+	virtual double PIDGet();
 };
 
 #endif

@@ -14,6 +14,10 @@ ToteLifterino::ToteLifterino() :
 	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
+
+	encoder = new Encoder(TOTE_LIFTER_ENCODER_CA, TOTE_LIFTER_ENCODER_CB);
+	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I, TOTE_LIFTER_PID_D, encoder, this);
+	pid->SetOutputRange(-1.0, 1.0);
 }
 
 void ToteLifterino::InitDefaultCommand() {
@@ -32,29 +36,24 @@ CANTalon *ToteLifterino::getRightMotor() {
 	return rightMotor;
 }
 
+Encoder *ToteLifterino::getEncoder() {
+	return encoder;
+}
+
+PIDController *ToteLifterino::getPID() {
+	return pid;
+}
+
 bool ToteLifterino::isToteUnder() {
 	return toteUnderInput->Get();
 }
 
 void ToteLifterino::enablePID(bool enable) {
 	if (enable) {
-		leftMotor->SetPID(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
-		TOTE_LIFTER_PID_D);
-		leftMotor->SetControlMode(CANSpeedController::ControlMode::kPosition);
-		leftMotor->SetPosition(0);
-
-		rightMotor->SetControlMode(CANSpeedController::ControlMode::kFollower);
-		rightMotor->Set(TOTE_LIFTER_LEFT);
-
-		rightMotor->EnableControl();
-		leftMotor->EnableControl();
+		pid->Enable();
+		encoder->Reset();
 	} else {
-		leftMotor->Disable();
-		rightMotor->Disable();
-		leftMotor->SetControlMode(
-				CANSpeedController::ControlMode::kPercentVbus);
-		rightMotor->SetControlMode(
-				CANSpeedController::ControlMode::kPercentVbus);
+		pid->Disable();
 	}
 }
 
@@ -71,6 +70,15 @@ void ToteLifterino::setMotorSpeed(double speed) {
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
-	//rightMotor->Set(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
-	leftMotor->Set(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
+	pid->SetSetpoint(setPoint * TOTE_LIFTER_TICKS_PER_INCH);
 }
+
+void ToteLifterino::PIDWrite(float f) {
+	leftMotor->Set(f);
+	rightMotor->Set(f);
+}
+
+double ToteLifterino::PIDGet() {
+	return encoder->Get();
+}
+

@@ -16,26 +16,29 @@ void LiftToHeight::Initialize() {
 void LiftToHeight::Execute() {
 	//Nothing?
 	if (count++ > 25) {
-		if (toteLifterino->getLeftMotor()->GetP()
-				!= SmartDashboard::GetNumber("P")) {
-			toteLifterino->getLeftMotor()->SetP(SmartDashboard::GetNumber("P"));
+		if (toteLifterino->getPID()->GetP() != SmartDashboard::GetNumber("P")) {
+			toteLifterino->getPID()->SetPID(SmartDashboard::GetNumber("P"),
+					toteLifterino->getPID()->GetI(),
+					toteLifterino->getPID()->GetD());
 		}
-		if (toteLifterino->getLeftMotor()->GetI()
-				!= SmartDashboard::GetNumber("I")) {
-			toteLifterino->getLeftMotor()->SetI(SmartDashboard::GetNumber("I"));
+		if (toteLifterino->getPID()->GetI() != SmartDashboard::GetNumber("I")) {
+			toteLifterino->getPID()->SetPID(toteLifterino->getPID()->GetP(),
+					SmartDashboard::GetNumber("I"),
+					toteLifterino->getPID()->GetD());
 		}
-		if (toteLifterino->getLeftMotor()->GetI()
-				!= SmartDashboard::GetNumber("I")) {
-			toteLifterino->getLeftMotor()->SetI(SmartDashboard::GetNumber("I"));
+		if (toteLifterino->getPID()->GetD() != SmartDashboard::GetNumber("D")) {
+			toteLifterino->getPID()->SetPID(toteLifterino->getPID()->GetP(),
+					toteLifterino->getPID()->GetI(),
+					SmartDashboard::GetNumber("D"));
 		}
 	}
 
 	SmartDashboard::PutNumber("Encoder Value:",
-			toteLifterino->getLeftMotor()->GetEncPosition());
+			toteLifterino->getEncoder()->Get());
 	SmartDashboard::PutNumber("MotorSetPoint",
-			toteLifterino->getLeftMotor()->GetSetpoint());
+			toteLifterino->getPID()->GetSetpoint());
 	SmartDashboard::PutNumber("MotorSpeed",
-			toteLifterino->getLeftMotor()->GetSpeed());
+			toteLifterino->getEncoder()->GetRate());
 	SmartDashboard::PutNumber("Destination", destination);
 
 	if (oi->isJoystickButtonPressed(true, 1)) {
