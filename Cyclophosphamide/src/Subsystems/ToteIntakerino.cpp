@@ -6,12 +6,14 @@ ToteIntakerino::ToteIntakerino() :
 		Subsystem("ToteIntakerino")
 {
 	SAFE_INIT(TOTE_INTAKE_SENSOR, isToteSensor = new DigitalInput(TOTE_INTAKE_SENSOR););
-	SAFE_INIT(TOTE_INTAKE_MOTOR, toteIntakeMotor = new Talon(TOTE_INTAKE_MOTOR););
+	SAFE_INIT(TOTE_INTAKE_MOTOR, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR););
+	toteIntakeMotor->SetPID(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D);
+	toteIntakeMotor->EnableControl();
 }
 
 void ToteIntakerino::InitDefaultCommand()
 {
-	SetDefaultCommand(new ToteIntake());
+
 }
 
 // Put methods for controlling this subsystem
@@ -21,7 +23,14 @@ bool ToteIntakerino::hasTote() {
 	return isToteSensor->Get();
 }
 
+void ToteIntakerino::hold() {
+	toteIntakeMotor->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	toteIntakeMotor->SetPosition(0);
+	toteIntakeMotor->Set(0);
+}
+
 void ToteIntakerino::setMotor(float speed) {
+	toteIntakeMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	toteIntakeMotor->Set(speed);
 }
 

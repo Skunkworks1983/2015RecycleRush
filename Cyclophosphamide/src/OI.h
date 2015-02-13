@@ -14,7 +14,8 @@ private:
 		JoystickButton *unactuateButton;
 		JoystickButton *liftarmsButton;
 		JoystickButton *lowerarmsButton;
-		JoystickButton *toteintakeButton;
+		JoystickButton *toteIntakeButtonForward;
+		JoystickButton *toteIntakeButtonReverse;
 		JoystickButton *totelifterButton;
 		JoystickButton *motorfowardButton;
 		JoystickButton *motorbackwardButton;
@@ -38,6 +39,7 @@ private:
 		~OI();
 		Joystick *getJoystickLeft();
 		Joystick *getJoystickRight();
+		double getAnalogValue(int input);
 		bool getUnactuate();
 		void registerButtonListeners();
 		bool isJoystickButtonPressed(bool isLeft, int val);

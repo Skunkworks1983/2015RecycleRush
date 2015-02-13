@@ -7,7 +7,13 @@
 class ToteIntake : public CommandBase
 {
 public:
-	ToteIntake();
+	enum Direction {
+		forward, reverse, stopped
+	};
+private:
+	Direction direction;
+public:
+	ToteIntake(Direction direction);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

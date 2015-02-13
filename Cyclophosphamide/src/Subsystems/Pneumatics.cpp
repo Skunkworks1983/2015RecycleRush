@@ -7,8 +7,9 @@ Pneumatics::Pneumatics() :
 {
 	SAFE_INIT(COMPRESSOR_PRESSURE_SENSOR, pressureSwitch = new DigitalInput(COMPRESSOR_PRESSURE_SENSOR););
 	LiveWindow::GetInstance()->AddSensor("Pneumatics", "Pressure Switch", pressureSwitch);
-	SAFE_INIT(COMPRESSOR_RELAY, relay = new Relay(COMPRESSOR_RELAY););
+	SAFE_INIT(COMPRESSOR_RELAY, relay = new Compressor(COMPRESSOR_RELAY););
 	LiveWindow::GetInstance()->AddActuator("Pneumatics", "Compressor", relay);
+
 }
 
 void Pneumatics::InitDefaultCommand()
@@ -18,15 +19,21 @@ void Pneumatics::InitDefaultCommand()
 }
 
 void Pneumatics::setState(bool state) {
-	relay->Set(state ? Relay::kReverse : Relay::kOff);
+	//relay->Set(state ? Relay::kReverse : Relay::kOff);
+	if(state){
+	relay->Start();
+	}else{
+		relay->Stop();
+	}
 }
 
 bool Pneumatics::isCompressorOn() {
-	return relay->Get() == Relay::kForward;
+	return relay->Enabled();
+	//return relay->Get() == Relay::kForward;
 }
 
 bool Pneumatics::isBelowPressure() {
-	return !pressureSwitch->Get();
+	return !relay->GetPressureSwitchValue();
 }
 
 // Put methods for controlling this subsystem

@@ -19,7 +19,7 @@ private:
 	/**
 	 * Motor that controls the rollers that pull the totes in
 	 */
-	Talon *toteIntakeMotor;
+	CANTalon *toteIntakeMotor;
 public:
 	/**
 	 * Default constructor
@@ -46,6 +46,11 @@ public:
 	 * Function called by the Command that calls setMotor if hasTote evaluates to true
 	 */
 	void runIfTote();
+
+	/**
+	 * Stop the motors and keep them at their current position
+	 */
+	void hold();
 };
 
 #endif

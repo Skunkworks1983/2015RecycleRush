@@ -11,7 +11,7 @@ ToteIntakerino* CommandBase::toteIntakerino = NULL;
 StackPusher* CommandBase::stackPusher = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
 Craaaw* CommandBase::craaaw = NULL;
- Pneumatics* CommandBase::pneumatics = NULL;
+Pneumatics* CommandBase::pneumatics = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name) {

@@ -8,7 +8,7 @@ class Pneumatics: public Subsystem
 {
 private:
 	DigitalInput *pressureSwitch;
-	Relay *relay;
+	Compressor *relay;
 public:
 	Pneumatics();
 	void InitDefaultCommand();

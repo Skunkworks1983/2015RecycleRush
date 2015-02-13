@@ -18,7 +18,7 @@ void BestDrive::Initialize() {
 	case forward:
 		driveBae->setAll(targetDistance);
 		break;
-	case reverse:
+	case backward:
 		driveBae->setAll(-targetDistance);
 		break;
 	case right:
