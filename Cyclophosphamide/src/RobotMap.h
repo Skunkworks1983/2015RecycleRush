@@ -16,6 +16,9 @@
 #define AUTO_SCRIPT_LOCATIONS	"/c/automagic/"
 #define AUTO_SCRIPT_CHARMASK(a,b) ((((int)a) << 8) | ((int)b))
 
+#define AUTONOMOUS_DEFAULT_DISTANCE 5 //units?
+#define AUTONOMOUS_DEFAULT_TIME 5 //units?
+
 // C++ changes
 #define floaterino float
 #define returnerino return

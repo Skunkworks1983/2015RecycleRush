@@ -11,6 +11,8 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 
+#include "Commands/Autonomous/Scripting.h"
+
 #include "CommandBase.h"
 #include "RobotMap.h"
 
@@ -58,8 +60,10 @@ void RefactorMeBot::RobotInit() {
 
 void RefactorMeBot::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
-	autonomousCommand = (Command *) chooser->GetSelected();
-	autonomousCommand->Start();
+	((ScriptRunner*) chooser->GetSelected())->startCommand();
+
+	//autonomousCommand = (Command *) chooser->GetSelected();
+	//autonomousCommand->Start();
 
 	float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
 	CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f, 0.0f, 0.0f);
