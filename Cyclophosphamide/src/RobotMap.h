@@ -16,6 +16,9 @@
 #define AUTO_SCRIPT_LOCATIONS	"/c/automagic/"
 #define AUTO_SCRIPT_CHARMASK(a,b) ((((int)a) << 8) | ((int)b))
 
+#define AUTONOMOUS_DEFAULT_DISTANCE 5 //units?
+#define AUTONOMOUS_DEFAULT_TIME 5 //units?
+
 // C++ changes
 #define floaterino float
 #define returnerino return
@@ -55,7 +58,7 @@
 #define TOTE_LIFTER_ENCODER_CB 1
 #define TOTE_LIFTER_ENCODER_REVERSED false
 #define TOTE_LIFTER_TOTE_INPUT 6
-#define TOTE_LIFTER_TICKS_PER_INCH 100
+#define TOTE_LIFTER_TICKS_PER_REV 1024
 
 #define TOTE_LIFTER_PID_P .05
 #define TOTE_LIFTER_PID_I .001

@@ -1,8 +1,18 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(CANTalon *stallableified, float currentThreshold) {
-	this->stallableified = stallableified;
+StallableMotor::StallableMotor(CANTalon *motor, PIDSource *input,
+		float currentThreshold) {
+	this->motor = motor;
 	this->currentThreshold = currentThreshold;
+	this->input = input;
+	usingCANTalon = false;
+	ThreadInit();
+}
+
+StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
+	this->motor = motor;
+	this->currentThreshold = currentThreshold;
+	usingCANTalon = true;
 	ThreadInit();
 }
 
@@ -15,38 +25,54 @@ void StallableMotor::ThreadKill() {
 }
 
 void* StallableMotor::InitHelper(void *classref) {
-	return ((StallableMotor*)classref)->StallCheck(NULL);
+	return ((StallableMotor*) classref)->StallCheck(NULL);
 }
 
 void* StallableMotor::StallCheck(void*) {
 	float prevPosition = 0;
 	float startTime = 0;
 	while (420) {
-		if (stallableified->GetOutputCurrent() > currentThreshold) {
-			float currentPosition = stallableified->GetEncPosition();
+		if (motor->GetOutputCurrent() > currentThreshold) {
+			float currentPosition;
+			if (usingCANTalon) {
+				currentPosition = input->PIDGet();
+			} else {
+				currentPosition = motor->GetEncPosition();
+			}
 			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
-				SmartDashboard::PutNumber("Position Difference", currentPosition - prevPosition);
+				SmartDashboard::PutNumber("Position Difference",
+						currentPosition - prevPosition);
 				if (startTime == 0) {
 					startTime = getTime();
 				}
 				double dtime = getTime() - startTime;
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
-					stallableified->SetControlMode(CANSpeedController::kPercentVbus);
-					stallableified->Set(0);
-					stallableified->Disable();
+					stalled = true;
 				}
 			} else {
 				if (startTime != 0) {
 					startTime = 0;
+					stalled = false;
 				}
 			}
 			prevPosition = currentPosition;
 		} else {
 			if (startTime != 0) {
 				startTime = 0;
+				stalled = false;
 			}
 		}
+	}
+}
+
+void StallableMotor::PIDWrite(float output) {
+	if (!stalled) {
+		motor->Set(output);
+	} else {
+		motor->SetControlMode(CANSpeedController::kPercentVbus);
+		motor->Set(0);
+		motor->Disable();
 	}
 }
 
