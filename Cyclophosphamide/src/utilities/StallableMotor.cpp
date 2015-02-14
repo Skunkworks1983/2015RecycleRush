@@ -1,12 +1,18 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(CANTalon *motor, PIDSource *input,
-		float currentThreshold) {
+StallableMotor::StallableMotor(PIDSource *input,
+		float currentThreshold, CANTalon *motor, CANTalon *slaveMotor) {
 	this->motor = motor;
+	this->slaveMotor = slaveMotor;
 	this->currentThreshold = currentThreshold;
 	this->input = input;
 	usingCANTalon = false;
 	ThreadInit();
+}
+
+StallableMotor::~StallableMotor() {
+	delete motor;
+	delete slaveMotor;
 }
 
 StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
@@ -35,11 +41,11 @@ void* StallableMotor::StallCheck(void*) {
 		if (motor->GetOutputCurrent() > currentThreshold) {
 			float currentPosition;
 			if (usingCANTalon) {
-				currentPosition = input->PIDGet();
-			} else {
 				currentPosition = motor->GetEncPosition();
+			} else {
+				currentPosition = input->PIDGet();
 			}
-			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
+			if (abs(currentPosition - prevPosition) < STALLABLE_MOVE_THRESHOLD) {
 				SmartDashboard::PutNumber("Position Difference",
 						currentPosition - prevPosition);
 				if (startTime == 0) {
@@ -69,10 +75,18 @@ void* StallableMotor::StallCheck(void*) {
 void StallableMotor::PIDWrite(float output) {
 	if (!stalled) {
 		motor->Set(output);
-	} else {
+		if (slaveMotor != NULL) {
+			slaveMotor->Set(-output);
+		}
+	} else if (stalled){
 		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(0);
 		motor->Disable();
+		if (slaveMotor != NULL) {
+			slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
+			slaveMotor->Set(0);
+			slaveMotor->Disable();
+		}
 	}
 }
 

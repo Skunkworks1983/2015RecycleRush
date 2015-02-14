@@ -18,8 +18,6 @@ void MoveArms::Execute() {
 }
 
 bool MoveArms::IsFinished() {
-	SmartDashboard::PutNumber("FUCK", fuck);
-	fuck++;
 	return canCollecterino->armsWithinBounds();
 }
 

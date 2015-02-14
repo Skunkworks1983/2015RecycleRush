@@ -20,7 +20,8 @@ CanCollecterino::CanCollecterino() :
 
 	SAFE_INIT(CAN_SENSOR_PORT, canSensor = new DigitalInput(CAN_SENSOR_PORT););
 
-	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot, this);
+	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
+			new StallableMotor(liftPot, 0.8, liftMotorRight, liftMotorLeft));
 	armPID->SetOutputRange(-.2, .2);
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
 }
@@ -72,14 +73,4 @@ bool CanCollecterino::armsWithinBounds() {
 bool CanCollecterino::getCanSensor() {
 	SmartDashboard::PutBoolean("Put Boolean", canSensor->Get());
 	return canSensor->Get();
-}
-
-void CanCollecterino::PIDWrite(float f) {
-	liftMotorLeft->Set(-f);
-	liftMotorRight->Set(f);
-}
-
-double CanCollecterino::PIDGet() {
-	SmartDashboard::PutNumber("WHERE MY POT AT", liftPot->PIDGet());
-	return liftPot->PIDGet();
 }

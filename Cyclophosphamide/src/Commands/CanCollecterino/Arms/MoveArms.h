@@ -8,7 +8,6 @@ class MoveArms: public CommandBase
 {
 private:
 	float setpoint;
-	int fuck;
 
 public:
 	MoveArms(bool up);

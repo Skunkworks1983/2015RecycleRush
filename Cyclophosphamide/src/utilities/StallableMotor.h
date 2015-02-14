@@ -1,10 +1,3 @@
-/*
- * StallableMotor.h
- *
- *  Created on: Feb 10, 2015
- *      Author: Administrator
- */
-
 #ifndef SRC_UTILITIES_STALLABLEMOTOR_H_
 #define SRC_UTILITIES_STALLABLEMOTOR_H_
 
@@ -15,6 +8,7 @@
 class StallableMotor: public PIDOutput {
 private:
 	CANTalon *motor;
+	CANTalon *slaveMotor;
 	PIDSource *input;
 	pthread_t stallThread;
 	float currentThreshold;
@@ -25,8 +19,9 @@ private:
 	void ThreadInit();
 	unsigned long getTime();
 public:
-	StallableMotor(CANTalon *motor, PIDSource *input, float currentThreshold);
+	StallableMotor(PIDSource *input, float currentThreshold, CANTalon *motor, CANTalon *slaveMotor= NULL);
 	StallableMotor(CANTalon *motor, float currentThreshold);
+	~StallableMotor();
 
 	void ThreadKill();
 	void PIDWrite(float output);
