@@ -33,24 +33,24 @@ Autonomous::Autonomous(int argc, char **argv) :
 		Command *use = NULL;
 		switch (AUTO_SCRIPT_CHARMASK(typeA, typeB)) {
 		case AUTO_SCRIPT_CHARMASK('d', 'f'):
-			use = new BestDrive(arg, BestDrive::Direction::forward);
+			use = new BestDrive(arg, BestDrive::Direction::forward);// drive forward
 			break;
 		case AUTO_SCRIPT_CHARMASK('d', 'b'):
-			use = new BestDrive(arg, BestDrive::Direction::backward);
+			use = new BestDrive(arg, BestDrive::Direction::backward);//drive backward
 			break;
 		case AUTO_SCRIPT_CHARMASK('d', 'r'):
-			use = new BestDrive(arg, BestDrive::Direction::right);
+			use = new BestDrive(arg, BestDrive::Direction::right);//drive right
 			break;
 		case AUTO_SCRIPT_CHARMASK('d', 'l'):
-			use = new BestDrive(arg, BestDrive::Direction::left);
+			use = new BestDrive(arg, BestDrive::Direction::left);//drive left
 			break;
-		case AUTO_SCRIPT_CHARMASK('t', 't'):
+		case AUTO_SCRIPT_CHARMASK('t', 't'):// turning
 			use = new TurnTo(arg);
 			break;
-		case AUTO_SCRIPT_CHARMASK('w','f'):
+		case AUTO_SCRIPT_CHARMASK('w','f'):// wait for
 			use = new WaitCommand(arg);
 			break;
-		case AUTO_SCRIPT_CHARMASK('w','u'):
+		case AUTO_SCRIPT_CHARMASK('w','u'):// wait until
 			use = new WaitUntilCommand(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','c'):
