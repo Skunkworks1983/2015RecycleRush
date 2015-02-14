@@ -41,5 +41,5 @@ void CommandBase::init() {
 	oi = new OI();
 //	stackPusher = new StackPusher();
 //	craaaw = new Craaaw();
-//	pneumatics = new Pneumatics();
+	pneumatics = new Pneumatics();
 }

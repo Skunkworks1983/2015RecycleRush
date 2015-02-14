@@ -33,7 +33,7 @@ void RefactorMeBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 
-	/*
+
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
@@ -43,8 +43,9 @@ void RefactorMeBot::RobotInit() {
 			Autonomous::createDriveDuration(1.0f, -90.0f));
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
-*/
-	chooser = Scripting::generateAutonomousModes("Commands/Autonomous/");
+
+
+	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 
 	CommandBase::oi->registerButtonListeners();
 

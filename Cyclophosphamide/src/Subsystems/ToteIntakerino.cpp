@@ -5,7 +5,7 @@
 ToteIntakerino::ToteIntakerino() :
 		Subsystem("ToteIntakerino")
 {
-	SAFE_INIT(TOTE_INTAKE_MOTOR, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR););
+	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT););
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
 	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D, encoder, this);
 	pid->SetOutputRange(-TOTE_INTAKE_MOTOR_FULL, TOTE_INTAKE_MOTOR_FULL);

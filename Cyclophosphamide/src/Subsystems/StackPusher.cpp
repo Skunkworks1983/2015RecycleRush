@@ -4,7 +4,7 @@
 
 StackPusher::StackPusher() :
 		Subsystem("StackPusher") {
-	SAFE_INIT(PUSHER_RIGHT, solenoid = new DoubleSolenoid(PUSHER_RIGHT, PUSHER_LEFT););
+	SAFE_INIT(PUSHER_RIGHT_PORT, solenoid = new DoubleSolenoid(PUSHER_RIGHT_PORT, PUSHER_LEFT_PORT););
 }
 
 void StackPusher::Push(){
