@@ -13,7 +13,7 @@
 #define AUTO_SCRIPT_MAXLENGTH	(256)
 #define AUTO_SCRIPT_MAXLINES	(64)
 #define AUTO_SCRIPT_COMMAND_MAXLENGTH	(20)
-#define AUTO_SCRIPT_LOCATIONS	"/c/automagic/"
+#define AUTO_SCRIPT_LOCATIONS	"/Commands/Autonomous/"
 #define AUTO_SCRIPT_CHARMASK(a,b) ((((int)a) << 8) | ((int)b))
 
 #define AUTONOMOUS_DEFAULT_DISTANCE 5 //units?
