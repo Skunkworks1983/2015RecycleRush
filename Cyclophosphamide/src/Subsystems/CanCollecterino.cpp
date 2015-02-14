@@ -5,20 +5,20 @@
 
 CanCollecterino::CanCollecterino() :
 		Subsystem("CanCollecterino") {
-	SAFE_INIT(CAN_MOTOR_LIFT_LEFT,
-			liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT););
-	SAFE_INIT(CAN_MOTOR_LIFT_RIGHT,
-			liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT););
-	SAFE_INIT(CAN_MOTOR_GRAB_LEFT,
-			grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT););
-	SAFE_INIT(CAN_MOTOR_GRAB_RIGHT,
-			grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT););
-	SAFE_INIT(CAN_WRIST_SOLENOID,
-			wrists = new DoubleSolenoid(CAN_WRIST_SOLENOID););
+	SAFE_INIT(CAN_MOTOR_LIFT_LEFT_PORT,
+			liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT_PORT););
+	SAFE_INIT(CAN_MOTOR_LIFT_RIGHT_PORT,
+			liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT_PORT););
+	SAFE_INIT(CAN_MOTOR_GRAB_LEFT_PORT,
+			grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT_PORT););
+	SAFE_INIT(CAN_MOTOR_GRAB_RIGHT_PORT,
+			grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT_PORT););
+	SAFE_INIT(CAN_WRIST_SOLENOID_PORT,
+			wrists = new DoubleSolenoid(CAN_WRIST_SOLENOID_PORT););
 
-	SAFE_INIT(CAN_LIFT_POT, liftPot = new AnalogInput(CAN_LIFT_POT););
+	SAFE_INIT(CAN_LIFT_POT_PORT, liftPot = new AnalogInput(CAN_LIFT_POT_PORT););
 
-	SAFE_INIT(CAN_SENSOR, canSensor = new DigitalInput(CAN_SENSOR););
+	SAFE_INIT(CAN_SENSOR_PORT, canSensor = new DigitalInput(CAN_SENSOR_PORT););
 
 	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot, this);
 	armPID->SetOutputRange(-.2, .2);

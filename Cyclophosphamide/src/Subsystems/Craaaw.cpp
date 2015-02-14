@@ -5,10 +5,10 @@
 #include "../Commands/CanCollecterino/Craaaw/CraaawActuate.h"
 Craaaw::Craaaw() :
 		Subsystem("Craaaw") {
-	SAFE_INIT(CRAAAW_CAN_DETECTOR,
-			canDetector = new DigitalInput(CRAAAW_CAN_DETECTOR););
-	SAFE_INIT(CRAAAW_LOCK_LEFT,
-			craaawLocker = new DoubleSolenoid(CRAAAW_LOCK_LEFT, CRAAAW_LOCK_RIGHT););
+	SAFE_INIT(CRAAAW_CAN_DETECTOR_PORT,
+			canDetector = new DigitalInput(CRAAAW_CAN_DETECTOR_PORT););
+	SAFE_INIT(CRAAAW_LOCK_LEFT_PORT,
+			craaawLocker = new DoubleSolenoid(CRAAAW_LOCK_LEFT_PORT, CRAAAW_LOCK_RIGHT_PORT););
 	isActuated = true;
 }
 Craaaw::~Craaaw() {

@@ -6,8 +6,8 @@
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
 //	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	SAFE_INIT(TOTE_LIFTER_RIGHT, rightMotor = new CANTalon(TOTE_LIFTER_RIGHT););
-	SAFE_INIT(TOTE_LIFTER_LEFT, leftMotor = new CANTalon(TOTE_LIFTER_LEFT););
+	SAFE_INIT(TOTE_LIFTER_RIGHT_PORT, rightMotor = new CANTalon(TOTE_LIFTER_RIGHT_PORT););
+	SAFE_INIT(TOTE_LIFTER_LEFT_PORT, leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
 	//SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
 	//		toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
 	//elevatorTopInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT);
