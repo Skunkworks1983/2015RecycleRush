@@ -1,19 +1,19 @@
-s	tl	0	stacker down
-s	ti	stacker intake
-s	tt	-45	turn -45
-s	ad	arms lower 
-s	tt	-90	turn -90
-s	au	arms lift
-s	df	33	forward 33
-s	tl	0	stacker down
-s	ti	stacker intake
-s	tt	-45	turn -45
-s	ad	arms lower
-s	tt	-90	turn -90
-s	au	arms lift
-s	df	33	foward 33
-s	tl	0	stacker down
-s	ti	stacker intake
-s	dr	107	right 107
-s	to	stacker expell
-s	ts	stacker stop
+s	tl	0		stacker down
+s	ti			stacker intake
+p	tt	-45		turn -45
+p	ad			arms lower 
+s	tt	-90		turn -90
+p	au			arms lift
+p	df	33		forward 33
+s	tl	0		stacker down
+s	ti			stacker intake
+p	tt	-45		turn -45
+p	ad			arms lower
+s	tt	-90		turn -90
+p	au			arms lift
+p	df	33		forward 33
+s	tl	0		stacker down
+s	ti			stacker intake
+s	dr	107		right 107
+s	to			stacker expell
+s	ts			stacker stop
