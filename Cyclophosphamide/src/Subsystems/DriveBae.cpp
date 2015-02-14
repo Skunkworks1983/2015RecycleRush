@@ -17,7 +17,7 @@ DriveBae::DriveBae() :
 	motorFrontRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
-	setModeAll(CANSpeedController::kPosition);
+	//setModeAll(CANSpeedController::kPosition);
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
@@ -49,7 +49,7 @@ DriveBae::~DriveBae() {
 }
 
 void DriveBae::InitDefaultCommand() {
-	//SetDefaultCommand(new MecanumDrive);
+	SetDefaultCommand(new MecanumDrive);
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,

@@ -9,6 +9,7 @@ private:
 		Joystick *joystickLeft;
 		Joystick *joystickRight;
 		JoystickButton *pushButton;
+		JoystickButton *pullButton;
 		JoystickButton *collectButton;
 		JoystickButton *actuateButton;
 		JoystickButton *unactuateButton;

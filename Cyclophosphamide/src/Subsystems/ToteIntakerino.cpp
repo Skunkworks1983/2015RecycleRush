@@ -5,10 +5,12 @@
 ToteIntakerino::ToteIntakerino() :
 		Subsystem("ToteIntakerino")
 {
-	SAFE_INIT(TOTE_INTAKE_SENSOR, isToteSensor = new DigitalInput(TOTE_INTAKE_SENSOR););
 	SAFE_INIT(TOTE_INTAKE_MOTOR, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR););
-	toteIntakeMotor->SetPID(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D);
-	toteIntakeMotor->EnableControl();
+	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
+	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D, encoder, this);
+	pid->SetOutputRange(-1.0, 1.0);
+	// todo input range?
+	hold();
 }
 
 void ToteIntakerino::InitDefaultCommand()
@@ -16,28 +18,25 @@ void ToteIntakerino::InitDefaultCommand()
 
 }
 
+void ToteIntakerino::PIDWrite(float output) {
+	toteIntakeMotor->Set(output);
+}
+
+double ToteIntakerino::PIDGet() {
+	return encoder->Get();
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-bool ToteIntakerino::hasTote() {
-	return isToteSensor->Get();
-}
-
 void ToteIntakerino::hold() {
-	toteIntakeMotor->SetControlMode(CANSpeedController::ControlMode::kPosition);
-	toteIntakeMotor->SetPosition(0);
 	toteIntakeMotor->Set(0);
+	pid->Enable();
+	pid->SetSetpoint(encoder->Get());
 }
 
 void ToteIntakerino::setMotor(float speed) {
-	toteIntakeMotor->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	pid->Disable();
 	toteIntakeMotor->Set(speed);
 }
 
-void ToteIntakerino::runIfTote() {
-	if (this->hasTote()) {
-		setMotor(TOTE_INTAKE_MOTOR_FULL);
-	} else {
-		setMotor(TOTE_INTAKE_MOTOR_NONE);
-	}
-}

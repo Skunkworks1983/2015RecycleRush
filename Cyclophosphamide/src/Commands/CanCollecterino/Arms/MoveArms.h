@@ -1,5 +1,5 @@
-#ifndef LIFT_ARMS_H
-#define LIFT_ARMS_H
+#ifndef MOVE_ARMS_H
+#define MOVE_ARMS_H
 
 #include "../../../CommandBase.h"
 #include "WPILib.h"

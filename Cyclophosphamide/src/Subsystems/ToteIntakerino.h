@@ -9,17 +9,15 @@
  * 
  * Subsystem for loading totes from the human loader station
  */
-class ToteIntakerino: public Subsystem
-{
+class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	/**
-	 * Sensor of whether or not the subsystem contains a tote or not.
-	 */
-	DigitalInput *isToteSensor;
 	/**
 	 * Motor that controls the rollers that pull the totes in
 	 */
 	CANTalon *toteIntakeMotor;
+
+	Encoder *encoder;
+	PIDController *pid;
 public:
 	/**
 	 * Default constructor
@@ -31,26 +29,17 @@ public:
 	void InitDefaultCommand();
 	
 	/**
-	 * Checks if there is a tote in the subsystem currently
-	 * @return if there is a tote
-	 */
-	bool hasTote();
-	
-	/**
 	 * Sets the speed of rollers that pull the tote in
 	 * @param speed value to set the motor to
 	 */
 	void setMotor(float speed);
-	
-	/**
-	 * Function called by the Command that calls setMotor if hasTote evaluates to true
-	 */
-	void runIfTote();
 
 	/**
 	 * Stop the motors and keep them at their current position
 	 */
 	void hold();
+	virtual void PIDWrite(float f);
+	virtual double PIDGet();
 };
 
 #endif

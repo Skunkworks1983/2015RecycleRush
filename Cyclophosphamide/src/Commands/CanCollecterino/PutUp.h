@@ -1,5 +1,5 @@
-#ifndef PUT_UP_H
-#define PUT_UP_H
+#ifndef PUTUP_H
+#define PUTUP_H
 
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
