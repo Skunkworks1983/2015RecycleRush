@@ -9,6 +9,7 @@ private:
 		Joystick *joystickLeft;
 		Joystick *joystickRight;
 		JoystickButton *pushButton;
+		JoystickButton *pullButton;
 		JoystickButton *collectButton;
 		JoystickButton *actuateButton;
 		JoystickButton *unactuateButton;
@@ -30,8 +31,6 @@ private:
 		JoystickButton *goToHighElevator;
 		JoystickButton *goToMidElevator;
 		JoystickButton *goToLowElevator;
-
-		JoystickButton *dickAss;
 
 		Button *toteLifterOverride;
 	public:

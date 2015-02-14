@@ -3,7 +3,7 @@
 #include <Commands/ToteHandling/LiftToHeight.h>
 #include "OI.h"
 #include "RobotMap.h"
-#include "Commands/PushStack/PushPull.h"
+#include "Commands/PushStack/PushStack.h"
 #include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
 #include "Commands/CanCollecterino/Craaaw/CraaawUnactuate.h"
 #include "Commands/CanCollecterino/Arms/MoveArms.h"
@@ -17,9 +17,12 @@
 OI::OI() {
 	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
-	/*
-	pushButton = new JoystickButton(joystickRight,
+
+	pushButton = new JoystickButton(joystickLeft,
 	OI_JOYSTICKBUTTON_PUSHBUTTON);
+	pullButton = new JoystickButton(joystickLeft,
+	OI_JOYSTICKBUTTON_PULLBUTTON);
+	/*
 	actuateButton = new JoystickButton(joystickRight,
 	OI_JOYSTICKBUTTON_ACTUATEBUTTON);
 	unactuateButton = new JoystickButton(joystickRight,
@@ -95,9 +98,10 @@ double OI::getAnalogValue(int input){
 }
 
 void OI::registerButtonListeners() {
-	SAFE_BUTTON(dickAss, dickAss->WhenPressed(new Induct()));
-	/*
-	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));
+	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushStack(StackPusher::push, 1000.0f)));
+	 SAFE_BUTTON(pullButton, pullButton->WhenReleased(new PushStack(StackPusher::pull, 1000.0f)));
+
+	 /*
 	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
 	 SAFE_BUTTON(actuateButton, actuateButton->WhenPressed(new CraaawActuate()));
 	 SAFE_BUTTON(unactuateButton, unactuateButton->WhenPressed(new CraaawUnactuate()));
