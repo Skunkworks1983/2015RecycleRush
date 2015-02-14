@@ -2,15 +2,15 @@
 
 MoveArms::MoveArms(bool up) {
 	if (up) {
-		setpoint = CAN_POT_UP_POSITION;
+		setpoint = CAN_POT_UP_POSITION - .3;
 	} else {
-		setpoint = CAN_POT_DOWN_POSITION;
+		setpoint = CAN_POT_DOWN_POSITION + .3;
 	}
+	Requires(canCollecterino);
 }
 
 void MoveArms::Initialize() {
 	canCollecterino->setArms(setpoint);
-	Requires(canCollecterino);
 }
 
 void MoveArms::Execute() {
@@ -18,7 +18,9 @@ void MoveArms::Execute() {
 }
 
 bool MoveArms::IsFinished() {
-	return canCollecterino->armsWithinBounds(setpoint, CAN_LIFT_THRESHOLD);
+	SmartDashboard::PutNumber("FUCK", fuck);
+	fuck++;
+	return canCollecterino->armsWithinBounds();
 }
 
 void MoveArms::End() {
@@ -26,5 +28,5 @@ void MoveArms::End() {
 }
 
 void MoveArms::Interrupted() {
-
+	canCollecterino->disableArms();
 }

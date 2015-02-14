@@ -12,19 +12,23 @@
 #include "../RobotMap.h"
 #include <pthread.h>
 
-class StallableMotor {
+class StallableMotor: public PIDSource, public PIDOutput {
 private:
 	CANTalon *stallableified;
 	pthread_t stallThread;
 	float currentThreshold;
+	PIDSource *source;
 
 	static void *InitHelper(void *classref);
 	void* StallCheck(void*);
 	void ThreadInit();
 	unsigned long getTime();
 
+	virtual void PIDWrite(float f);
+	virtual double PIDGet();
+
 public:
-	StallableMotor(CANTalon *stallablefied, float currentThreshold);
+	StallableMotor(CANTalon *stallablefied, float currentThreshold, PIDSource *source = NULL);
 	void ThreadKill();
 };
 

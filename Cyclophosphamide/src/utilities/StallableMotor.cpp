@@ -1,8 +1,10 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(CANTalon *stallableified, float currentThreshold) {
+StallableMotor::StallableMotor(CANTalon *stallableified, float currentThreshold,
+		PIDSource *source) {
 	this->stallableified = stallableified;
 	this->currentThreshold = currentThreshold;
+	this->source = source;
 	ThreadInit();
 }
 
@@ -15,7 +17,7 @@ void StallableMotor::ThreadKill() {
 }
 
 void* StallableMotor::InitHelper(void *classref) {
-	return ((StallableMotor*)classref)->StallCheck(NULL);
+	return ((StallableMotor*) classref)->StallCheck(NULL);
 }
 
 void* StallableMotor::StallCheck(void*) {
@@ -23,16 +25,19 @@ void* StallableMotor::StallCheck(void*) {
 	float startTime = 0;
 	while (420) {
 		if (stallableified->GetOutputCurrent() > currentThreshold) {
-			float currentPosition = stallableified->GetEncPosition();
+			float currentPosition;
+			currentPosition = stallableified->GetEncPosition();
 			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
-				SmartDashboard::PutNumber("Position Difference", currentPosition - prevPosition);
+				SmartDashboard::PutNumber("Position Difference",
+						currentPosition - prevPosition);
 				if (startTime == 0) {
 					startTime = getTime();
 				}
 				double dtime = getTime() - startTime;
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
-					stallableified->SetControlMode(CANSpeedController::kPercentVbus);
+					stallableified->SetControlMode(
+							CANSpeedController::kPercentVbus);
 					stallableified->Set(0);
 					stallableified->Disable();
 				}
@@ -55,4 +60,12 @@ unsigned long StallableMotor::getTime() {
 	unsigned long ms = duration_cast<milliseconds>(
 			high_resolution_clock::now().time_since_epoch()).count();
 	return ms;
+}
+
+double StallableMotor::PIDGet() {
+	return 0.0;
+}
+
+void StallableMotor::PIDWrite(float f) {
+
 }

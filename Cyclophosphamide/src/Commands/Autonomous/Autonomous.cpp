@@ -35,60 +35,60 @@ Autonomous::Autonomous(int argc, char **argv) :
 		case AUTO_SCRIPT_CHARMASK('t', 't'):
 			use = new TurnTo(arg);
 			break;
-		case AUTO_SCRIPT_CHARMASK('w','f'):
-			use = new WaitCommand(arg);
-			break;
-		case AUTO_SCRIPT_CHARMASK('w','u'):
-			use = new WaitUntilCommand(arg);
-			break;
-		case AUTO_SCRIPT_CHARMASK('c','c'):
-			use = new Collect();
-			break;
-		case AUTO_SCRIPT_CHARMASK('t','i'):
-			use = new ToteIntake();
-			break;
-		case AUTO_SCRIPT_CHARMASK('t','l'):
-			use = new LiftToHeight();
-			break;
-		case AUTO_SCRIPT_CHARMASK('p','i'):
-			use = new PushStack(StackPusher::PushState::pull);
-			break;
-		case AUTO_SCRIPT_CHARMASK('p','o'):
-			use = new PushStack(StackPusher::PushState::push);
-			break;
-		case AUTO_SCRIPT_CHARMASK('p','p'):
-			use = new PushPull();
-			break;
-		case AUTO_SCRIPT_CHARMASK('p','u')://Put up can
-			use = new PutUp();
-			break;
-		case AUTO_SCRIPT_CHARMASK('s','d')://Set down can
-			use = new SetDown();
-			break;
-		case AUTO_SCRIPT_CHARMASK('c','o'):// crawwwww Actuate out
-			use = new CraaawActuate(true);
-			break;
-		case AUTO_SCRIPT_CHARMASK('c','i'):// crawwww Actuate in
-			use = new CraaawActuate(false);
-			break;
-		case AUTO_SCRIPT_CHARMASK('c','u'):// crawh Unactuate
-			use = new CraaawUnactuate();
-			break;
-		case AUTO_SCRIPT_CHARMASK('a','i'): //Arms Induct
-			use = new Induct();
-			break;
-		case AUTO_SCRIPT_CHARMASK('a','u')://Arms up
-			use = new MoveArms(true);
-			break;
-		case AUTO_SCRIPT_CHARMASK('a','d')://Arms down
-			use = new MoveArms(down);
-			break;
-		case AUTO_SCRIPT_CHARMASK('w','o')://wrist open
-			use = new MoveWrist(true);
-			break;
-		case AUTO_SCRIPT_CHARMASK('w','c'):// wrist close
-			use = new MoveWrist(false);
-			break;
+//		case AUTO_SCRIPT_CHARMASK('w','f'):
+//			use = new WaitCommand(arg);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('w','u'):
+//			use = new WaitUntilCommand(arg);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('c','c'):
+//			use = new Collect();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('t','i'):
+//			use = new ToteIntake();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('t','l'):
+//			use = new LiftToHeight();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('p','i'):
+//			use = new PushStack(StackPusher::PushState::pull);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('p','o'):
+//			use = new PushStack(StackPusher::PushState::push);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('p','p'):
+//			use = new PushPull();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('p','u')://Put up can
+//			use = new PutUp();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('s','d')://Set down can
+//			use = new SetDown();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('c','o'):// crawwwww Actuate out
+//			use = new CraaawActuate(true);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('c','i'):// crawwww Actuate in
+//			use = new CraaawActuate(false);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('c','u'):// crawh Unactuate
+//			use = new CraaawUnactuate();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('a','i'): //Arms Induct
+//			use = new Induct();
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('a','u')://Arms up
+//			use = new MoveArms(true);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('a','d')://Arms down
+//			use = new MoveArms(down);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('w','o')://wrist open
+//			use = new MoveWrist(true);
+//			break;
+//		case AUTO_SCRIPT_CHARMASK('w','c'):// wrist close
+//			use = new MoveWrist(false);
+//			break;
 		default:
 			break;
 		}
