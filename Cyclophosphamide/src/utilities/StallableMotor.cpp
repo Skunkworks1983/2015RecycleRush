@@ -1,10 +1,18 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(CANTalon *stallableified, float currentThreshold,
-		PIDSource *source) {
-	this->stallableified = stallableified;
+StallableMotor::StallableMotor(CANTalon *motor, PIDSource *input,
+		float currentThreshold) {
+	this->motor = motor;
 	this->currentThreshold = currentThreshold;
-	this->source = source;
+	this->input = input;
+	usingCANTalon = false;
+	ThreadInit();
+}
+
+StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
+	this->motor = motor;
+	this->currentThreshold = currentThreshold;
+	usingCANTalon = true;
 	ThreadInit();
 }
 
@@ -24,9 +32,13 @@ void* StallableMotor::StallCheck(void*) {
 	float prevPosition = 0;
 	float startTime = 0;
 	while (420) {
-		if (stallableified->GetOutputCurrent() > currentThreshold) {
+		if (motor->GetOutputCurrent() > currentThreshold) {
 			float currentPosition;
-			currentPosition = stallableified->GetEncPosition();
+			if (usingCANTalon) {
+				currentPosition = input->PIDGet();
+			} else {
+				currentPosition = motor->GetEncPosition();
+			}
 			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
 				SmartDashboard::PutNumber("Position Difference",
 						currentPosition - prevPosition);
@@ -36,22 +48,31 @@ void* StallableMotor::StallCheck(void*) {
 				double dtime = getTime() - startTime;
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
-					stallableified->SetControlMode(
-							CANSpeedController::kPercentVbus);
-					stallableified->Set(0);
-					stallableified->Disable();
+					stalled = true;
 				}
 			} else {
 				if (startTime != 0) {
 					startTime = 0;
+					stalled = false;
 				}
 			}
 			prevPosition = currentPosition;
 		} else {
 			if (startTime != 0) {
 				startTime = 0;
+				stalled = false;
 			}
 		}
+	}
+}
+
+void StallableMotor::PIDWrite(float output) {
+	if (!stalled) {
+		motor->Set(output);
+	} else {
+		motor->SetControlMode(CANSpeedController::kPercentVbus);
+		motor->Set(0);
+		motor->Disable();
 	}
 }
 
@@ -60,12 +81,4 @@ unsigned long StallableMotor::getTime() {
 	unsigned long ms = duration_cast<milliseconds>(
 			high_resolution_clock::now().time_since_epoch()).count();
 	return ms;
-}
-
-double StallableMotor::PIDGet() {
-	return 0.0;
-}
-
-void StallableMotor::PIDWrite(float f) {
-
 }
