@@ -2,8 +2,8 @@
 #include "PushStack.h"
 PushPull::PushPull()
 {
-	AddSequential(new PushStack(StackPusher::push, 1000.0f));
-	AddSequential(new PushStack(StackPusher::pull, 1000.0f));
+	AddSequential(new PushStack(StackPusher::push, 1.0f));
+	AddSequential(new PushStack(StackPusher::pull, 1.0f));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

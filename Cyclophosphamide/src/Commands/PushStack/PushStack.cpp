@@ -12,9 +12,11 @@ void PushStack::Initialize()
 {
 	switch (state){
 	case StackPusher::pull:
+		SmartDashboard::PutString("Stack pusher status", "pull");
 		stackPusher->Pull();
 		break;
 	case StackPusher::push:
+		SmartDashboard::PutString("Stack pusher status", "push");
 		stackPusher->Push();
 		break;
 	};

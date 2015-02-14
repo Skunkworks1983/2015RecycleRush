@@ -8,8 +8,8 @@ ToteIntakerino::ToteIntakerino() :
 	SAFE_INIT(TOTE_INTAKE_MOTOR, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR););
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
 	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D, encoder, this);
-	pid->SetOutputRange(-1.0, 1.0);
-	// todo input range?
+	pid->SetOutputRange(-TOTE_INTAKE_MOTOR_FULL, TOTE_INTAKE_MOTOR_FULL);
+	pid->Enable();
 	hold();
 }
 
@@ -23,16 +23,16 @@ void ToteIntakerino::PIDWrite(float output) {
 }
 
 double ToteIntakerino::PIDGet() {
-	return encoder->Get();
+	return encoder->Get() * TOTE_INTAKE_ENCODER_TICKS_PER_REV;
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
 void ToteIntakerino::hold() {
-	toteIntakeMotor->Set(0);
+	encoder->Reset();
+	pid->SetSetpoint(0);
 	pid->Enable();
-	pid->SetSetpoint(encoder->Get());
 }
 
 void ToteIntakerino::setMotor(float speed) {

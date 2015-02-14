@@ -98,8 +98,8 @@ double OI::getAnalogValue(int input){
 }
 
 void OI::registerButtonListeners() {
-	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushStack(StackPusher::push, 1000.0f)));
-	 SAFE_BUTTON(pullButton, pullButton->WhenReleased(new PushStack(StackPusher::pull, 1000.0f)));
+	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushStack(StackPusher::push, 1.0f)));
+	 SAFE_BUTTON(pullButton, pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
 	 /*
 	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
