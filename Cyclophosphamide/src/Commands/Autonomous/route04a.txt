@@ -9,6 +9,6 @@ s	dl	33		left 33
 s	tl	0		stacker down
 s	ti			stacker intake
 s	db	107		reverse 107 :)
-s	tl	0		stacker down
-s	to			stacker expell :(
+s	tl	0		stacker down chocolate
+s	to			stacker expell
 s	ts			toteintake stop
