@@ -95,7 +95,6 @@ double OI::getAnalogValue(int input){
 }
 
 void OI::registerButtonListeners() {
-	SAFE_BUTTON(dickAss, dickAss->WhenPressed(new Induct()));
 	/*
 	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushPull()));
 	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
