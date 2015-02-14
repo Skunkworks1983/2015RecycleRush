@@ -11,8 +11,9 @@ private:
 	CANTalon *slaveMotor;
 	PIDSource *input;
 	pthread_t stallThread;
+	int directionMag, pdirectionMag;
 	float currentThreshold;
-	bool stalled, usingCANTalon;
+	bool stalled, usingCANTalon, directionSwitch, stalledStart;
 
 	static void *InitHelper(void *classref);
 	void* StallCheck(void*);

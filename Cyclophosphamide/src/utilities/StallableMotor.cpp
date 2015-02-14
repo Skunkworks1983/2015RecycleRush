@@ -1,12 +1,16 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(PIDSource *input,
-		float currentThreshold, CANTalon *motor, CANTalon *slaveMotor) {
+StallableMotor::StallableMotor(PIDSource *input, float currentThreshold,
+		CANTalon *motor, CANTalon *slaveMotor) {
 	this->motor = motor;
 	this->slaveMotor = slaveMotor;
 	this->currentThreshold = currentThreshold;
 	this->input = input;
 	usingCANTalon = false;
+	directionSwitch = false;
+	directionMag = 0;
+	pdirectionMag = 0;
+	stalledStart = false;
 	ThreadInit();
 }
 
@@ -55,6 +59,7 @@ void* StallableMotor::StallCheck(void*) {
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
 					stalled = true;
+					stalledStart = true;
 				}
 			} else {
 				if (startTime != 0) {
@@ -65,8 +70,11 @@ void* StallableMotor::StallCheck(void*) {
 			prevPosition = currentPosition;
 		} else {
 			if (startTime != 0) {
-				startTime = 0;
-				stalled = false;
+				if ((1 / pdirectionMag) * pdirectionMag
+						== (1 / directionMag) * directionMag) {
+					startTime = 0;
+					stalled = false;
+				}
 			}
 		}
 	}
@@ -78,7 +86,13 @@ void StallableMotor::PIDWrite(float output) {
 		if (slaveMotor != NULL) {
 			slaveMotor->Set(-output);
 		}
-	} else if (stalled){
+	} else if (stalled) {
+		if (stalledStart == true) {
+			pdirectionMag = (1 / output) * output;
+			stalledStart = false;
+		}
+		directionMag = (1 / output) * output;
+
 		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(0);
 		motor->Disable();
