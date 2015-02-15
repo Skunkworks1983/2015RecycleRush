@@ -22,8 +22,10 @@ private:
 
 		JoystickButton *moveArmsUp;
 		JoystickButton *moveArmsDown;
+		JoystickButton *collect;
+		JoystickButton *wristOpen;
+		JoystickButton *wristClose;
 
-		JoystickButton *unactuateButton;
 	public:
 		OI();
 		~OI();

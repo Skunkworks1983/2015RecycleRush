@@ -20,6 +20,7 @@
 #include "Commands/Autonomous/Autonomous.h"
 
 RefactorMeBot::RefactorMeBot() {
+	PIDChange = 0;
 	lw = NULL;
 	autonomousCommand = NULL;
 	chooser = NULL;
@@ -62,8 +63,8 @@ void RefactorMeBot::RobotInit() {
 			}
 		}
 	}
-	SmartDashboard::PutNumber("realEncoder:",
-			CommandBase::toteLifterino->getEncoder()->GetDistance());
+//	SmartDashboard::PutNumber("realEncoder:",
+//			CommandBase::toteLifterino->getEncoder()->GetDistance());
 }
 
 void RefactorMeBot::AutonomousInit() {
@@ -92,15 +93,41 @@ void RefactorMeBot::TeleopInit() {
 
 void RefactorMeBot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("realEncoder:",
-			CommandBase::toteLifterino->getEncoder()->GetDistance());
-	if (CommandBase::oi->isJoystickButtonPressed(true, 11)) {
-		CommandBase::toteLifterino->getEncoder()->Reset();
+//	SmartDashboard::PutNumber("realEncoder:",
+//			CommandBase::toteLifterino->getEncoder()->GetDistance());
+//	if (CommandBase::oi->isJoystickButtonPressed(true, 11)) {
+//		CommandBase::toteLifterino->getEncoder()->Reset();
+//	}
+//	SmartDashboard::PutNumber("Encoder Value:",
+//			CommandBase::toteLifterino->getEncoder()->Get());
+//	SmartDashboard::PutNumber("MotorSetPoint",
+//			CommandBase::toteLifterino->getPID()->GetSetpoint());
+
+	PIDChange++;
+	if (PIDChange == 10) {
+		if (CommandBase::canCollecterino->getArmPID()->GetP()
+				!= SmartDashboard::GetNumber("CAN P")) {
+			CommandBase::canCollecterino->getArmPID()->SetPID(
+					SmartDashboard::GetNumber("CAN P"),
+					CommandBase::canCollecterino->getArmPID()->GetI(),
+					CommandBase::canCollecterino->getArmPID()->GetD());
+		}
+		if (CommandBase::canCollecterino->getArmPID()->GetI()
+				!= SmartDashboard::GetNumber("CAN I")) {
+			CommandBase::canCollecterino->getArmPID()->SetPID(
+					CommandBase::canCollecterino->getArmPID()->GetP(),
+					SmartDashboard::GetNumber("CAN I"),
+					CommandBase::canCollecterino->getArmPID()->GetD());
+		}
+		if (CommandBase::canCollecterino->getArmPID()->GetD()
+				!= SmartDashboard::GetNumber("CAN D")) {
+			CommandBase::canCollecterino->getArmPID()->SetPID(
+					CommandBase::canCollecterino->getArmPID()->GetP(),
+					CommandBase::canCollecterino->getArmPID()->GetI(),
+					SmartDashboard::GetNumber("CAN D"));
+		}
+		PIDChange = 0;
 	}
-	SmartDashboard::PutNumber("Encoder Value:",
-			CommandBase::toteLifterino->getEncoder()->Get());
-	SmartDashboard::PutNumber("MotorSetPoint",
-			CommandBase::toteLifterino->getPID()->GetSetpoint());
 	WatchDogg();
 }
 
@@ -117,8 +144,23 @@ void RefactorMeBot::TestPeriodic() {
 }
 
 void RefactorMeBot::WatchDogg() {
-// there are no dogs to watch
-// ayy lmao
+	// there are now doggs to watch
+	// lmao XDDD
+	if (CommandBase::stackPusher->getValue()
+			== DoubleSolenoid::kForward&& CommandBase::canCollecterino->getArmPID()->GetSetpoint() == CAN_POT_UP_POSITION) {
+		CommandBase::canCollecterino->disableArms();
+	}
+	if (CommandBase::toteIntakerino->isLoaded()
+			&& (CommandBase::toteLifterino->getPID()->GetSetpoint()
+					< TOTE_LIFTER_STACK_HEIGHT
+					&& CommandBase::toteLifterino->getEncoder()->Get()
+							>= TOTE_LIFTER_STACK_HEIGHT - 100)) {
+		CommandBase::toteLifterino->enablePID(false);
+	} else if (CommandBase::toteIntakerino->isLoaded()
+			&& (CommandBase::toteLifterino->getPID()->GetSetpoint()
+					< TOTE_LIFTER_STACK_HEIGHT)) {
+		CommandBase::toteLifterino->setSetPoints(TOTE_LIFTER_STACK_HEIGHT);
+	}
 }
 
 START_ROBOT_CLASS(RefactorMeBot);

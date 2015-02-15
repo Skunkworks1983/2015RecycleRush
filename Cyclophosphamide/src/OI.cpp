@@ -13,23 +13,26 @@
 #include "Commands/Automatic/TurnTo.h"
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
 #include "Commands/ToteHandling/LiftToHeight.h"
+#include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
 	joystickLeft = new Joystick(0);
 	joystickRight = new Joystick(1);
-	pushButton = new JoystickButton(joystickLeft, 11);
-	pullButton = new JoystickButton(joystickLeft, 12);
-	toteIntakeButtonForward = new JoystickButton(joystickLeft, 8);
-	toteIntakeButtonReverse = new JoystickButton(joystickLeft, 7);
+	pushButton = new JoystickButton(joystickRight, 11);
+	pullButton = new JoystickButton(joystickRight, 12);
+	toteIntakeButtonForward = new JoystickButton(joystickRight, 8);
+	toteIntakeButtonReverse = new JoystickButton(joystickRight, 7);
 	leftLoadButton = new JoystickButton(joystickRight, 11);
 	rightLoadButton = new JoystickButton(joystickRight, 12);
 	toteLifterUp = new JoystickButton(joystickLeft, 6);
 	toteLifterDown = new JoystickButton(joystickLeft, 4);
 	runPIDElevator = new JoystickButton(joystickLeft, 7);
-	moveArmsUp = new JoystickButton(joystickLeft, 420); //TODO real numbers
-	moveArmsDown = new JoystickButton(joystickLeft, 421);
-	unactuateButton = new JoystickButton(joystickLeft, 422);
+	moveArmsUp = new JoystickButton(joystickRight, 2); //TODO real numbers
+	moveArmsDown = new JoystickButton(joystickRight, 3);
+	collect = new JoystickButton(joystickRight, 4);
+	wristOpen = new JoystickButton(joystickRight, 5);
+	wristClose = new JoystickButton(joystickRight, 6);
 }
 
 OI::~OI() {
@@ -46,7 +49,9 @@ OI::~OI() {
 	delete runPIDElevator;
 	delete moveArmsUp;
 	delete moveArmsDown;
-	delete unactuateButton;
+	delete collect;
+	delete wristOpen;
+	delete wristClose;
 }
 
 Joystick *OI::getJoystickLeft() {
@@ -94,8 +99,11 @@ void OI::registerButtonListeners() {
 	//SAFE_BUTTON(runPIDElevator,
 	//		runPIDElevator->WhenPressed(new LiftToHeight(1100)));
 
-	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenPressed(new MoveArms(true)));
-	SAFE_BUTTON(moveArmsDown, moveArmsDown->WhenPressed(new MoveArms(false)));
+	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenReleased(new MoveArms(true)));
+	SAFE_BUTTON(moveArmsDown, moveArmsDown->WhenReleased(new MoveArms(false)));
+	SAFE_BUTTON(collect, collect->WhileHeld(new Induct()));
+	SAFE_BUTTON(wristOpen, wristOpen->WhenReleased(new MoveWrist(true)));
+	SAFE_BUTTON(wristClose, wristClose->WhenReleased(new MoveWrist(false)));
 }
 
 bool OI::isJoystickButtonPressed(bool isLeft, int val) {
@@ -106,8 +114,4 @@ bool OI::isJoystickButtonPressed(bool isLeft, int val) {
 		return val > 0 && val < joystickRight->GetButtonCount()
 				&& joystickRight->GetRawButton(val);
 	}
-}
-
-bool OI::getUnactuate() {
-	return unactuateButton->Get();
 }

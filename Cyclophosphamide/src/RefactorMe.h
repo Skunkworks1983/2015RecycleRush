@@ -17,6 +17,7 @@ private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	SendableChooser *chooser;
+	int PIDChange;
 public:
 	RefactorMeBot();
 	~RefactorMeBot();

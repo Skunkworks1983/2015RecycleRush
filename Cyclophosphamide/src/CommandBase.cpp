@@ -36,10 +36,10 @@ CommandBase::~CommandBase() {
 void CommandBase::init() {
 	driveBae = new DriveBae();
 	canCollecterino = new CanCollecterino();
-//	toteIntakerino = new ToteIntakerino();
+	toteIntakerino = new ToteIntakerino();
 //	toteLifterino = new ToteLifterino();
 	oi = new OI();
-//	stackPusher = new StackPusher();
+	stackPusher = new StackPusher();
 //	craaaw = new Craaaw();
 	pneumatics = new Pneumatics();
 }

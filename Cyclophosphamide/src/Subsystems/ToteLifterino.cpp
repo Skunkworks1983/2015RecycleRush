@@ -86,4 +86,3 @@ void ToteLifterino::PIDWrite(float f) {
 double ToteLifterino::PIDGet() {
 	return encoder->PIDGet();
 }
-

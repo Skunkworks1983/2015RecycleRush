@@ -14,8 +14,7 @@ void Induct::Execute() {
 }
 
 bool Induct::IsFinished() {
-	canCollecterino->StallDiag();
-	return canCollecterino->getCanSensor();
+	return false;
 }
 
 void Induct::End() {

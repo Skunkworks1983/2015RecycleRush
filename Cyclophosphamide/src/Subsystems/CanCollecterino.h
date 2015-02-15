@@ -33,8 +33,9 @@ public:
 
 	void disableArms();
 	bool armsWithinBounds();
-	bool getCanSensor();
 	void brakeArms(bool brake);
+
+	PIDController *getArmPID();
 };
 
 #endif
