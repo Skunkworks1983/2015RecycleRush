@@ -1,25 +1,37 @@
 #include <Subsystems/ToteIntakerino.h>
 #include "../Commands/ToteHandling/ToteIntake.h"
 #include "../RobotMap.h"
+#include <cmath>
 
 ToteIntakerino::ToteIntakerino() :
-		Subsystem("ToteIntakerino")
-{
-	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT););
+		Subsystem("ToteIntakerino") {
+	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT,
+			toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT););
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
-	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D, encoder, this);
-	pid->SetOutputRange(-TOTE_INTAKE_MOTOR_FULL, TOTE_INTAKE_MOTOR_FULL);
+	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D,
+			encoder, this);
+	pid->SetOutputRange(-TOTE_INTAKE_PID_FULL, TOTE_INTAKE_PID_FULL);
 	pid->Enable();
+	hasTote = false;
+	isWindingDown = false;
 	hold();
 }
 
-void ToteIntakerino::InitDefaultCommand()
-{
-
+void ToteIntakerino::InitDefaultCommand() {
+	//SetDefaultCommand(new ToteIntake(ToteIntake::stopped));
 }
 
 void ToteIntakerino::PIDWrite(float output) {
-	toteIntakeMotor->Set(output);
+	if(output < 0) {
+		output = 0;
+	}
+	SmartDashboard::PutNumber("Intake PID Output", output);
+	toteIntakeMotor->Set(-output);
+	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD /* && !isWindingDown*/) {
+		hasTote = true;
+	} else {
+		isWindingDown = false;
+	}
 }
 
 double ToteIntakerino::PIDGet() {
@@ -38,5 +50,17 @@ void ToteIntakerino::hold() {
 void ToteIntakerino::setMotor(float speed) {
 	pid->Disable();
 	toteIntakeMotor->Set(speed);
+	if (abs(speed) > 0) {
+		hasTote = false;
+		isWindingDown = true;
+	}
+}
+
+Encoder *ToteIntakerino::getEncoder() {
+	return encoder;
+}
+
+bool ToteIntakerino::isLoaded() {
+	return hasTote;
 }
 

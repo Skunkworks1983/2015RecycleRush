@@ -10,6 +10,7 @@ LiftToHeight::LiftToHeight(double destination) :
 void LiftToHeight::Initialize() {
 	toteLifterino->setSetPoints(destination);
 	toteLifterino->enablePID(true);
+	SmartDashboard::PutNumber("customDest", 260);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,22 +34,18 @@ void LiftToHeight::Execute() {
 		}
 	}
 
-	SmartDashboard::PutNumber("Encoder Value:",
-			toteLifterino->getEncoder()->Get());
-	SmartDashboard::PutNumber("MotorSetPoint",
-			toteLifterino->getPID()->GetSetpoint());
-	SmartDashboard::PutNumber("MotorSpeed",
-			toteLifterino->getEncoder()->GetRate());
 	SmartDashboard::PutNumber("Destination", destination);
 
 	if (oi->isJoystickButtonPressed(true, 1)) {
 		destination = TOTE_LIFTER_FLOOR;
 	} else if (oi->isJoystickButtonPressed(true, 2)) {
-		destination = TOTE_LIFTER_LOW;
-	} else if (oi->isJoystickButtonPressed(true, 3)) {
-		destination = TOTE_LIFTER_MID;
-	} else if (oi->isJoystickButtonPressed(true, 4)) {
-		destination = TOTE_LIFTER_HIGH;
+		destination = 1300;
+	}else if(oi->isJoystickButtonPressed(true, 3)){
+		destination = SmartDashboard::GetNumber("customDest");
+	}
+	if(oi->isJoystickButtonPressed(true, 12)){
+		toteLifterino->enablePID(false);
+		toteLifterino->getEncoder()->Reset();
 	}
 
 	if (destination != oldDest) {

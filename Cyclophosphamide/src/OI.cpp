@@ -11,73 +11,47 @@
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
-
+#include "Commands/ToteHandling/LiftToHeightVelocity.h"
+#include "Commands/ToteHandling/LiftToHeight.h"
+#include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
-	joystickLeft = new Joystick(OI_JOYSTICK_LEFT);
-	joystickRight = new Joystick(OI_JOYSTICK_RIGHT);
-	/*
-	 pushButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_PUSHBUTTON);
-	 actuateButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_ACTUATEBUTTON);
-	 unactuateButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_UNACTUATEBUTTON);
-	 liftarmsButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_LIFTARMSBUTTON);
-	 lowerarmsButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_LOWERARMSBUTTON);
-	 */
-	toteIntakeButtonForward = new JoystickButton(joystickLeft,
-	OI_JOYSTICKBUTTON_TOTEINTAKE_BUTTON_FORWARD);
-	toteIntakeButtonReverse = new JoystickButton(joystickLeft,
-	OI_JOYSTICKBUTTON_TOTEINTAKE_BUTTON_REVERSE);
-	/*
-	 totelifterButton = new JoystickButton(joystickRight,
-	 OI_JOYSTICKBUTTON_TOTELIFTERBUTTON);
-	 motorfowardButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_MOTORFOWARDBUTTON);
-	 motorbackwardButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_MOTORBACKWARDBUTTON);
-	 wristinButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_WRISTINBUTTON);
-	 wristoutButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_WRISTOUTNBUTTON);
-	 armsupButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_ARMSUPBUTTON);
-	 armsdownButton = new JoystickButton(joystickLeft,
-	 OI_JOYSTICKBUTTON_ARMSDOWNBUTTON);
-	 leftLoadButton = new JoystickButton(joystickRight, OI_LOAD_LEFT);
-	 rightLoadButton = new JoystickButton(joystickRight, OI_LOAD_RIGHT);
-	 */
-
-	//toteLifterOverride = new Button(5);
+	joystickLeft = new Joystick(0);
+	joystickRight = new Joystick(1);
+	pushButton = new JoystickButton(joystickRight, 11);
+	pullButton = new JoystickButton(joystickRight, 12);
+	toteIntakeButtonForward = new JoystickButton(joystickRight, 8);
+	toteIntakeButtonReverse = new JoystickButton(joystickRight, 7);
+	leftLoadButton = new JoystickButton(joystickRight, 11);
+	rightLoadButton = new JoystickButton(joystickRight, 12);
+	toteLifterUp = new JoystickButton(joystickLeft, 6);
+	toteLifterDown = new JoystickButton(joystickLeft, 4);
+	runPIDElevator = new JoystickButton(joystickLeft, 7);
+	moveArmsUp = new JoystickButton(joystickRight, 2); //TODO real numbers
+	moveArmsDown = new JoystickButton(joystickRight, 3);
+	collect = new JoystickButton(joystickRight, 4);
+	wristOpen = new JoystickButton(joystickRight, 5);
+	wristClose = new JoystickButton(joystickRight, 6);
 }
 
 OI::~OI() {
 	delete joystickLeft;
 	delete joystickRight;
-	/*
-	 delete goToHighElevator;
-	 delete goToMidElevator;
-	 delete goToLowElevator;
-
-	 delete pushButton;
-	 delete actuateButton;
-	 delete liftarmsButton;
-	 */
+	delete pushButton;
+	delete pullButton;
 	delete toteIntakeButtonForward;
 	delete toteIntakeButtonReverse;
-	/*
-	 delete totelifterButton;
-	 delete wristinButton;
-	 delete wristoutButton;
-	 delete armsupButton;
-	 delete armsdownButton;
-	 delete leftLoadButton;
-	 delete rightLoadButton;
-	 */
+	delete leftLoadButton;
+	delete rightLoadButton;
+	delete toteLifterUp;
+	delete toteLifterDown;
+	delete runPIDElevator;
+	delete moveArmsUp;
+	delete moveArmsDown;
+	delete collect;
+	delete wristOpen;
+	delete wristClose;
 }
 
 Joystick *OI::getJoystickLeft() {
@@ -95,38 +69,41 @@ double OI::getAnalogValue(int input) {
 }
 
 void OI::registerButtonListeners() {
-	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushStack(StackPusher::push, 1.0f)));
-	 SAFE_BUTTON(pullButton, pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
+	SAFE_BUTTON(pushButton,
+			pushButton->WhenReleased(new PushStack(StackPusher::push, 1.0f)));
+	SAFE_BUTTON(pullButton,
+			pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
-	 /*
-	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(actuateButton, actuateButton->WhenPressed(new CraaawActuate()));
-	 SAFE_BUTTON(unactuateButton, unactuateButton->WhenPressed(new CraaawUnactuate()));
-	 SAFE_BUTTON(liftarmsButton, liftarmsButton->WhenPressed(new LiftArms()));
-	 SAFE_BUTTON(lowerarmsButton, lowerarmsButton->WhenPressed(new LowerArms()));
-	 */
-
-//	SAFE_BUTTON(toteIntakeButtonForward,
-//			toteIntakeButtonForward->WhenPressed(
-//					new ToteIntake(ToteIntake::forward)));
-//	SAFE_BUTTON(toteIntakeButtonReverse,
-//			toteIntakeButtonReverse->WhenPressed(
-//					new ToteIntake(ToteIntake::reverse)));
-	SAFE_BUTTON(toteIntakeButtonReverse,
-			toteIntakeButtonReverse->WhenReleased(new MoveArms(true)));
 	SAFE_BUTTON(toteIntakeButtonForward,
-			toteIntakeButtonForward->WhenPressed(new MoveArms(false)));
-	/*
-	 SAFE_BUTTON(totelifterButton, totelifterButton->WhenPressed(new LiftToHeight(0)));
-	 SAFE_BUTTON(motorfowardButton, motorfowardButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(motorbackwardButton,motorbackwardButton->WhenPressed(new BetterDrive(10000, 0)));
-	 SAFE_BUTTON(wristinButton,wristinButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(wristoutButton,wristoutButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(armsupButton,armsupButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(armsdownButton,armsdownButton->WhenPressed(new Collect()));
-	 SAFE_BUTTON(leftLoadButton, leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
-	 SAFE_BUTTON(rightLoadButton, rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
-	 */
+			toteIntakeButtonForward->WhenPressed(
+					new ToteIntake(ToteIntake::forward)));
+	SAFE_BUTTON(toteIntakeButtonReverse,
+			toteIntakeButtonReverse->WhenPressed(
+					new ToteIntake(ToteIntake::reverse)));
+	SAFE_BUTTON(toteIntakeButtonForward,
+			toteIntakeButtonForward->WhenReleased(
+					new ToteIntake(ToteIntake::stopped)));
+	SAFE_BUTTON(toteIntakeButtonReverse,
+			toteIntakeButtonReverse->WhenReleased(
+					new ToteIntake(ToteIntake::stopped)));
+
+	SAFE_BUTTON(leftLoadButton,
+			leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
+	SAFE_BUTTON(rightLoadButton,
+			rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
+
+	SAFE_BUTTON(toteLifterDown,
+			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(toteLifterUp,
+			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
+	//SAFE_BUTTON(runPIDElevator,
+	//		runPIDElevator->WhenPressed(new LiftToHeight(1100)));
+
+	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenReleased(new MoveArms(true)));
+	SAFE_BUTTON(moveArmsDown, moveArmsDown->WhenReleased(new MoveArms(false)));
+	SAFE_BUTTON(collect, collect->WhileHeld(new Induct()));
+	SAFE_BUTTON(wristOpen, wristOpen->WhenReleased(new MoveWrist(true)));
+	SAFE_BUTTON(wristClose, wristClose->WhenReleased(new MoveWrist(false)));
 }
 
 bool OI::isJoystickButtonPressed(bool isLeft, int val) {
@@ -137,8 +114,4 @@ bool OI::isJoystickButtonPressed(bool isLeft, int val) {
 		return val > 0 && val < joystickRight->GetButtonCount()
 				&& joystickRight->GetRawButton(val);
 	}
-}
-
-bool OI::getUnactuate() {
-	return unactuateButton->Get();
 }

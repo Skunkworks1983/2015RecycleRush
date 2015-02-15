@@ -1,6 +1,7 @@
 #include <Commands/CanCollecterino/Arms/MoveArms.h>
 
 MoveArms::MoveArms(bool up) {
+	int PIDChange = 0;
 	if (up) {
 		setpoint = CAN_POT_UP_POSITION - .3;
 	} else {

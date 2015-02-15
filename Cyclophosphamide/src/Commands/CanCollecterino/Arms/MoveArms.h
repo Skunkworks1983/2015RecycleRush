@@ -8,6 +8,7 @@ class MoveArms: public CommandBase
 {
 private:
 	float setpoint;
+	int PIDChange;
 
 public:
 	MoveArms(bool up);

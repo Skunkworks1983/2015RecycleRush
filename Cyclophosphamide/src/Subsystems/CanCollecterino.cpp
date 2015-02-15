@@ -22,8 +22,12 @@ CanCollecterino::CanCollecterino() :
 
 	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
 			new StallableMotor(liftPot, 0.8, liftMotorRight, liftMotorLeft));
-	armPID->SetOutputRange(-.2, .2);
+	armPID->SetOutputRange(-.7, .7);
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
+
+	SmartDashboard::PutNumber("CAN P", CAN_ARM_P);
+	SmartDashboard::PutNumber("CAN I", CAN_ARM_I);
+	SmartDashboard::PutNumber("CAN D", CAN_ARM_D);
 }
 
 CanCollecterino::~CanCollecterino() {
@@ -63,14 +67,13 @@ void CanCollecterino::setWrist(DoubleSolenoid::Value value) {
 
 void CanCollecterino::setGrab(float value) {
 	grabMotorLeft->Set(value);
-	grabMotorRight->Set(value);
+	grabMotorRight->Set(-value);
 }
 
 bool CanCollecterino::armsWithinBounds() {
 	return armPID->OnTarget();
 }
 
-bool CanCollecterino::getCanSensor() {
-	SmartDashboard::PutBoolean("Put Boolean", canSensor->Get());
-	return canSensor->Get();
+PIDController *CanCollecterino::getArmPID() {
+	return armPID;
 }

@@ -10,29 +10,22 @@ private:
 		Joystick *joystickRight;
 		JoystickButton *pushButton;
 		JoystickButton *pullButton;
-		JoystickButton *collectButton;
-		JoystickButton *actuateButton;
-		JoystickButton *unactuateButton;
-		JoystickButton *liftarmsButton;
-		JoystickButton *lowerarmsButton;
 		JoystickButton *toteIntakeButtonForward;
 		JoystickButton *toteIntakeButtonReverse;
-		JoystickButton *totelifterButton;
-		JoystickButton *motorfowardButton;
-		JoystickButton *motorbackwardButton;
-		JoystickButton *wristinButton;
-		JoystickButton *wristoutButton;
-		JoystickButton *armsupButton;
-		JoystickButton *armsdownButton;
 
 		JoystickButton *leftLoadButton;
 		JoystickButton *rightLoadButton;
 
-		JoystickButton *goToHighElevator;
-		JoystickButton *goToMidElevator;
-		JoystickButton *goToLowElevator;
+		JoystickButton *toteLifterUp;
+		JoystickButton *toteLifterDown;
+		JoystickButton *runPIDElevator;
 
-		Button *toteLifterOverride;
+		JoystickButton *moveArmsUp;
+		JoystickButton *moveArmsDown;
+		JoystickButton *collect;
+		JoystickButton *wristOpen;
+		JoystickButton *wristClose;
+
 	public:
 		OI();
 		~OI();
