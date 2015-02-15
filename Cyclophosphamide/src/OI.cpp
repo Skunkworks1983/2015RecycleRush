@@ -11,7 +11,8 @@
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnTo.h"
-
+#include "Commands/ToteHandling/LiftToHeightVelocity.h"
+#include "Commands/ToteHandling/LiftToHeight.h"
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
@@ -52,7 +53,9 @@ OI::OI() {
 	 rightLoadButton = new JoystickButton(joystickRight, OI_LOAD_RIGHT);
 	 */
 
-	//toteLifterOverride = new Button(5);
+	toteLifterUp = new JoystickButton(joystickLeft, 6);
+	toteLifterDown = new JoystickButton(joystickLeft, 4);
+	runPIDElevator = new JoystickButton(joystickLeft, 7);
 }
 
 OI::~OI() {
@@ -69,6 +72,7 @@ OI::~OI() {
 	 */
 	delete toteIntakeButtonForward;
 	delete toteIntakeButtonReverse;
+	delete runPIDElevator;
 	/*
 	 delete totelifterButton;
 	 delete wristinButton;
@@ -95,10 +99,17 @@ double OI::getAnalogValue(int input) {
 }
 
 void OI::registerButtonListeners() {
-	 SAFE_BUTTON(pushButton, pushButton->WhenReleased(new PushStack(StackPusher::push, 1.0f)));
-	 SAFE_BUTTON(pullButton, pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
+	SAFE_BUTTON(pushButton,
+			pushButton->WhenReleased(new PushStack(StackPusher::push, 1.0f)));
+	SAFE_BUTTON(pullButton,
+			pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
-	 /*
+	SAFE_BUTTON(toteLifterDown,
+			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(toteLifterUp,
+			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(runPIDElevator, runPIDElevator->WhenPressed(new LiftToHeight(1100)));
+	/*
 	 SAFE_BUTTON(collectButton, collectButton->WhenPressed(new Collect()));
 	 SAFE_BUTTON(actuateButton, actuateButton->WhenPressed(new CraaawActuate()));
 	 SAFE_BUTTON(unactuateButton, unactuateButton->WhenPressed(new CraaawUnactuate()));
@@ -114,6 +125,9 @@ void OI::registerButtonListeners() {
 //					new ToteIntake(ToteIntake::reverse)));
 	SAFE_BUTTON(toteIntakeButtonReverse,
 			toteIntakeButtonReverse->WhenReleased(new MoveArms(true)));
+	SAFE_BUTTON(toteIntakeButtonForward,
+			toteIntakeButtonForward->WhenPressed(new MoveArms(false)));
+
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenPressed(new MoveArms(false)));
 	/*

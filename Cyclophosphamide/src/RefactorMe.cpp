@@ -15,6 +15,7 @@
 
 #include "CommandBase.h"
 #include "RobotMap.h"
+#include <stdio.h>
 
 #include "Commands/Autonomous/Autonomous.h"
 
@@ -33,7 +34,6 @@ void RefactorMeBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 
-
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
@@ -44,13 +44,12 @@ void RefactorMeBot::RobotInit() {
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	SmartDashboard::PutData("Auto Modes", chooser);
 
-
 	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 
 	CommandBase::oi->registerButtonListeners();
 
-	SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 	if (CommandBase::driveBae != NULL) {
+		SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 		bool zeroed = false;
 		double initialTime = GetFPGATime();
 		while (!zeroed) {
@@ -63,6 +62,8 @@ void RefactorMeBot::RobotInit() {
 			}
 		}
 	}
+	SmartDashboard::PutNumber("realEncoder:",
+			CommandBase::toteLifterino->getEncoder()->GetDistance());
 }
 
 void RefactorMeBot::AutonomousInit() {
@@ -91,6 +92,15 @@ void RefactorMeBot::TeleopInit() {
 
 void RefactorMeBot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber("realEncoder:",
+			CommandBase::toteLifterino->getEncoder()->GetDistance());
+	if (CommandBase::oi->isJoystickButtonPressed(true, 11)) {
+		CommandBase::toteLifterino->getEncoder()->Reset();
+	}
+	SmartDashboard::PutNumber("Encoder Value:",
+			CommandBase::toteLifterino->getEncoder()->Get());
+	SmartDashboard::PutNumber("MotorSetPoint",
+			CommandBase::toteLifterino->getPID()->GetSetpoint());
 	WatchDogg();
 }
 
@@ -107,8 +117,8 @@ void RefactorMeBot::TestPeriodic() {
 }
 
 void RefactorMeBot::WatchDogg() {
-	// there are no dogs to watch
-	// ayy lmao
+// there are no dogs to watch
+// ayy lmao
 }
 
 START_ROBOT_CLASS(RefactorMeBot);

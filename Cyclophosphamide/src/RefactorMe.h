@@ -17,7 +17,6 @@ private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	SendableChooser *chooser;
-
 public:
 	RefactorMeBot();
 	~RefactorMeBot();

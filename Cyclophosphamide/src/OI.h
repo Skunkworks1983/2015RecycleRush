@@ -32,7 +32,10 @@ private:
 		JoystickButton *goToMidElevator;
 		JoystickButton *goToLowElevator;
 
-		Button *toteLifterOverride;
+		JoystickButton *toteLifterUp;
+		JoystickButton *toteLifterDown;
+
+		JoystickButton *runPIDElevator;
 	public:
 		OI();
 		~OI();

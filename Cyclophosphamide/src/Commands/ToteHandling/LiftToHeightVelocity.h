@@ -15,8 +15,10 @@
  *
  */
 class LiftToHeightVelocity: public CommandBase {
+private:
+	double speed;
 public:
-	LiftToHeightVelocity();
+	LiftToHeightVelocity(double speed);
 	virtual ~LiftToHeightVelocity();
 	void Initialize();
 	void Execute();

@@ -5,21 +5,23 @@
 
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
-//	lift_traveled_sensor = new DigitalInput(TOTE_LIFTER_SENSOR);
-	SAFE_INIT(TOTE_LIFTER_RIGHT_PORT, rightMotor = new CANTalon(TOTE_LIFTER_RIGHT_PORT););
-	SAFE_INIT(TOTE_LIFTER_LEFT_PORT, leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
-	//SAFE_INIT(TOTE_LIFTER_TOTE_INPUT,
-	//		toteUnderInput = new DigitalInput(TOTE_LIFTER_TOTE_INPUT););
-	//elevatorTopInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT);
+
+	SAFE_INIT(TOTE_LIFTER_RIGHT_PORT,
+			rightMotor = new CANTalon(TOTE_LIFTER_RIGHT_PORT););
+	SAFE_INIT(TOTE_LIFTER_LEFT_PORT,
+			leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
+
 	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
-			TOTE_LIFTER_PID_D, encoder, this);
+	TOTE_LIFTER_PID_D, this, this);
 
 	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
 
-	pid->SetOutputRange(-1.0, 1.0);
+	pid->SetOutputRange(-0.4, 0.8);
+	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
+	pid->SetPercentTolerance(1.5);
 	encoder->Reset();
 }
 
@@ -54,7 +56,6 @@ bool ToteLifterino::isToteUnder() {
 void ToteLifterino::enablePID(bool enable) {
 	if (enable) {
 		pid->Enable();
-		encoder->Reset();
 	} else {
 		pid->Disable();
 	}
@@ -73,15 +74,16 @@ void ToteLifterino::setMotorSpeed(double speed) {
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
-	pid->SetSetpoint(setPoint * TOTE_LIFTER_TICKS_PER_REV);
+	pid->SetSetpoint(setPoint);
 }
 
 void ToteLifterino::PIDWrite(float f) {
 	leftMotor->Set(f);
 	rightMotor->Set(-f);
+	SmartDashboard::PutNumber("MotorValue", f);
 }
 
 double ToteLifterino::PIDGet() {
-	return encoder->Get();
+	return encoder->PIDGet();
 }
 

@@ -7,29 +7,49 @@
 
 #include <Commands/ToteHandling/LiftToHeightVelocity.h>
 
-LiftToHeightVelocity::LiftToHeightVelocity() :
+LiftToHeightVelocity::LiftToHeightVelocity(double speed) :
 		CommandBase("LiftToHeightVelocity") {
 	Requires(toteLifterino);
+	this->speed = speed;
 }
 
 LiftToHeightVelocity::~LiftToHeightVelocity() {
-
 }
 
 void LiftToHeightVelocity::Initialize() {
-	toteLifterino->enablePID(false);
+	if (speed < 0
+			&& toteLifterino->getEncoder()->GetDistance()
+					<= 0 + TOTE_LIFTER_END_TOLERANCE
+			|| (speed > 0
+					&& toteLifterino->getEncoder()->GetDistance()
+							>= TOTE_LIFTER_MAX_DISTANCE)) {
+		//return true;
+		return;
+	} else {
+		toteLifterino->setMotorSpeed(speed);
+	}
 }
+
 void LiftToHeightVelocity::Execute() {
-	double aMax = OI_LINEARPOT_MAX;
-	double val = oi->getAnalogValue(OI_LINEARPOT_TOTE_LIFTER_OVR_PORT);
-	toteLifterino->setMotorSpeed(val / aMax);
 }
+
 bool LiftToHeightVelocity::IsFinished() {
+//split up for understanding
+	if (speed
+			> 0&& toteLifterino->getEncoder()->GetDistance() >= TOTE_LIFTER_MAX_DISTANCE) {
+		//return true;
+	}
+	if (speed
+			< 0&& toteLifterino->getEncoder()->GetDistance() <= 0 + TOTE_LIFTER_END_TOLERANCE) {
+		return true;
+	}
 	return false;
 }
+
 void LiftToHeightVelocity::End() {
-
+	toteLifterino->setMotorSpeed(0);
 }
-void LiftToHeightVelocity::Interrupted() {
 
+void LiftToHeightVelocity::Interrupted() {
+	toteLifterino->setMotorSpeed(0);
 }
