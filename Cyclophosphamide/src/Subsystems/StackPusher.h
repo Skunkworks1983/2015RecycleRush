@@ -16,6 +16,7 @@ public:
 	void InitDefaultCommand();
 	void Push();
 	void Pull();
+	DoubleSolenoid::Value getValue();
 };
 
 #endif

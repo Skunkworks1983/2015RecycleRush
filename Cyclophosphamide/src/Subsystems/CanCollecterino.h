@@ -6,7 +6,7 @@
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
 
-class CanCollecterino: public Subsystem, public PIDOutput, public PIDSource
+class CanCollecterino: public Subsystem
 {
 private:
 	CAN_MOTOR_TYPE *liftMotorLeft;
@@ -35,9 +35,6 @@ public:
 	bool armsWithinBounds();
 	bool getCanSensor();
 	void brakeArms(bool brake);
-
-	virtual void PIDWrite(float f);
-	virtual double PIDGet();
 };
 
 #endif

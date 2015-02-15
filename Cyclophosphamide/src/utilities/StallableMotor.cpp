@@ -1,12 +1,22 @@
 #include "StallableMotor.h"
 
-StallableMotor::StallableMotor(CANTalon *motor, PIDSource *input,
-		float currentThreshold) {
+StallableMotor::StallableMotor(PIDSource *input, float currentThreshold,
+		CANTalon *motor, CANTalon *slaveMotor) {
 	this->motor = motor;
+	this->slaveMotor = slaveMotor;
 	this->currentThreshold = currentThreshold;
 	this->input = input;
 	usingCANTalon = false;
+	directionSwitch = false;
+	directionMag = 0;
+	pdirectionMag = 0;
+	stalledStart = false;
 	ThreadInit();
+}
+
+StallableMotor::~StallableMotor() {
+	delete motor;
+	delete slaveMotor;
 }
 
 StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
@@ -35,11 +45,11 @@ void* StallableMotor::StallCheck(void*) {
 		if (motor->GetOutputCurrent() > currentThreshold) {
 			float currentPosition;
 			if (usingCANTalon) {
-				currentPosition = input->PIDGet();
-			} else {
 				currentPosition = motor->GetEncPosition();
+			} else {
+				currentPosition = input->PIDGet();
 			}
-			if (currentPosition - prevPosition < STALLABLE_MOVE_THRESHOLD) {
+			if (abs(currentPosition - prevPosition) < STALLABLE_MOVE_THRESHOLD) {
 				SmartDashboard::PutNumber("Position Difference",
 						currentPosition - prevPosition);
 				if (startTime == 0) {
@@ -49,6 +59,7 @@ void* StallableMotor::StallCheck(void*) {
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
 					stalled = true;
+					stalledStart = true;
 				}
 			} else {
 				if (startTime != 0) {
@@ -59,8 +70,11 @@ void* StallableMotor::StallCheck(void*) {
 			prevPosition = currentPosition;
 		} else {
 			if (startTime != 0) {
-				startTime = 0;
-				stalled = false;
+				if ((1 / pdirectionMag) * pdirectionMag
+						== (1 / directionMag) * directionMag) {
+					startTime = 0;
+					stalled = false;
+				}
 			}
 		}
 	}
@@ -69,10 +83,24 @@ void* StallableMotor::StallCheck(void*) {
 void StallableMotor::PIDWrite(float output) {
 	if (!stalled) {
 		motor->Set(output);
-	} else {
+		if (slaveMotor != NULL) {
+			slaveMotor->Set(-output);
+		}
+	} else if (stalled) {
+		if (stalledStart == true) {
+			pdirectionMag = (1 / output) * output;
+			stalledStart = false;
+		}
+		directionMag = (1 / output) * output;
+
 		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(0);
 		motor->Disable();
+		if (slaveMotor != NULL) {
+			slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
+			slaveMotor->Set(0);
+			slaveMotor->Disable();
+		}
 	}
 }
 
