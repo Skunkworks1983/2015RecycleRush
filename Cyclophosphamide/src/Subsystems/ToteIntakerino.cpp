@@ -10,19 +10,27 @@ ToteIntakerino::ToteIntakerino() :
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
 	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D,
 			encoder, this);
-	pid->SetOutputRange(-TOTE_INTAKE_MOTOR_FULL, TOTE_INTAKE_MOTOR_FULL);
+	pid->SetOutputRange(-TOTE_INTAKE_PID_FULL, TOTE_INTAKE_PID_FULL);
 	pid->Enable();
 	hasTote = false;
+	isWindingDown = false;
+	hold();
 }
 
 void ToteIntakerino::InitDefaultCommand() {
-	SetDefaultCommand(new ToteIntake(ToteIntake::stopped));
+	//SetDefaultCommand(new ToteIntake(ToteIntake::stopped));
 }
 
 void ToteIntakerino::PIDWrite(float output) {
-	toteIntakeMotor->Set(output);
-	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD) {
+	if(output < 0) {
+		output = 0;
+	}
+	SmartDashboard::PutNumber("Intake PID Output", output);
+	toteIntakeMotor->Set(-output);
+	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD /* && !isWindingDown*/) {
 		hasTote = true;
+	} else {
+		isWindingDown = false;
 	}
 }
 
@@ -44,7 +52,12 @@ void ToteIntakerino::setMotor(float speed) {
 	toteIntakeMotor->Set(speed);
 	if (abs(speed) > 0) {
 		hasTote = false;
+		isWindingDown = true;
 	}
+}
+
+Encoder *ToteIntakerino::getEncoder() {
+	return encoder;
 }
 
 bool ToteIntakerino::isLoaded() {

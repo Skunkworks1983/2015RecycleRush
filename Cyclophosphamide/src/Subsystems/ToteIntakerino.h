@@ -18,7 +18,9 @@ private:
 
 	Encoder *encoder;
 	PIDController *pid;
+
 	bool hasTote;
+	bool isWindingDown;
 public:
 	/**
 	 * Default constructor
@@ -44,6 +46,8 @@ public:
 	 * Tells if a tote is loaded based on the work done by the PID
 	 */
 	bool isLoaded();
+
+	Encoder *getEncoder();
 
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();

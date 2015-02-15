@@ -70,11 +70,17 @@ void OI::registerButtonListeners() {
 			pullButton->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
 	SAFE_BUTTON(toteIntakeButtonForward,
-			toteIntakeButtonForward->WhileHeld(
+			toteIntakeButtonForward->WhenPressed(
 					new ToteIntake(ToteIntake::forward)));
 	SAFE_BUTTON(toteIntakeButtonReverse,
-			toteIntakeButtonReverse->WhileHeld(
+			toteIntakeButtonReverse->WhenPressed(
 					new ToteIntake(ToteIntake::reverse)));
+	SAFE_BUTTON(toteIntakeButtonForward,
+			toteIntakeButtonForward->WhenReleased(
+					new ToteIntake(ToteIntake::stopped)));
+	SAFE_BUTTON(toteIntakeButtonReverse,
+			toteIntakeButtonReverse->WhenReleased(
+					new ToteIntake(ToteIntake::stopped)));
 
 	SAFE_BUTTON(leftLoadButton,
 			leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
@@ -85,8 +91,8 @@ void OI::registerButtonListeners() {
 			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteLifterUp,
 			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
-	SAFE_BUTTON(runPIDElevator,
-			runPIDElevator->WhenPressed(new LiftToHeight(1100)));
+	//SAFE_BUTTON(runPIDElevator,
+	//		runPIDElevator->WhenPressed(new LiftToHeight(1100)));
 
 	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenPressed(new MoveArms(true)));
 	SAFE_BUTTON(moveArmsDown, moveArmsDown->WhenPressed(new MoveArms(false)));

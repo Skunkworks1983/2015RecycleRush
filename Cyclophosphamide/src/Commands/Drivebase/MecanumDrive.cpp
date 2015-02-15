@@ -49,13 +49,12 @@ void MecanumDrive::Execute() {
 	 * so there's a leftover error that causes latency when turning in the
 	 * opposite direction. This corrects for that.
 	 */
-	/*
-	 *This breaks it...
-	if ((clockwise > 0 && driveBae->getError() < 0)
-			|| (clockwise < 0 && driveBae->getError() > 0)) {
+
+	//This breaks it...
+	if ((clockwise > 0 && driveBae->getError() > 0)
+			|| (clockwise < 0 && driveBae->getError() < 0)) {
 		driveBae->zeroPIDOutput();
 	}
-	*/
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
@@ -80,13 +79,13 @@ void MecanumDrive::Execute() {
 			driveBae->setSetpoint(targetAngle);
 		}
 
-		//SmartDashboard::PutNumber("PID setpoint", driveBase->getSetpoint());
-		//SmartDashboard::PutNumber("PID error", driveBase->getError());
+		SmartDashboard::PutNumber("PID setpoint", driveBae->getSetpoint());
+		SmartDashboard::PutNumber("PID error", driveBae->getError());
 
 #if FIELD_ORIENTED
 		// Field-oriented corrections
 		double theta = driveBae->getGyro()->GetYaw();
-		//SmartDashboard::PutNumber("Gyro Angle", theta);
+		SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
 		right = -forward * sin(theta) + right * cos(theta);
