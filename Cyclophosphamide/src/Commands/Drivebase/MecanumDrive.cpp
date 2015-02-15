@@ -27,17 +27,17 @@ void MecanumDrive::Execute() {
 	clockwise = oi->getJoystickRight()->GetAxis(Joystick::kZAxis);
 #endif
 
-	if (fabs(forward) < OI_JOYSTICK_DRIVE_DEADBAND) {
+	if (fabs(forward) < JOYSTICK_DRIVE_DEADBAND) {
 		forward = 0;
 	}
-	if (fabs(right) < OI_JOYSTICK_DRIVE_DEADBAND) {
+	if (fabs(right) < JOYSTICK_DRIVE_DEADBAND) {
 		right = 0;
 	}
-	if (fabs(clockwise) < OI_JOYSTICK_ROT_DEADBAND) {
+	if (fabs(clockwise) < JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
 	} else {
 		double sign = clockwise > 0 ? 1.0 : -1.0;
-		clockwise -= OI_JOYSTICK_ROT_DEADBAND * sign;
+		clockwise -= JOYSTICK_ROT_DEADBAND * sign;
 	}
 
 	if (abs(clockwise) < 0.9) {
