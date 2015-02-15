@@ -1,25 +1,29 @@
 #include <Subsystems/ToteIntakerino.h>
 #include "../Commands/ToteHandling/ToteIntake.h"
 #include "../RobotMap.h"
+#include <cmath>
 
 ToteIntakerino::ToteIntakerino() :
-		Subsystem("ToteIntakerino")
-{
-	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT, toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT););
+		Subsystem("ToteIntakerino") {
+	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT,
+			toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT););
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
-	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D, encoder, this);
+	pid = new PIDController(TOTE_INTAKE_P, TOTE_INTAKE_I, TOTE_INTAKE_D,
+			encoder, this);
 	pid->SetOutputRange(-TOTE_INTAKE_MOTOR_FULL, TOTE_INTAKE_MOTOR_FULL);
 	pid->Enable();
-	hold();
+	hasTote = false;
 }
 
-void ToteIntakerino::InitDefaultCommand()
-{
-
+void ToteIntakerino::InitDefaultCommand() {
+	SetDefaultCommand(new ToteIntake(ToteIntake::stopped));
 }
 
 void ToteIntakerino::PIDWrite(float output) {
 	toteIntakeMotor->Set(output);
+	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD) {
+		hasTote = true;
+	}
 }
 
 double ToteIntakerino::PIDGet() {
@@ -38,5 +42,12 @@ void ToteIntakerino::hold() {
 void ToteIntakerino::setMotor(float speed) {
 	pid->Disable();
 	toteIntakeMotor->Set(speed);
+	if (abs(speed) > 0) {
+		hasTote = false;
+	}
+}
+
+bool ToteIntakerino::isLoaded() {
+	return hasTote;
 }
 

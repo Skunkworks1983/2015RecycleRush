@@ -18,6 +18,7 @@ private:
 
 	Encoder *encoder;
 	PIDController *pid;
+	bool hasTote;
 public:
 	/**
 	 * Default constructor
@@ -35,9 +36,15 @@ public:
 	void setMotor(float speed);
 
 	/**
-	 * Stop the motors and keep them at their current position
+	 * Stop the motors and keeps them at their current position
 	 */
 	void hold();
+
+	/**
+	 * Tells if a tote is loaded based on the work done by the PID
+	 */
+	bool isLoaded();
+
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
 };
