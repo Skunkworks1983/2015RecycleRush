@@ -19,14 +19,14 @@ ToteLifterino::ToteLifterino() :
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
 
-	pid->SetOutputRange(-0.4, 0.8);
+	pid->SetOutputRange(-0.8, 0.8);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(1.5);
 	encoder->Reset();
 }
 
 void ToteLifterino::InitDefaultCommand() {
-	SetDefaultCommand(new LiftToHeight(TOTE_LIFTER_FLOOR));
+	//SetDefaultCommand(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 }
 
 bool ToteLifterino::getElevatorDigitalInput() {
@@ -54,9 +54,10 @@ bool ToteLifterino::isToteUnder() {
 }
 
 void ToteLifterino::enablePID(bool enable) {
-	if (enable) {
+	if (enable && !pid->IsEnabled()) {
 		pid->Enable();
-	} else {
+	}
+	if(!enable && pid->IsEnabled()){
 		pid->Disable();
 	}
 }

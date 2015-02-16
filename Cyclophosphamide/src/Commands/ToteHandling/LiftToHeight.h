@@ -7,7 +7,7 @@
 class LiftToHeight : public CommandBase
 {
 private:
-	double destination, oldDest;
+	double destination;
 	int count;
 public:
 	LiftToHeight(double destination);

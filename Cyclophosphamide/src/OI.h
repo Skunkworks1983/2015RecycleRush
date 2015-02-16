@@ -18,7 +18,9 @@ private:
 
 		JoystickButton *toteLifterUp;
 		JoystickButton *toteLifterDown;
-		JoystickButton *runPIDElevator;
+		JoystickButton *toteLifterFloor;
+		JoystickButton *toteLifterCarry;
+		JoystickButton *toteLifterLift;
 
 		JoystickButton *moveArmsUp;
 		JoystickButton *moveArmsDown;
