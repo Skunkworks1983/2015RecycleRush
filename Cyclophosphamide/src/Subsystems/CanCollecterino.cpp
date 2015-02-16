@@ -9,10 +9,6 @@ CanCollecterino::CanCollecterino() :
 			liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT_PORT););
 	SAFE_INIT(CAN_MOTOR_LIFT_RIGHT_PORT,
 			liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT_PORT););
-	SAFE_INIT(CAN_MOTOR_GRAB_LEFT_PORT,
-			grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT_PORT););
-	SAFE_INIT(CAN_MOTOR_GRAB_RIGHT_PORT,
-			grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT_PORT););
 	SAFE_INIT(CAN_WRIST_SOLENOID_PORT,
 			wrists = new DoubleSolenoid(CAN_WRIST_SOLENOID_PORT););
 
@@ -33,8 +29,6 @@ CanCollecterino::CanCollecterino() :
 CanCollecterino::~CanCollecterino() {
 	delete liftMotorLeft;
 	delete liftMotorRight;
-	delete grabMotorLeft;
-	delete grabMotorRight;
 	delete wrists;
 	delete canSensor;
 	delete armPID;
@@ -42,13 +36,6 @@ CanCollecterino::~CanCollecterino() {
 
 void CanCollecterino::InitDefaultCommand() {
 
-}
-
-void CanCollecterino::StallDiag() {
-	SmartDashboard::PutNumber("Output Current Left",
-			grabMotorLeft->GetOutputCurrent());
-	SmartDashboard::PutNumber("Output Current Right",
-			grabMotorRight->GetOutputCurrent());
 }
 
 void CanCollecterino::setArms(float value) {
@@ -63,11 +50,6 @@ void CanCollecterino::disableArms() {
 
 void CanCollecterino::setWrist(DoubleSolenoid::Value value) {
 	wrists->Set(value);
-}
-
-void CanCollecterino::setGrab(float value) {
-	grabMotorLeft->Set(value);
-	grabMotorRight->Set(-value);
 }
 
 bool CanCollecterino::armsWithinBounds() {

@@ -2,11 +2,11 @@
 
 Induct::Induct() {
 	fuck = 0;
-	Requires(canCollecterino);
+	Requires(canIntakerino);
 }
 
 void Induct::Initialize() {
-	canCollecterino->setGrab(CAN_GRAB_SPEED);
+	canIntakerino->setGrab(CAN_GRAB_SPEED);
 }
 
 void Induct::Execute() {
@@ -18,9 +18,9 @@ bool Induct::IsFinished() {
 }
 
 void Induct::End() {
-	canCollecterino->setGrab(0);
+	canIntakerino->setGrab(0);
 }
 
 void Induct::Interrupted() {
-	canCollecterino->setGrab(0);
+	canIntakerino->setGrab(0);
 }

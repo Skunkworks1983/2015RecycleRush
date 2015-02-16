@@ -4,6 +4,7 @@
 #include <Subsystems/CanCollecterino.h>
 #include <Subsystems/Craaaw.h>
 #include "Subsystems/ToteIntakerino.h"
+#include "Subsystems/CanIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveBae.h"
@@ -12,7 +13,6 @@
 #include "Subsystems/StackPusher.h"
 #include "Subsystems/ToteLifterino.h"
 #include "Subsystems/Pneumatics.h"
-//#include "Subsystems/AutoCanerino/AutoCanerinoFourBar.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -22,6 +22,7 @@
 
 class DriveBae;
 class CanCollecterino;
+class CanIntakerino;
 class ToteIntakerino;
 class ToteLifterino;
 class StackPusher;
@@ -38,6 +39,7 @@ public:
 	static DriveBae *driveBae;
 	static Craaaw *craaaw;
 	static CanCollecterino *canCollecterino;
+	static CanIntakerino *canIntakerino;
 	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
