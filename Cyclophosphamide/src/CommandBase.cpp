@@ -40,7 +40,7 @@ void CommandBase::init() {
 	canCollecterino = new CanCollecterino();
 	canIntakerino = new CanIntakerino();
 	toteIntakerino = new ToteIntakerino();
-//	toteLifterino = new ToteLifterino();
+	toteLifterino = new ToteLifterino();
 	oi = new OI();
 	stackPusher = new StackPusher();
 //	craaaw = new Craaaw();

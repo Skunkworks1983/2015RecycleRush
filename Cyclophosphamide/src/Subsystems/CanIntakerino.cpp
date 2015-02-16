@@ -18,5 +18,5 @@ CanIntakerino::~CanIntakerino() {
 
 void CanIntakerino::setGrab(float value) {
 	grabMotorLeft->Set(value);
-	grabMotorLeft->Set(-value);
+	grabMotorRight->Set(-value);
 }

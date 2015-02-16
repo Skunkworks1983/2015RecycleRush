@@ -21,7 +21,7 @@ ToteLifterino::ToteLifterino() :
 
 	pid->SetOutputRange(-0.8, 0.8);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
-	pid->SetPercentTolerance(1.5);
+	pid->SetPercentTolerance(.75);
 	encoder->Reset();
 }
 

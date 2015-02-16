@@ -8,6 +8,7 @@ private:
 	public:
 		Joystick *joystickLeft;
 		Joystick *joystickRight;
+
 		JoystickButton *pushButton;
 		JoystickButton *pullButton;
 		JoystickButton *toteIntakeButtonForward;

@@ -49,7 +49,7 @@ DriveBae::~DriveBae() {
 }
 
 void DriveBae::InitDefaultCommand() {
-	//SetDefaultCommand(new MecanumDrive);
+	SetDefaultCommand(new MecanumDrive);
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,

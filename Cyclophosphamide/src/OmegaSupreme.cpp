@@ -93,15 +93,12 @@ void OmegaSupreme::TeleopInit() {
 
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-//	SmartDashboard::PutNumber("realEncoder:",
-//			CommandBase::toteLifterino->getEncoder()->GetDistance());
-//	if (CommandBase::oi->isJoystickButtonPressed(true, 11)) {
-//		CommandBase::toteLifterino->getEncoder()->Reset();
-//	}
-//	SmartDashboard::PutNumber("Encoder Value:",
-//			CommandBase::toteLifterino->getEncoder()->Get());
-//	SmartDashboard::PutNumber("MotorSetPoint",
-//			CommandBase::toteLifterino->getPID()->GetSetpoint());
+	SmartDashboard::PutNumber("realEncoder:",
+			CommandBase::toteLifterino->getEncoder()->Get());
+	SmartDashboard::PutNumber("Encoder Value:",
+			CommandBase::toteLifterino->getEncoder()->Get());
+	SmartDashboard::PutNumber("MotorSetPoint",
+			CommandBase::toteLifterino->getPID()->GetSetpoint());
 
 	PIDChange++;
 	if (PIDChange == 10) {
