@@ -10,12 +10,12 @@ LiftToHeight::LiftToHeight(double destination) :
 void LiftToHeight::Initialize() {
 	toteLifterino->setSetPoints(destination);
 	toteLifterino->enablePID(true);
-	SmartDashboard::PutNumber("customDest", 260);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LiftToHeight::Execute() {
 	//Nothing?
+	/* Leaving this in the code in case we need on the fly pid tuning for this subsystem or others. TODO: remove when unneeded*/
 	if (count++ > 25) {
 		if (toteLifterino->getPID()->GetP() != SmartDashboard::GetNumber("P")) {
 			toteLifterino->getPID()->SetPID(SmartDashboard::GetNumber("P"),
@@ -34,41 +34,29 @@ void LiftToHeight::Execute() {
 		}
 	}
 
+	/*if (toteLifterino->getEncoder()->Get() < destination + TOTE_LIFTER_TOLERANCE
+	 || toteLifterino->getEncoder()->Get()
+	 > destination - TOTE_LIFTER_TOLERANCE) {
+	 count++;
+	 }*/
 	SmartDashboard::PutNumber("Destination", destination);
-
-	if (oi->isJoystickButtonPressed(true, 1)) {
-		destination = TOTE_LIFTER_FLOOR;
-	} else if (oi->isJoystickButtonPressed(true, 2)) {
-		destination = 1300;
-	}else if(oi->isJoystickButtonPressed(true, 3)){
-		destination = SmartDashboard::GetNumber("customDest");
-	}
-	if(oi->isJoystickButtonPressed(true, 12)){
-		toteLifterino->enablePID(false);
-		toteLifterino->getEncoder()->Reset();
-	}
-
-	if (destination != oldDest) {
-		toteLifterino->setSetPoints(destination);
-		oldDest = destination;
-	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
 	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
 	return false;
+	//return toteLifterino->getPID()->OnTarget();
 	// return toteLifterino->getElevatorDigitalInput() && destination < 0
 	// return toteLifterino->isToteUnder();
 }
 
 // Called once after isFinished returns true
 void LiftToHeight::End() {
-	toteLifterino->enablePID(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LiftToHeight::Interrupted() {
-	End();
+	//toteLifterino->setSetPoints(toteLifterino->getEncoder()->GetDistance());
 }

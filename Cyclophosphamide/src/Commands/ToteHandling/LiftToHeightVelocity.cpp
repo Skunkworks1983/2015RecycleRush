@@ -11,15 +11,16 @@ LiftToHeightVelocity::LiftToHeightVelocity(double speed) :
 		CommandBase("LiftToHeightVelocity") {
 	Requires(toteLifterino);
 	this->speed = speed;
+	toteLifterino->enablePID(false);
 }
 
 LiftToHeightVelocity::~LiftToHeightVelocity() {
 }
 
 void LiftToHeightVelocity::Initialize() {
-	if (speed < 0
+	if ((speed < 0
 			&& toteLifterino->getEncoder()->GetDistance()
-					<= 0 + TOTE_LIFTER_END_TOLERANCE
+					<= 0 + TOTE_LIFTER_END_TOLERANCE)
 			|| (speed > 0
 					&& toteLifterino->getEncoder()->GetDistance()
 							>= TOTE_LIFTER_MAX_DISTANCE)) {
@@ -36,8 +37,8 @@ void LiftToHeightVelocity::Execute() {
 bool LiftToHeightVelocity::IsFinished() {
 //split up for understanding
 	if (speed
-			> 0&& toteLifterino->getEncoder()->GetDistance() >= TOTE_LIFTER_MAX_DISTANCE) {
-		//return true;
+			> 0&& toteLifterino->getEncoder()->GetDistance() >= TOTE_LIFTER_MAX_DISTANCE - TOTE_LIFTER_END_TOLERANCE) {
+		return true;
 	}
 	if (speed
 			< 0&& toteLifterino->getEncoder()->GetDistance() <= 0 + TOTE_LIFTER_END_TOLERANCE) {

@@ -25,9 +25,13 @@ OI::OI() {
 	toteIntakeButtonReverse = new JoystickButton(joystickRight, 7);
 	leftLoadButton = new JoystickButton(joystickRight, 11);
 	rightLoadButton = new JoystickButton(joystickRight, 12);
+
 	toteLifterUp = new JoystickButton(joystickLeft, 6);
 	toteLifterDown = new JoystickButton(joystickLeft, 4);
-	runPIDElevator = new JoystickButton(joystickLeft, 7);
+	toteLifterFloor = new JoystickButton(joystickLeft, 1);
+	toteLifterCarry= new JoystickButton(joystickLeft, 3);
+	toteLifterLift= new JoystickButton(joystickLeft, 2);
+
 	moveArmsUp = new JoystickButton(joystickRight, 2); //TODO real numbers
 	moveArmsDown = new JoystickButton(joystickRight, 3);
 	collect = new JoystickButton(joystickRight, 4);
@@ -46,7 +50,6 @@ OI::~OI() {
 	delete rightLoadButton;
 	delete toteLifterUp;
 	delete toteLifterDown;
-	delete runPIDElevator;
 	delete moveArmsUp;
 	delete moveArmsDown;
 	delete collect;
@@ -80,6 +83,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteIntakeButtonReverse,
 			toteIntakeButtonReverse->WhenPressed(
 					new ToteIntake(ToteIntake::reverse)));
+
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenReleased(
 					new ToteIntake(ToteIntake::stopped)));
@@ -87,17 +91,20 @@ void OI::registerButtonListeners() {
 			toteIntakeButtonReverse->WhenReleased(
 					new ToteIntake(ToteIntake::stopped)));
 
+	/*
 	SAFE_BUTTON(leftLoadButton,
 			leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
+	*/
 
 	SAFE_BUTTON(toteLifterDown,
 			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteLifterUp,
 			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
-	//SAFE_BUTTON(runPIDElevator,
-	//		runPIDElevator->WhenPressed(new LiftToHeight(1100)));
+	SAFE_BUTTON(toteLifterFloor, toteLifterFloor->WhenPressed(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+	SAFE_BUTTON(toteLifterCarry, toteLifterCarry->WhenPressed(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
+	SAFE_BUTTON(toteLifterLift, toteLifterLift->WhenPressed(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
 
 	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenReleased(new MoveArms(true)));
 	SAFE_BUTTON(moveArmsDown, moveArmsDown->WhenReleased(new MoveArms(false)));

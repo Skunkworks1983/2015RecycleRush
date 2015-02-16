@@ -146,7 +146,7 @@ void OmegaSupreme::TestPeriodic() {
 void OmegaSupreme::WatchDogg() {
 	// there are now doggs to watch
 	// lmao XDDD
-	if (CommandBase::stackPusher->getValue()
+	/*if (CommandBase::stackPusher->getValue()
 			== DoubleSolenoid::kForward&& CommandBase::canCollecterino->getArmPID()->GetSetpoint() == CAN_POT_UP_POSITION) {
 		CommandBase::canCollecterino->disableArms();
 	}
@@ -160,7 +160,7 @@ void OmegaSupreme::WatchDogg() {
 			&& (CommandBase::toteLifterino->getPID()->GetSetpoint()
 					< TOTE_LIFTER_STACK_HEIGHT)) {
 		CommandBase::toteLifterino->setSetPoints(TOTE_LIFTER_STACK_HEIGHT);
-	}
+	}*/
 }
 
 START_ROBOT_CLASS(OmegaSupreme);

@@ -16,7 +16,7 @@
 
 Autonomous *Autonomous::createTurningTripleTote() {
 	Autonomous *cmd = new Autonomous("Autonomous-TurningTripleTote");
-	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
+	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
 	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new TurnTo(-45));
@@ -24,7 +24,7 @@ Autonomous *Autonomous::createTurningTripleTote() {
 	cmd->AddSequential(new TurnTo(-90));
 	cmd->AddSequential(new MoveArms(true));
 	cmd->AddSequential(new BestDrive(33, BestDrive::forward));
-	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
+	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
 	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new TurnTo(-45));
@@ -32,7 +32,7 @@ Autonomous *Autonomous::createTurningTripleTote() {
 	cmd->AddSequential(new TurnTo(-90));
 	cmd->AddSequential(new MoveArms(true));
 	cmd->AddSequential(new BestDrive(33, BestDrive::forward));
-	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR));
+	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
 	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(107, BestDrive::right));
