@@ -80,6 +80,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteIntakeButtonReverse,
 			toteIntakeButtonReverse->WhenPressed(
 					new ToteIntake(ToteIntake::reverse)));
+
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenReleased(
 					new ToteIntake(ToteIntake::stopped)));
@@ -87,10 +88,12 @@ void OI::registerButtonListeners() {
 			toteIntakeButtonReverse->WhenReleased(
 					new ToteIntake(ToteIntake::stopped)));
 
+	/*
 	SAFE_BUTTON(leftLoadButton,
 			leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
+	*/
 
 	SAFE_BUTTON(toteLifterDown,
 			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));

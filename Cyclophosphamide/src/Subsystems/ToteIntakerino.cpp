@@ -22,10 +22,10 @@ void ToteIntakerino::InitDefaultCommand() {
 }
 
 void ToteIntakerino::PIDWrite(float output) {
+	SmartDashboard::PutNumber("Intake PID Output", output);
 	if(output < 0) {
 		output = 0;
 	}
-	SmartDashboard::PutNumber("Intake PID Output", output);
 	toteIntakeMotor->Set(-output);
 	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD /* && !isWindingDown*/) {
 		hasTote = true;
@@ -42,9 +42,11 @@ double ToteIntakerino::PIDGet() {
 // here. Call these from Commands.
 
 void ToteIntakerino::hold() {
-	encoder->Reset();
+	/*encoder->Reset();
 	pid->SetSetpoint(0);
-	pid->Enable();
+	pid->Enable();*/
+
+	setMotor(0);
 }
 
 void ToteIntakerino::setMotor(float speed) {
