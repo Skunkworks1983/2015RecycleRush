@@ -4,19 +4,21 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class StackPusher: public Subsystem
-{
-private:
-	DoubleSolenoid *solenoid;
+class StackPusher: public Subsystem {
 public:
 	enum PushState {
-		push = true, pull = false
+		push, pull, toggle
 	};
+private:
+	DoubleSolenoid *solenoid;
+	PushState state;
+public:
 	StackPusher();
 	void InitDefaultCommand();
 	void Push();
 	void Pull();
 	DoubleSolenoid::Value getValue();
+	PushState getState();
 };
 
 #endif

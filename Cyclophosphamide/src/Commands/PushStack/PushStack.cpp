@@ -19,6 +19,16 @@ void PushStack::Initialize()
 		SmartDashboard::PutString("Stack pusher status", "push");
 		stackPusher->Push();
 		break;
+	case StackPusher::toggle:
+		switch(stackPusher->getState()) {
+		case StackPusher::pull:
+			stackPusher->Push();
+			break;
+		case StackPusher::push:
+			stackPusher->Pull();
+			break;
+		}
+		break;
 	};
 }
 

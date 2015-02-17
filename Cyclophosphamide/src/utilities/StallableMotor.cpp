@@ -59,7 +59,7 @@ void* StallableMotor::StallCheck(void*) {
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
 					stalled = true;
-					stalledStart = true;
+//					stalledStart = true;
 				}
 			} else {
 				if (startTime != 0) {
@@ -69,13 +69,13 @@ void* StallableMotor::StallCheck(void*) {
 			}
 			prevPosition = currentPosition;
 		} else {
-			if (startTime != 0) {
-				if ((1 / pdirectionMag) * pdirectionMag
-						== (1 / directionMag) * directionMag) {
-					startTime = 0;
-					stalled = false;
-				}
-			}
+//			if (startTime != 0) {
+//				if ((1 / pdirectionMag) * pdirectionMag
+//						== (1 / directionMag) * directionMag) {
+			startTime = 0;
+			stalled = false;
+//				}
+//			}
 		}
 	}
 }
@@ -87,11 +87,11 @@ void StallableMotor::PIDWrite(float output) {
 			slaveMotor->Set(-output);
 		}
 	} else if (stalled) {
-		if (stalledStart == true) {
-			pdirectionMag = (1 / output) * output;
-			stalledStart = false;
-		}
-		directionMag = (1 / output) * output;
+//		if (stalledStart == true) {
+//			pdirectionMag = (1 / output) * output;
+//			stalledStart = false;
+//		}
+//		directionMag = (1 / output) * output;
 
 		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(0);

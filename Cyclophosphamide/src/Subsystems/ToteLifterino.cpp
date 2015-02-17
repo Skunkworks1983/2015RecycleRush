@@ -72,6 +72,10 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
+	SmartDashboard::PutNumber("motorSpeedLOOKATME", speed);
+	SmartDashboard::PutNumber("motorLEFTCurrentOMG", leftMotor->GetOutputCurrent());
+	SmartDashboard::PutNumber("motorRIGHTCurrentOMG", rightMotor->GetOutputCurrent());
+
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {

@@ -17,6 +17,8 @@ private:
 	DigitalInput *canSensor;
 
 	float setpoint;
+	bool toggleArms;
+	bool toggleWrist;
 public:
 	CanCollecterino();
 	~CanCollecterino();
@@ -30,6 +32,13 @@ public:
 	void brakeArms(bool brake);
 
 	PIDController *getArmPID();
+
+	bool getToggleArms();
+	void doTheToggleArms();
+
+	bool getWristToggle();
+	void doTheToggleWrist();
+	void getDatStatus();
 };
 
 #endif

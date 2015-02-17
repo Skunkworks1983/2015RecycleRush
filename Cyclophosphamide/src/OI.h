@@ -8,8 +8,9 @@ private:
 	public:
 		Joystick *joystickLeft;
 		Joystick *joystickRight;
+		Joystick *joystickOperator;
 
-		JoystickButton *pushButton;
+		JoystickButton *pushToggle;
 		JoystickButton *pullButton;
 		JoystickButton *toteIntakeButtonForward;
 		JoystickButton *toteIntakeButtonReverse;
@@ -24,7 +25,7 @@ private:
 		JoystickButton *toteLifterLift;
 
 		JoystickButton *moveArmsUp;
-		JoystickButton *moveArmsDown;
+		JoystickButton *moveArmsKnock;
 		JoystickButton *collect;
 		JoystickButton *wristOpen;
 		JoystickButton *wristClose;

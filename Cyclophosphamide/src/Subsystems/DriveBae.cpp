@@ -23,7 +23,7 @@ DriveBae::DriveBae() :
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
 	uint8_t update_rate_hz = 50; // ayy lmao
 	gyro = new IMU(serialPort, update_rate_hz);
-	gyroEnabled = gyro != NULL;
+	gyroEnabled = true; //gyro != NULL;
 
 	rotPID = new PIDController(DRIVE_ROT_P, DRIVE_ROT_I, DRIVE_ROT_D, gyro,
 			this);
@@ -181,9 +181,9 @@ double DriveBae::getClockwise() {
 void DriveBae::execute() {
 // 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;
-	double frontRight = forward - clockwise + right;
+	double frontRight = forward - clockwise - right;
 	double backLeft = forward + clockwise + right;
-	double backRight = forward - clockwise - right;
+	double backRight = forward - clockwise + right;
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }

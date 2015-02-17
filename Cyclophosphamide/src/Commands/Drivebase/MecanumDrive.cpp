@@ -40,9 +40,11 @@ void MecanumDrive::Execute() {
 		clockwise -= JOYSTICK_ROT_DEADBAND * sign;
 	}
 
+	/*
 	if (abs(clockwise) < 0.9) {
 		clockwise /= 2.0;
 	}
+	*/
 
 	/*
 	 * Sometimes the setpoint isn't high enough to actually move the drivebase,
@@ -51,10 +53,12 @@ void MecanumDrive::Execute() {
 	 */
 
 	//This breaks it...
+	/*
 	if ((clockwise > 0 && driveBae->getError() > 0)
 			|| (clockwise < 0 && driveBae->getError() < 0)) {
 		driveBae->zeroPIDOutput();
 	}
+	*/
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
@@ -102,8 +106,10 @@ void MecanumDrive::Execute() {
 	 */
 	forward *= DRIVE_ASPECT_RATIO;
 
+	SmartDashboard::PutNumber("Drive right", right);
+
 	driveBae->setForward(-forward);
-	driveBae->setRight(right);
+	driveBae->setRight(-right);
 	driveBae->execute();
 }
 

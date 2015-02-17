@@ -20,10 +20,14 @@ CanCollecterino::CanCollecterino() :
 			new StallableMotor(liftPot, 0.8, liftMotorRight, liftMotorLeft));
 	armPID->SetOutputRange(-.7, .7);
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
+	armPID->SetPercentTolerance(5);
 
 	SmartDashboard::PutNumber("CAN P", CAN_ARM_P);
 	SmartDashboard::PutNumber("CAN I", CAN_ARM_I);
 	SmartDashboard::PutNumber("CAN D", CAN_ARM_D);
+
+	toggleArms = true;
+	toggleWrist = true;
 }
 
 CanCollecterino::~CanCollecterino() {
@@ -58,4 +62,32 @@ bool CanCollecterino::armsWithinBounds() {
 
 PIDController *CanCollecterino::getArmPID() {
 	return armPID;
+}
+
+void CanCollecterino::doTheToggleArms() {
+	if (toggleArms) {
+		toggleArms = false;
+	} else {
+		toggleArms = true;
+	}
+}
+
+bool CanCollecterino::getToggleArms() {
+	return toggleArms;
+}
+
+void CanCollecterino::doTheToggleWrist() {
+	if (toggleWrist) {
+		toggleWrist = false;
+	} else {
+		toggleWrist = true;
+	}
+}
+
+bool CanCollecterino::getWristToggle() {
+	return toggleWrist;
+}
+
+void CanCollecterino::getDatStatus() {
+	SmartDashboard::PutNumber("WHERE THE PAT AT", liftPot->GetAverageVoltage());
 }

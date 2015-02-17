@@ -12,6 +12,7 @@ private:
 	CANTalon *rightMotor, *leftMotor;
 	PIDController *pid;
 	Encoder *encoder;
+
 public:
 	/**
 	 * Default Constructor. Normal Initialization

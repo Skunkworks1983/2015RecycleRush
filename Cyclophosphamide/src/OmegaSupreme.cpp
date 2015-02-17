@@ -54,7 +54,7 @@ void OmegaSupreme::RobotInit() {
 		bool zeroed = false;
 		double initialTime = GetFPGATime();
 		while (!zeroed) {
-			bool isCalibrating = false; //CommandBase::driveBae->getGyro()->IsCalibrating();
+			bool isCalibrating = CommandBase::driveBae->getGyro()->IsCalibrating();
 			if (!isCalibrating || GetFPGATime() - initialTime > GYRO_TIMEOUT) {
 				Wait(0.2);
 				CommandBase::driveBae->getGyro()->ZeroYaw();
@@ -73,10 +73,11 @@ void OmegaSupreme::AutonomousInit() {
 
 	//autonomousCommand = (Command *) chooser->GetSelected();
 	//autonomousCommand->Start();
-
+	/*
 	float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
 	CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f,
 			0.0f, 0.0f);
+	*/
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
@@ -93,6 +94,10 @@ void OmegaSupreme::TeleopInit() {
 
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+
+	CommandBase::canCollecterino->getDatStatus();
+	SmartDashboard::PutNumber("Gyro Angle", CommandBase::driveBae->getGyro()->GetYaw());
+
 	SmartDashboard::PutNumber("realEncoder:",
 			CommandBase::toteLifterino->getEncoder()->Get());
 	SmartDashboard::PutNumber("Encoder Value:",
