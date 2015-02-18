@@ -61,6 +61,11 @@ OI::~OI() {
 	delete wristClose;
 }
 
+Joystick *OI::getJoystickOperator(){
+	return joystickOperator;
+}
+
+
 Joystick *OI::getJoystickLeft() {
 	return joystickLeft;
 }

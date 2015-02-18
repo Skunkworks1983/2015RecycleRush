@@ -18,6 +18,12 @@ LiftToHeightVelocity::~LiftToHeightVelocity() {
 }
 
 void LiftToHeightVelocity::Initialize() {
+	if(speed >= 0){
+		speed = 1;
+	}else{
+		speed = -1;
+	}
+	speed = speed * SmartDashboard::GetNumber("CustomSpeedElevator");
 	if ((speed < 0
 			&& toteLifterino->getEncoder()->GetDistance()
 					<= 0 + TOTE_LIFTER_END_TOLERANCE)

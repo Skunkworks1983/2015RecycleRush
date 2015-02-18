@@ -48,6 +48,11 @@ void CanCollecterino::setArms(float value) {
 	armPID->Enable();
 }
 
+AnalogInput *CanCollecterino::getLiftPot(){
+	return liftPot;
+}
+
+
 void CanCollecterino::disableArms() {
 	armPID->Disable();
 }

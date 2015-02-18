@@ -4,34 +4,31 @@ ElevatorBangerang::ElevatorBangerang(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
-//	if ((1 / (destination - toteLifterino->getRightMotor())) * destination
-//			- toteLifterino->getRightMotor() == 1) {
-//
-//	} else {
-//
-//	}
 }
 
 // Called just before this Command runs the first time
 void ElevatorBangerang::Initialize() {
-	reachedPosition = false;
+	if (destination == TOTE_LIFTER_FLOOR_HEIGHT) {
+		toteLifterino->setMotorSpeed(TOTE_LIFTER_DOWN_SPEED);
+	}else{
+		toteLifterino->enablePID(true);
+		toteLifterino->setSetPoints(destination);
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorBangerang::Execute() {
-	if (!reachedPosition) {
-		if (toteLifterino->closeEnough(destination)) {
-			reachedPosition = true;
-		} else {
-//			toteLifterino->setMotorSpeed()
-		}
-	} else {
-		if (!toteLifterino->closeEnough(destination)) {
 
-		} else {
-
-		}
+	/*
+	if (destination == TOTE_LIFTER_FLOOR_HEIGHT
+			&& toteLifterino->getEncoder()->Get()
+					== oldEncoderValue&& toteLifterino->getEncoder()->Get() < TOTE_LIFTER_ENCODER_CLOSE_TO_ZERO) {
+		count++;
 	}
+	if (count > TOTE_LIFTER_COUNT_ZEROED) {
+		toteLifterino->getEncoder()->Reset();
+	}
+	*/
 }
 
 // Make this return true when this Command no longer needs to run execute()

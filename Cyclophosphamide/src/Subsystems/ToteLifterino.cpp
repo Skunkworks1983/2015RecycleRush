@@ -19,6 +19,8 @@ ToteLifterino::ToteLifterino() :
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
 
+	SmartDashboard::PutNumber("CustomSpeedElevator", .1);
+
 	pid->SetOutputRange(-0.8, 0.8);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
@@ -87,7 +89,7 @@ void ToteLifterino::setSetPoints(double setPoint) {
 }
 
 bool ToteLifterino::closeEnough(float destination) {
-	return abs(destination - encoder->Get()) < 20;
+	return abs(destination - encoder->Get()) < TOTE_LIFTER_BANGBANG_TOLERANCE;
 }
 
 void ToteLifterino::PIDWrite(float f) {

@@ -31,6 +31,8 @@ public:
 	bool armsWithinBounds();
 	void brakeArms(bool brake);
 
+	AnalogInput *getLiftPot();
+
 	PIDController *getArmPID();
 
 	bool getToggleArms();

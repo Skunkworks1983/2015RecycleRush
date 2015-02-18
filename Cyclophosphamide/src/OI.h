@@ -35,6 +35,7 @@ private:
 		~OI();
 		Joystick *getJoystickLeft();
 		Joystick *getJoystickRight();
+		Joystick *getJoystickOperator();
 		double getAnalogValue(int input);
 		bool getUnactuate();
 		void registerButtonListeners();

@@ -9,8 +9,7 @@ class ElevatorBangerang : public CommandBase
 private:
 	double destination;
 	int count;
-	bool reachedPosition;
-	int speed;
+	double oldEncoderValue;
 
 public:
 	ElevatorBangerang(double destination);
