@@ -10,7 +10,7 @@
 #include "Commands/CanCollecterino/Arms/Induct.h"
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
-#include "Commands/Automatic/TurnTo.h"
+#include "Commands/Automatic/TurnToThenDrive.h"
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
 #include "Commands/ToteHandling/LiftToHeight.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
@@ -24,18 +24,19 @@ OI::OI() {
 	pushToggle = new JoystickButton(joystickOperator, 8); // pushToggle
 	pullButton = new JoystickButton(joystickOperator, 12); // fake
 	toteIntakeButtonForward = new JoystickButton(joystickOperator, 6);
-	toteIntakeButtonReverse = new JoystickButton(joystickOperator, 4);
-	leftLoadButton = new JoystickButton(joystickRight, 11);
-	rightLoadButton = new JoystickButton(joystickRight, 12);
+	leftLoadButton = new JoystickButton(joystickRight, 5);
+	rightLoadButton = new JoystickButton(joystickRight, 6);
 
 	toteLifterUp = new JoystickButton(joystickOperator, 10);
 	toteLifterDown = new JoystickButton(joystickOperator, 12);
 	toteLifterFloor = new JoystickButton(joystickOperator, 11);
-	toteLifterCarry= new JoystickButton(joystickOperator, 9);
-	toteLifterLift= new JoystickButton(joystickOperator, 7);
+	toteLifterCarry = new JoystickButton(joystickOperator, 9);
+	toteLifterLift = new JoystickButton(joystickOperator, 7);
 
-	moveArmsUp = new JoystickButton(joystickOperator, 5); // armsToggle
-	moveArmsKnock = new JoystickButton(joystickOperator, 2); // fake
+	moveArmsUp = new JoystickButton(joystickOperator, 5);
+	moveArmsDown = new JoystickButton(joystickOperator, 4);
+	moveArmsKnock = new JoystickButton(joystickOperator, 2);
+
 	collect = new JoystickButton(joystickOperator, 3);
 	wristOpen = new JoystickButton(joystickOperator, 1); // wristToggle
 	wristClose = new JoystickButton(joystickOperator, 6); // fake
@@ -48,7 +49,7 @@ OI::~OI() {
 	delete pushToggle;
 	delete pullButton;
 	delete toteIntakeButtonForward;
-	delete toteIntakeButtonReverse;
+	delete moveArmsDown;
 	delete leftLoadButton;
 	delete rightLoadButton;
 	delete toteLifterUp;
@@ -83,35 +84,36 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenPressed(
 					new ToteIntake(ToteIntake::forward)));
-	SAFE_BUTTON(toteIntakeButtonReverse,
-			toteIntakeButtonReverse->WhenPressed(
-					new ToteIntake(ToteIntake::reverse)));
+	SAFE_BUTTON(moveArmsDown,
+			moveArmsDown->WhenPressed(new ToteIntake(ToteIntake::reverse)));
 
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenReleased(
 					new ToteIntake(ToteIntake::stopped)));
-	SAFE_BUTTON(toteIntakeButtonReverse,
-			toteIntakeButtonReverse->WhenReleased(
-					new ToteIntake(ToteIntake::stopped)));
 
-	/*
 	SAFE_BUTTON(leftLoadButton,
-			leftLoadButton->WhenReleased(new TurnTo(LOAD_LEFT_ANGLE)));
+			leftLoadButton->WhenReleased(new TurnToThenDrive(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton,
-			rightLoadButton->WhenReleased(new TurnTo(LOAD_RIGHT_ANGLE)));
+			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 
-*/
 	SAFE_BUTTON(toteLifterDown,
 			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteLifterUp,
 			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
 
-	SAFE_BUTTON(toteLifterFloor, toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
-	SAFE_BUTTON(toteLifterCarry, toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
-	SAFE_BUTTON(toteLifterLift, toteLifterLift->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
+	SAFE_BUTTON(toteLifterFloor,
+			toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+	SAFE_BUTTON(toteLifterCarry,
+			toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
+	SAFE_BUTTON(toteLifterLift,
+			toteLifterLift->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
 
-	SAFE_BUTTON(moveArmsUp, moveArmsUp->WhenReleased(new MoveArms(true)));
-	SAFE_BUTTON(moveArmsKnock, moveArmsKnock->WhenReleased(new MoveArms(false)));
+	SAFE_BUTTON(moveArmsUp,
+			moveArmsUp->WhenReleased(new MoveArms(CAN_POT_UP_POSITION)));
+	SAFE_BUTTON(moveArmsDown,
+			moveArmsDown->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
+	SAFE_BUTTON(moveArmsKnock,
+			moveArmsKnock->WhenReleased(new MoveArms(CAN_POT_KNOCK)));
 	SAFE_BUTTON(collect, collect->WhileHeld(new Induct()));
 	SAFE_BUTTON(wristOpen, wristOpen->WhenReleased(new MoveWrist(true)));
 	//SAFE_BUTTON(wristClose, wristClose->WhenReleased(new MoveWrist(false)));

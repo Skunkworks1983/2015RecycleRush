@@ -32,7 +32,9 @@ public:
 	 */
 	CANTalon *getLeftMotor();
 	CANTalon *getRightMotor();
+	float getPosition();
 	Encoder *getEncoder();
+
 	PIDController *getPID();
 
 	bool isToteUnder();
@@ -42,7 +44,7 @@ public:
 	 * Takes a constant and checks if (value > constant - deadband && value < constant + deadband)
 	 * @return if the value is close enough to the constant
 	 */
-	bool closeEnough(int destination);
+	bool closeEnough(float destination);
 	void setMotorSpeed(double speed);
 	void setSetPoints(double setPoint);
 	void enablePID(bool enable);

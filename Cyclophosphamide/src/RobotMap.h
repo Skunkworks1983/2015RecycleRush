@@ -79,10 +79,9 @@
 
 #define TOTE_INTAKE_TICKS_PER_INCH 64
 // Mecanum
-#define ONE_STICK false
 #define FIELD_ORIENTED true
-#define LOAD_LEFT_ANGLE 30.0
-#define LOAD_RIGHT_ANGLE -30.0
+#define LOAD_LEFT_ANGLE 45.0
+#define LOAD_RIGHT_ANGLE -45.0
 
 // Auto
 #define AUTO_DRIVE_SPEED (0.25)
@@ -109,9 +108,9 @@
 
 #define CAN_SENSOR_PORT 0
 
-#define CAN_POT_UP_POSITION 4.9
+#define CAN_POT_UP_POSITION 4.95
 #define CAN_POT_DOWN_POSITION 2.3
-#define CAN_POT_KNOCK_POSITION 3.455
+#define CAN_POT_KNOCK 3.455
 
 #define CAN_LIFT_THRESHOLD 0.1
 
@@ -141,6 +140,6 @@
 
 // Stallable Motor
 #define STALLABLE_MOVE_THRESHOLD 0.1
-#define STALLABLE_TIME_STOP 500
+#define STALLABLE_TIME_STOP 1500
 
 #endif

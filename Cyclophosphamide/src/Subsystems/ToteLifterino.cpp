@@ -41,6 +41,10 @@ CANTalon *ToteLifterino::getRightMotor() {
 	return rightMotor;
 }
 
+float ToteLifterino::getPosition() {
+	return encoder->Get();
+}
+
 Encoder *ToteLifterino::getEncoder() {
 	return encoder;
 }
@@ -80,6 +84,10 @@ void ToteLifterino::setMotorSpeed(double speed) {
 
 void ToteLifterino::setSetPoints(double setPoint) {
 	pid->SetSetpoint(setPoint);
+}
+
+bool ToteLifterino::closeEnough(float destination) {
+	return abs(destination - encoder->Get()) < 20;
 }
 
 void ToteLifterino::PIDWrite(float f) {

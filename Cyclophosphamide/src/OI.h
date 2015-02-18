@@ -13,7 +13,7 @@ private:
 		JoystickButton *pushToggle;
 		JoystickButton *pullButton;
 		JoystickButton *toteIntakeButtonForward;
-		JoystickButton *toteIntakeButtonReverse;
+		JoystickButton *moveArmsDown;
 
 		JoystickButton *leftLoadButton;
 		JoystickButton *rightLoadButton;
