@@ -32,10 +32,13 @@ OI::OI() {
 	toteLifterFloor = new JoystickButton(joystickOperator, 11);
 	toteLifterCarry = new JoystickButton(joystickOperator, 9);
 	toteLifterLift = new JoystickButton(joystickOperator, 7);
+	stackThenLoadPos = new JoystickButton(joystickOperator, 420);
+	stackThenCarryPos = new JoystickButton(joystickOperator, 421);
 
 	moveArmsUp = new JoystickButton(joystickOperator, 5);
 	moveArmsDown = new JoystickButton(joystickOperator, 4);
 	moveArmsKnock = new JoystickButton(joystickOperator, 2);
+	canToClawTransfer = new JoystickButton(joystickOperator, 422);
 
 	collect = new JoystickButton(joystickOperator, 3);
 	wristOpen = new JoystickButton(joystickOperator, 1); // wristToggle
@@ -54,8 +57,11 @@ OI::~OI() {
 	delete rightLoadButton;
 	delete toteLifterUp;
 	delete toteLifterDown;
+	delete stackThenCarryPos;
+	delete stackThenLoadPos;
 	delete moveArmsUp;
 	delete moveArmsKnock;
+	delete canToClawTransfer;
 	delete collect;
 	delete wristOpen;
 	delete wristClose;

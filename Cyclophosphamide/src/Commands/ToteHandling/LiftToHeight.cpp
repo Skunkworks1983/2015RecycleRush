@@ -1,5 +1,17 @@
 #include "LiftToHeight.h"
 
+LiftToHeight::LiftToHeight(double destination, bool override) :
+		CommandBase("LiftToHeight") {
+	Requires(toteLifterino);
+	if (override) {
+		// Using an input of -1.0 to 1.0
+		this->destination = (destination + 1.0)
+				* (TOTE_LIFTER_STACK_HEIGHT - TOTE_LIFTER_CARRY_HEIGHT) / 2.0;
+	} else {
+		this->destination = destination;
+	}
+}
+
 LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
