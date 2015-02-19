@@ -40,9 +40,9 @@ Autonomous::Autonomous(int argc, char **argv) :
 		case AUTO_SCRIPT_CHARMASK('t', 't'):
 			use = new TurnTo(arg);
 			break;
-//		case AUTO_SCRIPT_CHARMASK('w','f'):
-//			use = new WaitCommand(arg);
-//			break;
+		case AUTO_SCRIPT_CHARMASK('w','f'):
+			use = new WaitCommand(arg);
+			break;
 //		case AUTO_SCRIPT_CHARMASK('w','u'):
 //			use = new WaitUntilCommand(arg);
 //			break;
