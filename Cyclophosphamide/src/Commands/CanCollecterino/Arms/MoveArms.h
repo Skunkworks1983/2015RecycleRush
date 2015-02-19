@@ -4,14 +4,12 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class MoveArms: public CommandBase
-{
+class MoveArms: public CommandBase {
 private:
 	float setpoint;
-	int PIDChange;
 
 public:
-	MoveArms(bool up);
+	MoveArms(float setpoint);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

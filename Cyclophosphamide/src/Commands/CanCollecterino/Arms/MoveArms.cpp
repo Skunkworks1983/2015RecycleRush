@@ -1,17 +1,11 @@
 #include <Commands/CanCollecterino/Arms/MoveArms.h>
 
-MoveArms::MoveArms(bool up) {
+MoveArms::MoveArms(float setpoint) {
 	Requires(canCollecterino);
+	this->setpoint = setpoint;
 }
 
 void MoveArms::Initialize() {
-	if (canCollecterino->getToggleArms()) {
-		setpoint = CAN_POT_UP_POSITION;
-		canCollecterino->doTheToggleArms();
-	} else {
-		setpoint = CAN_POT_DOWN_POSITION;
-		canCollecterino->doTheToggleArms();
-	}
 	canCollecterino->setArms(setpoint);
 }
 
@@ -24,7 +18,9 @@ bool MoveArms::IsFinished() {
 }
 
 void MoveArms::End() {
-	canCollecterino->disableArms();
+	if (setpoint == CAN_POT_KNOCK) {
+		canCollecterino->disableArms();
+	}
 }
 
 void MoveArms::Interrupted() {

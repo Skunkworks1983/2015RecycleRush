@@ -13,7 +13,7 @@ private:
 		JoystickButton *pushToggle;
 		JoystickButton *pullButton;
 		JoystickButton *toteIntakeButtonForward;
-		JoystickButton *toteIntakeButtonReverse;
+		JoystickButton *moveArmsDown;
 
 		JoystickButton *leftLoadButton;
 		JoystickButton *rightLoadButton;
@@ -35,6 +35,7 @@ private:
 		~OI();
 		Joystick *getJoystickLeft();
 		Joystick *getJoystickRight();
+		Joystick *getJoystickOperator();
 		double getAnalogValue(int input);
 		bool getUnactuate();
 		void registerButtonListeners();

@@ -19,6 +19,8 @@ ToteLifterino::ToteLifterino() :
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
 	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
 
+	SmartDashboard::PutNumber("CustomSpeedElevator", .1);
+
 	pid->SetOutputRange(-0.8, 0.8);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
@@ -39,6 +41,10 @@ CANTalon *ToteLifterino::getLeftMotor() {
 
 CANTalon *ToteLifterino::getRightMotor() {
 	return rightMotor;
+}
+
+float ToteLifterino::getPosition() {
+	return encoder->Get();
 }
 
 Encoder *ToteLifterino::getEncoder() {
@@ -80,6 +86,10 @@ void ToteLifterino::setMotorSpeed(double speed) {
 
 void ToteLifterino::setSetPoints(double setPoint) {
 	pid->SetSetpoint(setPoint);
+}
+
+bool ToteLifterino::closeEnough(float destination) {
+	return abs(destination - encoder->Get()) < TOTE_LIFTER_BANGBANG_TOLERANCE;
 }
 
 void ToteLifterino::PIDWrite(float f) {

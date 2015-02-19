@@ -17,15 +17,9 @@ void MecanumDrive::Execute() {
 	double right;
 	double clockwise;
 
-#if ONE_STICK
-	forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
-	right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
-	clockwise = oi->getJoystickLeft()->GetAxis(Joystick::kZAxis);
-#else
 	forward = -oi->getJoystickLeft()->GetAxis(Joystick::kYAxis);
 	right = oi->getJoystickLeft()->GetAxis(Joystick::kXAxis);
 	clockwise = oi->getJoystickRight()->GetAxis(Joystick::kZAxis);
-#endif
 
 	if (fabs(forward) < JOYSTICK_DRIVE_DEADBAND) {
 		forward = 0;
@@ -35,30 +29,13 @@ void MecanumDrive::Execute() {
 	}
 	if (fabs(clockwise) < JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
+		driveBae->startRotPID();
 	} else {
 		double sign = clockwise > 0 ? 1.0 : -1.0;
 		clockwise -= JOYSTICK_ROT_DEADBAND * sign;
-	}
-
-	/*
-	if (abs(clockwise) < 0.9) {
-		clockwise /= 2.0;
-	}
-	*/
-
-	/*
-	 * Sometimes the setpoint isn't high enough to actually move the drivebase,
-	 * so there's a leftover error that causes latency when turning in the
-	 * opposite direction. This corrects for that.
-	 */
-
-	//This breaks it...
-	/*
-	if ((clockwise > 0 && driveBae->getError() > 0)
-			|| (clockwise < 0 && driveBae->getError() < 0)) {
+		driveBae->stopRotPID();
 		driveBae->zeroPIDOutput();
 	}
-	*/
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
@@ -66,26 +43,6 @@ void MecanumDrive::Execute() {
 	right = pow(right, 3.0);
 
 	if (driveBae->isGyroEnabled()) {
-		clockwise *= JOYSTICK_DEGREES_PER_TICK;
-		// Don't increase the angle if the PIDOutput is already maxed
-		if (driveBae->getClockwise() < 0.9) {
-			double targetAngle = driveBae->getSetpoint() + clockwise;
-			if (targetAngle > 180.0) {
-				targetAngle += 180.0;
-				targetAngle = fmod(targetAngle, 360.0);
-				targetAngle -= 180.0;
-			} else if (targetAngle < -180.0) {
-				targetAngle -= 180.0;
-				targetAngle = fmod(targetAngle, 360.0);
-				targetAngle += 180.0;
-			}
-
-			driveBae->setSetpoint(targetAngle);
-		}
-
-		SmartDashboard::PutNumber("PID setpoint", driveBae->getSetpoint());
-		SmartDashboard::PutNumber("PID error", driveBae->getError());
-
 #if FIELD_ORIENTED
 		// Field-oriented corrections
 		double theta = driveBae->getGyro()->GetYaw();
@@ -95,9 +52,6 @@ void MecanumDrive::Execute() {
 		right = -forward * sin(theta) + right * cos(theta);
 		forward = temp;
 #endif
-	} else { // If the gyro is not enabled
-		// Set the speed directly without using PID
-		driveBae->setClockwise(clockwise);
 	}
 
 	/*
@@ -106,10 +60,11 @@ void MecanumDrive::Execute() {
 	 */
 	forward *= DRIVE_ASPECT_RATIO;
 
-	SmartDashboard::PutNumber("Drive right", right);
-
 	driveBae->setForward(-forward);
 	driveBae->setRight(-right);
+	if(clockwise != 0) {
+		driveBae->setClockwise(-clockwise);
+	}
 	driveBae->execute();
 }
 
