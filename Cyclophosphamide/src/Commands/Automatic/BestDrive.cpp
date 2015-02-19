@@ -14,7 +14,7 @@ void BestDrive::Initialize() {
 	driveBae->setModeAll(CANSpeedController::kPosition);
 	driveBae->enablePIDAll(true);
 	driveBae->setPIDAll(DRIVE_DRIVE_P, DRIVE_DRIVE_I, DRIVE_DRIVE_D);
-	switch(direction){
+	switch (direction) {
 	case forward:
 		driveBae->setAll(targetDistance);
 		break;
@@ -23,25 +23,31 @@ void BestDrive::Initialize() {
 		break;
 	case right:
 		driveBae->getMotor(DriveBae::MotorSide::BACK_LEFT)->Set(targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->Set(targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->Set(-targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->Set(-targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->Set(
+				targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->Set(
+				-targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->Set(
+				-targetDistance);
 		break;
 	case left:
-		driveBae->getMotor(DriveBae::MotorSide::BACK_LEFT)->Set(-targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->Set(-targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->Set(targetDistance);
-		driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->Set(targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::BACK_LEFT)->Set(
+				-targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->Set(
+				-targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->Set(
+				targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->Set(
+				targetDistance);
 		break;
 	}
-	SmartDashboard::PutNumber("Initial enc value", driveBae->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void BestDrive::Execute() {
 	// ayy lma0
-	SmartDashboard::PutNumber("Current enc value", driveBae->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
-	SmartDashboard::PutNumber("Drive PID setpoint", driveBae->getMotor(DriveBae::FRONT_LEFT)->GetSetpoint());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -53,7 +59,7 @@ bool BestDrive::IsFinished() {
 void BestDrive::End() {
 	driveBae->setAll(0);
 	driveBae->enablePIDAll(false);
-	SmartDashboard::PutNumber("Final enc value", driveBae->getMotor(DriveBae::FRONT_LEFT)->GetEncPosition());
+
 }
 
 // Called when another command which requires one or more of the same

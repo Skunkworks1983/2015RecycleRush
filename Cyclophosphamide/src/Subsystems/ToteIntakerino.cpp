@@ -22,8 +22,8 @@ void ToteIntakerino::InitDefaultCommand() {
 }
 
 void ToteIntakerino::PIDWrite(float output) {
-	SmartDashboard::PutNumber("Intake PID Output", output);
-	if(output < 0) {
+
+	if (output < 0) {
 		output = 0;
 	}
 	toteIntakeMotor->Set(-output);
@@ -43,8 +43,8 @@ double ToteIntakerino::PIDGet() {
 
 void ToteIntakerino::hold() {
 	/*encoder->Reset();
-	pid->SetSetpoint(0);
-	pid->Enable();*/
+	 pid->SetSetpoint(0);
+	 pid->Enable();*/
 
 	setMotor(0);
 }

@@ -97,26 +97,6 @@ void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
 	CommandBase::canCollecterino->getDatStatus();
-	SmartDashboard::PutNumber("Gyro Angle",
-			CommandBase::driveBae->getGyro()->GetYaw());
-
-	SmartDashboard::PutNumber("realEncoder:",
-			CommandBase::toteLifterino->getEncoder()->Get());
-	SmartDashboard::PutNumber("Encoder Value:",
-			CommandBase::toteLifterino->getEncoder()->Get());
-	SmartDashboard::PutNumber("MotorSetPoint",
-			CommandBase::toteLifterino->getPID()->GetSetpoint());
-
-	SmartDashboard::PutNumber("leftMotorCurrent",
-			CommandBase::toteLifterino->getLeftMotor()->GetOutputCurrent());
-	SmartDashboard::PutNumber("rightMotorCurrent",
-			CommandBase::toteLifterino->getRightMotor()->GetOutputCurrent());
-
-	SmartDashboard::PutNumber("intake",
-			CommandBase::toteIntakerino->getEncoder()->Get());
-
-	SmartDashboard::PutNumber("armPot",
-			CommandBase::canCollecterino->getLiftPot()->PIDGet());
 	WatchDogg();
 }
 
