@@ -5,6 +5,11 @@
 
 CanToCraaawTransfer::CanToCraaawTransfer()
 {
-	AddSequential(new MoveArms(CAN_POT_UP_POSITION));
-	AddSequential(new MoveWrist(false));
+	if(CommandBase::canCollecterino->getSetpoint() == CAN_POT_DOWN_POSITION) {
+		AddSequential(new MoveArms(CAN_POT_UP_POSITION));
+		AddSequential(new MoveWrist(false));
+	} else {
+		AddSequential(new MoveWrist(true));
+		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
+	}
 }

@@ -96,3 +96,7 @@ bool CanCollecterino::getWristToggle() {
 void CanCollecterino::getDatStatus() {
 	SmartDashboard::PutNumber("WHERE THE PAT AT", liftPot->GetAverageVoltage());
 }
+
+double CanCollecterino::getSetpoint() {
+	return setpoint;
+}
