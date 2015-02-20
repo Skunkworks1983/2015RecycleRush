@@ -41,6 +41,7 @@ public:
 	bool getWristToggle();
 	void doTheToggleWrist();
 	void getDatStatus();
+	double getSetpoint();
 };
 
 #endif

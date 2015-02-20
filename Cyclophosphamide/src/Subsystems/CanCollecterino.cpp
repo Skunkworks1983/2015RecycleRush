@@ -91,3 +91,7 @@ bool CanCollecterino::getWristToggle() {
 void CanCollecterino::getDatStatus() {
 
 }
+
+double CanCollecterino::getSetpoint() {
+	return setpoint;
+}

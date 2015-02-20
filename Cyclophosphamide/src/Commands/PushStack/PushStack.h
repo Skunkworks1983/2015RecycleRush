@@ -11,8 +11,7 @@ private:
 	StackPusher::PushState state;
 
 public:
-	PushStack(StackPusher::PushState state, float timeout = 1.0f);
-	PushStack();
+	PushStack(StackPusher::PushState state, float timeout);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -9,15 +9,12 @@ ToteIntake::ToteIntake(Direction direction) {
 void ToteIntake::Initialize() {
 	switch (direction) {
 	case forward:
-
 		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case reverse:
-
 		toteIntakerino->setMotor(-TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case stopped:
-
 		toteIntakerino->hold();
 		break;
 	}

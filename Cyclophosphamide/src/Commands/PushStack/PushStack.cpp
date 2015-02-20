@@ -10,11 +10,9 @@ PushStack::PushStack(StackPusher::PushState state, float timeout) {
 void PushStack::Initialize() {
 	switch (state) {
 	case StackPusher::pull:
-
 		stackPusher->Pull();
 		break;
 	case StackPusher::push:
-
 		stackPusher->Push();
 		break;
 	case StackPusher::toggle:
