@@ -11,15 +11,12 @@ void ToteIntake::Initialize()
 {
 	switch(direction) {
 	case forward:
-		SmartDashboard::PutString("Intake status", "forward");
 		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case reverse:
-		SmartDashboard::PutString("Intake status", "reverse");
 		toteIntakerino->setMotor(-TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case stopped:
-		SmartDashboard::PutString("Intake status", "stopped");
 		toteIntakerino->hold();
 		break;
 	}
