@@ -25,6 +25,8 @@ public:
 
 	bool getElevatorDigitalInput();
 
+	bool lowerThan(double height);
+
 	/**
 	 * Returns the encoder
 	 *

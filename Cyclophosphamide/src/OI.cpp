@@ -14,6 +14,8 @@
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
 #include "Commands/ToteHandling/LiftToHeight.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
+#include "Commands/ToteHandling/ElevatorBangerang.h"
+
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
@@ -89,8 +91,6 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenPressed(
 					new ToteIntake(ToteIntake::forward)));
-	SAFE_BUTTON(moveArmsDown,
-			moveArmsDown->WhenPressed(new ToteIntake(ToteIntake::reverse)));
 
 	SAFE_BUTTON(toteIntakeButtonForward,
 			toteIntakeButtonForward->WhenReleased(

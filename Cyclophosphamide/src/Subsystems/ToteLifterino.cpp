@@ -63,7 +63,7 @@ void ToteLifterino::enablePID(bool enable) {
 	if (enable && !pid->IsEnabled()) {
 		pid->Enable();
 	}
-	if(!enable && pid->IsEnabled()){
+	if (!enable && pid->IsEnabled()) {
 		pid->Disable();
 	}
 }
@@ -79,8 +79,10 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
 	SmartDashboard::PutNumber("motorSpeedLOOKATME", speed);
-	SmartDashboard::PutNumber("motorLEFTCurrentOMG", leftMotor->GetOutputCurrent());
-	SmartDashboard::PutNumber("motorRIGHTCurrentOMG", rightMotor->GetOutputCurrent());
+	SmartDashboard::PutNumber("motorLEFTCurrentOMG",
+			leftMotor->GetOutputCurrent());
+	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
+			rightMotor->GetOutputCurrent());
 
 }
 
@@ -89,10 +91,16 @@ void ToteLifterino::setSetPoints(double setPoint) {
 }
 
 bool ToteLifterino::closeEnough(float destination) {
-	return abs(destination - encoder->Get()) < TOTE_LIFTER_BANGBANG_TOLERANCE;
+	SmartDashboard::PutBoolean("closeEnough", pid->OnTarget());
+	return pid->OnTarget();
+}
+
+bool ToteLifterino::lowerThan(double height) {
+	return encoder->Get() < height;
 }
 
 void ToteLifterino::PIDWrite(float f) {
+//	f * (abs((int)encoder->GetError()) < 2 ? abs((int)encoder->GetError()) * TOTE_LIFTER_PID_CONSTANT : 1)
 	leftMotor->Set(f);
 	rightMotor->Set(-f);
 	SmartDashboard::PutNumber("MotorValue", f);

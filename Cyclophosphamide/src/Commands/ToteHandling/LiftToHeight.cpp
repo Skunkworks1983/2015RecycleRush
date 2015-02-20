@@ -34,6 +34,9 @@ void LiftToHeight::Execute() {
 		}
 	}
 
+	if(destination == TOTE_LIFTER_FLOOR_HEIGHT && toteLifterino->closeEnough(destination)){
+		toteLifterino->enablePID(false);
+	}
 	/*if (toteLifterino->getEncoder()->Get() < destination + TOTE_LIFTER_TOLERANCE
 	 || toteLifterino->getEncoder()->Get()
 	 > destination - TOTE_LIFTER_TOLERANCE) {
