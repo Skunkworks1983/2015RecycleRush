@@ -13,6 +13,7 @@ public:
 	static Autonomous *createTurnTo(double targetAngle);
 	static Autonomous *createTripleTote();
 	static Autonomous *createTurningTripleTote();
+	static Autonomous *createStartWithCan();
 
 	Autonomous();
 	Autonomous(char *style);

@@ -101,6 +101,7 @@ void OmegaSupreme::TeleopPeriodic() {
 	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
 			CommandBase::toteLifterino->getRightMotor()->GetOutputCurrent());
 	CommandBase::canCollecterino->getDatStatus();
+	SmartDashboard::PutNumber("intakeEncoder", CommandBase::toteIntakerino->getEncoder()->Get());
 	WatchDogg();
 }
 

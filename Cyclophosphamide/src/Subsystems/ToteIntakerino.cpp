@@ -42,9 +42,9 @@ double ToteIntakerino::PIDGet() {
 // here. Call these from Commands.
 
 void ToteIntakerino::hold() {
-	/*encoder->Reset();
-	 pid->SetSetpoint(0);
-	 pid->Enable();*/
+	encoder->Reset();
+	pid->SetSetpoint(0);
+	pid->Enable();
 
 	setMotor(0);
 }

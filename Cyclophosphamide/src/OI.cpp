@@ -118,7 +118,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(moveArmsDown,
 			moveArmsDown->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
 	SAFE_BUTTON(moveArmsKnock,
-			moveArmsKnock->WhenReleased(new MoveArms(CAN_POT_KNOCK)));
+			moveArmsKnock->WhenReleased(new MoveArms(CAN_POT_KNOCK_POSITION)));
 	SAFE_BUTTON(collect, collect->WhileHeld(new Induct()));
 	SAFE_BUTTON(wristOpen, wristOpen->WhenReleased(new MoveWrist(true)));
 	//SAFE_BUTTON(wristClose, wristClose->WhenReleased(new MoveWrist(false)));

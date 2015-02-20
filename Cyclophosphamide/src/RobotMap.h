@@ -122,7 +122,7 @@
 #define CAN_POT_UP_POSITION 4.03// practice bot 4.95
 #define CAN_POT_DOWN_POSITION 1.533 // practice bot 2.3
 
-#define CAN_POT_KNOCK 3.455
+#define CAN_POT_KNOCK_POSITION 2.555
 
 #define CAN_LIFT_THRESHOLD 0.1
 
