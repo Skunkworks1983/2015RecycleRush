@@ -16,23 +16,6 @@ void LiftToHeight::Initialize() {
 void LiftToHeight::Execute() {
 	//Nothing?
 	/* Leaving this in the code in case we need on the fly pid tuning for this subsystem or others. TODO: remove when unneeded*/
-	if (count++ > 25) {
-		if (toteLifterino->getPID()->GetP() != SmartDashboard::GetNumber("P")) {
-			toteLifterino->getPID()->SetPID(SmartDashboard::GetNumber("P"),
-					toteLifterino->getPID()->GetI(),
-					toteLifterino->getPID()->GetD());
-		}
-		if (toteLifterino->getPID()->GetI() != SmartDashboard::GetNumber("I")) {
-			toteLifterino->getPID()->SetPID(toteLifterino->getPID()->GetP(),
-					SmartDashboard::GetNumber("I"),
-					toteLifterino->getPID()->GetD());
-		}
-		if (toteLifterino->getPID()->GetD() != SmartDashboard::GetNumber("D")) {
-			toteLifterino->getPID()->SetPID(toteLifterino->getPID()->GetP(),
-					toteLifterino->getPID()->GetI(),
-					SmartDashboard::GetNumber("D"));
-		}
-	}
 
 	if(destination == TOTE_LIFTER_FLOOR_HEIGHT && toteLifterino->closeEnough(destination)){
 		toteLifterino->enablePID(false);
@@ -42,7 +25,7 @@ void LiftToHeight::Execute() {
 	 > destination - TOTE_LIFTER_TOLERANCE) {
 	 count++;
 	 }*/
-	SmartDashboard::PutNumber("Destination", destination);
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
