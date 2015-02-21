@@ -189,7 +189,6 @@ void DriveBae::execute() {
 }
 void DriveBae::PIDWrite(float output) {
 	output /= 180.0;
-	SmartDashboard::PutNumber("PID output", output);
 	setClockwise(-output);
 }
 

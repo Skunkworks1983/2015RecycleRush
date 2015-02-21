@@ -46,7 +46,7 @@ void MecanumDrive::Execute() {
 #if FIELD_ORIENTED
 		// Field-oriented corrections
 		double theta = driveBae->getGyro()->GetYaw();
-		SmartDashboard::PutNumber("Gyro Angle", theta);
+		//SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
 		right = -forward * sin(theta) + right * cos(theta);

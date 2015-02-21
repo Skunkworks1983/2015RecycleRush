@@ -24,8 +24,12 @@ public:
 	void InitDefaultCommand();
 
 	bool getElevatorDigitalInput();
+
 	bool isCoop();
 	void setCoop(bool isCoop);
+
+	bool lowerThan(double height);
+
 	/**
 	 * Returns the encoder
 	 *

@@ -22,10 +22,6 @@ CanCollecterino::CanCollecterino() :
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
 	armPID->SetPercentTolerance(5);
 
-	SmartDashboard::PutNumber("CAN P", CAN_ARM_P);
-	SmartDashboard::PutNumber("CAN I", CAN_ARM_I);
-	SmartDashboard::PutNumber("CAN D", CAN_ARM_D);
-
 	toggleArms = true;
 	toggleWrist = true;
 }
@@ -48,10 +44,9 @@ void CanCollecterino::setArms(float value) {
 	armPID->Enable();
 }
 
-AnalogInput *CanCollecterino::getLiftPot(){
+AnalogInput *CanCollecterino::getLiftPot() {
 	return liftPot;
 }
-
 
 void CanCollecterino::disableArms() {
 	armPID->Disable();
@@ -94,7 +89,7 @@ bool CanCollecterino::getWristToggle() {
 }
 
 void CanCollecterino::getDatStatus() {
-	SmartDashboard::PutNumber("WHERE THE PAT AT", liftPot->GetAverageVoltage());
+
 }
 
 double CanCollecterino::getSetpoint() {
