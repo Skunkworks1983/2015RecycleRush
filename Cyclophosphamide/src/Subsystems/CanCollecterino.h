@@ -3,7 +3,9 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
-
+/*!
+ * Can Collector have wrist and arm to collect the recycle can.
+ */
 class CanCollecterino: public Subsystem
 {
 private:
