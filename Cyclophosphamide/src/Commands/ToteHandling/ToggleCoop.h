@@ -1,16 +1,13 @@
-#ifndef ToteLifter_H
-#define ToteLifter_H
+#ifndef ToggleCoop_H
+#define ToggleCoop_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class LiftToHeight : public CommandBase
+class ToggleCoop: public CommandBase
 {
-private:
-	double destination;
-	int count;
 public:
-	LiftToHeight(double destination);
+	ToggleCoop();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

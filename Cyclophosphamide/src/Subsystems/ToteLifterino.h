@@ -12,7 +12,7 @@ private:
 	CANTalon *rightMotor, *leftMotor;
 	PIDController *pid;
 	Encoder *encoder;
-
+	bool coopState;
 public:
 	/**
 	 * Default Constructor. Normal Initialization
@@ -24,7 +24,8 @@ public:
 	void InitDefaultCommand();
 
 	bool getElevatorDigitalInput();
-
+	bool isCoop();
+	void setCoop(bool isCoop);
 	/**
 	 * Returns the encoder
 	 *
