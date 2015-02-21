@@ -16,6 +16,7 @@
 #include "Commands/ToteHandling/LiftToHeight.h"
 #include "Commands/ToteHandling/DownUp.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
+#include "Commands/CanCollecterino/MoveArmsAndCollect.h"
 #include "Commands/ToteHandling/ToggleCoop.h"
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -30,19 +31,19 @@ OI::OI() {
 	toteIntake = new JoystickButton(joystickOperator, 14);
 	stackThenLoadPos = new JoystickButton(joystickOperator, 13);
 	stackThenCarryPos = new JoystickButton(joystickOperator, 12);
-	toteLifterFloor = new JoystickButton(joystickOperator, 6);
-	toteLifterCarry = new JoystickButton(joystickOperator, 5);
-	toteLifterLift = new JoystickButton(joystickOperator, 10);
-	toteLifterThirdPos = new JoystickButton(joystickOperator, 11);
+	toteLifterFloor = new JoystickButton(joystickOperator, 420);
+	toteLifterCarry = new JoystickButton(joystickOperator, 11);
+	toteLifterLift = new JoystickButton(joystickOperator, 8);
+	toteLifterThirdPos = new JoystickButton(joystickOperator, 422);
 	pushSwitch = new JoystickButton(joystickOperator, 7);
 	wrist = new JoystickButton(joystickOperator, 2);
 	wristToggle = new JoystickButton(joystickOperator, 9);
-	armsToggle = new JoystickButton(joystickOperator, 1);
-	collect = new JoystickButton(joystickOperator, 1);
+	canCollector = new JoystickButton(joystickOperator, 1);
+	//collect = new JoystickButton(joystickOperator, 1);
 	canCollectFwd = new JoystickButton(joystickOperator, 4);
 	canCollectRvs = new JoystickButton(joystickOperator, 3);
-	toggleCoop = new JoystickButton(joystickOperator, 420);
-	score = new JoystickButton(joystickOperator, 421);
+	toggleCoop = new JoystickButton(joystickOperator, 6);
+	score = new JoystickButton(joystickOperator, 5);
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
@@ -96,13 +97,9 @@ double OI::getAnalogValue(int input) {
 void OI::registerButtonListeners() {
 	// Can manipulation
 	SAFE_BUTTON(canCollector,
-			canCollector->WhenPressed(new MoveArms(CAN_POT_UP_POSITION)));
+			canCollector->WhenPressed(new MoveArmsAndCollect(true)));
 	SAFE_BUTTON(canCollector,
-			canCollector->WhenPressed(new Induct(Induct::forward)));
-	SAFE_BUTTON(canCollector,
-			canCollector->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
-	SAFE_BUTTON(canCollector,
-			canCollector->WhenReleased(new Induct(Induct::stopped)));
+			canCollector->WhenReleased(new MoveArmsAndCollect(false)));
 	SAFE_BUTTON(wristToggle,
 			wristToggle->WhenPressed(new MoveWrist(MoveWrist::toggle)));
 

@@ -86,6 +86,7 @@
 #define TOTE_LIFTER_TICKS_PER_INCH 64
 #define SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES -4.0
 #define COOP_DELTA_INCHES 4.0
+#define MAGNET_PORT 420
 // Mecanum
 #define FIELD_ORIENTED true
 #define LOAD_LEFT_ANGLE 45.0
@@ -118,7 +119,7 @@
 
 #define CAN_POT_UP_POSITION 4.03// practice bot 4.95
 #define CAN_POT_DOWN_POSITION 1.533 // practice bot 2.3
-#define CAN_POT_KNOCK 3.455
+#define CAN_POT_KNOCK 2.455
 #define CAN_POT_OI_THRESHOLD 1.0
 
 #define CAN_LIFT_THRESHOLD 0.1

@@ -3,10 +3,15 @@
 Induct::Induct(State state) {
 	Requires(canIntakerino);
 	this->state = state;
+	SetTimeout(5.0);
 }
 
 void Induct::Initialize() {
-	switch(state){
+
+}
+
+void Induct::Execute() {
+	switch (state) {
 	case forward:
 		canIntakerino->setGrab(CAN_GRAB_SPEED);
 		break;
@@ -19,12 +24,8 @@ void Induct::Initialize() {
 	}
 }
 
-void Induct::Execute() {
-
-}
-
 bool Induct::IsFinished() {
-	return true;
+	return IsTimedOut();
 }
 
 void Induct::End() {
