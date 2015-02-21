@@ -5,7 +5,7 @@ LiftToHeight::LiftToHeight(double destination) :
 	Requires(toteLifterino);
 	this->destination = destination;
 	if (destination != TOTE_LIFTER_FLOOR_HEIGHT) {
-		destination += 4 * TOTE_INTAKE_TICKS_PER_INCH; 	//add 4 inches to the destination
+		destination += COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH; 	//add 4 inches to the destination
 	}
 }
 

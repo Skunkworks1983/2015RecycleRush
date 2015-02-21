@@ -117,7 +117,7 @@ void OI::registerButtonListeners() {
 			stackThenCarryPos->WhenPressed(new DownUp(DownUp::carry)));
 	SAFE_BUTTON(toggleCoop, toggleCoop->WhenPressed(new ToggleCoop()));
 	SAFE_BUTTON(score,
-			score->WhenPressed(new LiftToHeight(CommandBase::toteLifterino->getPID()->GetSetpoint()-4*TOTE_INTAKE_TICKS_PER_INCH)));
+			score->WhenPressed(new LiftToHeight(CommandBase::toteLifterino->getPID()->GetSetpoint()+SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES*TOTE_LIFTER_TICKS_PER_INCH)));
 
 	// Scoring
 	SAFE_BUTTON(toteLifterFloor,
