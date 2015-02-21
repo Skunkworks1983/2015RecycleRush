@@ -7,9 +7,9 @@ CanToCraaawTransfer::CanToCraaawTransfer()
 {
 	if(CommandBase::canCollecterino->getSetpoint() == CAN_POT_DOWN_POSITION) {
 		AddSequential(new MoveArms(CAN_POT_UP_POSITION));
-		AddSequential(new MoveWrist(false));
+		AddSequential(new MoveWrist(MoveWrist::close));
 	} else {
-		AddSequential(new MoveWrist(true));
+		AddSequential(new MoveWrist(MoveWrist::open));
 		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
 	}
 }

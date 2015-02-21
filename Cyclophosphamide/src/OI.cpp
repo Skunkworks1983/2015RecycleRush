@@ -98,7 +98,7 @@ void OI::registerButtonListeners() {
 			canCollector->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
 	SAFE_BUTTON(canCollector,
 			canCollector->WhenReleased(new Induct(Induct::stopped)));
-	SAFE_BUTTON(wristToggle, wristToggle->WhenPressed(new MoveWrist(true))); // the parameter is a lie
+	SAFE_BUTTON(wristToggle, wristToggle->WhenPressed(new MoveWrist(MoveWrist::toggle)));
 
 	// Loading/stacking
 	SAFE_BUTTON(toteIntake,
@@ -127,8 +127,8 @@ void OI::registerButtonListeners() {
 			pushSwitch->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
 	// Overrides
-	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(true)));
-	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(false)));
+	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::open)));
+	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(MoveWrist::close)));
 	SAFE_BUTTON(canCollectFwd,
 			canCollectFwd->WhenPressed(new Induct(Induct::forward)));
 	SAFE_BUTTON(canCollectFwd,
