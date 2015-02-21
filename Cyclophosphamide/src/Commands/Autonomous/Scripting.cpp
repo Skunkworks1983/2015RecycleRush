@@ -83,7 +83,7 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 						new ScriptCommand(Autonomous::createDriveDuration(AUTONOMOUS_DEFAULT_TIME, BestDrive::Direction::forward)));
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddDefault("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 1000 ticks",
+	chooser->AddObject("Drive forward 360 ticks",
 			Autonomous::createDriveDistance(360.0f, BestDrive::forward));
 	chooser->AddObject("Drive forward 1 second",
 			Autonomous::createDriveDuration(1.0f, -90.0f));
