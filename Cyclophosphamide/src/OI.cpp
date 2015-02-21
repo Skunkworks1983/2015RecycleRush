@@ -18,6 +18,7 @@
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
 #include "Commands/ToteHandling/ToggleCoop.h"
 #include "Commands/ToteHandling/ElevatorBangerang.h"
+#include "Commands/ToteHandling/Score.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -45,6 +46,7 @@ OI::OI() {
 	toggleCoop = new JoystickButton(joystickOperator, 6);
 	score = new JoystickButton(joystickOperator, 5);
 	canToCraaawTransfer = new JoystickButton(joystickOperator, 9);
+	craaawOverride = new JoystickButton(joystickOperator, 16);
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
@@ -114,8 +116,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(stackThenCarryPos,
 			stackThenCarryPos->WhenPressed(new DownUp(DownUp::carry)));
 	SAFE_BUTTON(toggleCoop, toggleCoop->WhenPressed(new ToggleCoop()));
-	SAFE_BUTTON(score,
-			score->WhenPressed(new LiftToHeight(CommandBase::toteLifterino->getPID()->GetSetpoint()+SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES*TOTE_LIFTER_TICKS_PER_INCH)));
+	SAFE_BUTTON(score, score->WhenPressed(new Score()));
 
 	// Scoring
 
@@ -146,6 +147,12 @@ void OI::registerButtonListeners() {
 			canCollectRvs->WhenPressed(new Induct(Induct::reverse)));
 	SAFE_BUTTON(canCollectRvs,
 			canCollectRvs->WhenReleased(new Induct(Induct::stopped)));
+	SAFE_BUTTON(craaawOverride,
+			craaawOverride->WhenPressed(
+					new CraaawActuate(DoubleSolenoid::kForward)));
+	SAFE_BUTTON(craaawOverride,
+			craaawOverride->WhenReleased(
+					new CraaawActuate(DoubleSolenoid::kReverse)));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,

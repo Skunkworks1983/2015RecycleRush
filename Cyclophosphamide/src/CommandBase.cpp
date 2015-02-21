@@ -43,6 +43,6 @@ void CommandBase::init() {
 	toteLifterino = new ToteLifterino();
 	oi = new OI();
 	stackPusher = new StackPusher();
-//	craaaw = new Craaaw();
+	craaaw = new Craaaw();
 	pneumatics = new Pneumatics();
 }

@@ -110,6 +110,8 @@ void OmegaSupreme::TeleopPeriodic() {
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());
 
 	SmartDashboard::PutBoolean("Digital input", input->Get());
+
+	SmartDashboard::PutNumber("Can arm pot", CommandBase::canCollecterino->getLiftPot()->GetValue());
 	WatchDogg();
 }
 

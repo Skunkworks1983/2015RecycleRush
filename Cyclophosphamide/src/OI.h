@@ -33,6 +33,7 @@ private:
 		JoystickButton *collect;
 		JoystickButton *wrist;
 		JoystickButton *armsToggle;
+		JoystickButton *craaawOverride;
 
 	public:
 		OI();
