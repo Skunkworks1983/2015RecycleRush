@@ -17,6 +17,8 @@
 #include "Commands/ToteHandling/DownUp.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #include "Commands/ToteHandling/ToggleCoop.h"
+#include "Commands/ToteHandling/ElevatorBangerang.h"
+
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
@@ -120,12 +122,14 @@ void OI::registerButtonListeners() {
 			score->WhenPressed(new LiftToHeight(CommandBase::toteLifterino->getPID()->GetSetpoint()+SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES*TOTE_LIFTER_TICKS_PER_INCH)));
 
 	// Scoring
+
 	SAFE_BUTTON(toteLifterFloor,
 			toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
 	SAFE_BUTTON(toteLifterCarry,
 			toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
 	SAFE_BUTTON(toteLifterLift,
 			toteLifterLift->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
+
 	SAFE_BUTTON(toteLifterThirdPos,
 			toteLifterThirdPos->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
 
@@ -153,7 +157,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	SAFE_BUTTON(moveArmsWhackMode,
-			moveArmsWhackMode->WhenPressed(new MoveArms(CAN_POT_KNOCK)));
+			moveArmsWhackMode->WhenPressed(new MoveArms(CAN_POT_KNOCK_POSITION)));
 
 	// Old stuff
 //	SAFE_BUTTON(toteLifterDown,

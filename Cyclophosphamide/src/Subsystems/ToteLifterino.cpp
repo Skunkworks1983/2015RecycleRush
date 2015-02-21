@@ -15,12 +15,6 @@ ToteLifterino::ToteLifterino() :
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
 	TOTE_LIFTER_PID_D, this, this);
 
-	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
-	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
-	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
-
-	SmartDashboard::PutNumber("CustomSpeedElevator", .1);
-
 	pid->SetOutputRange(-0.8, 0.8);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
@@ -78,12 +72,12 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
+
 	SmartDashboard::PutNumber("motorSpeedLOOKATME", speed);
 	SmartDashboard::PutNumber("motorLEFTCurrentOMG",
 			leftMotor->GetOutputCurrent());
 	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
 			rightMotor->GetOutputCurrent());
-
 }
 
 bool ToteLifterino::isCoop() {
@@ -99,7 +93,12 @@ void ToteLifterino::setSetPoints(double setPoint) {
 }
 
 bool ToteLifterino::closeEnough(float destination) {
-	return abs(destination - encoder->Get()) < TOTE_LIFTER_BANGBANG_TOLERANCE;
+	SmartDashboard::PutBoolean("closeEnough", pid->OnTarget());
+	return pid->OnTarget();
+}
+
+bool ToteLifterino::lowerThan(double height) {
+	return encoder->Get() < height;
 }
 
 void ToteLifterino::PIDWrite(float f) {

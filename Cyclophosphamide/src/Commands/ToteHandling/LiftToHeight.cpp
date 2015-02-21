@@ -18,7 +18,13 @@ void LiftToHeight::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void LiftToHeight::Execute() {
 	//Nothing?
+
 	SmartDashboard::PutNumber("Destination", destination);
+
+	if(destination == TOTE_LIFTER_FLOOR_HEIGHT && toteLifterino->closeEnough(destination)){
+		toteLifterino->enablePID(false);
+	}
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
