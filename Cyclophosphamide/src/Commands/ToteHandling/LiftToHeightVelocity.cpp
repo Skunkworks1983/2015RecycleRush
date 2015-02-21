@@ -18,23 +18,7 @@ LiftToHeightVelocity::~LiftToHeightVelocity() {
 }
 
 void LiftToHeightVelocity::Initialize() {
-	if(speed >= 0){
-		speed = 1;
-	}else{
-		speed = -1;
-	}
-	speed = speed * SmartDashboard::GetNumber("CustomSpeedElevator");
-	if ((speed < 0
-			&& toteLifterino->getEncoder()->GetDistance()
-					<= 0 + TOTE_LIFTER_END_TOLERANCE)
-			|| (speed > 0
-					&& toteLifterino->getEncoder()->GetDistance()
-							>= TOTE_LIFTER_MAX_DISTANCE)) {
-		//return true;
-		return;
-	} else {
-		toteLifterino->setMotorSpeed(speed);
-	}
+	toteLifterino->setMotorSpeed(speed);
 }
 
 void LiftToHeightVelocity::Execute() {
@@ -42,15 +26,8 @@ void LiftToHeightVelocity::Execute() {
 
 bool LiftToHeightVelocity::IsFinished() {
 //split up for understanding
-	if (speed
-			> 0&& toteLifterino->getEncoder()->GetDistance() >= TOTE_LIFTER_MAX_DISTANCE - TOTE_LIFTER_END_TOLERANCE) {
-		return true;
-	}
-	if (speed
-			< 0&& toteLifterino->getEncoder()->GetDistance() <= 0 + TOTE_LIFTER_END_TOLERANCE) {
-		return true;
-	}
-	return false;
+	return (speed < 0 && toteLifterino->getBotInput())
+			|| (speed > 0 && toteLifterino->getTopInput());
 }
 
 void LiftToHeightVelocity::End() {
