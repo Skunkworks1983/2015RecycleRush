@@ -6,6 +6,6 @@
 
 CanToCraaawTransfer::CanToCraaawTransfer()
 {
-	AddSequential(new CraaawActuate(false));
+	AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
 	AddSequential(new MoveWrist(MoveWrist::open));
 }

@@ -38,13 +38,13 @@ OI::OI() {
 	toteLifterThirdPos = new JoystickButton(joystickOperator, 422);
 	pushSwitch = new JoystickButton(joystickOperator, 7);
 	wrist = new JoystickButton(joystickOperator, 2);
-	wristToggle = new JoystickButton(joystickOperator, 9);
 	canCollector = new JoystickButton(joystickOperator, 1);
 	//collect = new JoystickButton(joystickOperator, 1);
 	canCollectFwd = new JoystickButton(joystickOperator, 4);
 	canCollectRvs = new JoystickButton(joystickOperator, 3);
 	toggleCoop = new JoystickButton(joystickOperator, 6);
 	score = new JoystickButton(joystickOperator, 5);
+	canToCraaawTransfer = new JoystickButton(joystickOperator, 9);
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
@@ -71,7 +71,7 @@ OI::~OI() {
 	delete canCollectFwd;
 	delete canCollectRvs;
 	delete wrist;
-	delete wristToggle;
+	delete canToCraaawTransfer;
 	delete armsToggle;
 	delete toggleCoop;
 	delete score;
@@ -101,8 +101,8 @@ void OI::registerButtonListeners() {
 			canCollector->WhenPressed(new MoveArmsAndCollect(true)));
 	SAFE_BUTTON(canCollector,
 			canCollector->WhenReleased(new MoveArmsAndCollect(false)));
-	SAFE_BUTTON(wristToggle,
-			wristToggle->WhenPressed(new MoveWrist(MoveWrist::toggle)));
+	SAFE_BUTTON(canToCraaawTransfer,
+			canToCraaawTransfer->WhenPressed(new CanToCraaawTransfer()));
 
 	// Loading/stacking
 	SAFE_BUTTON(toteIntake,

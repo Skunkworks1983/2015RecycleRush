@@ -15,6 +15,7 @@ private:
 		JoystickButton *canCollectFwd;
 		JoystickButton *canCollectRvs;
 		JoystickButton *toggleCoop;
+		JoystickButton *canToCraaawTransfer;
 		JoystickButton *score;
 
 		JoystickButton *leftLoadButton;
@@ -31,7 +32,6 @@ private:
 		JoystickButton *canCollector;
 		JoystickButton *collect;
 		JoystickButton *wrist;
-		JoystickButton *wristToggle;
 		JoystickButton *armsToggle;
 
 	public:
