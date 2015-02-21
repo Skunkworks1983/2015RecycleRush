@@ -1,11 +1,22 @@
 #include <Commands/CanCollecterino/Arms/Induct.h>
 
-Induct::Induct() {
+Induct::Induct(State state) {
 	Requires(canIntakerino);
+	this->state = state;
 }
 
 void Induct::Initialize() {
-	canIntakerino->setGrab(CAN_GRAB_SPEED);
+	switch(state){
+	case forward:
+		canIntakerino->setGrab(CAN_GRAB_SPEED);
+		break;
+	case reverse:
+		canIntakerino->setGrab(-CAN_GRAB_SPEED);
+		break;
+	case stopped:
+		canIntakerino->setGrab(0);
+		break;
+	}
 }
 
 void Induct::Execute() {
@@ -13,7 +24,7 @@ void Induct::Execute() {
 }
 
 bool Induct::IsFinished() {
-	return false;
+	return true;
 }
 
 void Induct::End() {

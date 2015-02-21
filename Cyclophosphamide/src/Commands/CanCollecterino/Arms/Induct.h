@@ -6,10 +6,14 @@
 
 class Induct: public CommandBase
 {
-private:
-	int fuck;
 public:
-	Induct();
+	enum State {
+		forward, reverse, stopped
+	};
+private:
+	State state;
+public:
+	Induct(State state);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
