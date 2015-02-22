@@ -99,9 +99,9 @@ void DriveBae::setPIDAll(double P, double I, double D) {
 }
 
 void DriveBae::setAll(double setPoint) {
-	motorFrontLeft->Set(setPoint);
+	motorFrontLeft->Set(-setPoint);
 	motorFrontRight->Set(setPoint);
-	motorBackLeft->Set(setPoint);
+	motorBackLeft->Set(-setPoint);
 	motorBackRight->Set(setPoint);
 }
 

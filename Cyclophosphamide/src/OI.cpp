@@ -33,7 +33,7 @@ OI::OI() {
 	toteIntake = new JoystickButton(joystickOperator, 14);
 	stackThenLoadPos = new JoystickButton(joystickOperator, 13);
 	stackThenCarryPos = new JoystickButton(joystickOperator, 12);
-	toteLifterFloor = new JoystickButton(joystickOperator, 420);
+	toteLifterFloor = new JoystickButton(joystickRight, 4);
 	toteLifterCarry = new JoystickButton(joystickOperator, 11);
 	toteLifterLift = new JoystickButton(joystickOperator, 8);
 	toteLifterThirdPos = new JoystickButton(joystickOperator, 422);

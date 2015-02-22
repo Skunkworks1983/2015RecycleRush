@@ -22,8 +22,8 @@
 OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
 	lw = NULL;
-	autonomousCommand = NULL;
 	chooser = NULL;
+	autonomousCommand = NULL;
 }
 
 OmegaSupreme::~OmegaSupreme() {
@@ -35,13 +35,15 @@ void OmegaSupreme::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 
-	input = new DigitalInput(1);
+	input1 = new DigitalInput(1);
+	input2 = new DigitalInput(2);
 
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 1000 ticks",
-			Autonomous::createDriveDistance(360.0f, BestDrive::forward));
+	chooser->AddDefault("CRAAAAAZY AUTO", Autonomous::createStartWithCan());
+	chooser->AddObject("Blank", new Autonomous());
+	chooser->AddObject("Drive forward 24 inches",
+			Autonomous::createDriveDistance(24, BestDrive::forward));
 	chooser->AddObject("Drive forward 1 second",
 			Autonomous::createDriveDuration(1.0f, -90.0f));
 	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
@@ -66,25 +68,28 @@ void OmegaSupreme::RobotInit() {
 			}
 		}
 	}
-//	SmartDashboard::PutNumber("realEncoder:",
-//			CommandBase::toteLifterino->getEncoder()->GetDistance());
 }
 
 void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
-	((ScriptRunner*) chooser->GetSelected())->startCommand();
+	//((ScriptRunner*) chooser->GetSelected())->startCommand();
 
 	//autonomousCommand = (Command *) chooser->GetSelected();
-	//autonomousCommand->Start();
+	autonomousCommand = new BestDrive(24, BestDrive::Direction::forward);
+	autonomousCommand->Start();
 	/*
 	 float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
 	 CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f,
 	 0.0f, 0.0f);
 	 */
+	SmartDashboard::PutNumber("driveEncoder",
+			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber("driveEncoder",
+			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
 	WatchDogg();
 }
 
@@ -109,9 +114,17 @@ void OmegaSupreme::TeleopPeriodic() {
 	SmartDashboard::PutNumber("armPot",
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());
 
-	SmartDashboard::PutBoolean("Digital input", input->Get());
+	SmartDashboard::PutBoolean("Digital input1", input1->Get());
+	SmartDashboard::PutBoolean("Digital input2", input2->Get());
 
-	SmartDashboard::PutNumber("Can arm pot", CommandBase::canCollecterino->getLiftPot()->GetValue());
+	SmartDashboard::PutNumber("Can arm pot",
+			CommandBase::canCollecterino->getLiftPot()->GetValue());
+
+
+
+	SmartDashboard::PutNumber("elevatorEnc",
+			CommandBase::toteLifterino->getEncoder()->Get());
+
 	WatchDogg();
 }
 

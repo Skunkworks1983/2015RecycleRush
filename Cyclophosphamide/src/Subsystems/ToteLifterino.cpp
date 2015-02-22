@@ -26,14 +26,14 @@ ToteLifterino::ToteLifterino() :
 	pid->SetPercentTolerance(.75);
 	encoder->Reset();
 
-	ignoreInput = topInput->Get() && botInput->Get();
+	ignoreInput = true; //topInput->Get() && botInput->Get();
 
 	notZeroed = !botInput->Get();
 }
 
 void ToteLifterino::InitDefaultCommand() {
 	if (notZeroed) {
-		SetDefaultCommand(new ZeroElevator(true));
+		//SetDefaultCommand(new ZeroElevator(true));
 	} else {
 		SetDefaultCommand(NULL);
 	}
@@ -96,12 +96,6 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
-
-	SmartDashboard::PutNumber("motorSpeedLOOKATME", speed);
-	SmartDashboard::PutNumber("motorLEFTCurrentOMG",
-			leftMotor->GetOutputCurrent());
-	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
-			rightMotor->GetOutputCurrent());
 }
 
 bool ToteLifterino::isCoop() {
@@ -117,8 +111,10 @@ void ToteLifterino::setSetPoints(double setPoint) {
 }
 
 bool ToteLifterino::closeEnough(float destination) {
-	SmartDashboard::PutBoolean("closeEnough", pid->OnTarget());
-	return pid->OnTarget();
+	bool close = encoder->Get() < destination + TOTE_LIFTER_TOLERANCE
+			&& encoder->Get() > destination - TOTE_LIFTER_TOLERANCE;
+	SmartDashboard::PutBoolean("closeEnough", close);
+	return close;
 }
 
 bool ToteLifterino::lowerThan(double height) {

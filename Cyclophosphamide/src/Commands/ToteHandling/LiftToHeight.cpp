@@ -30,7 +30,7 @@ void LiftToHeight::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
 	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
-	return toteLifterino->getPID()->OnTarget();
+	return toteLifterino->getPID()->OnTarget() || toteLifterino->closeEnough(destination);
 }
 
 // Called once after isFinished returns true

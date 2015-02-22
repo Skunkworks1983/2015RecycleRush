@@ -18,7 +18,7 @@ private:
 	LiveWindow *lw;
 	SendableChooser *chooser;
 	int PIDChange;
-	DigitalInput *input;
+	DigitalInput *input1, *input2;
 public:
 	OmegaSupreme();
 	~OmegaSupreme();
