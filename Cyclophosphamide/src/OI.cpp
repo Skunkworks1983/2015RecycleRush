@@ -18,7 +18,7 @@
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
 #include "Commands/ToteHandling/ToggleCoop.h"
 #include "Commands/ToteHandling/ElevatorBangerang.h"
-#include "Commands/ToteHandling/Score.h"
+#include "Commands/Score.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -50,7 +50,7 @@ OI::OI() {
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
-	moveArmsWhackMode = new JoystickButton(joystickRight, 1);
+	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 }
 
 OI::~OI() {

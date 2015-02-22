@@ -35,8 +35,6 @@ void OmegaSupreme::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 
-	input = new DigitalInput(1);
-
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
@@ -105,13 +103,17 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("intake",
 			CommandBase::toteIntakerino->getEncoder()->Get());
+	SmartDashboard::PutBoolean("has tote",
+			CommandBase::toteIntakerino->isLoaded());
 
 	SmartDashboard::PutNumber("armPot",
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());
 
-	SmartDashboard::PutBoolean("Digital input", input->Get());
+	SmartDashboard::PutBoolean("Coop mode",
+			CommandBase::toteLifterino->isCoop());
 
-	SmartDashboard::PutNumber("Can arm pot", CommandBase::canCollecterino->getLiftPot()->GetValue());
+	SmartDashboard::PutNumber("lifter pos",
+			CommandBase::toteLifterino->getPosition());
 	WatchDogg();
 }
 
