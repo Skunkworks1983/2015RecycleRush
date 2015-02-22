@@ -4,14 +4,19 @@ LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
-	if (toteLifterino->isCoop() && destination != TOTE_LIFTER_FLOOR_HEIGHT) {
-		destination += COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH; //add 4 inches to the destination
-	}
 }
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
-	toteLifterino->setSetPoints(destination);
+	if (toteLifterino->isCoop() && destination != TOTE_LIFTER_FLOOR_HEIGHT) {
+		SmartDashboard::PutNumber("Coop destination",
+				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH);
+		toteLifterino->setSetPoints(
+				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH); //add 4 inches to the destination
+	} else {
+		SmartDashboard::PutNumber("Coop destination", -1);
+		toteLifterino->setSetPoints(destination);
+	}
 	toteLifterino->enablePID(true);
 }
 
@@ -21,7 +26,8 @@ void LiftToHeight::Execute() {
 
 	SmartDashboard::PutNumber("Destination", destination);
 
-	if(destination == TOTE_LIFTER_FLOOR_HEIGHT && toteLifterino->closeEnough(destination)){
+	if (destination == TOTE_LIFTER_FLOOR_HEIGHT
+			&& toteLifterino->closeEnough(destination)) {
 		toteLifterino->enablePID(false);
 	}
 

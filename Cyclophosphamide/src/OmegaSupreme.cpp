@@ -110,9 +110,12 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("intake",
 			CommandBase::toteIntakerino->getEncoder()->Get());
+	SmartDashboard::PutBoolean("has tote",
+			CommandBase::toteIntakerino->isLoaded());
 
 	SmartDashboard::PutNumber("armPot",
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());
+
 
 	SmartDashboard::PutBoolean("Digital input1", input1->Get());
 	SmartDashboard::PutBoolean("Digital input2", input2->Get());
@@ -124,7 +127,11 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("elevatorEnc",
 			CommandBase::toteLifterino->getEncoder()->Get());
+	SmartDashboard::PutBoolean("Coop mode",
+			CommandBase::toteLifterino->isCoop());
 
+	SmartDashboard::PutNumber("lifter pos",
+			CommandBase::toteLifterino->getPosition());
 	WatchDogg();
 }
 
