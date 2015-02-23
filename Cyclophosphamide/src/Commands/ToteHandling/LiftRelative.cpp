@@ -7,7 +7,8 @@ LiftRelative::LiftRelative(float delta) {
 }
 
 void LiftRelative::Initialize() {
-	destination = toteLifterino->getPID()->GetSetpoint()+delta*TOTE_LIFTER_TICKS_PER_INCH;
+	destination =
+			toteLifterino->getPID()->GetSetpoint()+delta*TOTE_LIFTER_TICKS_PER_INCH;
 	toteLifterino->setSetPoints(destination);
 }
 

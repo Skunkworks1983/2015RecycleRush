@@ -7,6 +7,8 @@
 
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Drivebase/ZeroGyro.h>
+#include <Commands/Automatic/SimpleDriveForward.h>
+#include <Commands/Automatic/TurnTo.h>
 #include <OmegaSupreme.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -53,7 +55,7 @@ void OmegaSupreme::RobotInit() {
 
 	CommandBase::oi->registerButtonListeners();
 
-	if (CommandBase::driveBae != NULL) {
+	if (CommandBase::driveBae != NULL && FIELD_ORIENTED) {
 		SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 		bool zeroed = false;
 		double initialTime = GetFPGATime();
@@ -75,7 +77,8 @@ void OmegaSupreme::AutonomousInit() {
 	//((ScriptRunner*) chooser->GetSelected())->startCommand();
 
 	//autonomousCommand = (Command *) chooser->GetSelected();
-	autonomousCommand = new BestDrive(24, BestDrive::Direction::forward);
+	//autonomousCommand = new SimpleDriveForward(24);
+	autonomousCommand = Autonomous::createStartWithCan();
 	autonomousCommand->Start();
 	/*
 	 float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
@@ -88,8 +91,6 @@ void OmegaSupreme::AutonomousInit() {
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("driveEncoder",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
 	WatchDogg();
 }
 
@@ -116,22 +117,24 @@ void OmegaSupreme::TeleopPeriodic() {
 	SmartDashboard::PutNumber("armPot",
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());
 
-
 	SmartDashboard::PutBoolean("Digital input1", input1->Get());
 	SmartDashboard::PutBoolean("Digital input2", input2->Get());
 
 	SmartDashboard::PutNumber("Can arm pot",
 			CommandBase::canCollecterino->getLiftPot()->GetValue());
 
-
-
 	SmartDashboard::PutNumber("elevatorEnc",
 			CommandBase::toteLifterino->getEncoder()->Get());
 	SmartDashboard::PutBoolean("Coop mode",
 			CommandBase::toteLifterino->isCoop());
 
+	SmartDashboard::PutNumber("driveEncoder",
+			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
+
 	SmartDashboard::PutNumber("lifter pos",
 			CommandBase::toteLifterino->getPosition());
+	SmartDashboard::PutNumber("gyro",
+			CommandBase::driveBae->getGyro()->GetYaw());
 	WatchDogg();
 }
 

@@ -33,6 +33,10 @@ DriveBae::DriveBae() :
 	rotPID->SetContinuous(true);
 	rotPID->SetSetpoint(0.0);
 
+	if (!gyroEnabled) {
+		rotPID->Disable();
+	}
+
 	forward = 0.0;
 	right = 0.0;
 	clockwise = 0.0;
@@ -49,7 +53,7 @@ DriveBae::~DriveBae() {
 }
 
 void DriveBae::InitDefaultCommand() {
-	SetDefaultCommand(new MecanumDrive);
+	SetDefaultCommand(new MecanumDrive());
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -77,6 +81,14 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorFrontRight->Set(speedFrontRight);
 	motorBackLeft->Set(-speedBackLeft);
 	motorBackRight->Set(speedBackRight);
+/*
+	if (speedFrontLeft == 0 && speedFrontRight == 0 && speedBackLeft == 0
+			&& speedBackRight == 0) {
+		motorFrontLeft->StopMotor();
+		motorFrontRight->StopMotor();
+		motorBackLeft->StopMotor();
+		motorBackRight->StopMotor();
+	}*/
 }
 
 IMU *DriveBae::getGyro() {
@@ -120,15 +132,26 @@ void DriveBae::zeroEncoders() {
 }
 
 bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance) {
-	if (abs(motorBackLeft->GetEncPosition()) - targetDistance < driveThreshhold
-			|| abs(motorFrontLeft->GetEncPosition()) - targetDistance
+	SmartDashboard::PutNumber("backLeft",
+			fabs(motorBackLeft->GetEncPosition()) - targetDistance);
+	SmartDashboard::PutNumber("frontLeft",
+			fabs(motorBackLeft->GetEncPosition()) - targetDistance);
+	SmartDashboard::PutNumber("backRight",
+			fabs(motorFrontRight->GetEncPosition()) - targetDistance);
+	SmartDashboard::PutNumber("frontRight",
+			fabs(motorBackRight->GetEncPosition()) - targetDistance);
+
+	if (fabs(motorBackLeft->GetEncPosition()) - targetDistance < driveThreshhold
+			&& fabs(motorFrontLeft->GetEncPosition()) - targetDistance
 					< driveThreshhold
-			|| abs(motorFrontRight->GetEncPosition()) - targetDistance
+			&& fabs(motorFrontRight->GetEncPosition()) - targetDistance
 					< driveThreshhold
-			|| abs(motorBackRight->GetEncPosition()) - targetDistance
+			&& fabs(motorBackRight->GetEncPosition()) - targetDistance
 					< driveThreshhold) {
+		SmartDashboard::PutBoolean("WithinThreshold", true);
 		return true;
 	}
+	SmartDashboard::PutBoolean("WithinThreshold", true);
 	return false;
 }
 
@@ -155,7 +178,9 @@ void DriveBae::stopRotPID() {
 }
 
 void DriveBae::startRotPID() {
-	rotPID->Enable();
+	if (gyroEnabled) {
+		rotPID->Enable();
+	}
 }
 
 double DriveBae::getError() {

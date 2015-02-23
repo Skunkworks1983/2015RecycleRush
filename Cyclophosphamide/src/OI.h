@@ -23,8 +23,8 @@ private:
 
 		JoystickButton *toteLifterFloor;
 		JoystickButton *toteLifterCarry;
-		JoystickButton *toteLifterLift;
-		JoystickButton *toteLifterThirdPos;
+		JoystickButton *toteLifterTwoTotes;
+		JoystickButton *toteLifterOneTote;
 		JoystickButton *stackThenLoadPos;
 		JoystickButton *stackThenCarryPos;
 
