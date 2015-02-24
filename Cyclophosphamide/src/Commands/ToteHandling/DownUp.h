@@ -1,16 +1,24 @@
-#ifndef DownUp_H
-#define DownUp_H
+#ifndef DownUpToggle_H
+#define DownUpToggle_H
 
-#include "Commands/CommandGroup.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
-class DownUp: public CommandGroup
-{
+class DownUp: public CommandBase {
 public:
 	enum Position {
 		carry, load
 	};
-	DownUp(Position position);
+private:
+	Position pos;
+	float destination;
+public:
+	DownUp(Position pos);
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 #endif
