@@ -3,6 +3,7 @@
 CraaawActuate::CraaawActuate(DoubleSolenoid::Value value) {
 	Requires(craaaw);
 	this->value = value;
+	SetTimeout(CRAAAW_TIMEOUT);
 }
 
 void CraaawActuate::Initialize() {
@@ -14,7 +15,7 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	return true;
+	return IsTimedOut();
 }
 
 void CraaawActuate::End() {
