@@ -35,9 +35,6 @@ private:
 		JoystickButton *armsToggle;
 		JoystickButton *craaawOverride;
 
-		JoystickButton *testCanDown;
-		JoystickButton *testCanUp;
-
 	public:
 		OI();
 		~OI();

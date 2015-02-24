@@ -7,6 +7,9 @@
 
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Drivebase/ZeroGyro.h>
+#include <Commands/CanCollecterino/MoveArmsAndCollect.h>
+#include <Commands/ToteHandling/ToteIntake.h>
+#include <Commands/ToteHandling/DownUp.h>
 #include <OmegaSupreme.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -99,6 +102,12 @@ void OmegaSupreme::TeleopInit() {
 	}
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
+	SmartDashboard::PutData(CommandBase::craaaw);
+	SmartDashboard::PutData("Can up", new MoveArmsAndCollect(true));
+	SmartDashboard::PutData("Can down", new MoveArmsAndCollect(false));
+	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
+	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
+	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));
 }
 
 void OmegaSupreme::TeleopPeriodic() {
