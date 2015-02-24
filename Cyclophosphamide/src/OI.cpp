@@ -23,9 +23,6 @@
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
 OI::OI() {
-	// TODO driver trigger to middle position
-	// TODO co-op mode
-
 	joystickLeft = new Joystick(0);
 	joystickRight = new Joystick(1);
 	joystickOperator = new Joystick(2);
@@ -51,6 +48,9 @@ OI::OI() {
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
+
+	testCanDown = new JoystickButton(joystickLeft, 4);
+	testCanUp = new JoystickButton(joystickLeft, 5);
 }
 
 OI::~OI() {
@@ -161,6 +161,10 @@ void OI::registerButtonListeners() {
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	SAFE_BUTTON(moveArmsWhackMode,
 			moveArmsWhackMode->WhenPressed(new MoveArms(CAN_POT_KNOCK_POSITION)));
+
+	// Testing
+	SAFE_BUTTON(testCanDown, testCanDown->WhenPressed(new MoveArms(CAN_POT_DOWN_POSITION)));
+	SAFE_BUTTON(testCanUp, testCanUp->WhenPressed(new MoveArms(CAN_POT_UP_POSITION)));
 
 	// Old stuff
 //	SAFE_BUTTON(toteLifterDown,

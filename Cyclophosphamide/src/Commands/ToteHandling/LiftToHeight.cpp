@@ -4,6 +4,7 @@ LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
+	SetTimeout(TOTE_LIFTER_TIMEOUT);
 }
 
 // Called just before this Command runs the first time
@@ -36,7 +37,7 @@ void LiftToHeight::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
 	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
-	return toteLifterino->getPID()->OnTarget() || toteLifterino->closeEnough(destination);
+	return toteLifterino->getPID()->OnTarget() || toteLifterino->closeEnough(destination) || IsTimedOut();
 }
 
 // Called once after isFinished returns true

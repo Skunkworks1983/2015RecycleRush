@@ -10,6 +10,7 @@ MecanumDrive::MecanumDrive() :
 void MecanumDrive::Initialize() {
 	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 	driveBae->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
+	driveBae->stopRotPID();
 }
 
 void MecanumDrive::Execute() {
@@ -46,7 +47,6 @@ void MecanumDrive::Execute() {
 #if FIELD_ORIENTED
 		// Field-oriented corrections
 		double theta = driveBae->getGyro()->GetYaw();
-		//SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
 		right = -forward * sin(theta) + right * cos(theta);

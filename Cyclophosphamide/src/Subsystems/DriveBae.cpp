@@ -31,7 +31,7 @@ DriveBae::DriveBae() :
 	rotPID->SetOutputRange(-180.0, 180.0);
 	rotPID->SetInputRange(-180.0, 180.0);
 	rotPID->SetContinuous(true);
-	rotPID->SetSetpoint(0.0);
+	rotPID->SetSetpoint(gyro->GetYaw());
 
 	forward = 0.0;
 	right = 0.0;
@@ -182,8 +182,8 @@ void DriveBae::execute() {
 // 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;
 	double frontRight = forward - clockwise - right;
-	double backLeft = forward + clockwise + right;
-	double backRight = forward - clockwise + right;
+	double backLeft = forward + (clockwise) + (right);
+	double backRight = forward - (clockwise) + (right);
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }

@@ -60,10 +60,10 @@ void OmegaSupreme::RobotInit() {
 		while (!zeroed) {
 			bool isCalibrating =
 					CommandBase::driveBae->getGyro()->IsCalibrating();
-			if (!isCalibrating || GetFPGATime() - initialTime > GYRO_TIMEOUT) {
+			if (!isCalibrating /*|| GetFPGATime() - initialTime > GYRO_TIMEOUT*/) {
 				Wait(0.2);
 				CommandBase::driveBae->getGyro()->ZeroYaw();
-				CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
+				//CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
 				zeroed = true;
 			}
 		}
@@ -98,6 +98,7 @@ void OmegaSupreme::TeleopInit() {
 		autonomousCommand->Cancel();
 	}
 	Scheduler::GetInstance()->RemoveAll();
+	CommandBase::driveBae->getGyro()->ZeroYaw();
 }
 
 void OmegaSupreme::TeleopPeriodic() {
@@ -132,6 +133,8 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("lifter pos",
 			CommandBase::toteLifterino->getPosition());
+
+	SmartDashboard::PutNumber("Gyro Angle", CommandBase::driveBae->getGyro()->GetYaw());
 	WatchDogg();
 }
 
