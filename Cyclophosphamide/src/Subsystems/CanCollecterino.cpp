@@ -9,8 +9,6 @@ CanCollecterino::CanCollecterino() :
 			liftMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_LEFT_PORT););
 	SAFE_INIT(CAN_MOTOR_LIFT_RIGHT_PORT,
 			liftMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_LIFT_RIGHT_PORT););
-	SAFE_INIT(CAN_WRIST_SOLENOID_PORT,
-			wrists = new DoubleSolenoid(CAN_WRIST_SOLENOID_PORT););
 
 	SAFE_INIT(CAN_LIFT_POT_PORT, liftPot = new AnalogInput(CAN_LIFT_POT_PORT););
 
@@ -23,13 +21,11 @@ CanCollecterino::CanCollecterino() :
 	armPID->SetPercentTolerance(5);
 
 	toggleArms = true;
-	toggleWrist = true;
 }
 
 CanCollecterino::~CanCollecterino() {
 	delete liftMotorLeft;
 	delete liftMotorRight;
-	delete wrists;
 	delete canSensor;
 	delete armPID;
 }
@@ -52,10 +48,6 @@ void CanCollecterino::disableArms() {
 	armPID->Disable();
 }
 
-void CanCollecterino::setWrist(DoubleSolenoid::Value value) {
-	wrists->Set(value);
-}
-
 bool CanCollecterino::armsWithinBounds() {
 	return armPID->OnTarget();
 }
@@ -74,18 +66,6 @@ void CanCollecterino::doTheToggleArms() {
 
 bool CanCollecterino::getToggleArms() {
 	return toggleArms;
-}
-
-void CanCollecterino::doTheToggleWrist() {
-	if (toggleWrist) {
-		toggleWrist = false;
-	} else {
-		toggleWrist = true;
-	}
-}
-
-bool CanCollecterino::getWristToggle() {
-	return toggleWrist;
 }
 
 void CanCollecterino::getDatStatus() {

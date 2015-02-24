@@ -2,6 +2,7 @@
 #define COMMAND_BASE_H
 
 #include <Subsystems/CanCollecterino.h>
+#include <Subsystems/CanWristerino.h>
 #include <Subsystems/Craaaw.h>
 #include "Subsystems/ToteIntakerino.h"
 #include "Subsystems/CanIntakerino.h"
@@ -22,6 +23,7 @@
 
 class DriveBae;
 class CanCollecterino;
+class CanWristerino;
 class CanIntakerino;
 class ToteIntakerino;
 class ToteLifterino;
@@ -39,6 +41,7 @@ public:
 	static DriveBae *driveBae;
 	static Craaaw *craaaw;
 	static CanCollecterino *canCollecterino;
+	static CanWristerino *canWristerino;
 	static CanIntakerino *canIntakerino;
 	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;

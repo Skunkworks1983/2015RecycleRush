@@ -9,7 +9,6 @@ class CanCollecterino: public Subsystem
 private:
 	CAN_MOTOR_TYPE *liftMotorLeft;
 	CAN_MOTOR_TYPE *liftMotorRight;
-	DoubleSolenoid *wrists;
 
 	AnalogInput *liftPot;
 	PIDController *armPID;
@@ -18,13 +17,11 @@ private:
 
 	float setpoint;
 	bool toggleArms;
-	bool toggleWrist;
 public:
 	CanCollecterino();
 	~CanCollecterino();
 	void InitDefaultCommand();
 
-	void setWrist(DoubleSolenoid::Value value);
 	void setArms(float value);
 
 	void disableArms();
@@ -38,8 +35,6 @@ public:
 	bool getToggleArms();
 	void doTheToggleArms();
 
-	bool getWristToggle();
-	void doTheToggleWrist();
 	void getDatStatus();
 	double getSetpoint();
 };
