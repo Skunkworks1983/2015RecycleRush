@@ -6,6 +6,12 @@ Induct::Induct(State state) {
 	SetTimeout(5.0);
 }
 
+Induct::Induct(State state, double timeout) {
+	Requires(canIntakerino);
+	this->state = state;
+	SetTimeout(timeout);
+}
+
 void Induct::Initialize() {
 
 }

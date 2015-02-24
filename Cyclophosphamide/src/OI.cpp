@@ -32,8 +32,8 @@ OI::OI() {
 	stackThenCarryPos = new JoystickButton(joystickOperator, 12);
 	toteLifterFloor = new JoystickButton(joystickRight, 4);
 	toteLifterCarry = new JoystickButton(joystickOperator, 11);
-	toteLifterLift = new JoystickButton(joystickOperator, 8);
-	toteLifterThirdPos = new JoystickButton(joystickOperator, 422);
+	toteLifterTwoTotes = new JoystickButton(joystickOperator, 8);
+	toteLifterOneTote = new JoystickButton(joystickOperator, 10);
 	pushSwitch = new JoystickButton(joystickOperator, 7);
 	wrist = new JoystickButton(joystickOperator, 2);
 	canCollector = new JoystickButton(joystickOperator, 1);
@@ -58,8 +58,8 @@ OI::~OI() {
 	delete toteIntake;
 	delete toteLifterFloor;
 	delete toteLifterCarry;
-	delete toteLifterLift;
-	delete toteLifterThirdPos;
+	delete toteLifterTwoTotes;
+	delete toteLifterOneTote;
 	delete moveArmsWhackMode;
 	delete leftLoadButton;
 	delete rightLoadButton;
@@ -119,13 +119,13 @@ void OI::registerButtonListeners() {
 
 	SAFE_BUTTON(toteLifterFloor,
 			toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+	SAFE_BUTTON(toteLifterTwoTotes,
+			toteLifterTwoTotes->WhenReleased(new LiftToHeight(TOTE_LIFTER_TWO_TOTE)));
+
+	SAFE_BUTTON(toteLifterOneTote,
+			toteLifterOneTote->WhenReleased(new LiftToHeight(TOTE_LIFTER_ONE_TOTE)));
 	SAFE_BUTTON(toteLifterCarry,
 			toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
-	SAFE_BUTTON(toteLifterLift,
-			toteLifterLift->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
-
-	SAFE_BUTTON(toteLifterThirdPos,
-			toteLifterThirdPos->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
 
 	// Stack delivery slides
 	SAFE_BUTTON(pushSwitch,

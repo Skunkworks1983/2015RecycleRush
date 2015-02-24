@@ -14,3 +14,14 @@ MoveArmsAndCollect::MoveArmsAndCollect(bool up) {
 		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
 	}
 }
+
+MoveArmsAndCollect::MoveArmsAndCollect(bool up, double timeout) {
+	if (up) {
+		AddSequential(new MoveArms(CAN_POT_UP_POSITION));
+		AddSequential(new Induct(Induct::stopped), timeout);
+	} else {
+		AddSequential(new MoveWrist(MoveWrist::close));
+		AddParallel(new Induct(Induct::forward, timeout));
+		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
+	}
+}

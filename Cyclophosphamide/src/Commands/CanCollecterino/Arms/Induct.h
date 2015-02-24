@@ -4,8 +4,7 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class Induct: public CommandBase
-{
+class Induct: public CommandBase {
 public:
 	enum State {
 		forward, reverse, stopped
@@ -14,6 +13,7 @@ private:
 	State state;
 public:
 	Induct(State state);
+	Induct(State state, double timeout);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
