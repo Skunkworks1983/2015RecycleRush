@@ -34,6 +34,7 @@ private:
 		JoystickButton *wrist;
 		JoystickButton *armsToggle;
 		JoystickButton *craaawOverride;
+		JoystickButton *shoulderOverride;
 
 	public:
 		OI();

@@ -26,6 +26,7 @@ Autonomous *Autonomous::createStartWithCan() {
 	cmd->AddSequential(new MoveArmsAndCollect(false), 2.0);
 	cmd->AddSequential(new MoveArmsAndCollect(true), 2.0);
 	cmd->AddSequential(new CraaawActuate(DoubleSolenoid::Value::kForward));
+	cmd->AddSequential(new MoveWrist(MoveWrist::open));
 	//cmd->AddSequential(new TurnTo(50));
 	return cmd;
 }

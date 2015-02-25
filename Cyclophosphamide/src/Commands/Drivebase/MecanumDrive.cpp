@@ -61,7 +61,7 @@ void MecanumDrive::Execute() {
 	forward *= DRIVE_ASPECT_RATIO;
 
 	driveBae->setForward(-forward);
-	driveBae->setRight(-right);
+	driveBae->setRight(right);
 	if(clockwise != 0) {
 		driveBae->setClockwise(-clockwise);
 	}

@@ -3,11 +3,13 @@
 #include "Arms/MoveArms.h"
 #include "Arms/Induct.h"
 #include "Arms/MoveWrist.h"
+#include "Craaaw/CraaawActuate.h"
 
 MoveArmsAndCollect::MoveArmsAndCollect(bool up) {
 	if (up) {
+		AddParallel(new CraaawActuate(DoubleSolenoid::kReverse));
 		AddSequential(new MoveArms(CAN_POT_UP_POSITION));
-		AddSequential(new Induct(Induct::stopped));
+		AddSequential(new Induct(Induct::forward, CAN_INDUCT_UP_TIMEOUT));
 	} else {
 		AddSequential(new MoveWrist(MoveWrist::close));
 		AddParallel(new Induct(Induct::forward));

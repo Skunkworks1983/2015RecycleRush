@@ -7,13 +7,14 @@
 #include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
 #include "Commands/CanCollecterino/CanToCraaawTransfer.h"
 #include "Commands/CanCollecterino/Arms/MoveArms.h"
+#include "Commands/CanCollecterino/Arms/Whack.h"
 #include "Commands/CanCollecterino/Arms/Induct.h"
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnToThenDrive.h"
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
-#include "Commands/ToteHandling/LiftToHeight.h"
-#include "Commands/ToteHandling/DownUp.h"
+#include "Commands/ToteHandling/SafeLiftToHeight.h"
+#include "Commands/ToteHandling/SafeDownUp.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
 #include "Commands/ToteHandling/ToggleCoop.h"
@@ -44,6 +45,7 @@ OI::OI() {
 	score = new JoystickButton(joystickOperator, 5);
 	canToCraaawTransfer = new JoystickButton(joystickOperator, 9);
 	craaawOverride = new JoystickButton(joystickOperator, 16);
+	shoulderOverride = new JoystickButton(joystickOperator, 15);
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
@@ -74,6 +76,7 @@ OI::~OI() {
 	delete armsToggle;
 	delete toggleCoop;
 	delete score;
+	delete shoulderOverride;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -109,23 +112,22 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteIntake,
 			toteIntake->WhenReleased(new ToteIntake(ToteIntake::stopped)));
 	SAFE_BUTTON(stackThenLoadPos,
-			stackThenLoadPos->WhenPressed(new DownUp(DownUp::load)));
+			stackThenLoadPos->WhenPressed(new SafeDownUp(DownUp::load)));
 	SAFE_BUTTON(stackThenCarryPos,
-			stackThenCarryPos->WhenPressed(new DownUp(DownUp::carry)));
+			stackThenCarryPos->WhenPressed(new SafeDownUp(DownUp::carry)));
 	SAFE_BUTTON(toggleCoop, toggleCoop->WhenPressed(new ToggleCoop()));
 	SAFE_BUTTON(score, score->WhenPressed(new Score()));
 
 	// Scoring
-
 	SAFE_BUTTON(toteLifterFloor,
-			toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+			toteLifterFloor->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
 	SAFE_BUTTON(toteLifterTwoTotes,
-			toteLifterTwoTotes->WhenReleased(new LiftToHeight(TOTE_LIFTER_TWO_TOTE)));
+			toteLifterTwoTotes->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_TWO_TOTE)));
 
 	SAFE_BUTTON(toteLifterOneTote,
-			toteLifterOneTote->WhenReleased(new LiftToHeight(TOTE_LIFTER_ONE_TOTE)));
+			toteLifterOneTote->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_ONE_TOTE)));
 	SAFE_BUTTON(toteLifterCarry,
-			toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
+			toteLifterCarry->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
 
 	// Stack delivery slides
 	SAFE_BUTTON(pushSwitch,
@@ -134,8 +136,8 @@ void OI::registerButtonListeners() {
 			pushSwitch->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
 
 	// Overrides
-	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::open)));
-	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(MoveWrist::close)));
+	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::close)));
+	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(MoveWrist::open)));
 	SAFE_BUTTON(canCollectFwd,
 			canCollectFwd->WhenPressed(new Induct(Induct::forward)));
 	SAFE_BUTTON(canCollectFwd,
@@ -146,10 +148,14 @@ void OI::registerButtonListeners() {
 			canCollectRvs->WhenReleased(new Induct(Induct::stopped)));
 	SAFE_BUTTON(craaawOverride,
 			craaawOverride->WhenPressed(
-					new CraaawActuate(DoubleSolenoid::kForward)));
+					new CraaawActuate(DoubleSolenoid::kReverse)));
 	SAFE_BUTTON(craaawOverride,
 			craaawOverride->WhenReleased(
-					new CraaawActuate(DoubleSolenoid::kReverse)));
+					new CraaawActuate(DoubleSolenoid::kForward)));
+	SAFE_BUTTON(shoulderOverride,
+			shoulderOverride->WhenPressed(new MoveArms(CAN_POT_UP_POSITION)));
+	SAFE_BUTTON(shoulderOverride,
+			shoulderOverride->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,
@@ -157,7 +163,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	SAFE_BUTTON(moveArmsWhackMode,
-			moveArmsWhackMode->WhenPressed(new MoveArms(CAN_POT_KNOCK_POSITION)));
+			moveArmsWhackMode->WhenPressed(new Whack()));
 
 	// Old stuff
 //	SAFE_BUTTON(toteLifterDown,

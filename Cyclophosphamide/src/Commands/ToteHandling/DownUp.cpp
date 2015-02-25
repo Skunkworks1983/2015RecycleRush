@@ -18,7 +18,7 @@ void DownUp::Initialize() {
 			destination = TOTE_LIFTER_CARRY_HEIGHT;
 			break;
 		case load:
-			destination = TOTE_LIFTER_ONE_TOTE;
+			destination = TOTE_LIFTER_LOAD_HEIGHT;
 			break;
 		}
 	}

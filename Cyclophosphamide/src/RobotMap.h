@@ -19,10 +19,6 @@
 #define AUTONOMOUS_DEFAULT_DISTANCE 5 //units?
 #define AUTONOMOUS_DEFAULT_TIME 5 //units?
 
-// C++ changes
-#define floaterino float
-#define returnerino return
-
 // DriveBase
 #define DRIVE_MOTOR_TYPE CANTalon
 #define DRIVE_MOTOR_FRONT_LEFT_PORT 15
@@ -77,6 +73,7 @@
 #define TOTE_LIFTER_TWO_TOTE 1750 // Old: 1400 // Older: 1300
 #define TOTE_LIFTER_ONE_TOTE 1237
 #define TOTE_LIFTER_CARRY_HEIGHT 270
+#define TOTE_LIFTER_LOAD_HEIGHT 1400
 #define TOTE_LIFTER_FLOOR_HEIGHT 0
 
 #define TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT 1
@@ -131,9 +128,12 @@
 
 #define CAN_SENSOR_PORT 0
 
-#define CAN_POT_UP_POSITION 4.03// practice bot 4.95
-#define CAN_POT_DOWN_POSITION 1.533 // practice bot 2.3
-#define CAN_POT_KNOCK_POSITION 2.555
+#define CAN_POT_UP_POSITION 3.92 // practice bot 4.03
+#define CAN_POT_DOWN_POSITION 1.44 // practice bot 1.533
+#define CAN_POT_KNOCK_POSITION 2.455
+#define CAN_KNOCK_TIMEOUT 1.0
+#define CAN_INDUCT_UP_TIMEOUT 1.0
+#define BOUNCE_HEIGHT 3.0
 
 #define CAN_LIFT_THRESHOLD 0.1
 

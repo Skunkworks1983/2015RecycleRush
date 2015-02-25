@@ -3,9 +3,11 @@
 #include "Arms/MoveWrist.h"
 #include "Arms/MoveArms.h"
 #include "Craaaw/CraaawActuate.h"
+#include "../ToteHandling/LiftRelative.h"
 
-CanToCraaawTransfer::CanToCraaawTransfer()
-{
+CanToCraaawTransfer::CanToCraaawTransfer() {
 	AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
-	AddSequential(new MoveWrist(MoveWrist::open));
+	AddParallel(new MoveWrist(MoveWrist::open));
+	AddSequential(new LiftRelative(BOUNCE_HEIGHT));
+	AddSequential(new LiftRelative(-BOUNCE_HEIGHT));
 }
