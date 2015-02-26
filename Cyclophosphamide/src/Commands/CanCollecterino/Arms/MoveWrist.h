@@ -6,6 +6,9 @@
 
 class MoveWrist: public CommandBase
 {
+/*!
+ * Toggles the position of the wrists (opened or closed)
+ */
 private:
 	DoubleSolenoid::Value setpoint;
 

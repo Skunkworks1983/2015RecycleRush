@@ -1,7 +1,7 @@
 #include <Commands/CanCollecterino/Arms/Induct.h>
 
 Induct::Induct() {
-	fuck = 0;
+	kek = 0;
 	Requires(canIntakerino);
 }
 
