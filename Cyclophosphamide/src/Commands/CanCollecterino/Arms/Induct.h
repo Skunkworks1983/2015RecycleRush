@@ -6,8 +6,11 @@
 
 class Induct: public CommandBase
 {
+/*!
+ * Sets the motor speed of the can grabbing mecanum motors
+ */
 private:
-	int fuck;
+	int kek;
 public:
 	Induct();
 	void Initialize();

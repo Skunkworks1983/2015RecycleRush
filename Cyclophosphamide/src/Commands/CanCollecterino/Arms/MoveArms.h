@@ -5,6 +5,9 @@
 #include "WPILib.h"
 
 class MoveArms: public CommandBase {
+/*!
+ * Move arms to a user specified location
+ */
 private:
 	float setpoint;
 

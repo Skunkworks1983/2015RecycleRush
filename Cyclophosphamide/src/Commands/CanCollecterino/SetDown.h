@@ -6,6 +6,9 @@
 
 class SetDown: public CommandGroup
 {
+/*!
+* Sets the arms of the cancollecterino to a horizontal position
+*/
 public:
 	SetDown();
 };

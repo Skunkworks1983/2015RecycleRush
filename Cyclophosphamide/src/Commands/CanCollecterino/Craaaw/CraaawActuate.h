@@ -6,6 +6,9 @@
 
 class CraaawActuate: public CommandBase
 {
+/*!
+ * Checks if the craaaw is unactuated and actuates it
+ */
 private:
 	bool waitForInput;
 

@@ -6,6 +6,9 @@
 
 class Collect: public CommandGroup
 {
+/*!
+ * Toggles the wrists and induct so that a can can be collected
+ */
 public:
 	Collect();
 };
