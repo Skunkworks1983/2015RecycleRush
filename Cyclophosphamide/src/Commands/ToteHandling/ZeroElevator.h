@@ -4,12 +4,16 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ZeroElevator: public CommandBase
-{
+/**
+ * To be ran in auto so that it can be zeroed by the time
+ * teleop begins. Code and values still need to be tested.
+ */
+class ZeroElevator: public CommandBase {
 private:
-	bool zeroAtBottom;
+	int zeroCount;
+	double oldEncoderTick;
 public:
-	ZeroElevator(bool zeroAtBottom);
+	ZeroElevator();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -5,9 +5,11 @@
 #define DOESNT_EXIST 0x420
 
 #define SAFE_INIT(port, thingy) \
-	if (port != 0x420) { \
+	if (port != DOESNT_EXIST) { \
 		thingy \
 	}
+
+#define COMPETITION_BOT false
 
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH	(256)
@@ -70,7 +72,7 @@
 #define TOTE_LIFTER_PID_I 0.0
 #define TOTE_LIFTER_PID_D .01
 
-#define TOTE_LIFTER_TWO_TOTE 1750 // Old: 1400 // Older: 1300
+#define TOTE_LIFTER_TWO_TOTE 1750
 #define TOTE_LIFTER_ONE_TOTE 1237
 #define TOTE_LIFTER_CARRY_HEIGHT 270
 #define TOTE_LIFTER_LOAD_HEIGHT 1400
@@ -79,7 +81,7 @@
 #define TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT 1
 #define TOTE_LIFTER_ELEVATOR_BOT_INPUT_PORT 2
 
-#define TOTE_LIFTER_ZERO_SPEED .3
+#define TOTE_LIFTER_ZERO_SPEED .2
 
 #define TOTE_LIFTER_BANGBANG_TOLERANCE_PID 30
 #define TOTE_LIFTER_BANGBANG_TOLERANCE_1 50
@@ -88,10 +90,8 @@
 #define TOTE_LIFTER_DOWN_SPEED -.3
 #define TOTE_LIFTER_TOP_INPUT_WORKS true
 
-#define TOTE_LIFTER_PID_CONSTANT .5
-
 #define TOTE_LIFTER_ENCODER_CLOSE_TO_ZERO 5
-#define TOTE_LIFTER_COUNT_ZEROED 100
+#define TOTE_LIFTER_COUNT_ZEROED 50
 
 #define TOTE_LIFTER_TICKS_PER_INCH 64
 #define SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES -4.0
@@ -128,12 +128,23 @@
 
 #define CAN_SENSOR_PORT 0
 
-#define CAN_POT_UP_POSITION 3.92 // practice bot 4.03
-#define CAN_POT_DOWN_POSITION 1.44 // practice bot 1.533
+#if COMPETITION_BOT
+
+#define CAN_POT_UP_POSITION 3.92
+#define CAN_POT_DOWN_POSITION 1.44
+
+#else
+
+#define CAN_POT_UP_POSITION 4.03	//TODO: possibly change these mechanically
+#define CAN_POT_DOWN_POSITION 1.533	//TODO: possibly change these mechanically
+
+#endif
 #define CAN_POT_KNOCK_POSITION 2.455
 #define CAN_KNOCK_TIMEOUT 1.0
 #define CAN_INDUCT_UP_TIMEOUT 1.0
 #define BOUNCE_HEIGHT 3.0
+
+#define ARMS_ARE_BREAKING_PITCH_THRESHOLD 5
 
 #define CAN_LIFT_THRESHOLD 0.1
 

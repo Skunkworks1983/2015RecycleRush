@@ -38,6 +38,12 @@ void MecanumDrive::Execute() {
 		driveBae->zeroPIDOutput();
 	}
 
+#if COMPETITION_BOT
+
+	clockwise *= .5;	//competition bot drives faster
+
+#endif
+
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
 	forward = pow(forward, 3.0);
@@ -62,7 +68,7 @@ void MecanumDrive::Execute() {
 
 	driveBae->setForward(-forward);
 	driveBae->setRight(right);
-	if(clockwise != 0) {
+	if (clockwise != 0) {
 		driveBae->setClockwise(-clockwise);
 	}
 	driveBae->execute();

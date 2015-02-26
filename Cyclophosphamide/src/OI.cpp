@@ -17,7 +17,7 @@
 #include "Commands/ToteHandling/SafeDownUp.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
-#include "Commands/ToteHandling/ToggleCoop.h"
+#include "Commands/ToggleCoop.h"
 #include "Commands/ToteHandling/ElevatorBangerang.h"
 #include "Commands/Score.h"
 

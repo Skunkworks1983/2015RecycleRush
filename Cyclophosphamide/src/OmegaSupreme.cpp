@@ -10,6 +10,7 @@
 #include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/ToteHandling/ToteIntake.h>
 #include <Commands/ToteHandling/DownUp.h>
+#include <Commands/ResetElevatorEncoder.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
 #include <OmegaSupreme.h>
@@ -109,6 +110,7 @@ void OmegaSupreme::TeleopInit() {
 	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
 	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
 	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));
+	SmartDashboard::PutData("Reset Elevator Encoder", new ResetElevatorEncoder());
 }
 
 void OmegaSupreme::TeleopPeriodic() {
