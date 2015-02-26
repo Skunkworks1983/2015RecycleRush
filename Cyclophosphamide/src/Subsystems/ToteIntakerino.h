@@ -3,11 +3,10 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-
-/**
- * By Kaeden Wile
- * 
+/*!
  * Subsystem for loading totes from the human loader station
+ * encoders runs off/on
+ * PID setpoint 0 (ground level)
  */
 class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
 private:

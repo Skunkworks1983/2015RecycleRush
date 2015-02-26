@@ -5,7 +5,9 @@
 #include "WPILib.h"
 #include "robotmap.h"
 #include "../utilities/DoubleMotorPIDWrapper.h"
-
+/*!
+ * Lift or elevate the totes up and down.
+ */
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	DigitalInput *toteUnderInput, *elevatorTopInput;
