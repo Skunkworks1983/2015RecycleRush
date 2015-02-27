@@ -20,6 +20,7 @@
 #include "Commands/ToggleCoop.h"
 #include "Commands/ToteHandling/ElevatorBangerang.h"
 #include "Commands/Score.h"
+#include "Commands/PushStack/SafePushStack.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -131,9 +132,10 @@ void OI::registerButtonListeners() {
 
 	// Stack delivery slides
 	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenPressed(new PushStack(StackPusher::push, 1.0f)));
+			pushSwitch->WhenPressed(new SafePushStack(StackPusher::push, 1.0f)));
 	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
+			pushSwitch->WhenReleased(
+					new SafePushStack(StackPusher::pull, 1.0f)));
 
 	// Overrides
 	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::close)));
@@ -162,8 +164,7 @@ void OI::registerButtonListeners() {
 			leftLoadButton->WhenReleased(new TurnToThenDrive(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
-	SAFE_BUTTON(moveArmsWhackMode,
-			moveArmsWhackMode->WhenPressed(new Whack()));
+	SAFE_BUTTON(moveArmsWhackMode, moveArmsWhackMode->WhenPressed(new Whack()));
 
 	// Old stuff
 //	SAFE_BUTTON(toteLifterDown,

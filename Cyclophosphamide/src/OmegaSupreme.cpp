@@ -104,6 +104,7 @@ void OmegaSupreme::TeleopInit() {
 	}
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
+	CommandBase::driveBae->zeroPIDOutput();
 	SmartDashboard::PutData(CommandBase::craaaw);
 	SmartDashboard::PutData("Can up", new MoveArmsAndCollect(true));
 	SmartDashboard::PutData("Can down", new MoveArmsAndCollect(false));
