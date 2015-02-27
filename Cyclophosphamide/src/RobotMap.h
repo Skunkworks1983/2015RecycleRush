@@ -9,7 +9,7 @@
 		thingy \
 	}
 
-#define COMPETITION_BOT false
+#define COMPETITION_BOT true
 
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH	(256)
