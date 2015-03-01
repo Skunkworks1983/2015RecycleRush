@@ -8,6 +8,7 @@ class SafeLiftToHeight: public CommandGroup
 {
 public:
 	SafeLiftToHeight(double destination);
+	SafeLiftToHeight(double destination, bool isCraaawSafe);
 };
 
 #endif

@@ -14,6 +14,7 @@ public:
 	static Autonomous *createTripleTote();
 	static Autonomous *createTurningTripleTote();
 	static Autonomous *createStartWithCan();
+	static Autonomous *createSimpleDriveForward();
 
 	Autonomous();
 	Autonomous(char *style);

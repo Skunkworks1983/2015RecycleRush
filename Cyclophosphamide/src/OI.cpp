@@ -15,6 +15,7 @@
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
 #include "Commands/ToteHandling/SafeLiftToHeight.h"
 #include "Commands/ToteHandling/SafeDownUp.h"
+#include "Commands/ToteHandling/ResetLifterEncoder.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
 #include "Commands/ToggleCoop.h"
@@ -36,6 +37,10 @@ OI::OI() {
 	toteLifterCarry = new JoystickButton(joystickOperator, 11);
 	toteLifterTwoTotes = new JoystickButton(joystickOperator, 8);
 	toteLifterOneTote = new JoystickButton(joystickOperator, 10);
+
+	toteLifterUp = new JoystickButton(joystickLeft, 4);
+	toteLifterDown = new JoystickButton(joystickLeft, 5);
+
 	pushSwitch = new JoystickButton(joystickOperator, 7);
 	wrist = new JoystickButton(joystickOperator, 2);
 	canCollector = new JoystickButton(joystickOperator, 1);
@@ -51,6 +56,7 @@ OI::OI() {
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
+	zeroLifter = new JoystickButton(joystickRight, 5);
 }
 
 OI::~OI() {
@@ -78,6 +84,9 @@ OI::~OI() {
 	delete toggleCoop;
 	delete score;
 	delete shoulderOverride;
+	delete toteLifterUp;
+	delete toteLifterDown;
+	delete zeroLifter;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -123,7 +132,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteLifterFloor,
 			toteLifterFloor->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
 	SAFE_BUTTON(toteLifterTwoTotes,
-			toteLifterTwoTotes->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_TWO_TOTE)));
+			toteLifterTwoTotes->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_TWO_TOTE, true)));
 
 	SAFE_BUTTON(toteLifterOneTote,
 			toteLifterOneTote->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_ONE_TOTE)));
@@ -158,6 +167,12 @@ void OI::registerButtonListeners() {
 			shoulderOverride->WhenPressed(new MoveArms(CAN_POT_UP_POSITION)));
 	SAFE_BUTTON(shoulderOverride,
 			shoulderOverride->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
+	SAFE_BUTTON(toteLifterUp,
+			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(toteLifterUp, toteLifterUp->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteLifterDown,
+			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(toteLifterDown, toteLifterDown->WhenReleased(new LiftToHeightVelocity(0)));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,
@@ -165,12 +180,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	SAFE_BUTTON(moveArmsWhackMode, moveArmsWhackMode->WhenPressed(new Whack()));
-
-	// Old stuff
-//	SAFE_BUTTON(toteLifterDown,
-//			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
-//	SAFE_BUTTON(toteLifterUp,
-//			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(zeroLifter, zeroLifter->WhenPressed(new ResetLifterEncoder()));
 }
 
 bool OI::isJoystickButtonPressed(bool isLeft, int val) {
@@ -182,3 +192,5 @@ bool OI::isJoystickButtonPressed(bool isLeft, int val) {
 				&& joystickRight->GetRawButton(val);
 	}
 }
+
+

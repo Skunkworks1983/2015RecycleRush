@@ -43,7 +43,7 @@ void ToteLifterino::setZeroed(bool zeroed) {
 	notZeroed = !zeroed;
 }
 
-bool ToteLifterino::getTopInput() {
+bool ToteLifterino::getMagInput() {
 	return topInput->Get();
 }
 
@@ -146,4 +146,8 @@ void ToteLifterino::PIDWrite(float f) {
 
 double ToteLifterino::PIDGet() {
 	return encoder->PIDGet();
+}
+
+bool ToteLifterino::getMagSensor() {
+	return topInput->Get();
 }

@@ -17,7 +17,7 @@ public:
 	ToteLifterino();
 	void InitDefaultCommand();
 	void WatchDogg();
-	bool getTopInput();
+	bool getMagInput();
 	bool getBotInput();
 	void setZeroed(bool zeroed);
 	bool isCoop();
@@ -34,6 +34,7 @@ public:
 	void enablePID(bool enable);
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
+	bool getMagSensor();
 };
 
 #endif

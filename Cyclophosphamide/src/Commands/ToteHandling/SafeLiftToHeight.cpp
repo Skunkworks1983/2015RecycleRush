@@ -3,8 +3,15 @@
 #include "../CanCollecterino/Craaaw/CraaawActuate.h"
 #include "LiftToHeight.h"
 
-SafeLiftToHeight::SafeLiftToHeight(double destination)
-{
+SafeLiftToHeight::SafeLiftToHeight(double destination) {
+	AddSequential(new MoveWrist(MoveWrist::open));
+	AddSequential(new LiftToHeight(destination));
+}
+
+SafeLiftToHeight::SafeLiftToHeight(double destination, bool isCraaawSafe) {
+	if (isCraaawSafe) {
+		AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
+	}
 	AddSequential(new MoveWrist(MoveWrist::open));
 	AddSequential(new LiftToHeight(destination));
 }

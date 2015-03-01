@@ -36,6 +36,10 @@ private:
 		JoystickButton *craaawOverride;
 		JoystickButton *shoulderOverride;
 
+		JoystickButton *toteLifterUp;
+		JoystickButton *toteLifterDown;
+		JoystickButton *zeroLifter;
+
 	public:
 		OI();
 		~OI();

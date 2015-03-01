@@ -16,6 +16,7 @@
 #include <OmegaSupreme.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
+#include "Commands/UpdateCompressor.h"
 
 #include "Commands/Autonomous/Scripting.h"
 
@@ -46,13 +47,14 @@ void OmegaSupreme::RobotInit() {
 
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("CRAAAAAZY AUTO", Autonomous::createStartWithCan());
+	chooser->AddDefault("Start with can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 24 inches",
+	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
+	/*chooser->AddObject("Drive forward 24 inches",
 			Autonomous::createDriveDistance(24, BestDrive::forward));
 	chooser->AddObject("Drive forward 1 second",
 			Autonomous::createDriveDuration(1.0f, -90.0f));
-	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
+	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
@@ -72,25 +74,22 @@ void OmegaSupreme::RobotInit() {
 				//CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
 				zeroed = true;
 			}
+			SmartDashboard::PutString("auto", "zeroing");
 		}
 	}
+	SmartDashboard::PutString("auto", "end of RobotInit!");
 }
 
 void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	//((ScriptRunner*) chooser->GetSelected())->startCommand();
 
-	//autonomousCommand = (Command *) chooser->GetSelected();
+	autonomousCommand = (Command *) chooser->GetSelected();
 	//autonomousCommand = new SimpleDriveForward(24);
-	autonomousCommand = Autonomous::createStartWithCan();
+	SmartDashboard::PutString("auto", "insideAutoInit!");
+	CommandBase::toteLifterino->getEncoder()->Reset();
+	//autonomousCommand = Autonomous::createStartWithCan();
 	autonomousCommand->Start();
-	/*
-	 float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
-	 CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f,
-	 0.0f, 0.0f);
-	 */
-	SmartDashboard::PutNumber("driveEncoder",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
@@ -105,6 +104,7 @@ void OmegaSupreme::TeleopInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
 	CommandBase::driveBae->zeroPIDOutput();
+	CommandBase::toteLifterino->getEncoder()->Reset();
 	SmartDashboard::PutData(CommandBase::craaaw);
 	SmartDashboard::PutData("Can up", new MoveArmsAndCollect(true));
 	SmartDashboard::PutData("Can down", new MoveArmsAndCollect(false));
@@ -157,10 +157,13 @@ void OmegaSupreme::DisabledInit() {
 
 void OmegaSupreme::TestInit() {
 	Scheduler::GetInstance()->RemoveAll();
+	SmartDashboard::PutData(CommandBase::pneumatics);
+	SmartDashboard::PutData("Run compressor", new UpdateCompressor());
 }
 
 void OmegaSupreme::TestPeriodic() {
 	lw->Run();
+
 }
 
 void OmegaSupreme::WatchDogg() {
