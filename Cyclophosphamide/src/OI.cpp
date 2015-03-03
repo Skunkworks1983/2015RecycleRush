@@ -5,18 +5,23 @@
 #include "RobotMap.h"
 #include "Commands/PushStack/PushStack.h"
 #include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
-#include "Commands/CanCollecterino/Craaaw/CraaawUnactuate.h"
 #include "Commands/CanCollecterino/CanToCraaawTransfer.h"
 #include "Commands/CanCollecterino/Arms/MoveArms.h"
+#include "Commands/CanCollecterino/Arms/Whack.h"
 #include "Commands/CanCollecterino/Arms/Induct.h"
 #include "Commands/ToteHandling/ToteIntake.h"
 #include "Commands/CanCollecterino/Collect.h"
 #include "Commands/Automatic/TurnToThenDrive.h"
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
-#include "Commands/ToteHandling/LiftToHeight.h"
-#include "Commands/ToteHandling/DownUp.h"
+#include "Commands/ToteHandling/SafeLiftToHeight.h"
+#include "Commands/ToteHandling/SafeDownUp.h"
+#include "Commands/ToteHandling/ResetLifterEncoder.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
+#include "Commands/CanCollecterino/MoveArmsAndCollect.h"
+#include "Commands/ToggleCoop.h"
 #include "Commands/ToteHandling/ElevatorBangerang.h"
+#include "Commands/Score.h"
+#include "Commands/PushStack/SafePushStack.h"
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -25,23 +30,33 @@ OI::OI() {
 	joystickRight = new Joystick(1);
 	joystickOperator = new Joystick(2);
 
-	canToClawTransfer = new JoystickButton(joystickOperator, 9);
 	toteIntake = new JoystickButton(joystickOperator, 14);
 	stackThenLoadPos = new JoystickButton(joystickOperator, 13);
 	stackThenCarryPos = new JoystickButton(joystickOperator, 12);
-	moveArmsWhackMode = new JoystickButton(joystickOperator, 8);
-	toteLifterFloor = new JoystickButton(joystickOperator, 6);
-	toteLifterCarry = new JoystickButton(joystickOperator, 5);
-	toteLifterLift = new JoystickButton(joystickOperator, 10);
-	toteLifterThirdPos = new JoystickButton(joystickOperator, 11);
+	toteLifterFloor = new JoystickButton(joystickRight, 4);
+	toteLifterCarry = new JoystickButton(joystickOperator, 11);
+	toteLifterTwoTotes = new JoystickButton(joystickOperator, 8);
+	toteLifterOneTote = new JoystickButton(joystickOperator, 10);
+
+	toteLifterUp = new JoystickButton(joystickLeft, 4);
+	toteLifterDown = new JoystickButton(joystickLeft, 5);
+
 	pushSwitch = new JoystickButton(joystickOperator, 7);
 	wrist = new JoystickButton(joystickOperator, 2);
-	collect = new JoystickButton(joystickOperator, 1);
-	toteIntakeFwd = new JoystickButton(joystickOperator, 4);
-	toteIntakeRvs = new JoystickButton(joystickOperator, 3);
+	canCollector = new JoystickButton(joystickOperator, 1);
+	//collect = new JoystickButton(joystickOperator, 1);
+	canCollectFwd = new JoystickButton(joystickOperator, 4);
+	canCollectRvs = new JoystickButton(joystickOperator, 3);
+	toggleCoop = new JoystickButton(joystickOperator, 6);
+	score = new JoystickButton(joystickOperator, 5);
+	canToCraaawTransfer = new JoystickButton(joystickOperator, 9);
+	craaawOverride = new JoystickButton(joystickOperator, 16);
+	shoulderOverride = new JoystickButton(joystickOperator, 15);
 
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
+	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
+	zeroLifter = new JoystickButton(joystickRight, 5);
 }
 
 OI::~OI() {
@@ -52,18 +67,26 @@ OI::~OI() {
 	delete toteIntake;
 	delete toteLifterFloor;
 	delete toteLifterCarry;
-	delete toteLifterLift;
-	delete toteLifterThirdPos;
+	delete toteLifterTwoTotes;
+	delete toteLifterOneTote;
 	delete moveArmsWhackMode;
 	delete leftLoadButton;
 	delete rightLoadButton;
 	delete stackThenCarryPos;
 	delete stackThenLoadPos;
-	delete canToClawTransfer;
+	delete canCollector;
 	delete collect;
-	delete toteIntakeFwd;
-	delete toteIntakeRvs;
+	delete canCollectFwd;
+	delete canCollectRvs;
 	delete wrist;
+	delete canToCraaawTransfer;
+	delete armsToggle;
+	delete toggleCoop;
+	delete score;
+	delete shoulderOverride;
+	delete toteLifterUp;
+	delete toteLifterDown;
+	delete zeroLifter;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -86,67 +109,78 @@ double OI::getAnalogValue(int input) {
 
 void OI::registerButtonListeners() {
 	// Can manipulation
-	SAFE_BUTTON(moveArmsWhackMode,
-			moveArmsWhackMode->WhenPressed(new MoveArms(CAN_POT_KNOCK)));
-	SAFE_BUTTON(canToClawTransfer,
-			canToClawTransfer->WhenPressed(new CanToCraaawTransfer()));
-	SAFE_BUTTON(collect, collect->WhileHeld(new Induct()));
+	SAFE_BUTTON(canCollector,
+			canCollector->WhenPressed(new MoveArmsAndCollect(true)));
+	SAFE_BUTTON(canCollector,
+			canCollector->WhenReleased(new MoveArmsAndCollect(false)));
+	SAFE_BUTTON(canToCraaawTransfer,
+			canToCraaawTransfer->WhenPressed(new CanToCraaawTransfer()));
 
 	// Loading/stacking
 	SAFE_BUTTON(toteIntake,
 			toteIntake->WhenPressed(new ToteIntake(ToteIntake::forward)));
 	SAFE_BUTTON(toteIntake,
 			toteIntake->WhenReleased(new ToteIntake(ToteIntake::stopped)));
-	SAFE_BUTTON(toteIntakeFwd,
-			toteIntakeFwd->WhenPressed(new ToteIntake(ToteIntake::forward)));
-	SAFE_BUTTON(toteIntakeFwd,
-			toteIntakeFwd->WhenReleased(new ToteIntake(ToteIntake::stopped)));
-	SAFE_BUTTON(toteIntakeRvs,
-			toteIntakeRvs->WhenPressed(new ToteIntake(ToteIntake::reverse)));
-	SAFE_BUTTON(toteIntakeRvs,
-			toteIntakeRvs->WhenReleased(new ToteIntake(ToteIntake::stopped)));
 	SAFE_BUTTON(stackThenLoadPos,
-			stackThenLoadPos->WhenPressed(new DownUp(DownUp::load)));
+			stackThenLoadPos->WhenPressed(new SafeDownUp(DownUp::load)));
 	SAFE_BUTTON(stackThenCarryPos,
-			stackThenCarryPos->WhenPressed(new DownUp(DownUp::carry)));
+			stackThenCarryPos->WhenPressed(new SafeDownUp(DownUp::carry)));
+	SAFE_BUTTON(toggleCoop, toggleCoop->WhenPressed(new ToggleCoop()));
+	SAFE_BUTTON(score, score->WhenPressed(new Score()));
 
 	// Scoring
 	SAFE_BUTTON(toteLifterFloor,
-			toteLifterFloor->WhenReleased(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+			toteLifterFloor->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT)));
+	SAFE_BUTTON(toteLifterTwoTotes,
+			toteLifterTwoTotes->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_TWO_TOTE, true)));
+
+	SAFE_BUTTON(toteLifterOneTote,
+			toteLifterOneTote->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_ONE_TOTE)));
 	SAFE_BUTTON(toteLifterCarry,
-			toteLifterCarry->WhenReleased(new LiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
-	SAFE_BUTTON(toteLifterLift,
-			toteLifterLift->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
-	SAFE_BUTTON(toteLifterThirdPos,
-			toteLifterThirdPos->WhenReleased(new LiftToHeight(TOTE_LIFTER_STACK_HEIGHT)));
+			toteLifterCarry->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
 
 	// Stack delivery slides
 	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenPressed(new PushStack(StackPusher::push, 1.0f)));
+			pushSwitch->WhenPressed(new SafePushStack(StackPusher::push, 1.0f)));
 	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenReleased(new PushStack(StackPusher::pull, 1.0f)));
+			pushSwitch->WhenReleased(
+					new SafePushStack(StackPusher::pull, 1.0f)));
 
 	// Overrides
-	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(true)));
-	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(false)));
+	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::close)));
+	SAFE_BUTTON(wrist, wrist->WhenReleased(new MoveWrist(MoveWrist::open)));
+	SAFE_BUTTON(canCollectFwd,
+			canCollectFwd->WhenPressed(new Induct(Induct::forward)));
+	SAFE_BUTTON(canCollectFwd,
+			canCollectFwd->WhenReleased(new Induct(Induct::stopped)));
+	SAFE_BUTTON(canCollectRvs,
+			canCollectRvs->WhenPressed(new Induct(Induct::reverse)));
+	SAFE_BUTTON(canCollectRvs,
+			canCollectRvs->WhenReleased(new Induct(Induct::stopped)));
+	SAFE_BUTTON(craaawOverride,
+			craaawOverride->WhenPressed(
+					new CraaawActuate(DoubleSolenoid::kReverse)));
+	SAFE_BUTTON(craaawOverride,
+			craaawOverride->WhenReleased(
+					new CraaawActuate(DoubleSolenoid::kForward)));
+	SAFE_BUTTON(shoulderOverride,
+			shoulderOverride->WhenPressed(new MoveArms(CAN_POT_UP_POSITION)));
+	SAFE_BUTTON(shoulderOverride,
+			shoulderOverride->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
+	SAFE_BUTTON(toteLifterUp,
+			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(toteLifterUp, toteLifterUp->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteLifterDown,
+			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(toteLifterDown, toteLifterDown->WhenReleased(new LiftToHeightVelocity(0)));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,
 			leftLoadButton->WhenReleased(new TurnToThenDrive(LOAD_LEFT_ANGLE)));
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
-
-	// Old stuff
-//	SAFE_BUTTON(toteLifterDown,
-//			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
-//	SAFE_BUTTON(toteLifterUp,
-//			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
-//	SAFE_BUTTON(moveArmsUp,
-//			moveArmsUp->WhenReleased(new MoveArms(CAN_POT_UP_POSITION)));
-//	SAFE_BUTTON(moveArmsDown,
-//			moveArmsDown->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
-//	SAFE_BUTTON(moveArmsKnock,
-//			moveArmsKnock->WhenReleased(new MoveArms(CAN_POT_KNOCK)));
+	SAFE_BUTTON(moveArmsWhackMode, moveArmsWhackMode->WhenPressed(new Whack()));
+	SAFE_BUTTON(zeroLifter, zeroLifter->WhenPressed(new ResetLifterEncoder()));
 }
 
 bool OI::isJoystickButtonPressed(bool isLeft, int val) {
@@ -158,3 +192,5 @@ bool OI::isJoystickButtonPressed(bool isLeft, int val) {
 				&& joystickRight->GetRawButton(val);
 	}
 }
+
+
