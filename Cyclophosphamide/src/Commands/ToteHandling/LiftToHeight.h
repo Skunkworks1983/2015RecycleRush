@@ -11,7 +11,6 @@ private:
 	int count;
 public:
 	LiftToHeight(double destination);
-	LiftToHeight(double destination, bool override);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

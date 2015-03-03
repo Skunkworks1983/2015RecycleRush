@@ -1,52 +1,43 @@
 #include "LiftToHeight.h"
 
-LiftToHeight::LiftToHeight(double destination, bool override) :
-		CommandBase("LiftToHeight") {
-	Requires(toteLifterino);
-	if (override) {
-		// Using an input of -1.0 to 1.0
-		this->destination = (destination + 1.0)
-				* (TOTE_LIFTER_STACK_HEIGHT - TOTE_LIFTER_CARRY_HEIGHT) / 2.0;
-	} else {
-		this->destination = destination;
-	}
-}
-
 LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
+	SetTimeout(TOTE_LIFTER_TIMEOUT);
 }
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
-	toteLifterino->setSetPoints(destination);
+	if (toteLifterino->isCoop() && destination != TOTE_LIFTER_FLOOR_HEIGHT) {
+		SmartDashboard::PutNumber("Coop destination",
+				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH);
+		toteLifterino->setSetPoints(
+				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH); //add 4 inches to the destination
+	} else {
+		SmartDashboard::PutNumber("Coop destination", -1);
+		toteLifterino->setSetPoints(destination);
+	}
 	toteLifterino->enablePID(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LiftToHeight::Execute() {
 	//Nothing?
-	/* Leaving this in the code in case we need on the fly pid tuning for this subsystem or others. TODO: remove when unneeded*/
 
-	if(destination == TOTE_LIFTER_FLOOR_HEIGHT && toteLifterino->closeEnough(destination)){
+	SmartDashboard::PutNumber("Destination", destination);
+
+	if (destination == TOTE_LIFTER_FLOOR_HEIGHT
+			&& toteLifterino->closeEnough(destination)) {
 		toteLifterino->enablePID(false);
 	}
-	/*if (toteLifterino->getEncoder()->Get() < destination + TOTE_LIFTER_TOLERANCE
-	 || toteLifterino->getEncoder()->Get()
-	 > destination - TOTE_LIFTER_TOLERANCE) {
-	 count++;
-	 }*/
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
 	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
-	return false;
-	//return toteLifterino->getPID()->OnTarget();
-	// return toteLifterino->getElevatorDigitalInput() && destination < 0
-	// return toteLifterino->isToteUnder();
+	return toteLifterino->getPID()->OnTarget() || toteLifterino->closeEnough(destination) || IsTimedOut();
 }
 
 // Called once after isFinished returns true
@@ -56,5 +47,4 @@ void LiftToHeight::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LiftToHeight::Interrupted() {
-	//toteLifterino->setSetPoints(toteLifterino->getEncoder()->GetDistance());
 }

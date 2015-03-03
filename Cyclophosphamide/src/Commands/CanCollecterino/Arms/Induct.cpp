@@ -1,19 +1,37 @@
 #include <Commands/CanCollecterino/Arms/Induct.h>
 
-Induct::Induct() {
+Induct::Induct(State state) {
 	Requires(canIntakerino);
+	this->state = state;
+	SetTimeout(5.0);
+}
+
+Induct::Induct(State state, double timeout) {
+	Requires(canIntakerino);
+	this->state = state;
+	SetTimeout(timeout);
 }
 
 void Induct::Initialize() {
-	canIntakerino->setGrab(CAN_GRAB_SPEED);
+
 }
 
 void Induct::Execute() {
-
+	switch (state) {
+	case forward:
+		canIntakerino->setGrab(CAN_GRAB_SPEED);
+		break;
+	case reverse:
+		canIntakerino->setGrab(-CAN_GRAB_SPEED);
+		break;
+	case stopped:
+		canIntakerino->setGrab(0);
+		break;
+	}
 }
 
 bool Induct::IsFinished() {
-	return false;
+	return IsTimedOut();
 }
 
 void Induct::End() {

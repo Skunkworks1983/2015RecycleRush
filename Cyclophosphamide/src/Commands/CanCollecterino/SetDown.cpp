@@ -3,6 +3,6 @@
 #include "Arms/MoveArms.h"
 SetDown::SetDown()
 {
-	AddSequential(new MoveWrist(true));
+	AddSequential(new MoveWrist(MoveWrist::open));
 	AddSequential(new MoveArms(false));
 }

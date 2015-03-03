@@ -6,11 +6,15 @@
 
 class MoveWrist: public CommandBase
 {
+public:
+	enum State {
+		open, close, toggle
+	};
 private:
-	DoubleSolenoid::Value setpoint;
+	State state;
 
 public:
-	MoveWrist(bool open);
+	MoveWrist(State state);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

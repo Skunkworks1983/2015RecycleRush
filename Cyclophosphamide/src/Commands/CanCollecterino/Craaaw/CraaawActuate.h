@@ -7,10 +7,10 @@
 class CraaawActuate: public CommandBase
 {
 private:
-	bool waitForInput;
+	DoubleSolenoid::Value value;
 
 public:
-	CraaawActuate(bool waitForInput);
+	CraaawActuate(DoubleSolenoid::Value value);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

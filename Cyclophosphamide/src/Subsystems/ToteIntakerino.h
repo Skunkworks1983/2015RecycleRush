@@ -21,6 +21,8 @@ private:
 
 	bool hasTote;
 	bool isWindingDown;
+
+	unsigned long startAutoTime;
 public:
 	/**
 	 * Default constructor
@@ -51,6 +53,8 @@ public:
 
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
+	PIDController *getPID();
+	unsigned long getTime();
 };
 
 #endif

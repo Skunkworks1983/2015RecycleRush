@@ -8,7 +8,6 @@ class TimedDrive: public CommandBase
 {
 private:
 	long targetTime;
-	long timePassed;
 	long duration;
 	double forwardSlashSpeed;
 	double backSlashSpeed;

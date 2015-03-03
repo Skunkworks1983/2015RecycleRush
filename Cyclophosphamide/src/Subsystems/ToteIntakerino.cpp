@@ -14,6 +14,7 @@ ToteIntakerino::ToteIntakerino() :
 	pid->Enable();
 	hasTote = false;
 	isWindingDown = false;
+	startAutoTime = getTime();
 	hold();
 }
 
@@ -22,16 +23,33 @@ void ToteIntakerino::InitDefaultCommand() {
 }
 
 void ToteIntakerino::PIDWrite(float output) {
+	/*
+	SmartDashboard::PutNumber("intake PID output", output);
+	if(isWindingDown && fabs(output) < TOTE_INTAKE_DETECTION_THRESHOLD){
+		isWindingDown = false;
+	} else if (fabs(output) > TOTE_INTAKE_DETECTION_THRESHOLD) {
+		hasTote = true;
+		startAutoTime = getTime();
+	}
+	if(hasTote){
+		toteIntakeMotor->Set(TOTE_INTAKE_MOTOR_FULL);
+		if(getTime() > startAutoTime + TOTE_INTAKE_AUTO_TIME_MS){
+			hasTote = false;
+			hold();
+		}
+		// if timed out hasTote = false
+	} else {
+		if (output < 0) {
+			output = 0;
+		}
+		toteIntakeMotor->Set(-output);
+	}
+	*/
 
 	if (output < 0) {
 		output = 0;
 	}
 	toteIntakeMotor->Set(-output);
-	if (abs(output) > TOTE_INTAKE_DETECTION_THRESHOLD /* && !isWindingDown*/) {
-		hasTote = true;
-	} else {
-		isWindingDown = false;
-	}
 }
 
 double ToteIntakerino::PIDGet() {
@@ -42,17 +60,15 @@ double ToteIntakerino::PIDGet() {
 // here. Call these from Commands.
 
 void ToteIntakerino::hold() {
-	/*encoder->Reset();
-	 pid->SetSetpoint(0);
-	 pid->Enable();*/
-
-	setMotor(0);
+	encoder->Reset();
+	pid->SetSetpoint(0);
+	pid->Enable();
 }
 
 void ToteIntakerino::setMotor(float speed) {
 	pid->Disable();
 	toteIntakeMotor->Set(speed);
-	if (abs(speed) > 0) {
+	if (fabs(speed) > 0) {
 		hasTote = false;
 		isWindingDown = true;
 	}
@@ -64,5 +80,16 @@ Encoder *ToteIntakerino::getEncoder() {
 
 bool ToteIntakerino::isLoaded() {
 	return hasTote;
+}
+
+PIDController *ToteIntakerino::getPID() {
+	return pid;
+}
+
+unsigned long ToteIntakerino::getTime() {
+	using namespace std::chrono;
+	unsigned long ms = duration_cast<milliseconds>(
+			high_resolution_clock::now().time_since_epoch()).count();
+	return ms;
 }
 

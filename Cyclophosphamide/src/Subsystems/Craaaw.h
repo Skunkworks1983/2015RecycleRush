@@ -6,14 +6,11 @@
 #include "GyroDriver/IMU.h"
 class Craaaw: public Subsystem {
 private:
-	DigitalInput *canDetector;
 	DoubleSolenoid *craaawLocker;
 	bool isActuated;
 public:
 	Craaaw();
 	~Craaaw();
-	void InitDefaultCommand();
-	void setActuated(bool actuate);
-	bool getCanDetector();
+	void setActuated(DoubleSolenoid::Value value);
 };
 #endif
