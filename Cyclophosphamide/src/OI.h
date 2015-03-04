@@ -14,7 +14,6 @@ private:
 		JoystickButton *toteIntake;
 		JoystickButton *canCollectFwd;
 		JoystickButton *canCollectRvs;
-		JoystickButton *toggleCoop;
 		JoystickButton *canToCraaawTransfer;
 		JoystickButton *score;
 
