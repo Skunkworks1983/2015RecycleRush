@@ -8,12 +8,13 @@
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 #include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/Score.h>
-#include <Commands/ToteHandling/DownUp.h>
-#include <Commands/ToteHandling/LiftToHeightVelocity.h>
-#include <Commands/ToteHandling/zeroing/ResetElevatorEncoder.h>
-#include <Commands/ToteHandling/SafeDownUp.h>
-#include <Commands/ToteHandling/SafeLiftToHeight.h>
-#include <Commands/ToteHandling/ToteIntake.h>
+#include <Commands/ToteIntake/IntakeMatchDriveBase.h>
+#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteLifting/DownUp.h>
+#include <Commands/ToteLifting/LiftToHeightVelocity.h>
+#include <Commands/ToteLifting/SafeDownUp.h>
+#include <Commands/ToteLifting/SafeLiftToHeight.h>
+#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <DoubleSolenoid.h>
 #include <Joystick.h>
 #include <OI.h>
@@ -25,7 +26,7 @@ OI::OI() {
 	joystickRight = new Joystick(1);
 	joystickOperator = new Joystick(2);
 
-	toteIntake = new JoystickButton(joystickOperator, 14);
+	toteIntakeMatchDrive = new JoystickButton(joystickOperator, 14);
 	stackThenLoadPos = new JoystickButton(joystickOperator, 13);
 	stackThenCarryPos = new JoystickButton(joystickOperator, 12);
 	toteLifterFloor = new JoystickButton(joystickRight, 4);
@@ -58,7 +59,7 @@ OI::~OI() {
 	delete joystickRight;
 	delete joystickOperator;
 	delete pushSwitch;
-	delete toteIntake;
+	delete toteIntakeMatchDrive;
 	delete toteLifterFloor;
 	delete toteLifterCarry;
 	delete toteLifterTwoTotes;
@@ -110,10 +111,12 @@ void OI::registerButtonListeners() {
 			canToCraaawTransfer->WhenPressed(new CanToCraaawTransfer()));
 
 	// Loading/stacking
-	SAFE_BUTTON(toteIntake,
-			toteIntake->WhenPressed(new ToteIntake(ToteIntake::forward)));
-	SAFE_BUTTON(toteIntake,
-			toteIntake->WhenReleased(new ToteIntake(ToteIntake::stopped)));
+	SAFE_BUTTON(toteIntakeMatchDrive,
+			toteIntakeMatchDrive->WhileHeld(new IntakeMatchDriveBase()));
+	SAFE_BUTTON(toteIntakeMatchDrive,
+			toteIntakeMatchDrive->WhenReleased(
+					new ToteIntake(ToteIntake::stopped)));
+
 	SAFE_BUTTON(stackThenLoadPos,
 			stackThenLoadPos->WhenPressed(new SafeDownUp(DownUp::load)));
 	SAFE_BUTTON(stackThenCarryPos,

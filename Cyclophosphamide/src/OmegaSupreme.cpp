@@ -8,11 +8,11 @@
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/CanCollecterino/MoveArmsAndCollect.h>
-#include <Commands/ToteHandling/ToteIntake.h>
-#include <Commands/ToteHandling/DownUp.h>
-#include <Commands/ToteHandling/zeroing/ResetElevatorEncoder.h>
+#include <Commands/ToteIntake/ToteIntake.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
+#include <Commands/ToteLifting/DownUp.h>
+#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <OmegaSupreme.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -122,11 +122,6 @@ void OmegaSupreme::TeleopPeriodic() {
 			CommandBase::toteLifterino->getLeftMotor()->GetOutputCurrent());
 	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
 			CommandBase::toteLifterino->getRightMotor()->GetOutputCurrent());
-
-	SmartDashboard::PutNumber("intake",
-			CommandBase::toteIntakerino->getEncoder()->Get());
-	SmartDashboard::PutBoolean("has tote",
-			CommandBase::toteIntakerino->isLoaded());
 
 	SmartDashboard::PutNumber("armPot",
 			CommandBase::canCollecterino->getLiftPot()->PIDGet());

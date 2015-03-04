@@ -91,6 +91,11 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	 }*/
 }
 
+double DriveBae::getForward(){
+	return forward;
+}
+
+
 IMU *DriveBae::getGyro() {
 	return gyro;
 }

@@ -16,10 +16,7 @@ private:
 	SerialPort *serialPort;
 	bool gyroEnabled;
 
-	double forward;
-	double right;
-	double clockwise;
-
+	double forward, right, clockwise;
 public:
 	DriveBae();
 	~DriveBae();
@@ -55,6 +52,7 @@ public:
 	void setForward(double f);
 	void setRight(double r);
 	void setClockwise(double c);
+	double getForward();
 	double getClockwise();
 	void execute();
 	virtual void PIDWrite(float f);

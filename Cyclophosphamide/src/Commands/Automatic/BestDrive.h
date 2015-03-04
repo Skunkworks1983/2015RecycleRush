@@ -1,8 +1,7 @@
 #ifndef BetterDrive_H
 #define BetterDrive_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
 class BestDrive: public CommandBase {
 public:

@@ -6,12 +6,11 @@
  */
 
 #include <Commands/Automatic/BestDrive.h>
-#include "Autonomous.h"
-#include "../Automatic/BestDrive.h"
-#include "../Automatic/TurnTo.h"
-#include "../ToteHandling/LiftToHeight.h"
-#include "../ToteHandling/ToteIntake.h"
-#include "../CanCollecterino/Arms/MoveArms.h"
+#include <Commands/Automatic/TurnTo.h>
+#include <Commands/Autonomous/Autonomous.h>
+#include <Commands/CanCollecterino/Arms/MoveArms.h>
+#include <Commands/ToteLifting/LiftToHeight.h>
+#include <RobotMap.h>
 
 Autonomous *Autonomous::createTurningTripleTote() {
 	Autonomous *cmd = new Autonomous("Autonomous-TurningTripleTote");

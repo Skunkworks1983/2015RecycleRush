@@ -1,4 +1,9 @@
+#include <CANSpeedController.h>
 #include <Commands/Automatic/TimedDrive.h>
+#include <RobotMap.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/DriveBae.h>
+#include <Timer.h>
 #include <chrono>
 #include <cmath>
 

@@ -11,7 +11,7 @@ public:
 	Joystick *joystickOperator;
 
 	JoystickButton *pushSwitch;
-	JoystickButton *toteIntake;
+	JoystickButton *toteIntakeMatchDrive;
 	JoystickButton *canCollectFwd;
 	JoystickButton *canCollectRvs;
 	JoystickButton *canToCraaawTransfer;

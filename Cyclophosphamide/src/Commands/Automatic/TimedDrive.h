@@ -1,8 +1,7 @@
 #ifndef AutoDrive_H
 #define AutoDrive_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
 class TimedDrive: public CommandBase {
 private:
