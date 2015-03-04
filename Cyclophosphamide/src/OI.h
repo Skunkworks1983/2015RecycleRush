@@ -11,7 +11,7 @@ private:
 		Joystick *joystickOperator;
 
 		JoystickButton *pushSwitch;
-		JoystickButton *toteIntake;
+		JoystickButton *alignTote;
 		JoystickButton *canCollectFwd;
 		JoystickButton *canCollectRvs;
 		JoystickButton *canToCraaawTransfer;
@@ -24,8 +24,8 @@ private:
 		JoystickButton *toteLifterCarry;
 		JoystickButton *toteLifterTwoTotes;
 		JoystickButton *toteLifterOneTote;
-		JoystickButton *stackThenLoadPos;
-		JoystickButton *stackThenCarryPos;
+		JoystickButton *getNext;
+		JoystickButton *getLast;
 
 		JoystickButton *moveArmsWhackMode;
 		JoystickButton *canCollector;

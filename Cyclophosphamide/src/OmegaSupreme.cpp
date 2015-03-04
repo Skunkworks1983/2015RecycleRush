@@ -7,12 +7,12 @@
 
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Drivebase/ZeroGyro.h>
-#include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/ToteHandling/ToteIntake.h>
 #include <Commands/ToteHandling/DownUp.h>
 #include <Commands/ToteHandling/ResetElevatorEncoder.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
+#include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <OmegaSupreme.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
@@ -106,8 +106,8 @@ void OmegaSupreme::TeleopInit() {
 	CommandBase::driveBae->zeroPIDOutput();
 	CommandBase::toteLifterino->getEncoder()->Reset();
 	SmartDashboard::PutData(CommandBase::craaaw);
-	SmartDashboard::PutData("Can up", new MoveArmsAndCollect(true));
-	SmartDashboard::PutData("Can down", new MoveArmsAndCollect(false));
+	SmartDashboard::PutData("Can up", new MoveArmsFancy(true));
+	SmartDashboard::PutData("Can down", new MoveArmsFancy(false));
 	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
 	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
 	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));

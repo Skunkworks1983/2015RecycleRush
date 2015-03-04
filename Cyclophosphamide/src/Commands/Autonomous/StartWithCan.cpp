@@ -6,8 +6,8 @@
 #include <Commands/CanCollecterino/Arms/MoveArms.h>
 #include <Commands/CanCollecterino/Arms/MoveWrist.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
-#include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
+#include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <RobotMap.h>
 
 #define START_CAN_DISTANCE_1 30
@@ -23,8 +23,8 @@ Autonomous *Autonomous::createStartWithCan() {
 	cmd->AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_1, .25));
 	cmd->AddSequential(new MoveWrist(MoveWrist::State::open));
 	cmd->AddSequential(new MoveArms(CAN_POT_UP_POSITION));
-	cmd->AddSequential(new MoveArmsAndCollect(false), 2.0);
-	cmd->AddSequential(new MoveArmsAndCollect(true), 2.0);
+	cmd->AddSequential(new MoveArmsFancy(false), 2.0);
+	cmd->AddSequential(new MoveArmsFancy(true), 2.0);
 	cmd->AddSequential(new CraaawActuate(DoubleSolenoid::Value::kForward));
 	cmd->AddSequential(new MoveWrist(MoveWrist::open));
 	//cmd->AddSequential(new TurnTo(50));
