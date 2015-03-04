@@ -10,7 +10,7 @@
 #include <Commands/Score.h>
 #include <Commands/ToteHandling/DownUp.h>
 #include <Commands/ToteHandling/LiftToHeightVelocity.h>
-#include <Commands/ToteHandling/ResetElevatorEncoder.h>
+#include <Commands/ToteHandling/zeroing/ResetElevatorEncoder.h>
 #include <Commands/ToteHandling/SafeDownUp.h>
 #include <Commands/ToteHandling/SafeLiftToHeight.h>
 #include <Commands/ToteHandling/ToteIntake.h>

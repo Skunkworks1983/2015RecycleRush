@@ -10,7 +10,7 @@
 #include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/ToteHandling/ToteIntake.h>
 #include <Commands/ToteHandling/DownUp.h>
-#include <Commands/ToteHandling/ResetElevatorEncoder.h>
+#include <Commands/ToteHandling/zeroing/ResetElevatorEncoder.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
 #include <OmegaSupreme.h>
