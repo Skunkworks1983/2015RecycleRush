@@ -1,9 +1,9 @@
 #include "Whack.h"
-#include "ToggleWhackMode.h"
+#include "MoveArms.h"
 #include "MoveWrist.h"
 
 Whack::Whack()
 {
 	AddParallel(new MoveWrist(MoveWrist::close));
-	AddSequential(new ToggleWhackMode());
+	AddSequential(new MoveArms(CAN_POT_KNOCK_POSITION));
 }

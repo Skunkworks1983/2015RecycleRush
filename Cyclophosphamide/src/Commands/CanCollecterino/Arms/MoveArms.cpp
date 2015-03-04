@@ -6,7 +6,11 @@ MoveArms::MoveArms(float setpoint) {
 }
 
 void MoveArms::Initialize() {
-	canCollecterino->setArms(setpoint);
+	if(canCollecterino->getSetpoint() == CAN_POT_KNOCK_POSITION) {
+		canCollecterino->setArms(CAN_POT_UP_POSITION);
+	} else {
+		canCollecterino->setArms(setpoint);
+	}
 }
 
 void MoveArms::Execute() {
