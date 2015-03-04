@@ -1,25 +1,22 @@
-#include <Commands/Automatic/BestDrive.h>
+#include <Buttons/JoystickButton.h>
+#include <Commands/Automatic/TurnToThenDrive.h>
+#include <Commands/CanCollecterino/Arms/Induct.h>
 #include <Commands/CanCollecterino/Arms/MoveArms.h>
-#include <Commands/ToteHandling/LiftToHeight.h>
-#include "OI.h"
-#include "RobotMap.h"
-#include "Commands/PushStack/PushStack.h"
-#include "Commands/CanCollecterino/Craaaw/CraaawActuate.h"
-#include "Commands/CanCollecterino/CanToCraaawTransfer.h"
-#include "Commands/CanCollecterino/Arms/MoveArms.h"
-#include "Commands/CanCollecterino/Arms/Whack.h"
-#include "Commands/CanCollecterino/Arms/Induct.h"
-#include "Commands/ToteHandling/ToteIntake.h"
-#include "Commands/CanCollecterino/Collect.h"
-#include "Commands/Automatic/TurnToThenDrive.h"
-#include "Commands/ToteHandling/LiftToHeightVelocity.h"
-#include "Commands/ToteHandling/SafeLiftToHeight.h"
-#include "Commands/ToteHandling/SafeDownUp.h"
-#include "Commands/ToteHandling/ResetElevatorEncoder.h"
-#include "Commands/CanCollecterino/Arms/MoveWrist.h"
-#include "Commands/CanCollecterino/MoveArmsAndCollect.h"
-#include "Commands/Score.h"
-#include "Commands/PushStack/SafePushStack.h"
+#include <Commands/CanCollecterino/Arms/MoveWrist.h>
+#include <Commands/CanCollecterino/Arms/Whack.h>
+#include <Commands/CanCollecterino/CanToCraaawTransfer.h>
+#include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
+#include <Commands/CanCollecterino/MoveArmsAndCollect.h>
+#include <Commands/Score.h>
+#include <Commands/ToteHandling/DownUp.h>
+#include <Commands/ToteHandling/LiftToHeightVelocity.h>
+#include <Commands/ToteHandling/ResetElevatorEncoder.h>
+#include <Commands/ToteHandling/SafeDownUp.h>
+#include <Commands/ToteHandling/SafeLiftToHeight.h>
+#include <Commands/ToteHandling/ToteIntake.h>
+#include <DoubleSolenoid.h>
+#include <Joystick.h>
+#include <OI.h>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 
@@ -133,13 +130,6 @@ void OI::registerButtonListeners() {
 			toteLifterOneTote->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_ONE_TOTE)));
 	SAFE_BUTTON(toteLifterCarry,
 			toteLifterCarry->WhenReleased(new SafeLiftToHeight(TOTE_LIFTER_CARRY_HEIGHT)));
-
-	// Stack delivery slides
-	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenPressed(new SafePushStack(StackPusher::push, 1.0f)));
-	SAFE_BUTTON(pushSwitch,
-			pushSwitch->WhenReleased(
-					new SafePushStack(StackPusher::pull, 1.0f)));
 
 	// Overrides
 	SAFE_BUTTON(wrist, wrist->WhenPressed(new MoveWrist(MoveWrist::close)));
