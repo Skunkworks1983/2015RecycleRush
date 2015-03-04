@@ -15,11 +15,9 @@
 #include "Commands/ToteHandling/LiftToHeightVelocity.h"
 #include "Commands/ToteHandling/SafeLiftToHeight.h"
 #include "Commands/ToteHandling/SafeDownUp.h"
-#include "Commands/ToteHandling/ResetLifterEncoder.h"
+#include "Commands/ToteHandling/ResetElevatorEncoder.h"
 #include "Commands/CanCollecterino/Arms/MoveWrist.h"
 #include "Commands/CanCollecterino/MoveArmsAndCollect.h"
-#include "Commands/ToggleCoop.h"
-#include "Commands/ToteHandling/ElevatorBangerang.h"
 #include "Commands/Score.h"
 #include "Commands/PushStack/SafePushStack.h"
 
@@ -47,7 +45,6 @@ OI::OI() {
 	//collect = new JoystickButton(joystickOperator, 1);
 	canCollectFwd = new JoystickButton(joystickOperator, 4);
 	canCollectRvs = new JoystickButton(joystickOperator, 3);
-	toggleCoop = new JoystickButton(joystickOperator, 6);
 	score = new JoystickButton(joystickOperator, 5);
 	canToCraaawTransfer = new JoystickButton(joystickOperator, 9);
 	craaawOverride = new JoystickButton(joystickOperator, 16);
@@ -81,7 +78,6 @@ OI::~OI() {
 	delete wrist;
 	delete canToCraaawTransfer;
 	delete armsToggle;
-	delete toggleCoop;
 	delete score;
 	delete shoulderOverride;
 	delete toteLifterUp;
@@ -125,7 +121,6 @@ void OI::registerButtonListeners() {
 			stackThenLoadPos->WhenPressed(new SafeDownUp(DownUp::load)));
 	SAFE_BUTTON(stackThenCarryPos,
 			stackThenCarryPos->WhenPressed(new SafeDownUp(DownUp::carry)));
-	SAFE_BUTTON(toggleCoop, toggleCoop->WhenPressed(new ToggleCoop()));
 	SAFE_BUTTON(score, score->WhenPressed(new Score()));
 
 	// Scoring
@@ -180,7 +175,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenReleased(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	SAFE_BUTTON(moveArmsWhackMode, moveArmsWhackMode->WhenPressed(new Whack()));
-	SAFE_BUTTON(zeroLifter, zeroLifter->WhenPressed(new ResetLifterEncoder()));
+	SAFE_BUTTON(zeroLifter, zeroLifter->WhenPressed(new ResetElevatorEncoder()));
 }
 
 bool OI::isJoystickButtonPressed(bool isLeft, int val) {

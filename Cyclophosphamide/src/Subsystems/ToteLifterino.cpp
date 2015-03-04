@@ -14,9 +14,6 @@ ToteLifterino::ToteLifterino() :
 	SAFE_INIT(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT,
 			topInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT););
 
-	SAFE_INIT(TOTE_LIFTER_ELEVATOR_BOT_INPUT_PORT,
-			botInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_BOT_INPUT_PORT););
-
 	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
 	TOTE_LIFTER_PID_D, this, this);
@@ -27,28 +24,17 @@ ToteLifterino::ToteLifterino() :
 	encoder->Reset();
 
 	ignoreInput = true; //topInput->Get() && botInput->Get();
-
-	notZeroed = !botInput->Get();
 }
 
 void ToteLifterino::InitDefaultCommand() {
-	if (notZeroed) {
-		//SetDefaultCommand(new ZeroElevator(true));
-	} else {
-		SetDefaultCommand(NULL);
-	}
 }
 
 void ToteLifterino::setZeroed(bool zeroed) {
-	notZeroed = !zeroed;
+	this->zeroed = zeroed;
 }
 
 bool ToteLifterino::getMagInput() {
 	return topInput->Get();
-}
-
-bool ToteLifterino::getBotInput() {
-	return botInput->Get();
 }
 
 CANTalon *ToteLifterino::getLeftMotor() {
@@ -59,7 +45,7 @@ CANTalon *ToteLifterino::getRightMotor() {
 	return rightMotor;
 }
 
-float ToteLifterino::getPosition() {
+double ToteLifterino::getPosition() {
 	return encoder->Get();
 }
 
@@ -88,7 +74,7 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	}
 
 	if (!ignoreInput) {
-		if ((topInput->Get() && speed > 0) || (botInput->Get() && speed < 0)) {
+		if ((topInput->Get() && speed > 0)) {
 			speed = 0;
 		}
 	}
@@ -96,14 +82,6 @@ void ToteLifterino::setMotorSpeed(double speed) {
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
-}
-
-bool ToteLifterino::isCoop() {
-	return coopState;
-}
-
-void ToteLifterino::setCoop(bool isCoop) {
-	this->coopState = isCoop;
 }
 
 void ToteLifterino::setSetPoints(double setPoint) {
@@ -121,19 +99,9 @@ bool ToteLifterino::lowerThan(double height) {
 	return encoder->Get() < height;
 }
 
-void ToteLifterino::WatchDogg() {
-	//check if digitalinputs are broken
-	ignoreInput = (botInput->Get() && topInput->Get());
-
-	//check if encoder is broken
-	if (!notZeroed) {
-		SetDefaultCommand(NULL);
-	}
-}
-
 void ToteLifterino::PIDWrite(float f) {
 	if (!ignoreInput) {
-		if ((topInput->Get() && f > 0) || (botInput->Get() && f < 0)) {
+		if (topInput->Get() && f > 0) {
 			f = 0;
 		}
 	} else {
@@ -146,8 +114,4 @@ void ToteLifterino::PIDWrite(float f) {
 
 double ToteLifterino::PIDGet() {
 	return encoder->PIDGet();
-}
-
-bool ToteLifterino::getMagSensor() {
-	return topInput->Get();
 }

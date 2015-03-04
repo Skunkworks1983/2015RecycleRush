@@ -9,15 +9,9 @@ LiftToHeight::LiftToHeight(double destination) :
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
-	if (toteLifterino->isCoop() && destination != TOTE_LIFTER_FLOOR_HEIGHT) {
-		SmartDashboard::PutNumber("Coop destination",
-				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH);
-		toteLifterino->setSetPoints(
-				destination + COOP_DELTA_INCHES * TOTE_LIFTER_TICKS_PER_INCH); //add 4 inches to the destination
-	} else {
-		SmartDashboard::PutNumber("Coop destination", -1);
-		toteLifterino->setSetPoints(destination);
-	}
+	SmartDashboard::PutNumber("Coop destination", -1);
+	toteLifterino->setSetPoints(destination);
+
 	toteLifterino->enablePID(true);
 }
 
@@ -37,7 +31,8 @@ void LiftToHeight::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToHeight::IsFinished() {
 	//don't end when at destination because PID needs to hold the totes up until there is a tote underneath
-	return toteLifterino->getPID()->OnTarget() || toteLifterino->closeEnough(destination) || IsTimedOut();
+	return toteLifterino->getPID()->OnTarget()
+			|| toteLifterino->closeEnough(destination) || IsTimedOut();
 }
 
 // Called once after isFinished returns true

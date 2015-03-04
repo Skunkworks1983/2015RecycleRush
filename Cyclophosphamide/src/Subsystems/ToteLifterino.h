@@ -8,24 +8,20 @@
 
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	DigitalInput *topInput, *botInput;
+	DigitalInput *topInput;
 	CANTalon *rightMotor, *leftMotor;
 	PIDController *pid;
 	Encoder *encoder;
-	bool coopState, ignoreInput, notZeroed;
+	bool ignoreInput, zeroed;
 public:
 	ToteLifterino();
 	void InitDefaultCommand();
-	void WatchDogg();
 	bool getMagInput();
-	bool getBotInput();
 	void setZeroed(bool zeroed);
-	bool isCoop();
-	void setCoop(bool isCoop);
 	bool lowerThan(double height);
 	CANTalon *getLeftMotor();
 	CANTalon *getRightMotor();
-	float getPosition();
+	double getPosition();
 	Encoder *getEncoder();
 	PIDController *getPID();
 	bool closeEnough(float destination);
@@ -34,7 +30,6 @@ public:
 	void enablePID(bool enable);
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
-	bool getMagSensor();
 };
 
 #endif

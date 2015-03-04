@@ -24,9 +24,7 @@ bool MoveArms::IsFinished() {
 }
 
 void MoveArms::End() {
-	if (setpoint == CAN_POT_KNOCK_POSITION) {
-		canCollecterino->disableArms();
-	}
+
 }
 
 void MoveArms::Interrupted() {

@@ -10,7 +10,7 @@
 #include <Commands/CanCollecterino/MoveArmsAndCollect.h>
 #include <Commands/ToteHandling/ToteIntake.h>
 #include <Commands/ToteHandling/DownUp.h>
-#include <Commands/ResetElevatorEncoder.h>
+#include <Commands/ToteHandling/ResetElevatorEncoder.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
 #include <OmegaSupreme.h>
@@ -138,8 +138,6 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("elevatorEnc",
 			CommandBase::toteLifterino->getEncoder()->Get());
-	SmartDashboard::PutBoolean("Coop mode",
-			CommandBase::toteLifterino->isCoop());
 
 	SmartDashboard::PutNumber("driveEncoder",
 			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
