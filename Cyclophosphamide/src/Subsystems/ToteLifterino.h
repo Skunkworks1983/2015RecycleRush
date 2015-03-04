@@ -7,6 +7,8 @@
 #include "../utilities/DoubleMotorPIDWrapper.h"
 /*!
  * Lift or elevate the totes up and down.
+ * PID have the set point that elevates up/ down with certain height.
+ * Encoders
  */
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:

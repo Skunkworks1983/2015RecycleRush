@@ -3,7 +3,7 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
-/*!
+/**
  * Motor arms raise up/down
  * Arm PID controls the arms up and down.
  * can sensor

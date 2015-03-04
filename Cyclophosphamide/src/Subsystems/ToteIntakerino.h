@@ -10,7 +10,7 @@
  */
 class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	/**
+	/*
 	 * Motor that controls the rollers that pull the totes in
 	 */
 	CANTalon *toteIntakeMotor;
