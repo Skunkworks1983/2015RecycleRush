@@ -7,7 +7,6 @@ CanCollecterino* CommandBase::canCollecterino = NULL;
 CanWristerino* CommandBase::canWristerino = NULL;
 CanIntakerino* CommandBase::canIntakerino = NULL;
 ToteIntakerino* CommandBase::toteIntakerino = NULL;
-StackPusher* CommandBase::stackPusher = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
 Craaaw* CommandBase::craaaw = NULL;
 Pneumatics* CommandBase::pneumatics = NULL;
@@ -29,7 +28,6 @@ CommandBase::~CommandBase() {
 	delete toteIntakerino;
 	delete toteLifterino;
 	delete oi;
-	delete stackPusher;
 	delete craaaw;
 	delete pneumatics;
 }
@@ -42,7 +40,6 @@ void CommandBase::init() {
 	toteIntakerino = new ToteIntakerino();
 	toteLifterino = new ToteLifterino();
 	oi = new OI();
-	stackPusher = new StackPusher();
 	craaaw = new Craaaw();
 	pneumatics = new Pneumatics();
 }
