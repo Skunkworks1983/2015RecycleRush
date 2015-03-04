@@ -16,7 +16,7 @@ CanCollecterino::CanCollecterino() :
 
 	SAFE_INIT(CAN_SENSOR_PORT, canSensor = new DigitalInput(CAN_SENSOR_PORT););
 
-		 = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
+		armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
 			new StallableMotor(liftPot, 0.8, liftMotorRight, liftMotorLeft));
 	armPID->SetOutputRange(-.7, .7);
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
