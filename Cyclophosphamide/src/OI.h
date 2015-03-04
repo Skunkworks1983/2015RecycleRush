@@ -10,9 +10,7 @@ private:
 		Joystick *joystickRight;
 		Joystick *joystickOperator;
 
-		JoystickButton *pushSwitch;
 		JoystickButton *alignTote;
-		JoystickButton *canCollectFwd;
 		JoystickButton *canCollectRvs;
 		JoystickButton *canToCraaawTransfer;
 		JoystickButton *score;
@@ -20,24 +18,25 @@ private:
 		JoystickButton *leftLoadButton;
 		JoystickButton *rightLoadButton;
 
-		JoystickButton *toteLifterFloor;
 		JoystickButton *toteLifterCarry;
 		JoystickButton *toteLifterTwoTotes;
 		JoystickButton *toteLifterOneTote;
 		JoystickButton *getNext;
-		JoystickButton *getLast;
 
 		JoystickButton *moveArmsWhackMode;
 		JoystickButton *canCollector;
 		JoystickButton *collect;
-		JoystickButton *wrist;
+		JoystickButton *wristOverride;
 		JoystickButton *armsToggle;
 		JoystickButton *craaawOverride;
-		JoystickButton *shoulderOverride;
+		JoystickButton *armOverride;
 
 		JoystickButton *toteLifterUp;
 		JoystickButton *toteLifterDown;
 		JoystickButton *zeroLifter;
+
+		JoystickButton *toteIntakeFwd;
+		JoystickButton *toteIntakeRvs;
 
 	public:
 		OI();
