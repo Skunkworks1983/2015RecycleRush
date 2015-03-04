@@ -10,7 +10,7 @@
 #include <Commands/Score.h>
 #include <Commands/ToteHandling/DownUp.h>
 #include <Commands/ToteHandling/LiftToHeightVelocity.h>
-#include <Commands/ToteHandling/ResetElevatorEncoder.h>
+#include <Commands/ToteHandling/zeroing/ResetElevatorEncoder.h>
 #include <Commands/ToteHandling/SafeDownUp.h>
 #include <Commands/ToteHandling/SafeLiftToHeight.h>
 #include <Commands/ToteHandling/ToteIntake.h>
@@ -154,10 +154,12 @@ void OI::registerButtonListeners() {
 			shoulderOverride->WhenReleased(new MoveArms(CAN_POT_DOWN_POSITION)));
 	SAFE_BUTTON(toteLifterUp,
 			toteLifterUp->WhileHeld(new LiftToHeightVelocity(.5)));
-	SAFE_BUTTON(toteLifterUp, toteLifterUp->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteLifterUp,
+			toteLifterUp->WhenReleased(new LiftToHeightVelocity(0)));
 	SAFE_BUTTON(toteLifterDown,
 			toteLifterDown->WhileHeld(new LiftToHeightVelocity(-.5)));
-	SAFE_BUTTON(toteLifterDown, toteLifterDown->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteLifterDown,
+			toteLifterDown->WhenReleased(new LiftToHeightVelocity(0)));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,
@@ -177,5 +179,4 @@ bool OI::isJoystickButtonPressed(bool isLeft, int val) {
 				&& joystickRight->GetRawButton(val);
 	}
 }
-
 

@@ -20,7 +20,8 @@ private:
 	void ThreadInit();
 	unsigned long getTime();
 public:
-	StallableMotor(PIDSource *input, float currentThreshold, CANTalon *motor, CANTalon *slaveMotor= NULL);
+	StallableMotor(PIDSource *input, float currentThreshold, CANTalon *motor,
+			CANTalon *slaveMotor = NULL);
 	StallableMotor(CANTalon *motor, float currentThreshold);
 	~StallableMotor();
 

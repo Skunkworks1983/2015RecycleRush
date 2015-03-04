@@ -40,11 +40,11 @@ void MecanumDrive::Execute() {
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
-/*
-#if COMPETITION_BOT
-	clockwise *= .8;	//competition bot drives faster
-#endif
-*/
+	/*
+	 #if COMPETITION_BOT
+	 clockwise *= .8;	//competition bot drives faster
+	 #endif
+	 */
 	forward = pow(forward, 3.0);
 	right = pow(right, 3.0);
 

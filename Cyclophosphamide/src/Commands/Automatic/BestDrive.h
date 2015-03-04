@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class BestDrive: public CommandBase
-{
+class BestDrive: public CommandBase {
 public:
 	enum Direction {
 		forward, backward, left, right

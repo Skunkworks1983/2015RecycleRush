@@ -4,11 +4,9 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 
-class CanCollecterino: public Subsystem
-{
+class CanCollecterino: public Subsystem {
 private:
-	CAN_MOTOR_TYPE *liftMotorLeft;
-	CAN_MOTOR_TYPE *liftMotorRight;
+	CAN_MOTOR_TYPE *liftMotorLeft;CAN_MOTOR_TYPE *liftMotorRight;
 
 	AnalogInput *liftPot;
 	PIDController *armPID;

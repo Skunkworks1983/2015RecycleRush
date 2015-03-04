@@ -4,8 +4,7 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Score: public CommandGroup
-{
+class Score: public CommandGroup {
 public:
 	Score();
 };

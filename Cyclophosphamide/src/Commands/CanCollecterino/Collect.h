@@ -4,8 +4,7 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Collect: public CommandGroup
-{
+class Collect: public CommandGroup {
 public:
 	Collect();
 };

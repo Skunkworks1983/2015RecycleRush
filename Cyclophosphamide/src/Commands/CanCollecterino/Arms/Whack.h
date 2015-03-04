@@ -4,8 +4,7 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Whack: public CommandGroup
-{
+class Whack: public CommandGroup {
 public:
 	/**
 	 * Tobacco is whacko if you're a teen

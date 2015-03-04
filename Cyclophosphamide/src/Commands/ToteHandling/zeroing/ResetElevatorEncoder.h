@@ -1,11 +1,9 @@
 #ifndef ResetElevatorEncoder_H
 #define ResetElevatorEncoder_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
-class ResetElevatorEncoder: public CommandBase
-{
+class ResetElevatorEncoder: public CommandBase {
 public:
 	ResetElevatorEncoder();
 	void Initialize();

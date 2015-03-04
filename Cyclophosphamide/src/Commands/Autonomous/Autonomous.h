@@ -5,10 +5,10 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Autonomous: public CommandGroup
-{
+class Autonomous: public CommandGroup {
 public:
-	static Autonomous *createDriveDistance(float distance, BestDrive::Direction direction);
+	static Autonomous *createDriveDistance(float distance,
+			BestDrive::Direction direction);
 	static Autonomous *createDriveDuration(float duration, float heading);
 	static Autonomous *createTurnTo(double targetAngle);
 	static Autonomous *createTripleTote();

@@ -12,7 +12,7 @@
 #include "Commands/Command.h"
 #include "CommandBase.h"
 
-class OmegaSupreme : public IterativeRobot {
+class OmegaSupreme: public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;

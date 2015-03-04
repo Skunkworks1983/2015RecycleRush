@@ -4,8 +4,7 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class TurnToThenDrive: public CommandGroup
-{
+class TurnToThenDrive: public CommandGroup {
 public:
 	TurnToThenDrive(float targetAngle);
 };
