@@ -10,7 +10,6 @@
 #include "../Automatic/BestDrive.h"
 #include "../ToteHandling/LiftToHeight.h"
 #include "../ToteHandling/ToteIntake.h"
-#include "../PushStack/PushPull.h"
 
 Autonomous *Autonomous::createTripleTote() {
 	Autonomous *cmd = new Autonomous("Autonomous-TripleTote");
@@ -29,6 +28,5 @@ Autonomous *Autonomous::createTripleTote() {
 //	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(107, BestDrive::backward));
 	cmd->AddSequential(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
-	cmd->AddSequential(new PushPull());
 	return cmd;
 }

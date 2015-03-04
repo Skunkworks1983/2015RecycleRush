@@ -1,6 +1,5 @@
 #include "StackPusher.h"
 #include "../RobotMap.h"
-#include "../Commands/PushStack/PushPull.h"
 
 StackPusher::StackPusher() :
 		Subsystem("StackPusher") {

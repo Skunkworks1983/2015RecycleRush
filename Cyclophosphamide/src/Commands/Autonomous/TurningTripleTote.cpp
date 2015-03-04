@@ -11,7 +11,6 @@
 #include "../Automatic/TurnTo.h"
 #include "../ToteHandling/LiftToHeight.h"
 #include "../ToteHandling/ToteIntake.h"
-#include "../PushStack/PushPull.h"
 #include "../CanCollecterino/Arms/MoveArms.h"
 
 Autonomous *Autonomous::createTurningTripleTote() {
@@ -36,6 +35,5 @@ Autonomous *Autonomous::createTurningTripleTote() {
 //	cmd->AddSequential(new ToteIntake(ToteIntake::forward));
 //	cmd->AddSequential(new ToteIntake(ToteIntake::stopped));
 	cmd->AddSequential(new BestDrive(107, BestDrive::right));
-	cmd->AddSequential(new PushPull());
 	return cmd;
 }
