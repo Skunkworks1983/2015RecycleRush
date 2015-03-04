@@ -32,7 +32,7 @@ public:
 	 * Does nothing because call creates circular dependencies and compile errors
 	 */
 	void InitDefaultCommand();
-	
+
 	/**
 	 * Sets the speed of rollers that pull the tote in
 	 * @param speed value to set the motor to

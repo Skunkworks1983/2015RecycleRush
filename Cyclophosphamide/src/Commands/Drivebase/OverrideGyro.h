@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class OverrideGyro: public CommandBase
-{
+class OverrideGyro: public CommandBase {
 private:
 	bool override;
 public:

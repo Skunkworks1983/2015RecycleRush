@@ -51,10 +51,10 @@ void OmegaSupreme::RobotInit() {
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
 	/*chooser->AddObject("Drive forward 24 inches",
-			Autonomous::createDriveDistance(24, BestDrive::forward));
-	chooser->AddObject("Drive forward 1 second",
-			Autonomous::createDriveDuration(1.0f, -90.0f));
-	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
+	 Autonomous::createDriveDistance(24, BestDrive::forward));
+	 chooser->AddObject("Drive forward 1 second",
+	 Autonomous::createDriveDuration(1.0f, -90.0f));
+	 chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
@@ -111,7 +111,8 @@ void OmegaSupreme::TeleopInit() {
 	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
 	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
 	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));
-	SmartDashboard::PutData("Reset Elevator Encoder", new ResetElevatorEncoder());
+	SmartDashboard::PutData("Reset Elevator Encoder",
+			new ResetElevatorEncoder());
 }
 
 void OmegaSupreme::TeleopPeriodic() {
@@ -145,7 +146,8 @@ void OmegaSupreme::TeleopPeriodic() {
 	SmartDashboard::PutNumber("lifter pos",
 			CommandBase::toteLifterino->getPosition());
 
-	SmartDashboard::PutNumber("Gyro Angle", CommandBase::driveBae->getGyro()->GetYaw());
+	SmartDashboard::PutNumber("Gyro Angle",
+			CommandBase::driveBae->getGyro()->GetYaw());
 	WatchDogg();
 }
 

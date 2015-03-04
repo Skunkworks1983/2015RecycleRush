@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ResetElevatorEncoder: public CommandBase
-{
+class ResetElevatorEncoder: public CommandBase {
 public:
 	ResetElevatorEncoder();
 	void Initialize();

@@ -74,13 +74,19 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	chooser->AddDefault("Triple Tote",
 			new ScriptCommand(Autonomous::createTripleTote()));
 	chooser->AddObject("Turn To",
-			new ScriptCommand(Autonomous::createTurnTo(SmartDashboard::GetNumber("TurnTo Angle"))));
+			new ScriptCommand(
+					Autonomous::createTurnTo(
+							SmartDashboard::GetNumber("TurnTo Angle"))));
 	chooser->AddObject("Turning Triple Tote",
-				new ScriptCommand(Autonomous::createTurningTripleTote()));
+			new ScriptCommand(Autonomous::createTurningTripleTote()));
 	chooser->AddObject("Drive Distance",
-					new ScriptCommand(Autonomous::createDriveDistance(AUTONOMOUS_DEFAULT_DISTANCE, BestDrive::Direction::forward)));
+			new ScriptCommand(
+					Autonomous::createDriveDistance(AUTONOMOUS_DEFAULT_DISTANCE,
+							BestDrive::Direction::forward)));
 	chooser->AddObject("Drive Duration",
-						new ScriptCommand(Autonomous::createDriveDuration(AUTONOMOUS_DEFAULT_TIME, BestDrive::Direction::forward)));
+			new ScriptCommand(
+					Autonomous::createDriveDuration(AUTONOMOUS_DEFAULT_TIME,
+							BestDrive::Direction::forward)));
 	chooser->AddObject("Blank", new Autonomous());
 	DIR * dp;
 	struct dirent * ep;

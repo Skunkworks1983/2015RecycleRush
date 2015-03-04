@@ -30,8 +30,7 @@ class ToteLifterino;
 class StackPusher;
 class Craaaw;
 class Pneumatics;
-class CommandBase: public Command
-{
+class CommandBase: public Command {
 public:
 	CommandBase(char const *name);
 	CommandBase();

@@ -41,11 +41,11 @@ float DoubleMotorPIDWrapper::getError() {
 	return motor1pid->GetError();
 }
 
-void DoubleMotorPIDWrapper::setPID(double p, double i, double d){
-	motor1pid->SetPID(p,i,d);
-	motor1pid->SetPID(p,i,d);
+void DoubleMotorPIDWrapper::setPID(double p, double i, double d) {
+	motor1pid->SetPID(p, i, d);
+	motor1pid->SetPID(p, i, d);
 }
 
-float DoubleMotorPIDWrapper::getSetPoint(){
+float DoubleMotorPIDWrapper::getSetPoint() {
 	return motor1pid->GetSetpoint();
 }

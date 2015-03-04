@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TimedDrive: public CommandBase
-{
+class TimedDrive: public CommandBase {
 private:
 	long targetTime;
 	long duration;

@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class LiftToHeight : public CommandBase
-{
+class LiftToHeight: public CommandBase {
 private:
 	double destination;
 	int count;

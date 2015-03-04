@@ -28,9 +28,15 @@ public:
 	void setI(double i);
 	void setD(double d);
 
-	double getP(){return motor1pid->GetP();}
-	double getI(){return motor1pid->GetI();}
-	double getD(){return motor1pid->GetD();}
+	double getP() {
+		return motor1pid->GetP();
+	}
+	double getI() {
+		return motor1pid->GetI();
+	}
+	double getD() {
+		return motor1pid->GetD();
+	}
 
 	float getSetPoint();
 

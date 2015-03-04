@@ -4,8 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class Pneumatics: public Subsystem
-{
+class Pneumatics: public Subsystem {
 private:
 	DigitalInput *pressureSwitch;
 	Compressor *relay;

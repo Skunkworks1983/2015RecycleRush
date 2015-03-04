@@ -2,8 +2,7 @@
 #include "TurnTo.h"
 #include "../Drivebase/MecanumDrive.h"
 
-TurnToThenDrive::TurnToThenDrive(float targetAngle)
-{
+TurnToThenDrive::TurnToThenDrive(float targetAngle) {
 	AddSequential(new TurnTo(targetAngle));
 	AddSequential(new MecanumDrive());
 	// Add Commands here:

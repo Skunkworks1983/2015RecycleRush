@@ -28,7 +28,7 @@ bool LiftToHeightVelocity::IsFinished() {
 //split up for understanding
 	return false;
 	/*return (speed < 0 && toteLifterino->getBotInput())
-			|| (speed > 0 && toteLifterino->getTopInput());*/
+	 || (speed > 0 && toteLifterino->getTopInput());*/
 }
 
 void LiftToHeightVelocity::End() {

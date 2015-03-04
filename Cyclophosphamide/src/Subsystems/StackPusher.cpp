@@ -3,16 +3,17 @@
 
 StackPusher::StackPusher() :
 		Subsystem("StackPusher") {
-	SAFE_INIT(PUSHER_RIGHT_PORT, solenoid = new DoubleSolenoid(COMPRESSOR_RELAY_PORT, PUSHER_RIGHT_PORT, PUSHER_LEFT_PORT););
+	SAFE_INIT(PUSHER_RIGHT_PORT,
+			solenoid = new DoubleSolenoid(COMPRESSOR_RELAY_PORT, PUSHER_RIGHT_PORT, PUSHER_LEFT_PORT););
 	state = pull;
 }
 
-void StackPusher::Push(){
+void StackPusher::Push() {
 	solenoid->Set(DoubleSolenoid::kReverse);
 	state = push;
 }
 
-void StackPusher::Pull(){
+void StackPusher::Pull() {
 	solenoid->Set(DoubleSolenoid::kForward);
 	state = pull;
 }
@@ -25,8 +26,7 @@ DoubleSolenoid::Value StackPusher::getValue() {
 	return solenoid->Get();
 }
 
-void StackPusher::InitDefaultCommand()
-{
+void StackPusher::InitDefaultCommand() {
 	// SetDefaultCommand (new PushPull);
 }
 

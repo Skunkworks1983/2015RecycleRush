@@ -24,27 +24,27 @@ void ToteIntakerino::InitDefaultCommand() {
 
 void ToteIntakerino::PIDWrite(float output) {
 	/*
-	SmartDashboard::PutNumber("intake PID output", output);
-	if(isWindingDown && fabs(output) < TOTE_INTAKE_DETECTION_THRESHOLD){
-		isWindingDown = false;
-	} else if (fabs(output) > TOTE_INTAKE_DETECTION_THRESHOLD) {
-		hasTote = true;
-		startAutoTime = getTime();
-	}
-	if(hasTote){
-		toteIntakeMotor->Set(TOTE_INTAKE_MOTOR_FULL);
-		if(getTime() > startAutoTime + TOTE_INTAKE_AUTO_TIME_MS){
-			hasTote = false;
-			hold();
-		}
-		// if timed out hasTote = false
-	} else {
-		if (output < 0) {
-			output = 0;
-		}
-		toteIntakeMotor->Set(-output);
-	}
-	*/
+	 SmartDashboard::PutNumber("intake PID output", output);
+	 if(isWindingDown && fabs(output) < TOTE_INTAKE_DETECTION_THRESHOLD){
+	 isWindingDown = false;
+	 } else if (fabs(output) > TOTE_INTAKE_DETECTION_THRESHOLD) {
+	 hasTote = true;
+	 startAutoTime = getTime();
+	 }
+	 if(hasTote){
+	 toteIntakeMotor->Set(TOTE_INTAKE_MOTOR_FULL);
+	 if(getTime() > startAutoTime + TOTE_INTAKE_AUTO_TIME_MS){
+	 hasTote = false;
+	 hold();
+	 }
+	 // if timed out hasTote = false
+	 } else {
+	 if (output < 0) {
+	 output = 0;
+	 }
+	 toteIntakeMotor->Set(-output);
+	 }
+	 */
 
 	if (output < 0) {
 		output = 0;

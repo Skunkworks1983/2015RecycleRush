@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class TurnTo: public CommandBase
-{
+class TurnTo: public CommandBase {
 private:
 	float targetAngle;
 	float angleRemaining;

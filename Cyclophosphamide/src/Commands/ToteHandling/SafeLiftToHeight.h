@@ -4,8 +4,7 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class SafeLiftToHeight: public CommandGroup
-{
+class SafeLiftToHeight: public CommandGroup {
 public:
 	SafeLiftToHeight(double destination, bool isCraaawSafe = false);
 };

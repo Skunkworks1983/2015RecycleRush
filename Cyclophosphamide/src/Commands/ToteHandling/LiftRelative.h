@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class LiftRelative: public CommandBase
-{
+class LiftRelative: public CommandBase {
 private:
 	float delta;
 	float destination;
