@@ -1,4 +1,4 @@
-#include "LiftToHeight.h"
+#include <Commands/ToteLifting/LiftToHeight.h>
 
 LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {

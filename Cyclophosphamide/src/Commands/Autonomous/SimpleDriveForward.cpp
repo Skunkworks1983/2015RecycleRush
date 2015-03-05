@@ -14,6 +14,7 @@
 
 Autonomous *Autonomous::createSimpleDriveForward() {
 	Autonomous *cmd = new Autonomous("Autonomous-SimpleDriveForward");
-	cmd->AddSequential(new SimpleDriveForward(SIMPLE_DRIVE_TO_AUTO_DISTANCE, .25));
+	cmd->AddSequential(
+			new SimpleDriveForward(SIMPLE_DRIVE_TO_AUTO_DISTANCE, .25));
 	return cmd;
 }

@@ -4,8 +4,7 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class CraaawActuate: public CommandBase
-{
+class CraaawActuate: public CommandBase {
 private:
 	DoubleSolenoid::Value value;
 

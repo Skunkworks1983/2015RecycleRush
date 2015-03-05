@@ -4,8 +4,7 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class MoveWrist: public CommandBase
-{
+class MoveWrist: public CommandBase {
 public:
 	enum State {
 		open, close, toggle

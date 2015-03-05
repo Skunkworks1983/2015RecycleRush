@@ -5,14 +5,14 @@
  *      Author: Administrator
  */
 
-#ifndef PROTOBOT_H_
-#define PROTOBOT_H_
+#ifndef OMEGA_SUPREME_H_
+#define OMEGA_SUPREME_H_
 
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
 
-class OmegaSupreme : public IterativeRobot {
+class OmegaSupreme: public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;

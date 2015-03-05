@@ -4,8 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class CanWristerino: public Subsystem
-{
+class CanWristerino: public Subsystem {
 private:
 	DoubleSolenoid *wrists;
 	bool toggleWrist;

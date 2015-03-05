@@ -11,7 +11,6 @@
 #include "Subsystems/DriveBae.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems/StackPusher.h"
 #include "Subsystems/ToteLifterino.h"
 #include "Subsystems/Pneumatics.h"
 
@@ -27,11 +26,9 @@ class CanWristerino;
 class CanIntakerino;
 class ToteIntakerino;
 class ToteLifterino;
-class StackPusher;
 class Craaaw;
 class Pneumatics;
-class CommandBase: public Command
-{
+class CommandBase: public Command {
 public:
 	CommandBase(char const *name);
 	CommandBase();
@@ -46,7 +43,6 @@ public:
 	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
-	static StackPusher *stackPusher;
 	static Pneumatics *pneumatics;
 };
 

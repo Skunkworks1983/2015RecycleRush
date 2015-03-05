@@ -4,11 +4,9 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 
-class CanIntakerino: public Subsystem
-{
+class CanIntakerino: public Subsystem {
 private:
-	CAN_MOTOR_TYPE *grabMotorLeft;
-	CAN_MOTOR_TYPE *grabMotorRight;
+	CAN_MOTOR_TYPE *grabMotorLeft;CAN_MOTOR_TYPE *grabMotorRight;
 
 public:
 	CanIntakerino();

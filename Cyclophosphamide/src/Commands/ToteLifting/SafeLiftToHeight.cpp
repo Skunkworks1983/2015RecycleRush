@@ -1,7 +1,7 @@
-#include "SafeLiftToHeight.h"
+#include <Commands/ToteLifting/LiftToHeight.h>
+#include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include "../CanCollecterino/Arms/MoveWrist.h"
 #include "../CanCollecterino/Craaaw/CraaawActuate.h"
-#include "LiftToHeight.h"
 
 SafeLiftToHeight::SafeLiftToHeight(double destination, bool isCraaawSafe) {
 	if (isCraaawSafe) {

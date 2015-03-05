@@ -1,4 +1,10 @@
-#include "SimpleDriveForward.h"
+#include <CANSpeedController.h>
+#include <CANTalon.h>
+#include <Commands/Automatic/SimpleDriveForward.h>
+#include <RobotMap.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/DriveBae.h>
+#include <string>
 
 #define AUTO_DRIVE_THRESHOLD 30
 #define FABS(a) a < 0 ? -1*a : a

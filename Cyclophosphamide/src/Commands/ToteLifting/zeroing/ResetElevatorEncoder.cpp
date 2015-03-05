@@ -1,4 +1,4 @@
-#include "ResetElevatorEncoder.h"
+#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 
 ResetElevatorEncoder::ResetElevatorEncoder() {
 	Requires(toteLifterino);

@@ -1,11 +1,9 @@
 #ifndef BetterDrive_H
 #define BetterDrive_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
-class BestDrive: public CommandBase
-{
+class BestDrive: public CommandBase {
 public:
 	enum Direction {
 		forward, backward, left, right

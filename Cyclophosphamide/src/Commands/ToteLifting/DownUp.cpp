@@ -1,4 +1,4 @@
-#include <Commands/ToteHandling/DownUp.h>
+#include <Commands/ToteLifting/DownUp.h>
 
 DownUp::DownUp(Position pos) :
 		CommandBase("DownUp") {

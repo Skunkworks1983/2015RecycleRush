@@ -81,15 +81,20 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorFrontRight->Set(speedFrontRight);
 	motorBackLeft->Set(-speedBackLeft);
 	motorBackRight->Set(speedBackRight);
-/*
-	if (speedFrontLeft == 0 && speedFrontRight == 0 && speedBackLeft == 0
-			&& speedBackRight == 0) {
-		motorFrontLeft->StopMotor();
-		motorFrontRight->StopMotor();
-		motorBackLeft->StopMotor();
-		motorBackRight->StopMotor();
-	}*/
+	/*
+	 if (speedFrontLeft == 0 && speedFrontRight == 0 && speedBackLeft == 0
+	 && speedBackRight == 0) {
+	 motorFrontLeft->StopMotor();
+	 motorFrontRight->StopMotor();
+	 motorBackLeft->StopMotor();
+	 motorBackRight->StopMotor();
+	 }*/
 }
+
+double DriveBae::getForward(){
+	return forward;
+}
+
 
 IMU *DriveBae::getGyro() {
 	return gyro;

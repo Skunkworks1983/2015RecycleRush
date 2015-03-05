@@ -1,4 +1,4 @@
-#include "LiftRelative.h"
+#include <Commands/ToteLifting/LiftRelative.h>
 
 LiftRelative::LiftRelative(float delta) {
 	Requires(toteLifterino);

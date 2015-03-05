@@ -1,7 +1,7 @@
+#include <Commands/ToteLifting/LiftToHeight.h>
+#include <Commands/ToteLifting/zeroing/ZeroElevator.h>
 #include <Subsystems/ToteLifterino.h>
 #include "../RobotMap.h"
-#include "../Commands/ToteHandling/LiftToHeight.h"
-#include "../Commands/ToteHandling/ZeroElevator.h"
 #include "WPILib.h"
 
 ToteLifterino::ToteLifterino() :

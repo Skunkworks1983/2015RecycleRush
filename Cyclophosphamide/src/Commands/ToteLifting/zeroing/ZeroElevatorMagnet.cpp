@@ -1,4 +1,4 @@
-#include "ZeroElevatorMagnet.h"
+#include <Commands/ToteLifting/zeroing/ZeroElevatorMagnet.h>
 
 ZeroElevatorMag::ZeroElevatorMag() {
 	Requires(toteLifterino);

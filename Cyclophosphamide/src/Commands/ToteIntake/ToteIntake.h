@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ToteIntake : public CommandBase
-{
+class ToteIntake: public CommandBase {
 public:
 	enum Direction {
 		forward, reverse, stopped
@@ -13,7 +12,7 @@ public:
 private:
 	Direction direction;
 public:
-	ToteIntake(Direction direction);
+	ToteIntake(Direction direction, double timeout = 0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

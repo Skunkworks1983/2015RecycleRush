@@ -6,10 +6,9 @@
  */
 
 #include <Commands/Automatic/BestDrive.h>
-#include "Autonomous.h"
-#include "../Automatic/BestDrive.h"
-#include "../ToteHandling/LiftToHeight.h"
-#include "../ToteHandling/ToteIntake.h"
+#include <Commands/Autonomous/Autonomous.h>
+#include <Commands/ToteLifting/LiftToHeight.h>
+#include <RobotMap.h>
 
 Autonomous *Autonomous::createTripleTote() {
 	Autonomous *cmd = new Autonomous("Autonomous-TripleTote");

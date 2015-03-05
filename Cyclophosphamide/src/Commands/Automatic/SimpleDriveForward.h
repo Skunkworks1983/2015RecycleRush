@@ -1,8 +1,7 @@
 #ifndef SimpleDriveForward_H
 #define SimpleDriveForward_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
 class SimpleDriveForward: public CommandBase {
 private:

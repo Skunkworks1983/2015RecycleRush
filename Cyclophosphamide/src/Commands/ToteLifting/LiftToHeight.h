@@ -1,16 +1,15 @@
-#ifndef LiftRelative_H
-#define LiftRelative_H
+#ifndef ToteLifter_H
+#define ToteLifter_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class LiftRelative: public CommandBase
-{
+class LiftToHeight: public CommandBase {
 private:
-	float delta;
-	float destination;
+	double destination;
+	int count;
 public:
-	LiftRelative(float delta);
+	LiftToHeight(double destination);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

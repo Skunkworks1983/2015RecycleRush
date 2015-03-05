@@ -1,21 +1,23 @@
-#include <Commands/ToteHandling/ToteIntake.h>
+#include <Commands/ToteIntake/ToteIntake.h>
+#include <Subsystems/ToteIntakerino.h>
 
-ToteIntake::ToteIntake(Direction direction) {
+ToteIntake::ToteIntake(Direction direction, double timeout) {
 	Requires(toteIntakerino);
 	this->direction = direction;
+	SetTimeout(timeout);
 }
 
 // Called just before this Command runs the first time
 void ToteIntake::Initialize() {
 	switch (direction) {
 	case forward:
-		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
+		toteIntakerino->setMotors(TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case reverse:
-		toteIntakerino->setMotor(-TOTE_INTAKE_MOTOR_FULL);
+		toteIntakerino->setMotors(-TOTE_INTAKE_MOTOR_FULL);
 		break;
 	case stopped:
-		toteIntakerino->hold();
+		toteIntakerino->setMotors(0);
 		break;
 	}
 }
@@ -28,7 +30,7 @@ void ToteIntake::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ToteIntake::IsFinished() {
-	return true;
+	return IsTimedOut();
 }
 
 // Called once after isFinished returns true

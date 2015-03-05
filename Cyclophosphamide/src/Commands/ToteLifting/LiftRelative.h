@@ -1,13 +1,15 @@
-#ifndef ResetElevatorEncoder_H
-#define ResetElevatorEncoder_H
+#ifndef LiftRelative_H
+#define LiftRelative_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ResetElevatorEncoder: public CommandBase
-{
+class LiftRelative: public CommandBase {
+private:
+	float delta;
+	float destination;
 public:
-	ResetElevatorEncoder();
+	LiftRelative(float delta);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

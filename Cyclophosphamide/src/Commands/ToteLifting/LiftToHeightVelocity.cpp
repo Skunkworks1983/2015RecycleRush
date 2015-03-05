@@ -5,7 +5,7 @@
  *      Author: S-4020395
  */
 
-#include <Commands/ToteHandling/LiftToHeightVelocity.h>
+#include <Commands/ToteLifting/LiftToHeightVelocity.h>
 
 LiftToHeightVelocity::LiftToHeightVelocity(double speed) :
 		CommandBase("LiftToHeightVelocity") {
@@ -28,7 +28,7 @@ bool LiftToHeightVelocity::IsFinished() {
 //split up for understanding
 	return false;
 	/*return (speed < 0 && toteLifterino->getBotInput())
-			|| (speed > 0 && toteLifterino->getTopInput());*/
+	 || (speed > 0 && toteLifterino->getTopInput());*/
 }
 
 void LiftToHeightVelocity::End() {

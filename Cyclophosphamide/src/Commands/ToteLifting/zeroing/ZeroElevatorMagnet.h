@@ -1,19 +1,18 @@
-#ifndef ZeroElevator_H
-#define ZeroElevator_H
+#ifndef ZeroElevatorMag_H
+#define ZeroElevatorMag_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
 /**
  * To be ran in auto so that it can be zeroed by the time
  * teleop begins. Code and values still need to be tested.
  */
-class ZeroElevator: public CommandBase {
+class ZeroElevatorMag: public CommandBase {
 private:
-	int zeroCount;
-	double oldEncoderTick;
+	bool triggered;
+	bool zeroed;
 public:
-	ZeroElevator();
+	ZeroElevatorMag();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

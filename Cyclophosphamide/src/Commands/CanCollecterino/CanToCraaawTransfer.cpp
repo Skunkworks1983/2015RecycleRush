@@ -1,9 +1,9 @@
 #include <Commands/CanCollecterino/CanToCraaawTransfer.h>
+#include <Commands/ToteLifting/LiftRelative.h>
 #include "RobotMap.h"
 #include "Arms/MoveWrist.h"
 #include "Arms/MoveArms.h"
 #include "Craaaw/CraaawActuate.h"
-#include "../ToteHandling/LiftRelative.h"
 
 CanToCraaawTransfer::CanToCraaawTransfer() {
 	AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
