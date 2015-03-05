@@ -8,7 +8,7 @@
 
 class DriveBae: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	PIDController *rotPID;
+	PIDController *rotPID, *strafePID;
 
 	DRIVE_MOTOR_TYPE *motorFrontLeft;DRIVE_MOTOR_TYPE *motorFrontRight;DRIVE_MOTOR_TYPE *motorBackLeft;DRIVE_MOTOR_TYPE *motorBackRight;
 
@@ -17,6 +17,8 @@ private:
 	bool gyroEnabled;
 
 	double forward, right, clockwise;
+
+
 public:
 	DriveBae();
 	~DriveBae();
@@ -24,7 +26,8 @@ public:
 	enum MotorSide {
 		FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
 	};
-
+	void enableStrafePID(bool state);
+	void setStrafeSetPoint(double setPoint);
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();

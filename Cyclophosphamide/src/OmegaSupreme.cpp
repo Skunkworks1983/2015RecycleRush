@@ -24,6 +24,7 @@
 #include "RobotMap.h"
 #include <stdio.h>
 
+#include <Vision/VisionRunner.h>
 #include "Commands/Autonomous/Autonomous.h"
 
 OmegaSupreme::OmegaSupreme() {
@@ -31,6 +32,8 @@ OmegaSupreme::OmegaSupreme() {
 	lw = NULL;
 	chooser = NULL;
 	autonomousCommand = NULL;
+	VisionRunner *vision = new VisionRunner(320, 480);
+	vision->ThreadStart();
 }
 
 OmegaSupreme::~OmegaSupreme() {
@@ -78,6 +81,7 @@ void OmegaSupreme::RobotInit() {
 		}
 	}
 	SmartDashboard::PutString("auto", "end of RobotInit!");
+	autonomousCommand = Autonomous::createStartWithCan();
 }
 
 void OmegaSupreme::AutonomousInit() {
@@ -94,6 +98,9 @@ void OmegaSupreme::AutonomousInit() {
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+	if (!autonomousCommand->IsRunning()) {
+		autonomousCommand->Start();
+	}
 	WatchDogg();
 }
 

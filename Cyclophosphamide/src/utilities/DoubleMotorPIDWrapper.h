@@ -10,6 +10,11 @@
 
 #include "WPILib.h"
 
+/*
+ * This is only used if you do not want the subsystem
+ * to be a subclass of PIDSource/PIDOutput
+ */
+
 class DoubleMotorPIDWrapper {
 private:
 	SpeedController *motor1, *motor2;

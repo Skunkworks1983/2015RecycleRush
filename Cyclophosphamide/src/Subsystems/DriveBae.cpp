@@ -1,7 +1,13 @@
-#include "DriveBae.h"
-#include "../RobotMap.h"
-#include "../Commands/Drivebase/MecanumDrive.h"
+#include <CANTalon.h>
+#include <Commands/Drivebase/MecanumDrive.h>
+#include <PIDController.h>
+#include <SerialPort.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/DriveBae.h>
+#include <utilities/StrafePIDOutput.h>
+#include <Vision/VisionRunner.h>
 #include <cmath>
+#include <cstdint>
 
 DriveBae::DriveBae() :
 		Subsystem("DriveBae") {
@@ -37,6 +43,9 @@ DriveBae::DriveBae() :
 		rotPID->Disable();
 	}
 
+	strafePID = new PIDController(DRIVE_STRAFE_P, DRIVE_STRAFE_I,
+	DRIVE_STRAFE_D, &VisionRunner::getInstance(), new StrafePIDOutput(this));
+
 	forward = 0.0;
 	right = 0.0;
 	clockwise = 0.0;
@@ -50,10 +59,23 @@ DriveBae::~DriveBae() {
 	delete rotPID;
 	delete serialPort;
 	delete gyro;
+	delete strafePID;
 }
 
 void DriveBae::InitDefaultCommand() {
 	SetDefaultCommand(new MecanumDrive());
+}
+
+void DriveBae::setStrafeSetPoint(double setPoint) {
+	strafePID->SetSetpoint(setPoint);
+}
+
+void DriveBae::enableStrafePID(bool state) {
+	if (state) {
+		strafePID->Enable();
+	} else {
+		strafePID->Disable();
+	}
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
@@ -91,10 +113,9 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	 }*/
 }
 
-double DriveBae::getForward(){
+double DriveBae::getForward() {
 	return forward;
 }
-
 
 IMU *DriveBae::getGyro() {
 	return gyro;
@@ -217,6 +238,7 @@ void DriveBae::execute() {
 
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
+
 void DriveBae::PIDWrite(float output) {
 	output /= 180.0;
 	setClockwise(-output);
