@@ -4,8 +4,10 @@
 #include <CommandBase.h>
 
 class FollowVision: public CommandBase {
+private:
+	bool neverEnd;
 public:
-	FollowVision();
+	FollowVision(bool noIsFinished);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
