@@ -5,3 +5,4 @@ Collect::Collect() {
 	AddSequential(new MoveWrist(false));
 	AddSequential(new Induct());
 }
+

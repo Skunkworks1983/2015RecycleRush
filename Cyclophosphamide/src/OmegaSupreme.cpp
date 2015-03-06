@@ -36,16 +36,16 @@ void OmegaSupreme::RobotInit() {
 	lw = LiveWindow::GetInstance();
 
 	// Create autonomous
-	chooser = new SendableChooser();
+	/*chooser = new SendableChooser();
 	chooser->AddDefault("Blank", new Autonomous());
 	chooser->AddObject("Drive forward 1000 ticks",
 			Autonomous::createDriveDistance(360.0f, BestDrive::forward));
 	chooser->AddObject("Drive forward 1 second",
 			Autonomous::createDriveDuration(1.0f, -90.0f));
-	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
-	SmartDashboard::PutData("Auto Modes", chooser);
+	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
 
-	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
+	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
+	SmartDashboard::PutData("Auto Modes", chooser);
 
 	CommandBase::oi->registerButtonListeners();
 
@@ -72,8 +72,8 @@ void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	((ScriptRunner*) chooser->GetSelected())->startCommand();
 
-	//autonomousCommand = (Command *) chooser->GetSelected();
-	//autonomousCommand->Start();
+	autonomousCommand = (Command *) chooser->GetSelected();
+	autonomousCommand->Start();
 	/*
 	 float startingOffset = SmartDashboard::GetNumber("Auto angle offset", 0.0);
 	 CommandBase::driveBae->getGyro()->SetYawPitchRoll(startingOffset, 0.0f,
