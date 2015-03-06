@@ -4,6 +4,13 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 
+/**
+ * Motor arms raise up/down
+ * Arm PID controls the arms up and down.
+ * can sensor
+ * Pneumatics (double solenoid)  wrist open and close to collect the recycle can.
+ */
+
 class CanCollecterino: public Subsystem
 {
 private:
