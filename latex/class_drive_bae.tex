@@ -1,0 +1,147 @@
+\hypertarget{class_drive_bae}{}\section{Drive\+Bae Class Reference}
+\label{class_drive_bae}\index{Drive\+Bae@{Drive\+Bae}}
+
+
+{\ttfamily \#include $<$Drive\+Bae.\+h$>$}
+
+Inheritance diagram for Drive\+Bae\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_drive_bae}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_drive_bae_a5a16264d8b3e1c0b913d213f194f36a9}{}enum {\bfseries Motor\+Side} \{ {\bfseries F\+R\+O\+N\+T\+\_\+\+L\+E\+F\+T}, 
+{\bfseries F\+R\+O\+N\+T\+\_\+\+R\+I\+G\+H\+T}, 
+{\bfseries B\+A\+C\+K\+\_\+\+L\+E\+F\+T}, 
+{\bfseries B\+A\+C\+K\+\_\+\+R\+I\+G\+H\+T}
+ \}\label{class_drive_bae_a5a16264d8b3e1c0b913d213f194f36a9}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_drive_bae_ac2497d0afa36b5c72f2ee86f8fd892cf}{}double {\bfseries Return\+P\+I\+D\+Input} ()\label{class_drive_bae_ac2497d0afa36b5c72f2ee86f8fd892cf}
+
+\item 
+\hypertarget{class_drive_bae_a423ddc49659be37aed2c0509cc55289b}{}void {\bfseries Use\+P\+I\+D\+Output} (double output)\label{class_drive_bae_a423ddc49659be37aed2c0509cc55289b}
+
+\item 
+\hypertarget{class_drive_bae_a2adbbdb59bb0fdc9ed466a3d2edd92ff}{}void {\bfseries Init\+Default\+Command} ()\label{class_drive_bae_a2adbbdb59bb0fdc9ed466a3d2edd92ff}
+
+\item 
+\hypertarget{class_drive_bae_a1d381de7dfb03bd3dd138a889c01e880}{}void {\bfseries set\+Speed} (double speed\+Front\+Left, double speed\+Front\+Right, double speed\+Back\+Left, double speed\+Back\+Right)\label{class_drive_bae_a1d381de7dfb03bd3dd138a889c01e880}
+
+\item 
+\hypertarget{class_drive_bae_ae0cfe1125d3065eb915111e29e49281c}{}\hyperlink{class_i_m_u}{I\+M\+U} $\ast$ {\bfseries get\+Gyro} ()\label{class_drive_bae_ae0cfe1125d3065eb915111e29e49281c}
+
+\item 
+\hypertarget{class_drive_bae_a489a12b403e0b818083402007ea2e314}{}void {\bfseries set\+Target\+Angle} (double theta)\label{class_drive_bae_a489a12b403e0b818083402007ea2e314}
+
+\item 
+\hypertarget{class_drive_bae_ab6042ad688723f278787c3747de2f263}{}void {\bfseries stop\+Rot\+P\+I\+D} ()\label{class_drive_bae_ab6042ad688723f278787c3747de2f263}
+
+\item 
+\hypertarget{class_drive_bae_aad5e482e88ca3b39ca054cea1217dc6b}{}void {\bfseries start\+Rot\+P\+I\+D} ()\label{class_drive_bae_aad5e482e88ca3b39ca054cea1217dc6b}
+
+\item 
+\hypertarget{class_drive_bae_a813f9dfbe7bf7691de735c74e88548d2}{}double {\bfseries get\+Error} ()\label{class_drive_bae_a813f9dfbe7bf7691de735c74e88548d2}
+
+\item 
+\hypertarget{class_drive_bae_aaf5602f89bd043412f984251d458e74e}{}double {\bfseries get\+Setpoint} ()\label{class_drive_bae_aaf5602f89bd043412f984251d458e74e}
+
+\item 
+\hypertarget{class_drive_bae_a1b22dfabc63aa778c4a5d7eeef1c02e1}{}void {\bfseries set\+Setpoint} (float f)\label{class_drive_bae_a1b22dfabc63aa778c4a5d7eeef1c02e1}
+
+\item 
+\hypertarget{class_drive_bae_af8fc09ba2643e2813f46435592b86b3a}{}void {\bfseries set\+Gyro\+Enabled} (bool enable)\label{class_drive_bae_af8fc09ba2643e2813f46435592b86b3a}
+
+\item 
+\hypertarget{class_drive_bae_aa43736f6a503bac3f7bfb968a318e831}{}bool {\bfseries is\+Gyro\+Enabled} ()\label{class_drive_bae_aa43736f6a503bac3f7bfb968a318e831}
+
+\item 
+\hypertarget{class_drive_bae_a4b480bb19d803cffa8bac5fc3693bc1d}{}void {\bfseries zero\+P\+I\+D\+Output} ()\label{class_drive_bae_a4b480bb19d803cffa8bac5fc3693bc1d}
+
+\item 
+\hypertarget{class_drive_bae_a9e669140b1e6f1bd467a89df6fa1fed4}{}void {\bfseries set\+P\+I\+D\+All} (double P, double I, double D)\label{class_drive_bae_a9e669140b1e6f1bd467a89df6fa1fed4}
+
+\item 
+\hypertarget{class_drive_bae_abe2f4a4de059ac1479a165a07994a33c}{}void {\bfseries set\+All} (double set\+Point)\label{class_drive_bae_abe2f4a4de059ac1479a165a07994a33c}
+
+\item 
+\hypertarget{class_drive_bae_a210429543400fa3789576b1591ec4179}{}void {\bfseries enable\+P\+I\+D\+All} (bool state)\label{class_drive_bae_a210429543400fa3789576b1591ec4179}
+
+\item 
+\hypertarget{class_drive_bae_a7b6936f81aa8249e36998f3e371d44d9}{}void {\bfseries set\+Mode\+All} (C\+A\+N\+Talon\+::\+Control\+Mode mode)\label{class_drive_bae_a7b6936f81aa8249e36998f3e371d44d9}
+
+\item 
+\hypertarget{class_drive_bae_a332eee2604b94a0a79af935242d7e260}{}void {\bfseries zero\+Encoders} ()\label{class_drive_bae_a332eee2604b94a0a79af935242d7e260}
+
+\item 
+\hypertarget{class_drive_bae_a547909d641c7a890c427b154f982322d}{}bool {\bfseries within\+Threshhold} (double drive\+Threshhold, double target\+Distance)\label{class_drive_bae_a547909d641c7a890c427b154f982322d}
+
+\item 
+\hypertarget{class_drive_bae_ab09e8a797848efa2a1f2eb6844941cb3}{}void {\bfseries set\+Forward} (double f)\label{class_drive_bae_ab09e8a797848efa2a1f2eb6844941cb3}
+
+\item 
+\hypertarget{class_drive_bae_a4fcdfa68a38e020a0497f6256989fe0b}{}void {\bfseries set\+Right} (double r)\label{class_drive_bae_a4fcdfa68a38e020a0497f6256989fe0b}
+
+\item 
+\hypertarget{class_drive_bae_a088352135fb6a558c93c0c9da74e37e2}{}void {\bfseries set\+Clockwise} (double c)\label{class_drive_bae_a088352135fb6a558c93c0c9da74e37e2}
+
+\item 
+\hypertarget{class_drive_bae_ac7fac12731fced5d6e9a7289fb9be485}{}double {\bfseries get\+Clockwise} ()\label{class_drive_bae_ac7fac12731fced5d6e9a7289fb9be485}
+
+\item 
+\hypertarget{class_drive_bae_aa64c38e02e64ee7795f4ae06bab26d48}{}void {\bfseries execute} ()\label{class_drive_bae_aa64c38e02e64ee7795f4ae06bab26d48}
+
+\item 
+\hypertarget{class_drive_bae_aec401bb78b3961da28c0fb36b2308ca4}{}virtual void {\bfseries P\+I\+D\+Write} (float f)\label{class_drive_bae_aec401bb78b3961da28c0fb36b2308ca4}
+
+\item 
+\hypertarget{class_drive_bae_ac4a719afe5c71f716c8753392ae0c6fd}{}virtual double {\bfseries P\+I\+D\+Get} ()\label{class_drive_bae_ac4a719afe5c71f716c8753392ae0c6fd}
+
+\item 
+\hypertarget{class_drive_bae_a06177effa3aedbcf3874701a93f36f9c}{}D\+R\+I\+V\+E\+\_\+\+M\+O\+T\+O\+R\+\_\+\+T\+Y\+P\+E $\ast$ {\bfseries get\+Motor} (Motor\+Side side)\label{class_drive_bae_a06177effa3aedbcf3874701a93f36f9c}
+
+\item 
+\hypertarget{class_drive_bae_ac2497d0afa36b5c72f2ee86f8fd892cf}{}double {\bfseries Return\+P\+I\+D\+Input} ()\label{class_drive_bae_ac2497d0afa36b5c72f2ee86f8fd892cf}
+
+\item 
+\hypertarget{class_drive_bae_a423ddc49659be37aed2c0509cc55289b}{}void {\bfseries Use\+P\+I\+D\+Output} (double output)\label{class_drive_bae_a423ddc49659be37aed2c0509cc55289b}
+
+\item 
+\hypertarget{class_drive_bae_a2adbbdb59bb0fdc9ed466a3d2edd92ff}{}void {\bfseries Init\+Default\+Command} ()\label{class_drive_bae_a2adbbdb59bb0fdc9ed466a3d2edd92ff}
+
+\item 
+\hypertarget{class_drive_bae_a1d381de7dfb03bd3dd138a889c01e880}{}void {\bfseries set\+Speed} (double speed\+Front\+Left, double speed\+Front\+Right, double speed\+Back\+Left, double speed\+Back\+Right)\label{class_drive_bae_a1d381de7dfb03bd3dd138a889c01e880}
+
+\item 
+\hypertarget{class_drive_bae_a39bbf7738c0574681d27778543f7d621}{}\hyperlink{class_i_m_u}{I\+M\+U} $\ast$ {\bfseries get\+Gyro} ()\label{class_drive_bae_a39bbf7738c0574681d27778543f7d621}
+
+\item 
+\hypertarget{class_drive_bae_a489a12b403e0b818083402007ea2e314}{}void {\bfseries set\+Target\+Angle} (double theta)\label{class_drive_bae_a489a12b403e0b818083402007ea2e314}
+
+\item 
+\hypertarget{class_drive_bae_a4c2778dabdaa81abd29eb9330222f151}{}void {\bfseries stop\+P\+I\+D} ()\label{class_drive_bae_a4c2778dabdaa81abd29eb9330222f151}
+
+\item 
+\hypertarget{class_drive_bae_af990ac05d3821371b351b7e60055177e}{}void {\bfseries start\+P\+I\+D} ()\label{class_drive_bae_af990ac05d3821371b351b7e60055177e}
+
+\item 
+\hypertarget{class_drive_bae_a813f9dfbe7bf7691de735c74e88548d2}{}double {\bfseries get\+Error} ()\label{class_drive_bae_a813f9dfbe7bf7691de735c74e88548d2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_drive_bae}{Drive\+Bae} drives with field centric. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Cyclophosphamide/src/\+Subsystems/Drive\+Bae.\+h\item 
+One\+Stick\+Mecanum/src/\+Subsystems/Drive\+Base.\+h\item 
+Cyclophosphamide/src/\+Subsystems/Drive\+Bae.\+cpp\item 
+One\+Stick\+Mecanum/src/\+Subsystems/Drive\+Base.\+cpp\end{DoxyCompactItemize}

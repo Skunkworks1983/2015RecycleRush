@@ -1,0 +1,83 @@
+\hypertarget{class_scripting}{}\section{Scripting Class Reference}
+\label{class_scripting}\index{Scripting@{Scripting}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static char $\ast$ \hyperlink{class_scripting_ab94dec041f116a92d48c8b28e3f086c0}{read\+From\+File} (char $\ast$file, int \&size)
+\begin{DoxyCompactList}\small\item\em Returns a file\textquotesingle{}s contents. \end{DoxyCompactList}\item 
+static \hyperlink{class_autonomous}{Autonomous} $\ast$ \hyperlink{class_scripting_a95d3be53b7e0dd29d434937cf57c928e}{create\+Command} (int size, char $\ast$raw\+Data)
+\begin{DoxyCompactList}\small\item\em Creates an \hyperlink{class_autonomous}{Autonomous} command. \end{DoxyCompactList}\item 
+static Sendable\+Chooser $\ast$ \hyperlink{class_scripting_abef2e025e053a76c5b2ce8115997162b}{generate\+Autonomous\+Modes} (char $\ast$script\+Locations)
+\begin{DoxyCompactList}\small\item\em Creates a Sendable\+Chooser from a folder of autonomous files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_scripting_a95d3be53b7e0dd29d434937cf57c928e}{}\index{Scripting@{Scripting}!create\+Command@{create\+Command}}
+\index{create\+Command@{create\+Command}!Scripting@{Scripting}}
+\subsubsection[{create\+Command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Autonomous} $\ast$ Scripting\+::create\+Command (
+\begin{DoxyParamCaption}
+\item[{int}]{size, }
+\item[{char $\ast$}]{raw\+Data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_scripting_a95d3be53b7e0dd29d434937cf57c928e}
+
+
+Creates an \hyperlink{class_autonomous}{Autonomous} command. 
+
+Returns an \hyperlink{class_autonomous}{Autonomous} command based on the contents of raw\+Data 
+\begin{DoxyParams}{Parameters}
+{\em size} & Size of raw\+Data \\
+\hline
+{\em raw\+Data} & Raw string containing commands \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New \hyperlink{class_autonomous}{Autonomous} command 
+\end{DoxyReturn}
+\hypertarget{class_scripting_abef2e025e053a76c5b2ce8115997162b}{}\index{Scripting@{Scripting}!generate\+Autonomous\+Modes@{generate\+Autonomous\+Modes}}
+\index{generate\+Autonomous\+Modes@{generate\+Autonomous\+Modes}!Scripting@{Scripting}}
+\subsubsection[{generate\+Autonomous\+Modes}]{\setlength{\rightskip}{0pt plus 5cm}Sendable\+Chooser $\ast$ Scripting\+::generate\+Autonomous\+Modes (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{script\+Locations}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_scripting_abef2e025e053a76c5b2ce8115997162b}
+
+
+Creates a Sendable\+Chooser from a folder of autonomous files. 
+
+Creates a Sendable\+Chooser. The options are all of the files in the locations folder. Calling Get\+Selected returns a char array, which is the absolute path of the file selected. 
+\begin{DoxyParams}{Parameters}
+{\em script\+Locations} & The absolute path to the folder containing script locations. Requries trailing slash \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Sendable\+Chooser (Get\+Selected returns a char array) 
+\end{DoxyReturn}
+\hypertarget{class_scripting_ab94dec041f116a92d48c8b28e3f086c0}{}\index{Scripting@{Scripting}!read\+From\+File@{read\+From\+File}}
+\index{read\+From\+File@{read\+From\+File}!Scripting@{Scripting}}
+\subsubsection[{read\+From\+File}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Scripting\+::read\+From\+File (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{int \&}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_scripting_ab94dec041f116a92d48c8b28e3f086c0}
+
+
+Returns a file\textquotesingle{}s contents. 
+
+Returns a char array containing the contents of the location file. size is modified by the function to return the size of the file. 
+\begin{DoxyParams}{Parameters}
+{\em file} & Location of the file \\
+\hline
+{\em size} & Is modified by the function to return the file size. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+File contents 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Cyclophosphamide/src/\+Commands/\+Autonomous/Scripting.\+h\item 
+Cyclophosphamide/src/\+Commands/\+Autonomous/Scripting.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,115 @@
+\hypertarget{class_i_m_u_protocol}{}\section{I\+M\+U\+Protocol Class Reference}
+\label{class_i_m_u_protocol}\index{I\+M\+U\+Protocol@{I\+M\+U\+Protocol}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_m_u_protocol_a5043b90e784f5810b313489ae45fd19b}{}static int {\bfseries encode\+Y\+P\+R\+Update} (char $\ast$protocol\+\_\+buffer, float yaw, float pitch, float roll, float compass\+\_\+heading)\label{class_i_m_u_protocol_a5043b90e784f5810b313489ae45fd19b}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2076e198a0111d24e7312302529c11fa}{}static int {\bfseries encode\+Quaternion\+Update} (char $\ast$protocol\+\_\+buffer, uint16\+\_\+t q1, uint16\+\_\+t q2, uint16\+\_\+t q3, uint16\+\_\+t q4, uint16\+\_\+t accel\+\_\+x, uint16\+\_\+t accel\+\_\+y, uint16\+\_\+t accel\+\_\+z, int16\+\_\+t mag\+\_\+x, int16\+\_\+t mag\+\_\+y, int16\+\_\+t mag\+\_\+z, float temp\+\_\+c)\label{class_i_m_u_protocol_a2076e198a0111d24e7312302529c11fa}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2ae8e5f0bfe45485ab475335fad6e889}{}static int {\bfseries encode\+Gyro\+Update} (char $\ast$protocol\+\_\+buffer, uint16\+\_\+t gyro\+\_\+x, uint16\+\_\+t gyro\+\_\+y, uint16\+\_\+t gyro\+\_\+z, uint16\+\_\+t accel\+\_\+x, uint16\+\_\+t accel\+\_\+y, uint16\+\_\+t accel\+\_\+z, int16\+\_\+t mag\+\_\+x, int16\+\_\+t mag\+\_\+y, int16\+\_\+t mag\+\_\+z, float temp\+\_\+c)\label{class_i_m_u_protocol_a2ae8e5f0bfe45485ab475335fad6e889}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a900c9f6e4174c510765f8885f07bd0e9}{}static int {\bfseries encode\+Stream\+Command} (char $\ast$protocol\+\_\+buffer, char stream\+\_\+type, unsigned char update\+\_\+rate\+\_\+hz)\label{class_i_m_u_protocol_a900c9f6e4174c510765f8885f07bd0e9}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a47edf8d27c46da8cb395c14a726a9732}{}static int {\bfseries encode\+Stream\+Response} (char $\ast$protocol\+\_\+buffer, char stream\+\_\+type, uint16\+\_\+t gyro\+\_\+fsr\+\_\+dps, uint16\+\_\+t accel\+\_\+fsr\+\_\+g, uint16\+\_\+t update\+\_\+rate\+\_\+hz, float yaw\+\_\+offset\+\_\+degrees, uint16\+\_\+t q1\+\_\+offset, uint16\+\_\+t q2\+\_\+offset, uint16\+\_\+t q3\+\_\+offset, uint16\+\_\+t q4\+\_\+offset, uint16\+\_\+t flags)\label{class_i_m_u_protocol_a47edf8d27c46da8cb395c14a726a9732}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a97c641e18f3881b989a8f89fcb08458c}{}static int {\bfseries decode\+Stream\+Response} (char $\ast$buffer, int length, char \&stream\+\_\+type, uint16\+\_\+t \&gyro\+\_\+fsr\+\_\+dps, uint16\+\_\+t \&accel\+\_\+fsr\+\_\+g, uint16\+\_\+t \&update\+\_\+rate\+\_\+hz, float \&yaw\+\_\+offset\+\_\+degrees, uint16\+\_\+t \&q1\+\_\+offset, uint16\+\_\+t \&q2\+\_\+offset, uint16\+\_\+t \&q3\+\_\+offset, uint16\+\_\+t \&q4\+\_\+offset, uint16\+\_\+t \&flags)\label{class_i_m_u_protocol_a97c641e18f3881b989a8f89fcb08458c}
+
+\item 
+\hypertarget{class_i_m_u_protocol_af6c852e5e0fc5fe540d23920e0e2d3a0}{}static int {\bfseries decode\+Stream\+Command} (char $\ast$buffer, int length, char \&stream\+\_\+type, unsigned char \&update\+\_\+rate\+\_\+hz)\label{class_i_m_u_protocol_af6c852e5e0fc5fe540d23920e0e2d3a0}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2a833cb88f11b50e16001e8197ab1664}{}static int {\bfseries decode\+Y\+P\+R\+Update} (char $\ast$buffer, int length, float \&yaw, float \&pitch, float \&roll, float \&compass\+\_\+heading)\label{class_i_m_u_protocol_a2a833cb88f11b50e16001e8197ab1664}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2706f477f4b02197d09d55e436b24fd7}{}static int {\bfseries decode\+Quaternion\+Update} (char $\ast$buffer, int length, int16\+\_\+t \&q1, int16\+\_\+t \&q2, int16\+\_\+t \&q3, int16\+\_\+t \&q4, int16\+\_\+t \&accel\+\_\+x, int16\+\_\+t \&accel\+\_\+y, int16\+\_\+t \&accel\+\_\+z, int16\+\_\+t \&mag\+\_\+x, int16\+\_\+t \&mag\+\_\+y, int16\+\_\+t \&mag\+\_\+z, float \&temp\+\_\+c)\label{class_i_m_u_protocol_a2706f477f4b02197d09d55e436b24fd7}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a39d4917878a4af8a173962c1991bbb95}{}static int {\bfseries decode\+Gyro\+Update} (char $\ast$buffer, int length, uint16\+\_\+t \&gyro\+\_\+x, uint16\+\_\+t \&gyro\+\_\+y, uint16\+\_\+t \&gyro\+\_\+z, uint16\+\_\+t \&accel\+\_\+x, uint16\+\_\+t \&accel\+\_\+y, uint16\+\_\+t \&accel\+\_\+z, int16\+\_\+t \&mag\+\_\+x, int16\+\_\+t \&mag\+\_\+y, int16\+\_\+t \&mag\+\_\+z, float \&temp\+\_\+c)\label{class_i_m_u_protocol_a39d4917878a4af8a173962c1991bbb95}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a5043b90e784f5810b313489ae45fd19b}{}static int {\bfseries encode\+Y\+P\+R\+Update} (char $\ast$protocol\+\_\+buffer, float yaw, float pitch, float roll, float compass\+\_\+heading)\label{class_i_m_u_protocol_a5043b90e784f5810b313489ae45fd19b}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2076e198a0111d24e7312302529c11fa}{}static int {\bfseries encode\+Quaternion\+Update} (char $\ast$protocol\+\_\+buffer, uint16\+\_\+t q1, uint16\+\_\+t q2, uint16\+\_\+t q3, uint16\+\_\+t q4, uint16\+\_\+t accel\+\_\+x, uint16\+\_\+t accel\+\_\+y, uint16\+\_\+t accel\+\_\+z, int16\+\_\+t mag\+\_\+x, int16\+\_\+t mag\+\_\+y, int16\+\_\+t mag\+\_\+z, float temp\+\_\+c)\label{class_i_m_u_protocol_a2076e198a0111d24e7312302529c11fa}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2ae8e5f0bfe45485ab475335fad6e889}{}static int {\bfseries encode\+Gyro\+Update} (char $\ast$protocol\+\_\+buffer, uint16\+\_\+t gyro\+\_\+x, uint16\+\_\+t gyro\+\_\+y, uint16\+\_\+t gyro\+\_\+z, uint16\+\_\+t accel\+\_\+x, uint16\+\_\+t accel\+\_\+y, uint16\+\_\+t accel\+\_\+z, int16\+\_\+t mag\+\_\+x, int16\+\_\+t mag\+\_\+y, int16\+\_\+t mag\+\_\+z, float temp\+\_\+c)\label{class_i_m_u_protocol_a2ae8e5f0bfe45485ab475335fad6e889}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a900c9f6e4174c510765f8885f07bd0e9}{}static int {\bfseries encode\+Stream\+Command} (char $\ast$protocol\+\_\+buffer, char stream\+\_\+type, unsigned char update\+\_\+rate\+\_\+hz)\label{class_i_m_u_protocol_a900c9f6e4174c510765f8885f07bd0e9}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a47edf8d27c46da8cb395c14a726a9732}{}static int {\bfseries encode\+Stream\+Response} (char $\ast$protocol\+\_\+buffer, char stream\+\_\+type, uint16\+\_\+t gyro\+\_\+fsr\+\_\+dps, uint16\+\_\+t accel\+\_\+fsr\+\_\+g, uint16\+\_\+t update\+\_\+rate\+\_\+hz, float yaw\+\_\+offset\+\_\+degrees, uint16\+\_\+t q1\+\_\+offset, uint16\+\_\+t q2\+\_\+offset, uint16\+\_\+t q3\+\_\+offset, uint16\+\_\+t q4\+\_\+offset, uint16\+\_\+t flags)\label{class_i_m_u_protocol_a47edf8d27c46da8cb395c14a726a9732}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a97c641e18f3881b989a8f89fcb08458c}{}static int {\bfseries decode\+Stream\+Response} (char $\ast$buffer, int length, char \&stream\+\_\+type, uint16\+\_\+t \&gyro\+\_\+fsr\+\_\+dps, uint16\+\_\+t \&accel\+\_\+fsr\+\_\+g, uint16\+\_\+t \&update\+\_\+rate\+\_\+hz, float \&yaw\+\_\+offset\+\_\+degrees, uint16\+\_\+t \&q1\+\_\+offset, uint16\+\_\+t \&q2\+\_\+offset, uint16\+\_\+t \&q3\+\_\+offset, uint16\+\_\+t \&q4\+\_\+offset, uint16\+\_\+t \&flags)\label{class_i_m_u_protocol_a97c641e18f3881b989a8f89fcb08458c}
+
+\item 
+\hypertarget{class_i_m_u_protocol_af6c852e5e0fc5fe540d23920e0e2d3a0}{}static int {\bfseries decode\+Stream\+Command} (char $\ast$buffer, int length, char \&stream\+\_\+type, unsigned char \&update\+\_\+rate\+\_\+hz)\label{class_i_m_u_protocol_af6c852e5e0fc5fe540d23920e0e2d3a0}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2a833cb88f11b50e16001e8197ab1664}{}static int {\bfseries decode\+Y\+P\+R\+Update} (char $\ast$buffer, int length, float \&yaw, float \&pitch, float \&roll, float \&compass\+\_\+heading)\label{class_i_m_u_protocol_a2a833cb88f11b50e16001e8197ab1664}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a2706f477f4b02197d09d55e436b24fd7}{}static int {\bfseries decode\+Quaternion\+Update} (char $\ast$buffer, int length, int16\+\_\+t \&q1, int16\+\_\+t \&q2, int16\+\_\+t \&q3, int16\+\_\+t \&q4, int16\+\_\+t \&accel\+\_\+x, int16\+\_\+t \&accel\+\_\+y, int16\+\_\+t \&accel\+\_\+z, int16\+\_\+t \&mag\+\_\+x, int16\+\_\+t \&mag\+\_\+y, int16\+\_\+t \&mag\+\_\+z, float \&temp\+\_\+c)\label{class_i_m_u_protocol_a2706f477f4b02197d09d55e436b24fd7}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a39d4917878a4af8a173962c1991bbb95}{}static int {\bfseries decode\+Gyro\+Update} (char $\ast$buffer, int length, uint16\+\_\+t \&gyro\+\_\+x, uint16\+\_\+t \&gyro\+\_\+y, uint16\+\_\+t \&gyro\+\_\+z, uint16\+\_\+t \&accel\+\_\+x, uint16\+\_\+t \&accel\+\_\+y, uint16\+\_\+t \&accel\+\_\+z, int16\+\_\+t \&mag\+\_\+x, int16\+\_\+t \&mag\+\_\+y, int16\+\_\+t \&mag\+\_\+z, float \&temp\+\_\+c)\label{class_i_m_u_protocol_a39d4917878a4af8a173962c1991bbb95}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_i_m_u_protocol_acbe9e784a43ab31c543c772711d0b389}{}static void {\bfseries encode\+Termination} (char $\ast$buffer, int total\+\_\+length, int content\+\_\+length)\label{class_i_m_u_protocol_acbe9e784a43ab31c543c772711d0b389}
+
+\item 
+\hypertarget{class_i_m_u_protocol_ad9d78b08dd74af878782c0f4a6c16951}{}static void {\bfseries encode\+Protocol\+Float} (float f, char $\ast$buff)\label{class_i_m_u_protocol_ad9d78b08dd74af878782c0f4a6c16951}
+
+\item 
+\hypertarget{class_i_m_u_protocol_af7156807ea5a0488e8eff2beeb1bac40}{}static void {\bfseries encode\+Protocol\+Uint16} (uint16\+\_\+t value, char $\ast$buff)\label{class_i_m_u_protocol_af7156807ea5a0488e8eff2beeb1bac40}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a155fa4ff91c441d040988f656094f086}{}static uint16\+\_\+t {\bfseries decode\+Protocol\+Uint16} (char $\ast$uint16\+\_\+string)\label{class_i_m_u_protocol_a155fa4ff91c441d040988f656094f086}
+
+\item 
+\hypertarget{class_i_m_u_protocol_ade30772ce94446e5591501a705a22b3f}{}static bool {\bfseries verify\+Checksum} (char $\ast$buffer, int content\+\_\+length)\label{class_i_m_u_protocol_ade30772ce94446e5591501a705a22b3f}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a9fae2bd9c887a61936343d7e02d745ed}{}static unsigned char {\bfseries decode\+Uint8} (char $\ast$checksum)\label{class_i_m_u_protocol_a9fae2bd9c887a61936343d7e02d745ed}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a91e3d5e6f18c6ebf8499216df493d2f5}{}static float {\bfseries decode\+Protocol\+Float} (char $\ast$buffer)\label{class_i_m_u_protocol_a91e3d5e6f18c6ebf8499216df493d2f5}
+
+\item 
+\hypertarget{class_i_m_u_protocol_acbe9e784a43ab31c543c772711d0b389}{}static void {\bfseries encode\+Termination} (char $\ast$buffer, int total\+\_\+length, int content\+\_\+length)\label{class_i_m_u_protocol_acbe9e784a43ab31c543c772711d0b389}
+
+\item 
+\hypertarget{class_i_m_u_protocol_ad9d78b08dd74af878782c0f4a6c16951}{}static void {\bfseries encode\+Protocol\+Float} (float f, char $\ast$buff)\label{class_i_m_u_protocol_ad9d78b08dd74af878782c0f4a6c16951}
+
+\item 
+\hypertarget{class_i_m_u_protocol_af7156807ea5a0488e8eff2beeb1bac40}{}static void {\bfseries encode\+Protocol\+Uint16} (uint16\+\_\+t value, char $\ast$buff)\label{class_i_m_u_protocol_af7156807ea5a0488e8eff2beeb1bac40}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a155fa4ff91c441d040988f656094f086}{}static uint16\+\_\+t {\bfseries decode\+Protocol\+Uint16} (char $\ast$uint16\+\_\+string)\label{class_i_m_u_protocol_a155fa4ff91c441d040988f656094f086}
+
+\item 
+\hypertarget{class_i_m_u_protocol_ade30772ce94446e5591501a705a22b3f}{}static bool {\bfseries verify\+Checksum} (char $\ast$buffer, int content\+\_\+length)\label{class_i_m_u_protocol_ade30772ce94446e5591501a705a22b3f}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a9fae2bd9c887a61936343d7e02d745ed}{}static unsigned char {\bfseries decode\+Uint8} (char $\ast$checksum)\label{class_i_m_u_protocol_a9fae2bd9c887a61936343d7e02d745ed}
+
+\item 
+\hypertarget{class_i_m_u_protocol_a91e3d5e6f18c6ebf8499216df493d2f5}{}static float {\bfseries decode\+Protocol\+Float} (char $\ast$buffer)\label{class_i_m_u_protocol_a91e3d5e6f18c6ebf8499216df493d2f5}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Cyclophosphamide/src/\+Gyro\+Driver/I\+M\+U\+Protocol.\+h\end{DoxyCompactItemize}
