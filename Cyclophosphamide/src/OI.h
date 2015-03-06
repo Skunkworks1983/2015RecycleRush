@@ -4,42 +4,35 @@
 #include "WPILib.h"
 
 class OI {
-private:
 public:
 	Joystick *joystickLeft;
 	Joystick *joystickRight;
-	Joystick *joystickOperator;
+	Joystick *op;
 
-	JoystickButton *pushSwitch;
-	JoystickButton *toteIntakeMatchDrive;
-	JoystickButton *canCollectFwd;
-	JoystickButton *canCollectRvs;
+	// How many buttons does a man need?
+
+	JoystickButton *alignToteFwd;
+	JoystickButton *alignToteRvs;
 	JoystickButton *canToCraaawTransfer;
 	JoystickButton *score;
-
+	JoystickButton *floorLoader;
 	JoystickButton *leftLoadButton;
 	JoystickButton *rightLoadButton;
-
-	JoystickButton *toteLifterFloor;
-	JoystickButton *toteLifterCarry;
-	JoystickButton *toteLifterTwoTotes;
-	JoystickButton *toteLifterOneTote;
-	JoystickButton *stackThenLoadPos;
-	JoystickButton *stackThenCarryPos;
-
+	JoystickButton *carryPos;
+	JoystickButton *loadPos;
+	JoystickButton *floorPos;
 	JoystickButton *moveArmsWhackMode;
-	JoystickButton *canCollector;
-	JoystickButton *collect;
-	JoystickButton *wrist;
-	JoystickButton *armsToggle;
-	JoystickButton *craaawOverride;
-	JoystickButton *shoulderOverride;
-
+	JoystickButton *canArms;
+	JoystickButton *canCollectFwd;
+	JoystickButton *canCollectRvs;
+	JoystickButton *wristOverride;
+	JoystickButton *craaawToggle;
 	JoystickButton *toteLifterUp;
 	JoystickButton *toteLifterDown;
 	JoystickButton *zeroLifter;
+	JoystickButton *canArmOverrideUp;
+	JoystickButton *canArmOverrideDown;
 
-public:
 	OI();
 	~OI();
 	Joystick *getJoystickLeft();
