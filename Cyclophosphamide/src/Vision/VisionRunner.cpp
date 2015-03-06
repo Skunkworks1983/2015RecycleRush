@@ -15,8 +15,7 @@ VisionRunner::VisionRunner(int xRes, int yRes, int port, float fps) {
 	cap = new VideoCapture();
 }
 
-VisionRunner::~VisionRunner() {
-}
+VisionRunner::~VisionRunner() {}
 
 VisionRunner &VisionRunner::getInstance(int xRes, int yRes, int port,
 		float fps) {

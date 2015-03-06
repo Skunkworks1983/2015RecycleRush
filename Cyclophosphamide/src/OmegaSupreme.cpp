@@ -5,27 +5,34 @@
  *      Author: Administrator
  */
 
-#include <Commands/Automatic/TimedDrive.h>
-#include <Commands/Drivebase/ZeroGyro.h>
+#include <AnalogInput.h>
+#include <CANTalon.h>
+#include <Commands/Autonomous/Autonomous.h>
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
+#include <Commands/Drivebase/ZeroGyro.h>
+#include <Commands/Scheduler.h>
 #include <Commands/ToteIntake/ToteIntake.h>
-#include <Commands/Automatic/SimpleDriveForward.h>
-#include <Commands/Automatic/TurnTo.h>
 #include <Commands/ToteLifting/DownUp.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
-#include "OmegaSupreme.h"
-#include "WPILib.h"
-#include "Commands/Command.h"
-#include "Commands/UpdateCompressor.h"
-
-#include "Commands/Autonomous/Scripting.h"
-
-#include "CommandBase.h"
-#include "RobotMap.h"
+#include <DigitalInput.h>
+#include <Encoder.h>
+#include <GyroDriver/IMU.h>
+#include <LiveWindow/LiveWindow.h>
+#include <OI.h>
+#include <OmegaSupreme.h>
+#include <RobotBase.h>
+#include <RobotMap.h>
 #include <stdio.h>
-
+#include <SmartDashboard/SendableChooser.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/CanCollecterino.h>
+#include <Subsystems/Craaaw.h>
+#include <Subsystems/DriveBae.h>
+#include <Subsystems/ToteLifterino.h>
+#include <Timer.h>
+#include <Utility.h>
+#include <Vision/FollowVision.h>
 #include <Vision/VisionRunner.h>
-#include "Commands/Autonomous/Autonomous.h"
 
 OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
@@ -159,13 +166,15 @@ void OmegaSupreme::DisabledInit() {
 
 void OmegaSupreme::TestInit() {
 	Scheduler::GetInstance()->RemoveAll();
-	SmartDashboard::PutData(CommandBase::pneumatics);
-	SmartDashboard::PutData("Run compressor", new UpdateCompressor());
+	//SmartDashboard::PutData(CommandBase::pneumatics);
+	//SmartDashboard::PutData("Run compressor", new UpdateCompressor());
+	Command *cmd = new FollowVision(true);
+	cmd->Start();
 }
 
 void OmegaSupreme::TestPeriodic() {
+	Scheduler::GetInstance()->Run();
 	lw->Run();
-
 }
 
 void OmegaSupreme::WatchDogg() {

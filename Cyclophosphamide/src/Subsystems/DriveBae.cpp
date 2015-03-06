@@ -119,6 +119,10 @@ double DriveBae::getForward() {
 	return forward;
 }
 
+double DriveBae::getRight(){
+	return right;
+}
+
 IMU *DriveBae::getGyro() {
 	return gyro;
 }

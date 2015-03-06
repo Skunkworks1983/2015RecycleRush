@@ -57,6 +57,7 @@ public:
 	void setClockwise(double c);
 	double getForward();
 	double getClockwise();
+	double getRight();
 	void execute();
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
