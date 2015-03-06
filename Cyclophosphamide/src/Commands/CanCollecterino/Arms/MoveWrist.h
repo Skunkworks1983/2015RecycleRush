@@ -3,12 +3,12 @@
 
 #include "../../../CommandBase.h"
 #include "WPILib.h"
-
-class MoveWrist: public CommandBase
-{
 /*!
  * Toggles the position of the wrists (opened or closed)
+ * set the pneumatics to forward else reverse.
  */
+class MoveWrist: public CommandBase
+{
 private:
 	DoubleSolenoid::Value setpoint;
 

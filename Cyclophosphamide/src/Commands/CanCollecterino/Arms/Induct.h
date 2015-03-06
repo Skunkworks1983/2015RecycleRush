@@ -3,12 +3,11 @@
 
 #include "../../../CommandBase.h"
 #include "WPILib.h"
-
+/*!
+ * Sets the motor speed of the can grabbing mecanum motors to zero
+ */
 class Induct: public CommandBase
 {
-/*!
- * Sets the motor speed of the can grabbing mecanum motors
- */
 private:
 	int kek;
 public:
