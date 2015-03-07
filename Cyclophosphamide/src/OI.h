@@ -2,6 +2,7 @@
 #define OI_H
 
 #include "WPILib.h"
+#include "utilities/AnalogRangeIOButton.h"
 
 class OI {
 public:
@@ -14,11 +15,8 @@ public:
 	JoystickButton *alignToteFwd;
 	JoystickButton *alignToteRvs;
 	JoystickButton *canToCraaawTransfer;
-	JoystickButton *score;
-	JoystickButton *floorLoader;
 	JoystickButton *leftLoadButton;
 	JoystickButton *rightLoadButton;
-	JoystickButton *carryPos;
 	JoystickButton *loadPos;
 	JoystickButton *floorPos;
 	JoystickButton *moveArmsWhackMode;
@@ -32,6 +30,10 @@ public:
 	JoystickButton *zeroLifter;
 	JoystickButton *canArmOverrideUp;
 	JoystickButton *canArmOverrideDown;
+
+	AnalogRangeIOButton *score;
+	AnalogRangeIOButton *floorLoader;
+	AnalogRangeIOButton *carryPos;
 
 	OI();
 	~OI();
