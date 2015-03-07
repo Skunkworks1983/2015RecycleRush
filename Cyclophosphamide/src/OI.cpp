@@ -63,10 +63,28 @@ OI::OI() {
 	// Driver buttons
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
+	joystickScore = new JoystickButton(joystickRight, 420); //4
+	joystickArmsToggle = new JoystickButton(joystickRight, 421); //thumb thing
+	joystickCanToClaw = new JoystickButton(joystickRight, 422); //3
+	joystickToteUp = new JoystickButton(joystickLeft, 423); //3
+	joystickToteDown = new JoystickButton(joystickLeft, 424); //2
+	joystickWristCollect = new JoystickButton(joystickRight, 425); //trigger
+
+	//Can Arms toggle
+	//Wrist collect
+	//Can to claw
+	//Score
+	//Tote lift up/down
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 }
 
 OI::~OI() {
+	delete joystickScore;
+	delete joystickArmsToggle;
+	delete joystickCanToClaw;
+	delete joystickToteUp;
+	delete joystickToteDown;
+	delete joystickWristCollect;
 	delete alignToteFwd;
 	delete alignToteRvs;
 	delete canToCraaawTransfer;
@@ -161,6 +179,25 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenPressed(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	createButton("whack mode", moveArmsWhackMode, new Whack());
+	SAFE_BUTTON(joystickScore,
+			joystickScore->WhenPressed(new Score()));
+	/*SAFE_BUTTON(joystickArmsToggle,
+			joystickArmsToggle->WhenPressed());*/
+	SAFE_BUTTON(joystickWristCollect,
+			joystickWristCollect->WhenPressed(new Collect(Induct::forward, MoveWrist::close)));
+	SAFE_BUTTON(joystickWristCollect,
+			joystickWristCollect->WhenReleased(new Collect(Induct::stopped, MoveWrist::open)));
+	SAFE_BUTTON(joystickCanToClaw,
+			joystickCanToClaw->WhenPressed(new CanToCraaawTransfer()));
+	SAFE_BUTTON(joystickToteUp,
+			joystickToteUp->WhenPressed(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(joystickToteUp,
+			joystickToteUp->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(joystickToteDown,
+				joystickToteDown->WhenPressed(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(joystickToteDown,
+				joystickToteDown->WhenReleased(new LiftToHeightVelocity(0)));
+
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
