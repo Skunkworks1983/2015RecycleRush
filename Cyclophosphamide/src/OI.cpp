@@ -9,7 +9,7 @@
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/OldToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
@@ -125,11 +125,11 @@ void OI::registerButtonListeners() {
 
 	// Loading/stacking
 	createSwitch("align tote Fwd", alignToteFwd,
-			new ToteIntake(ToteIntake::forward),
-			new ToteIntake(ToteIntake::stopped));
+			new OldToteIntake(OldToteIntake::forward),
+			new OldToteIntake(OldToteIntake::stopped));
 	createSwitch("align tote Rvs", alignToteRvs,
-			new ToteIntake(ToteIntake::reverse),
-			new ToteIntake(ToteIntake::stopped));
+			new OldToteIntake(OldToteIntake::reverse),
+			new OldToteIntake(OldToteIntake::stopped));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,

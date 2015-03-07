@@ -11,7 +11,7 @@
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/Scheduler.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/OldToteIntake.h>
 #include <Commands/ToteLifting/DownUp.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <DigitalInput.h>
@@ -117,14 +117,6 @@ void OmegaSupreme::TeleopInit() {
 	CommandBase::driveBae->getGyro()->ZeroYaw();
 	CommandBase::driveBae->zeroPIDOutput();
 	CommandBase::toteLifterino->getEncoder()->Reset();
-	SmartDashboard::PutData(CommandBase::craaaw);
-	SmartDashboard::PutData("Can up", new MoveArmsFancy(true));
-	SmartDashboard::PutData("Can down", new MoveArmsFancy(false));
-	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
-	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
-	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));
-	SmartDashboard::PutData("Reset Elevator Encoder",
-			new ResetElevatorEncoder());
 }
 
 void OmegaSupreme::TeleopPeriodic() {

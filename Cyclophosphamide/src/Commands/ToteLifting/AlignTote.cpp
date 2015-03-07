@@ -5,12 +5,12 @@
  *      Author: S-4020395
  */
 
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/NewToteIntake.h>
 #include <Commands/ToteLifting/AlignTote.h>
 
 AlignTote::AlignTote() {
-	AddSequential(new ToteIntake(ToteIntake::Direction::forward), .5);
-	AddSequential(new ToteIntake(ToteIntake::Direction::reverse), 1);
+	AddSequential(new NewToteIntake(NewToteIntake::Direction::forward), .5);
+	AddSequential(new NewToteIntake(NewToteIntake::Direction::reverse), 1);
 }
 
 AlignTote::~AlignTote() {
