@@ -4,8 +4,6 @@
 #include <SerialPort.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Subsystems/DriveBae.h>
-#include <utilities/StrafePIDOutput.h>
-#include <Vision/VisionRunner.h>
 #include <cmath>
 #include <cstdint>
 
@@ -43,8 +41,8 @@ DriveBae::DriveBae() :
 		rotPID->Disable();
 	}
 
-	strafePID = new PIDController(DRIVE_STRAFE_P, DRIVE_STRAFE_I,
-	DRIVE_STRAFE_D, &VisionRunner::getInstance(), new StrafePIDOutput(this));
+//	strafePID = new PIDController(DRIVE_STRAFE_P, DRIVE_STRAFE_I,
+//	DRIVE_STRAFE_D, &VisionRunner::getInstance(), new StrafePIDOutput(this));
 
 	strafePID->SetOutputRange(-1, 1);
 

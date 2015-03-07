@@ -31,16 +31,14 @@
 #include <Subsystems/ToteLifterino.h>
 #include <Timer.h>
 #include <Utility.h>
-#include <Vision/FollowVision.h>
-#include <Vision/VisionRunner.h>
 
 OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
 	lw = NULL;
 	chooser = NULL;
 	autonomousCommand = NULL;
-	VisionRunner *vision = new VisionRunner(320, 480);
-	vision->ThreadStart();
+//	VisionRunner *vision = new VisionRunner(320, 480);
+//	vision->ThreadStart();
 }
 
 OmegaSupreme::~OmegaSupreme() {
@@ -168,8 +166,8 @@ void OmegaSupreme::TestInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	//SmartDashboard::PutData(CommandBase::pneumatics);
 	//SmartDashboard::PutData("Run compressor", new UpdateCompressor());
-	Command *cmd = new FollowVision(true);
-	cmd->Start();
+//	Command *cmd = new FollowVision(true);
+//	cmd->Start();
 }
 
 void OmegaSupreme::TestPeriodic() {

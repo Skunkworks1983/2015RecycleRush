@@ -71,8 +71,8 @@ Autonomous *Scripting::createCommand(int size, char *rawData) {
 }
 SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	SendableChooser * chooser = new SendableChooser();
-	chooser->AddDefault("Triple Tote",
-			new ScriptCommand(Autonomous::createTripleTote()));
+//	chooser->AddDefault("Triple Tote",
+//			new ScriptCommand(Autonomous::createTripleTote()));
 	chooser->AddObject("Turn To",
 			new ScriptCommand(
 					Autonomous::createTurnTo(
