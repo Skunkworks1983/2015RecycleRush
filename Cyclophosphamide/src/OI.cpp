@@ -5,53 +5,60 @@
 #include <Commands/CanCollecterino/Arms/MoveWrist.h>
 #include <Commands/CanCollecterino/Arms/Whack.h>
 #include <Commands/CanCollecterino/CanToCraaawTransfer.h>
+#include <Commands/CanCollecterino/Collect.h>
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Score.h>
-#include <Commands/ToteLifting/DownUp.h>
-#include <Commands/ToteLifting/LiftToHeightVelocity.h>
-#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
-#include <Commands/ToteLifting/SafeDownUp.h>
-#include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteIntake/ToteIntake.h>
-#include <Commands/CanCollecterino/Collect.h>
+#include <Commands/ToteLifting/LiftToHeightVelocity.h>
+#include <Commands/ToteLifting/SafeLiftToHeight.h>
+#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <DoubleSolenoid.h>
 #include <Joystick.h>
 #include <OI.h>
+#include <RobotMap.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <utilities/AnalogRangeIOButton.h>
+#include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
 #define VIRTUAL_OI true
+#define OPERATOR_PORT 2
 
 OI::OI() {
 	joystickLeft = new Joystick(0);
 	joystickRight = new Joystick(1);
-	op = new Joystick(2);
+	op = new Joystick(OPERATOR_PORT);
 
 	// Can getting
-	canArms = new JoystickButton(op, 1);
-	canCollectFwd = new JoystickButton(op, 420);
-	canCollectRvs = new JoystickButton(op, 421);
-	canToCraaawTransfer = new JoystickButton(op, 9);
-	craaawToggle = new JoystickButton(op, 16);
+	canArms = new JoystickButton(op, 11);
+	canCollectFwd = new JoystickButton(op, 13);
+	canCollectRvs = new JoystickButton(op, 12);
+	canToCraaawTransfer = new JoystickButton(op, 10);
+	craaawToggle = new JoystickButton(op, 14);
 
 	// Tote stacking
-	alignToteFwd = new JoystickButton(op, 14);
-	alignToteRvs = new JoystickButton(op, 423);
-	loadPos = new JoystickButton(op, 13);
-	floorPos = new JoystickButton(op, 422);
+	alignToteFwd = new JoystickButton(op, 7);
+	alignToteRvs = new JoystickButton(op, 8);
+	loadPos = new JoystickButton(op, 6);
+	floorPos = new JoystickButton(op, 5);
 
 	// Scoring
-	floorLoader = new JoystickButton(op, 424);
-	carryPos = new JoystickButton(op, 11);
-	score = new JoystickButton(op, 5);
+	// TODO tune upper and lower thresholds
+	floorLoader = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis,
+			0.75f, 0.9f);
+	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.4f,
+			0.6f);
+	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.1f,
+			0.35f);
 
 	// Overrides
-	canArmOverrideUp = new JoystickButton(op, 425);
-	canArmOverrideDown = new JoystickButton(op, 426);
+	canArmOverrideUp = new JoystickButton(op, 3);
+	canArmOverrideDown = new JoystickButton(op, 4);
 	wristOverride = new JoystickButton(op, 2);
-	toteLifterUp = new JoystickButton(joystickLeft, 4);
-	toteLifterDown = new JoystickButton(joystickLeft, 5);
-	zeroLifter = new JoystickButton(joystickRight, 5);
+	toteLifterUp = new JoystickButton(op, 9);
+	toteLifterDown = new JoystickButton(op, 15);
+	zeroLifter = new JoystickButton(op, 16);
 
 	// Driver buttons
 	leftLoadButton = new JoystickButton(joystickRight, 5);
@@ -129,7 +136,8 @@ void OI::registerButtonListeners() {
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 
 	// Scoring
-	// TODO floor loader? What it do.
+	createButton("floor loader", floorLoader,
+			new SafeLiftToHeight(TOTE_LIFTER_ONE_TOTE));
 	createButton("score", score, new Score());
 	createButton("lifter carry", carryPos,
 			new SafeLiftToHeight(TOTE_LIFTER_CARRY_HEIGHT));
@@ -142,8 +150,10 @@ void OI::registerButtonListeners() {
 	createSwitch("lifter down override", toteLifterDown,
 			new LiftToHeightVelocity(-.5), new LiftToHeightVelocity(0));
 	createButton("zero lifter", zeroLifter, new ResetElevatorEncoder());
-	createButton("arm up override", canArmOverrideUp, new MoveArms(CAN_POT_UP_POSITION));
-	createButton("arm down override", canArmOverrideDown, new MoveArms(CAN_POT_DOWN_POSITION));
+	createButton("arm up override", canArmOverrideUp,
+			new MoveArms(CAN_POT_UP_POSITION));
+	createButton("arm down override", canArmOverrideDown,
+			new MoveArms(CAN_POT_DOWN_POSITION));
 
 	// Special driver buttons
 	SAFE_BUTTON(leftLoadButton,
