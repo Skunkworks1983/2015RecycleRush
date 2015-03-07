@@ -70,11 +70,6 @@ OI::OI() {
 	joystickToteDown = new JoystickButton(joystickLeft, 424); //2
 	joystickWristCollect = new JoystickButton(joystickRight, 425); //trigger
 
-	//Can Arms toggle
-	//Wrist collect
-	//Can to claw
-	//Score
-	//Tote lift up/down
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 }
 
@@ -181,8 +176,8 @@ void OI::registerButtonListeners() {
 	createButton("whack mode", moveArmsWhackMode, new Whack());
 	SAFE_BUTTON(joystickScore,
 			joystickScore->WhenPressed(new Score()));
-	/*SAFE_BUTTON(joystickArmsToggle,
-			joystickArmsToggle->WhenPressed());*/
+	SAFE_BUTTON(joystickArmsToggle,
+			joystickArmsToggle->WhenPressed(new MoveArmsFancy(MoveArmsFancy::toggle)));
 	SAFE_BUTTON(joystickWristCollect,
 			joystickWristCollect->WhenPressed(new Collect(Induct::forward, MoveWrist::close)));
 	SAFE_BUTTON(joystickWristCollect,
