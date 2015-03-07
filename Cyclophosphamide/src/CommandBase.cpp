@@ -39,7 +39,7 @@ void CommandBase::init() {
 	canCollecterino = new CanCollecterino();
 	canWristerino = new CanWristerino();
 	canIntakerino = new CanIntakerino();
-	newToteIntakerino = new NewToteIntakerino();
+	//newToteIntakerino = new NewToteIntakerino();
 	oldToteIntakerino = new OldToteIntakerino();
 	toteLifterino = new ToteLifterino();
 	oi = new OI();

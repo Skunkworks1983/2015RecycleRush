@@ -4,6 +4,6 @@
 #include "CanCollecterino/Craaaw/CraaawActuate.h"
 
 Score::Score() {
-	AddParallel(new CraaawActuate(DoubleSolenoid::kReverse));
+	AddParallel(new CraaawActuate(CraaawActuate::open));
 	AddSequential(new LiftRelative(SCORE_HEIGHT_CHANGE_AMOUNT_VALUE_INCHES));
 }

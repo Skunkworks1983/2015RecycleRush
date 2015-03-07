@@ -110,8 +110,8 @@ double OI::getAnalogValue(int input) {
 
 void OI::registerButtonListeners() {
 	// Can manipulation
-	createSwitch("canArms", canArms, new MoveArmsFancy(true),
-			new MoveArmsFancy(false));
+	createSwitch("canArms", canArms, new MoveArmsFancy(MoveArmsFancy::up),
+			new MoveArmsFancy(MoveArmsFancy::down));
 	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
 	createSwitch("collect Fwd", canCollectFwd,
 			new Collect(Induct::forward, MoveWrist::close),
@@ -120,8 +120,8 @@ void OI::registerButtonListeners() {
 			new Collect(Induct::reverse, MoveWrist::close),
 			new Collect(Induct::stopped, MoveWrist::open));
 	createSwitch("toggle craaaw", craaawToggle,
-			new CraaawActuate(DoubleSolenoid::kReverse),
-			new CraaawActuate(DoubleSolenoid::kForward));
+			new CraaawActuate(CraaawActuate::open),
+			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
 	createSwitch("align tote Fwd", alignToteFwd,

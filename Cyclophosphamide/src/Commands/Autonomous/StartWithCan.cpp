@@ -23,9 +23,9 @@ Autonomous *Autonomous::createStartWithCan() {
 	cmd->AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_1, .25));
 	cmd->AddSequential(new MoveWrist(MoveWrist::State::open));
 	cmd->AddSequential(new MoveArms(CAN_POT_UP_POSITION));
-	cmd->AddSequential(new MoveArmsFancy(false), 2.0);
-	cmd->AddSequential(new MoveArmsFancy(true), 2.0);
-	cmd->AddSequential(new CraaawActuate(DoubleSolenoid::Value::kForward));
+	cmd->AddSequential(new MoveArmsFancy(MoveArmsFancy::down), 2.0);
+	cmd->AddSequential(new MoveArmsFancy(MoveArmsFancy::up), 2.0);
+	cmd->AddSequential(new CraaawActuate(CraaawActuate::close));
 	cmd->AddSequential(new MoveWrist(MoveWrist::open));
 	//cmd->AddSequential(new TurnTo(50));
 	return cmd;

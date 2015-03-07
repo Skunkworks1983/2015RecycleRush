@@ -5,11 +5,14 @@
 #include "WPILib.h"
 
 class CraaawActuate: public CommandBase {
-private:
-	DoubleSolenoid::Value value;
-
 public:
-	CraaawActuate(DoubleSolenoid::Value value);
+	enum State {
+		open, close, toggle
+	};
+private:
+	State value;
+public:
+	CraaawActuate(State value);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

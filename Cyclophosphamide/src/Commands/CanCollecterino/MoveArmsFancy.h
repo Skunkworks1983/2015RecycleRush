@@ -6,7 +6,10 @@
 
 class MoveArmsFancy: public CommandGroup {
 public:
-	MoveArmsFancy(bool up);
+	enum State {
+		up, down, toggle
+	};
+	MoveArmsFancy(State state);
 };
 
 #endif

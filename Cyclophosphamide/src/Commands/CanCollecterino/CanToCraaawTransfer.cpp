@@ -6,7 +6,7 @@
 #include "Craaaw/CraaawActuate.h"
 
 CanToCraaawTransfer::CanToCraaawTransfer() {
-	AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
+	AddSequential(new CraaawActuate(CraaawActuate::close));
 	AddParallel(new MoveWrist(MoveWrist::open));
 	AddSequential(new LiftRelative(BOUNCE_HEIGHT));
 	AddSequential(new LiftRelative(-BOUNCE_HEIGHT));

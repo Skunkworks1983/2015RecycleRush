@@ -5,7 +5,7 @@
 
 SafeLiftToHeight::SafeLiftToHeight(double destination, bool isCraaawSafe) {
 	if (isCraaawSafe) {
-		AddSequential(new CraaawActuate(DoubleSolenoid::kForward));
+		AddSequential(new CraaawActuate(CraaawActuate::close));
 	}
 	AddSequential(new MoveWrist(MoveWrist::open));
 	AddSequential(new LiftToHeight(destination));
