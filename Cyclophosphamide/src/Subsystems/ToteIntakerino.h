@@ -3,7 +3,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-/*!
+/**
  * Subsystem for loading totes from the human loader station
  * encoders runs off/on
  * PID setpoint 0 (ground level)

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>skunkworks1983: DriveBae Class Reference</title>
+<title>Skunkworks1983: DriveBae Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">skunkworks1983
+   <div id="projectname">Skunkworks1983
    </div>
   </td>
  </tr>
@@ -113,6 +113,12 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:acaf84db82e4cf983a7af983e39f81b45"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaf84db82e4cf983a7af983e39f81b45"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>enableStrafePID</b> (bool state)</td></tr>
+<tr class="separator:acaf84db82e4cf983a7af983e39f81b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadff4067d0f5558bd5678f8e52dffb32"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aadff4067d0f5558bd5678f8e52dffb32"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setStrafeSetPoint</b> (double setPoint)</td></tr>
+<tr class="separator:aadff4067d0f5558bd5678f8e52dffb32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2497d0afa36b5c72f2ee86f8fd892cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2497d0afa36b5c72f2ee86f8fd892cf"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>ReturnPIDInput</b> ()</td></tr>
 <tr class="separator:ac2497d0afa36b5c72f2ee86f8fd892cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,9 +188,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setRight</b> (double 
 <tr class="memitem:a088352135fb6a558c93c0c9da74e37e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a088352135fb6a558c93c0c9da74e37e2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setClockwise</b> (double c)</td></tr>
 <tr class="separator:a088352135fb6a558c93c0c9da74e37e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361b5a623c8e04643a5545daa795876b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a361b5a623c8e04643a5545daa795876b"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getForward</b> ()</td></tr>
+<tr class="separator:a361b5a623c8e04643a5545daa795876b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7fac12731fced5d6e9a7289fb9be485"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7fac12731fced5d6e9a7289fb9be485"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>getClockwise</b> ()</td></tr>
 <tr class="separator:ac7fac12731fced5d6e9a7289fb9be485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b51a78cedeb43380363361e490fa5b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b51a78cedeb43380363361e490fa5b5"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getRight</b> ()</td></tr>
+<tr class="separator:a8b51a78cedeb43380363361e490fa5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa64c38e02e64ee7795f4ae06bab26d48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa64c38e02e64ee7795f4ae06bab26d48"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> ()</td></tr>
 <tr class="separator:aa64c38e02e64ee7795f4ae06bab26d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,46 +209,17 @@ virtual double&#160;</td><td class="memItemRight" valign="bottom"><b>PIDGet</b> 
 <tr class="memitem:a06177effa3aedbcf3874701a93f36f9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06177effa3aedbcf3874701a93f36f9c"></a>
 DRIVE_MOTOR_TYPE *&#160;</td><td class="memItemRight" valign="bottom"><b>getMotor</b> (MotorSide side)</td></tr>
 <tr class="separator:a06177effa3aedbcf3874701a93f36f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2497d0afa36b5c72f2ee86f8fd892cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2497d0afa36b5c72f2ee86f8fd892cf"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>ReturnPIDInput</b> ()</td></tr>
-<tr class="separator:ac2497d0afa36b5c72f2ee86f8fd892cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423ddc49659be37aed2c0509cc55289b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a423ddc49659be37aed2c0509cc55289b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UsePIDOutput</b> (double output)</td></tr>
-<tr class="separator:a423ddc49659be37aed2c0509cc55289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2adbbdb59bb0fdc9ed466a3d2edd92ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2adbbdb59bb0fdc9ed466a3d2edd92ff"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InitDefaultCommand</b> ()</td></tr>
-<tr class="separator:a2adbbdb59bb0fdc9ed466a3d2edd92ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d381de7dfb03bd3dd138a889c01e880"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d381de7dfb03bd3dd138a889c01e880"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpeed</b> (double speedFrontLeft, double speedFrontRight, double speedBackLeft, double speedBackRight)</td></tr>
-<tr class="separator:a1d381de7dfb03bd3dd138a889c01e880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39bbf7738c0574681d27778543f7d621"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39bbf7738c0574681d27778543f7d621"></a>
-<a class="el" href="class_i_m_u.html">IMU</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getGyro</b> ()</td></tr>
-<tr class="separator:a39bbf7738c0574681d27778543f7d621"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489a12b403e0b818083402007ea2e314"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a489a12b403e0b818083402007ea2e314"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTargetAngle</b> (double theta)</td></tr>
-<tr class="separator:a489a12b403e0b818083402007ea2e314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c2778dabdaa81abd29eb9330222f151"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c2778dabdaa81abd29eb9330222f151"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stopPID</b> ()</td></tr>
-<tr class="separator:a4c2778dabdaa81abd29eb9330222f151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af990ac05d3821371b351b7e60055177e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af990ac05d3821371b351b7e60055177e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>startPID</b> ()</td></tr>
-<tr class="separator:af990ac05d3821371b351b7e60055177e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a813f9dfbe7bf7691de735c74e88548d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a813f9dfbe7bf7691de735c74e88548d2"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> ()</td></tr>
-<tr class="separator:a813f9dfbe7bf7691de735c74e88548d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_drive_bae.html">DriveBae</a> drives with field centric. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Cyclophosphamide/src/Subsystems/<a class="el" href="_drive_bae_8h_source.html">DriveBae.h</a></li>
-<li>OneStickMecanum/src/Subsystems/<a class="el" href="_drive_base_8h_source.html">DriveBase.h</a></li>
 <li>Cyclophosphamide/src/Subsystems/DriveBae.cpp</li>
-<li>OneStickMecanum/src/Subsystems/DriveBase.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 5 2015 19:00:04 for skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 7 2015 11:30:40 for Skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

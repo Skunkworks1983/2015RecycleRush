@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>skunkworks1983: Cyclophosphamide/src/Commands/Autonomous/Scripting.h Source File</title>
+<title>Skunkworks1983: Cyclophosphamide/src/Commands/Autonomous/Scripting.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">skunkworks1983
+   <div id="projectname">Skunkworks1983
    </div>
   </td>
  </tr>
@@ -95,31 +95,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">class </span>Command;</div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_script_runner.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_script_runner.html">ScriptRunner</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand() = 0;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">virtual</span> ~<a class="code" href="class_script_runner.html">ScriptRunner</a>() {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand() = 0;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_script_runner.html">ScriptRunner</a>() {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_script_command.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_script_command.html">ScriptCommand</a>: <span class="keyword">public</span> <a class="code" href="class_script_runner.html">ScriptRunner</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;Command *local;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Command *local;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<a class="code" href="class_script_command.html">ScriptCommand</a>(Command *start);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">virtual</span> ~<a class="code" href="class_script_command.html">ScriptCommand</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_script_command.html">ScriptCommand</a>(Command *start);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_script_command.html">ScriptCommand</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_script_loader.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_script_loader.html">ScriptLoader</a>: <span class="keyword">public</span> <a class="code" href="class_script_runner.html">ScriptRunner</a> {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">char</span> *fileName;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">char</span> *fileName;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="class_script_loader.html">ScriptLoader</a>(<span class="keywordtype">char</span> *fName);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">virtual</span> ~<a class="code" href="class_script_loader.html">ScriptLoader</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_script_loader.html">ScriptLoader</a>(<span class="keywordtype">char</span> *fName);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_script_loader.html">ScriptLoader</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> startCommand();</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_scripting.html">   37</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scripting.html">Scripting</a> {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">static</span> <span class="keywordtype">char</span> *<a class="code" href="class_scripting.html#ab94dec041f116a92d48c8b28e3f086c0">readFromFile</a>(<span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> &amp;size);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">static</span> <a class="code" href="class_autonomous.html">Autonomous</a> *<a class="code" href="class_scripting.html#a95d3be53b7e0dd29d434937cf57c928e">createCommand</a>(<span class="keywordtype">int</span> size, <span class="keywordtype">char</span> *rawData);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">static</span> SendableChooser *<a class="code" href="class_scripting.html#abef2e025e053a76c5b2ce8115997162b">generateAutonomousModes</a>(<span class="keywordtype">char</span> *scriptLocations);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">char</span> *<a class="code" href="class_scripting.html#ab94dec041f116a92d48c8b28e3f086c0">readFromFile</a>(<span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> &amp;size);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_autonomous.html">Autonomous</a> *<a class="code" href="class_scripting.html#a95d3be53b7e0dd29d434937cf57c928e">createCommand</a>(<span class="keywordtype">int</span> size, <span class="keywordtype">char</span> *rawData);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">static</span> SendableChooser *<a class="code" href="class_scripting.html#abef2e025e053a76c5b2ce8115997162b">generateAutonomousModes</a>(<span class="keywordtype">char</span> *scriptLocations);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* SRC_COMMANDS_AUTONOMOUS_SCRIPTING_H_ */</span><span class="preprocessor"></span></div>
@@ -134,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 5 2015 19:00:03 for skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 7 2015 11:30:39 for Skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>skunkworks1983: Cyclophosphamide/src/Subsystems/ToteLifterino.h Source File</title>
+<title>Skunkworks1983: Cyclophosphamide/src/Subsystems/ToteLifterino.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">skunkworks1983
+   <div id="projectname">Skunkworks1983
    </div>
   </td>
  </tr>
@@ -97,46 +97,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../utilities/DoubleMotorPIDWrapper.h&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_tote_lifterino.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_tote_lifterino.html">ToteLifterino</a>: <span class="keyword">public</span> Subsystem, <span class="keyword">public</span> PIDOutput, <span class="keyword">public</span> PIDSource {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    DigitalInput *toteUnderInput, *elevatorTopInput;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    DigitalInput *topInput;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    CANTalon *rightMotor, *leftMotor;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    PIDController *pid;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    Encoder *encoder;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">bool</span> ignoreInput, zeroed;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_tote_lifterino.html#a6e94e09ac4fdc3b56101cccfe63385d5">ToteLifterino</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tote_lifterino.html#a972bde0b7cb90474cf63fadad3a9297c">InitDefaultCommand</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">bool</span> getElevatorDigitalInput();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> lowerThan(<span class="keywordtype">double</span> height);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    CANTalon *<a class="code" href="class_tote_lifterino.html#a853d0d90d50406b572d1518719e4f866">getLeftMotor</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    CANTalon *getRightMotor();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">float</span> getPosition();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Encoder *getEncoder();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    PIDController *getPID();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> isToteUnder();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_tote_lifterino.html#a6d449a8d4da13035d3f8e0088800f17e">closeEnough</a>(<span class="keywordtype">float</span> destination);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> setMotorSpeed(<span class="keywordtype">double</span> speed);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> setSetPoints(<span class="keywordtype">double</span> setPoint);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> enablePID(<span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> PIDWrite(<span class="keywordtype">float</span> f);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">double</span> PIDGet();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_tote_lifterino_html_a6d449a8d4da13035d3f8e0088800f17e"><div class="ttname"><a href="class_tote_lifterino.html#a6d449a8d4da13035d3f8e0088800f17e">ToteLifterino::closeEnough</a></div><div class="ttdeci">bool closeEnough(float destination)</div><div class="ttdef"><b>Definition:</b> ToteLifterino.cpp:81</div></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_tote_lifterino.html">ToteLifterino</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> InitDefaultCommand();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> getMagInput();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> setZeroed(<span class="keywordtype">bool</span> zeroed);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span> lowerThan(<span class="keywordtype">double</span> height);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    CANTalon *getLeftMotor();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    CANTalon *getRightMotor();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">double</span> getPosition();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Encoder *getEncoder();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    PIDController *getPID();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">bool</span> closeEnough(<span class="keywordtype">float</span> destination);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> setMotorSpeed(<span class="keywordtype">double</span> speed);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> setSetPoints(<span class="keywordtype">double</span> setPoint);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> enablePID(<span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> PIDWrite(<span class="keywordtype">float</span> f);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">double</span> PIDGet();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_tote_lifterino_html"><div class="ttname"><a href="class_tote_lifterino.html">ToteLifterino</a></div><div class="ttdef"><b>Definition:</b> ToteLifterino.h:13</div></div>
-<div class="ttc" id="class_tote_lifterino_html_a853d0d90d50406b572d1518719e4f866"><div class="ttname"><a href="class_tote_lifterino.html#a853d0d90d50406b572d1518719e4f866">ToteLifterino::getLeftMotor</a></div><div class="ttdeci">CANTalon * getLeftMotor()</div><div class="ttdef"><b>Definition:</b> ToteLifterino.cpp:32</div></div>
-<div class="ttc" id="class_tote_lifterino_html_a6e94e09ac4fdc3b56101cccfe63385d5"><div class="ttname"><a href="class_tote_lifterino.html#a6e94e09ac4fdc3b56101cccfe63385d5">ToteLifterino::ToteLifterino</a></div><div class="ttdeci">ToteLifterino()</div><div class="ttdef"><b>Definition:</b> ToteLifterino.cpp:6</div></div>
-<div class="ttc" id="class_tote_lifterino_html_a972bde0b7cb90474cf63fadad3a9297c"><div class="ttname"><a href="class_tote_lifterino.html#a972bde0b7cb90474cf63fadad3a9297c">ToteLifterino::InitDefaultCommand</a></div><div class="ttdeci">void InitDefaultCommand()</div><div class="ttdef"><b>Definition:</b> ToteLifterino.cpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 5 2015 19:00:03 for skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 7 2015 11:30:40 for Skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

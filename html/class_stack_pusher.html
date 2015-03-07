@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>skunkworks1983: StackPusher Class Reference</title>
+<title>Skunkworks1983: StackPusher Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">skunkworks1983
+   <div id="projectname">Skunkworks1983
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_cyclophosphamide_2src_2_subsystems_2_stack_pusher_8h_source.html">StackPusher.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_stack_pusher_8h_source.html">StackPusher.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for StackPusher:</div>
 <div class="dyncontent">
@@ -104,24 +104,9 @@ Inheritance diagram for StackPusher:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0ceaed23d26945569ce1ba0f7a0ac03c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ceaed23d26945569ce1ba0f7a0ac03c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PushState</b> { <br />
-&#160;&#160;<b>push</b> = true, 
-<b>pull</b> = false, 
-<b>toggle</b>, 
-<b>push</b> = true, 
-<br />
-&#160;&#160;<b>pull</b> = false
-<br />
- }</td></tr>
-<tr class="separator:a0ceaed23d26945569ce1ba0f7a0ac03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ceaed23d26945569ce1ba0f7a0ac03c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ceaed23d26945569ce1ba0f7a0ac03c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PushState</b> { <br />
-&#160;&#160;<b>push</b> = true, 
-<b>pull</b> = false, 
-<b>toggle</b>, 
-<b>push</b> = true, 
-<br />
-&#160;&#160;<b>pull</b> = false
-<br />
+<tr class="memitem:a0ceaed23d26945569ce1ba0f7a0ac03c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ceaed23d26945569ce1ba0f7a0ac03c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PushState</b> { <b>push</b>, 
+<b>pull</b>, 
+<b>toggle</b>
  }</td></tr>
 <tr class="separator:a0ceaed23d26945569ce1ba0f7a0ac03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -139,29 +124,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Pull</b> ()</td></tr>
 <tr class="memitem:a282863dc7c3e1cc8d22f5d2fa7e13a05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a282863dc7c3e1cc8d22f5d2fa7e13a05"></a>
 DoubleSolenoid::Value&#160;</td><td class="memItemRight" valign="bottom"><b>getValue</b> ()</td></tr>
 <tr class="separator:a282863dc7c3e1cc8d22f5d2fa7e13a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bd59d38a910b52c9be86521f57fd3ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bd59d38a910b52c9be86521f57fd3ec"></a>
+<tr class="memitem:a2d85e99821ac24d1a465048ccf07d974"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d85e99821ac24d1a465048ccf07d974"></a>
 PushState&#160;</td><td class="memItemRight" valign="bottom"><b>getState</b> ()</td></tr>
-<tr class="separator:a4bd59d38a910b52c9be86521f57fd3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab417d768ab7a62abb345f90f430db33b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab417d768ab7a62abb345f90f430db33b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InitDefaultCommand</b> ()</td></tr>
-<tr class="separator:ab417d768ab7a62abb345f90f430db33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4483faf60977aee62e81fec2633cd235"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4483faf60977aee62e81fec2633cd235"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Push</b> ()</td></tr>
-<tr class="separator:a4483faf60977aee62e81fec2633cd235"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf80b44d7b297119070fc5ebd200f66e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf80b44d7b297119070fc5ebd200f66e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Pull</b> ()</td></tr>
-<tr class="separator:aaf80b44d7b297119070fc5ebd200f66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a2d85e99821ac24d1a465048ccf07d974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>pneumatics Stack Pusher pull in, or push out using the stick that hold to the totes to unload totes. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>Cyclophosphamide/src/Subsystems/<a class="el" href="_cyclophosphamide_2src_2_subsystems_2_stack_pusher_8h_source.html">StackPusher.h</a></li>
-<li>Cyclophosphamide/src/Subsystems/StackPusher.cpp</li>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>Cyclophosphamide/src/Subsystems/<a class="el" href="_stack_pusher_8h_source.html">StackPusher.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 5 2015 19:00:06 for skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 7 2015 11:30:41 for Skunkworks1983 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

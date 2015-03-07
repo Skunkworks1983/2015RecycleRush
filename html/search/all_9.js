@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lifttoheight',['LiftToHeight',['../class_lift_to_height.html',1,'']]],
-  ['lifttoheightvelocity',['LiftToHeightVelocity',['../class_lift_to_height_velocity.html',1,'']]]
+  ['oi',['OI',['../class_o_i.html',1,'']]],
+  ['omegasupreme',['OmegaSupreme',['../class_omega_supreme.html',1,'']]],
+  ['overridegyro',['OverrideGyro',['../class_override_gyro.html',1,'']]]
 ];

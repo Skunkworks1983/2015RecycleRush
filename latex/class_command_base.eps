@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 1253.132832
+%%BoundingBox: 0 0 500 1632.653061
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 0.399000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.306250 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 25 def
-/cols 3 def
+/rows 24 def
+/cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -175,29 +175,27 @@ boxfont setfont
 1 boundaspect scale
 (CommandBase) cw
 (Command) cw
-(Command) cw
 (AutoCanGrabber) cw
-(AutoDrive) cw
 (BestDrive) cw
 (CraaawActuate) cw
-(ElevatorBangerang) cw
+(DownUp) cw
 (Induct) cw
+(IntakeMatchDriveBase) cw
+(LiftRelative) cw
 (LiftToHeight) cw
 (LiftToHeightVelocity) cw
 (MecanumDrive) cw
-(MecanumDrive) cw
 (MoveWrist) cw
 (OverrideGyro) cw
-(PushStack) cw
-(PushStack) cw
-(ResetGyro) cw
+(ResetElevatorEncoder) cw
+(SimpleDriveForward) cw
 (TimedDrive) cw
 (ToteIntake) cw
 (TurnTo) cw
-(TurnTo) cw
 (UnrustleGyro) cw
 (UpdateCompressor) cw
-(UpdateCompressor) cw
+(ZeroElevator) cw
+(ZeroElevatorMag) cw
 (ZeroGyro) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -210,90 +208,82 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (CommandBase) 0.500000 23.000000 box
- (Command) 0.000000 24.000000 box
- (Command) 1.000000 24.000000 box
- (AutoCanGrabber) 1.500000 22.000000 box
- (AutoDrive) 1.500000 21.000000 box
- (BestDrive) 1.500000 20.000000 box
- (CraaawActuate) 1.500000 19.000000 box
- (ElevatorBangerang) 1.500000 18.000000 box
- (Induct) 1.500000 17.000000 box
- (LiftToHeight) 1.500000 16.000000 box
- (LiftToHeightVelocity) 1.500000 15.000000 box
- (MecanumDrive) 1.500000 14.000000 box
- (MecanumDrive) 1.500000 13.000000 box
- (MoveWrist) 1.500000 12.000000 box
- (OverrideGyro) 1.500000 11.000000 box
- (PushStack) 1.500000 10.000000 box
- (PushStack) 1.500000 9.000000 box
- (ResetGyro) 1.500000 8.000000 box
- (TimedDrive) 1.500000 7.000000 box
- (ToteIntake) 1.500000 6.000000 box
- (TurnTo) 1.500000 5.000000 box
- (TurnTo) 1.500000 4.000000 box
- (UnrustleGyro) 1.500000 3.000000 box
- (UpdateCompressor) 1.500000 2.000000 box
- (UpdateCompressor) 1.500000 1.000000 box
- (ZeroGyro) 1.500000 0.000000 box
+ (CommandBase) 0.000000 22.000000 box
+ (Command) 0.000000 23.000000 box
+ (AutoCanGrabber) 1.000000 21.000000 box
+ (BestDrive) 1.000000 20.000000 box
+ (CraaawActuate) 1.000000 19.000000 box
+ (DownUp) 1.000000 18.000000 box
+ (Induct) 1.000000 17.000000 box
+ (IntakeMatchDriveBase) 1.000000 16.000000 box
+ (LiftRelative) 1.000000 15.000000 box
+ (LiftToHeight) 1.000000 14.000000 box
+ (LiftToHeightVelocity) 1.000000 13.000000 box
+ (MecanumDrive) 1.000000 12.000000 box
+ (MoveWrist) 1.000000 11.000000 box
+ (OverrideGyro) 1.000000 10.000000 box
+ (ResetElevatorEncoder) 1.000000 9.000000 box
+ (SimpleDriveForward) 1.000000 8.000000 box
+ (TimedDrive) 1.000000 7.000000 box
+ (ToteIntake) 1.000000 6.000000 box
+ (TurnTo) 1.000000 5.000000 box
+ (UnrustleGyro) 1.000000 4.000000 box
+ (UpdateCompressor) 1.000000 3.000000 box
+ (ZeroElevator) 1.000000 2.000000 box
+ (ZeroElevatorMag) 1.000000 1.000000 box
+ (ZeroGyro) 1.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-0 0.500000 23.000000 out
+0 0.000000 22.000000 out
 solid
-0.000000 1.000000 24.000000 conn
+1 0.000000 23.000000 in
 solid
-1 0.000000 24.000000 in
+1 0.000000 21.250000 out
 solid
-1 1.000000 24.000000 in
+0 0.000000 21.500000 hedge
 solid
-1 0.500000 22.250000 out
+0 0.000000 20.500000 hedge
 solid
-0 0.500000 22.500000 hedge
+0 0.000000 19.500000 hedge
 solid
-0 0.500000 21.500000 hedge
+0 0.000000 18.500000 hedge
 solid
-0 0.500000 20.500000 hedge
+0 0.000000 17.500000 hedge
 solid
-0 0.500000 19.500000 hedge
+0 0.000000 16.500000 hedge
 solid
-0 0.500000 18.500000 hedge
+0 0.000000 15.500000 hedge
 solid
-0 0.500000 17.500000 hedge
+0 0.000000 14.500000 hedge
 solid
-0 0.500000 16.500000 hedge
+0 0.000000 13.500000 hedge
 solid
-0 0.500000 15.500000 hedge
+0 0.000000 12.500000 hedge
 solid
-0 0.500000 14.500000 hedge
+0 0.000000 11.500000 hedge
 solid
-0 0.500000 13.500000 hedge
+0 0.000000 10.500000 hedge
 solid
-0 0.500000 12.500000 hedge
+0 0.000000 9.500000 hedge
 solid
-0 0.500000 11.500000 hedge
+0 0.000000 8.500000 hedge
 solid
-0 0.500000 10.500000 hedge
+0 0.000000 7.500000 hedge
 solid
-0 0.500000 9.500000 hedge
+0 0.000000 6.500000 hedge
 solid
-0 0.500000 8.500000 hedge
+0 0.000000 5.500000 hedge
 solid
-0 0.500000 7.500000 hedge
+0 0.000000 4.500000 hedge
 solid
-0 0.500000 6.500000 hedge
+0 0.000000 3.500000 hedge
 solid
-0 0.500000 5.500000 hedge
+0 0.000000 2.500000 hedge
 solid
-0 0.500000 4.500000 hedge
+0 0.000000 1.500000 hedge
 solid
-0 0.500000 3.500000 hedge
+0 0.000000 0.500000 hedge
 solid
-0 0.500000 2.500000 hedge
-solid
-0 0.500000 1.500000 hedge
-solid
-0 0.500000 0.500000 hedge
-solid
-0.500000 23.000000 0.500000 vedge
+0.000000 22.000000 0.500000 vedge

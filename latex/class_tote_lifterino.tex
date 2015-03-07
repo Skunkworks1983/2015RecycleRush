@@ -13,22 +13,25 @@ Inheritance diagram for Tote\+Lifterino\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_tote_lifterino_a6e94e09ac4fdc3b56101cccfe63385d5}{Tote\+Lifterino} ()
+\hypertarget{class_tote_lifterino_a972bde0b7cb90474cf63fadad3a9297c}{}void {\bfseries Init\+Default\+Command} ()\label{class_tote_lifterino_a972bde0b7cb90474cf63fadad3a9297c}
+
 \item 
-void \hyperlink{class_tote_lifterino_a972bde0b7cb90474cf63fadad3a9297c}{Init\+Default\+Command} ()
+\hypertarget{class_tote_lifterino_a7f0063d9a14e6a9413e7b38847854962}{}bool {\bfseries get\+Mag\+Input} ()\label{class_tote_lifterino_a7f0063d9a14e6a9413e7b38847854962}
+
 \item 
-\hypertarget{class_tote_lifterino_a203f5417db4d710fbf5ddba98d75e0b2}{}bool {\bfseries get\+Elevator\+Digital\+Input} ()\label{class_tote_lifterino_a203f5417db4d710fbf5ddba98d75e0b2}
+\hypertarget{class_tote_lifterino_a039877dfaec2b0bc1c722ac852674b78}{}void {\bfseries set\+Zeroed} (bool zeroed)\label{class_tote_lifterino_a039877dfaec2b0bc1c722ac852674b78}
 
 \item 
 \hypertarget{class_tote_lifterino_a3a5cbfd809e851a8cbd5202ea0565626}{}bool {\bfseries lower\+Than} (double height)\label{class_tote_lifterino_a3a5cbfd809e851a8cbd5202ea0565626}
 
 \item 
-C\+A\+N\+Talon $\ast$ \hyperlink{class_tote_lifterino_a853d0d90d50406b572d1518719e4f866}{get\+Left\+Motor} ()
+\hypertarget{class_tote_lifterino_a853d0d90d50406b572d1518719e4f866}{}C\+A\+N\+Talon $\ast$ {\bfseries get\+Left\+Motor} ()\label{class_tote_lifterino_a853d0d90d50406b572d1518719e4f866}
+
 \item 
 \hypertarget{class_tote_lifterino_abda31d2e071bd526afd95a35d7dc0f14}{}C\+A\+N\+Talon $\ast$ {\bfseries get\+Right\+Motor} ()\label{class_tote_lifterino_abda31d2e071bd526afd95a35d7dc0f14}
 
 \item 
-\hypertarget{class_tote_lifterino_a843259169828493c1a347af0906cf1d5}{}float {\bfseries get\+Position} ()\label{class_tote_lifterino_a843259169828493c1a347af0906cf1d5}
+\hypertarget{class_tote_lifterino_a2bf754226a84928655ad00a1fa5dc7a6}{}double {\bfseries get\+Position} ()\label{class_tote_lifterino_a2bf754226a84928655ad00a1fa5dc7a6}
 
 \item 
 \hypertarget{class_tote_lifterino_a2e7f3a02eebaddca1805c282715a6659}{}Encoder $\ast$ {\bfseries get\+Encoder} ()\label{class_tote_lifterino_a2e7f3a02eebaddca1805c282715a6659}
@@ -37,10 +40,8 @@ C\+A\+N\+Talon $\ast$ \hyperlink{class_tote_lifterino_a853d0d90d50406b572d151871
 \hypertarget{class_tote_lifterino_af6781e4b7e6a9a5e1f7f8e68ff84500c}{}P\+I\+D\+Controller $\ast$ {\bfseries get\+P\+I\+D} ()\label{class_tote_lifterino_af6781e4b7e6a9a5e1f7f8e68ff84500c}
 
 \item 
-\hypertarget{class_tote_lifterino_adec58eb5c2193a45a53f8f9f4812875a}{}bool {\bfseries is\+Tote\+Under} ()\label{class_tote_lifterino_adec58eb5c2193a45a53f8f9f4812875a}
+\hypertarget{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}{}bool {\bfseries close\+Enough} (float destination)\label{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}
 
-\item 
-bool \hyperlink{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}{close\+Enough} (float destination)
 \item 
 \hypertarget{class_tote_lifterino_a116242e1863680c49bc06d4b1156fa3a}{}void {\bfseries set\+Motor\+Speed} (double speed)\label{class_tote_lifterino_a116242e1863680c49bc06d4b1156fa3a}
 
@@ -61,43 +62,6 @@ bool \hyperlink{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}{close\+E
 
 \subsection{Detailed Description}
 Lift or elevate the totes up and down. P\+I\+D have the set point that elevates up/ down with certain height. Encoders 
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_tote_lifterino_a6e94e09ac4fdc3b56101cccfe63385d5}{}\index{Tote\+Lifterino@{Tote\+Lifterino}!Tote\+Lifterino@{Tote\+Lifterino}}
-\index{Tote\+Lifterino@{Tote\+Lifterino}!Tote\+Lifterino@{Tote\+Lifterino}}
-\subsubsection[{Tote\+Lifterino}]{\setlength{\rightskip}{0pt plus 5cm}Tote\+Lifterino\+::\+Tote\+Lifterino (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_lifterino_a6e94e09ac4fdc3b56101cccfe63385d5}
-Default Constructor. Normal Initialization 
-
-\subsection{Member Function Documentation}
-\hypertarget{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}{}\index{Tote\+Lifterino@{Tote\+Lifterino}!close\+Enough@{close\+Enough}}
-\index{close\+Enough@{close\+Enough}!Tote\+Lifterino@{Tote\+Lifterino}}
-\subsubsection[{close\+Enough}]{\setlength{\rightskip}{0pt plus 5cm}bool Tote\+Lifterino\+::close\+Enough (
-\begin{DoxyParamCaption}
-\item[{float}]{destination}
-\end{DoxyParamCaption}
-)}\label{class_tote_lifterino_a6d449a8d4da13035d3f8e0088800f17e}
-Used to check if the stacker is close enough to its encoder value for each position. Allowed variablitity determined by T\+O\+T\+E\+\_\+\+L\+I\+F\+T\+E\+R\+\_\+\+E\+N\+C\+O\+D\+E\+R\+\_\+\+D\+E\+A\+D\+B\+A\+N\+D. Takes a constant and checks if (value $>$ constant -\/ deadband \&\& value $<$ constant + deadband) \begin{DoxyReturn}{Returns}
-if the value is close enough to the constant 
-\end{DoxyReturn}
-\hypertarget{class_tote_lifterino_a853d0d90d50406b572d1518719e4f866}{}\index{Tote\+Lifterino@{Tote\+Lifterino}!get\+Left\+Motor@{get\+Left\+Motor}}
-\index{get\+Left\+Motor@{get\+Left\+Motor}!Tote\+Lifterino@{Tote\+Lifterino}}
-\subsubsection[{get\+Left\+Motor}]{\setlength{\rightskip}{0pt plus 5cm}C\+A\+N\+Talon $\ast$ Tote\+Lifterino\+::get\+Left\+Motor (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_lifterino_a853d0d90d50406b572d1518719e4f866}
-Returns the encoder\hypertarget{class_tote_lifterino_a972bde0b7cb90474cf63fadad3a9297c}{}\index{Tote\+Lifterino@{Tote\+Lifterino}!Init\+Default\+Command@{Init\+Default\+Command}}
-\index{Init\+Default\+Command@{Init\+Default\+Command}!Tote\+Lifterino@{Tote\+Lifterino}}
-\subsubsection[{Init\+Default\+Command}]{\setlength{\rightskip}{0pt plus 5cm}void Tote\+Lifterino\+::\+Init\+Default\+Command (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_lifterino_a972bde0b7cb90474cf63fadad3a9297c}
-Does nothing because Set\+Default\+Command call creates circular includes and compile errors 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

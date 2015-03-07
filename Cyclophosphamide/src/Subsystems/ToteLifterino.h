@@ -5,7 +5,7 @@
 #include "WPILib.h"
 #include "robotmap.h"
 #include "../utilities/DoubleMotorPIDWrapper.h"
-/*!
+/**
  * Lift or elevate the totes up and down.
  * PID have the set point that elevates up/ down with certain height.
  * Encoders

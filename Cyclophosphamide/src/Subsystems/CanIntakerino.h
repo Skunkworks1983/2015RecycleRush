@@ -8,7 +8,7 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 
-/*!
+/**
  *the wheels spin to intake or expell the recycle bin.
  */
 class CanIntakerino: public Subsystem {

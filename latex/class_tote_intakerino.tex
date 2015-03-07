@@ -13,69 +13,24 @@ Inheritance diagram for Tote\+Intakerino\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_tote_intakerino_a754194267a81d64543ca83d0ca0b6846}{Tote\+Intakerino} ()
-\item 
-void \hyperlink{class_tote_intakerino_a57cd7612442d6a91f12e4e736f6f9715}{Init\+Default\+Command} ()
-\item 
-void \hyperlink{class_tote_intakerino_a638941b4ab78e4012e7e2c3061e121e0}{set\+Motor} (float speed)
-\item 
-void \hyperlink{class_tote_intakerino_a2edb12308d1b27cb5a07e7bd01c1a889}{hold} ()
-\item 
-bool \hyperlink{class_tote_intakerino_a8c225c0792fddce3e79f07a0faad1318}{is\+Loaded} ()
-\item 
-\hypertarget{class_tote_intakerino_aaed3645ed0174f77bc542e5650019411}{}Encoder $\ast$ {\bfseries get\+Encoder} ()\label{class_tote_intakerino_aaed3645ed0174f77bc542e5650019411}
+\hypertarget{class_tote_intakerino_a57cd7612442d6a91f12e4e736f6f9715}{}void {\bfseries Init\+Default\+Command} ()\label{class_tote_intakerino_a57cd7612442d6a91f12e4e736f6f9715}
 
 \item 
-\hypertarget{class_tote_intakerino_a746600f1fd998f1bf686c711bc7d31a5}{}virtual void {\bfseries P\+I\+D\+Write} (float f)\label{class_tote_intakerino_a746600f1fd998f1bf686c711bc7d31a5}
-
-\item 
-\hypertarget{class_tote_intakerino_a3045993c8702f1b8bd5827090da1f1ad}{}virtual double {\bfseries P\+I\+D\+Get} ()\label{class_tote_intakerino_a3045993c8702f1b8bd5827090da1f1ad}
-
+void \hyperlink{class_tote_intakerino_a6e41e3fc8b92f24339ac3094884a18e2}{set\+Motors} (float speed)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Subsystem for loading totes from the human loader station encoders runs off/on P\+I\+D setpoint 0 (ground level) 
 
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_tote_intakerino_a754194267a81d64543ca83d0ca0b6846}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!Tote\+Intakerino@{Tote\+Intakerino}}
-\index{Tote\+Intakerino@{Tote\+Intakerino}!Tote\+Intakerino@{Tote\+Intakerino}}
-\subsubsection[{Tote\+Intakerino}]{\setlength{\rightskip}{0pt plus 5cm}Tote\+Intakerino\+::\+Tote\+Intakerino (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_intakerino_a754194267a81d64543ca83d0ca0b6846}
-Default constructor 
-
 \subsection{Member Function Documentation}
-\hypertarget{class_tote_intakerino_a2edb12308d1b27cb5a07e7bd01c1a889}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!hold@{hold}}
-\index{hold@{hold}!Tote\+Intakerino@{Tote\+Intakerino}}
-\subsubsection[{hold}]{\setlength{\rightskip}{0pt plus 5cm}void Tote\+Intakerino\+::hold (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_intakerino_a2edb12308d1b27cb5a07e7bd01c1a889}
-Stop the motors and keeps them at their current position \hypertarget{class_tote_intakerino_a57cd7612442d6a91f12e4e736f6f9715}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!Init\+Default\+Command@{Init\+Default\+Command}}
-\index{Init\+Default\+Command@{Init\+Default\+Command}!Tote\+Intakerino@{Tote\+Intakerino}}
-\subsubsection[{Init\+Default\+Command}]{\setlength{\rightskip}{0pt plus 5cm}void Tote\+Intakerino\+::\+Init\+Default\+Command (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_intakerino_a57cd7612442d6a91f12e4e736f6f9715}
-Does nothing because call creates circular dependencies and compile errors \hypertarget{class_tote_intakerino_a8c225c0792fddce3e79f07a0faad1318}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!is\+Loaded@{is\+Loaded}}
-\index{is\+Loaded@{is\+Loaded}!Tote\+Intakerino@{Tote\+Intakerino}}
-\subsubsection[{is\+Loaded}]{\setlength{\rightskip}{0pt plus 5cm}bool Tote\+Intakerino\+::is\+Loaded (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_tote_intakerino_a8c225c0792fddce3e79f07a0faad1318}
-Tells if a tote is loaded based on the work done by the P\+I\+D \hypertarget{class_tote_intakerino_a638941b4ab78e4012e7e2c3061e121e0}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!set\+Motor@{set\+Motor}}
-\index{set\+Motor@{set\+Motor}!Tote\+Intakerino@{Tote\+Intakerino}}
-\subsubsection[{set\+Motor}]{\setlength{\rightskip}{0pt plus 5cm}void Tote\+Intakerino\+::set\+Motor (
+\hypertarget{class_tote_intakerino_a6e41e3fc8b92f24339ac3094884a18e2}{}\index{Tote\+Intakerino@{Tote\+Intakerino}!set\+Motors@{set\+Motors}}
+\index{set\+Motors@{set\+Motors}!Tote\+Intakerino@{Tote\+Intakerino}}
+\subsubsection[{set\+Motors}]{\setlength{\rightskip}{0pt plus 5cm}void Tote\+Intakerino\+::set\+Motors (
 \begin{DoxyParamCaption}
 \item[{float}]{speed}
 \end{DoxyParamCaption}
-)}\label{class_tote_intakerino_a638941b4ab78e4012e7e2c3061e121e0}
+)}\label{class_tote_intakerino_a6e41e3fc8b92f24339ac3094884a18e2}
 Sets the speed of rollers that pull the tote in 
 \begin{DoxyParams}{Parameters}
 {\em speed} & value to set the motor to \\

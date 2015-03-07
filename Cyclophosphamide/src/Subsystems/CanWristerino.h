@@ -3,7 +3,9 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-
+/**
+ * pneumatics, set wrist to set value
+ */
 class CanWristerino: public Subsystem {
 private:
 	DoubleSolenoid *wrists;

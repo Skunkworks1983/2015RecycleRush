@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hold',['hold',['../class_tote_intakerino.html#a2edb12308d1b27cb5a07e7bd01c1a889',1,'ToteIntakerino']]]
+  ['generateautonomousmodes',['generateAutonomousModes',['../class_scripting.html#abef2e025e053a76c5b2ce8115997162b',1,'Scripting']]],
+  ['getyaw',['GetYaw',['../class_i_m_u.html#aecfad6302ad01869e1959b1d27fc4df1',1,'IMU']]]
 ];

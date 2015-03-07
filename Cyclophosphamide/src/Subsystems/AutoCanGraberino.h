@@ -5,7 +5,11 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
-
+/**
+ * toggle auto can grabber
+ * pneumatics
+ * set encoder to run up/down
+ */
 class AutoCanGraberino: public Subsystem
 {
 private:
