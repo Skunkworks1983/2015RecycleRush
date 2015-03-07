@@ -1,14 +1,11 @@
 #ifndef AutoDrive_H
 #define AutoDrive_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
-class TimedDrive: public CommandBase
-{
+class TimedDrive: public CommandBase {
 private:
 	long targetTime;
-	long timePassed;
 	long duration;
 	double forwardSlashSpeed;
 	double backSlashSpeed;

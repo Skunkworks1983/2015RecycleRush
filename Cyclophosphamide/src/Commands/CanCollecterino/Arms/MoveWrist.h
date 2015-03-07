@@ -3,17 +3,23 @@
 
 #include "../../../CommandBase.h"
 #include "WPILib.h"
+
 /*!
  * Toggles the position of the wrists (opened or closed)
  * set the pneumatics to forward else reverse.
  */
-class MoveWrist: public CommandBase
-{
+
+
+class MoveWrist: public CommandBase {
+public:
+	enum State {
+		open, close, toggle
+	};
 private:
-	DoubleSolenoid::Value setpoint;
+	State state;
 
 public:
-	MoveWrist(bool open);
+	MoveWrist(State state);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class UnrustleGyro: public CommandBase
-{
+class UnrustleGyro: public CommandBase {
 public:
 	/**
 	 * Sets the drivebase PID to the current position

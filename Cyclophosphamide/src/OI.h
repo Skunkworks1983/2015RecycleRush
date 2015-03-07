@@ -4,42 +4,46 @@
 #include "WPILib.h"
 
 class OI {
-private:
-	public:
-		Joystick *joystickLeft;
-		Joystick *joystickRight;
-		Joystick *joystickOperator;
+public:
+	Joystick *joystickLeft;
+	Joystick *joystickRight;
+	Joystick *op;
 
-		JoystickButton *pushToggle;
-		JoystickButton *pullButton;
-		JoystickButton *toteIntakeButtonForward;
-		JoystickButton *moveArmsDown;
+	// How many buttons does a man need?
 
-		JoystickButton *leftLoadButton;
-		JoystickButton *rightLoadButton;
+	JoystickButton *alignToteFwd;
+	JoystickButton *alignToteRvs;
+	JoystickButton *canToCraaawTransfer;
+	JoystickButton *score;
+	JoystickButton *floorLoader;
+	JoystickButton *leftLoadButton;
+	JoystickButton *rightLoadButton;
+	JoystickButton *carryPos;
+	JoystickButton *loadPos;
+	JoystickButton *floorPos;
+	JoystickButton *moveArmsWhackMode;
+	JoystickButton *canArms;
+	JoystickButton *canCollectFwd;
+	JoystickButton *canCollectRvs;
+	JoystickButton *wristOverride;
+	JoystickButton *craaawToggle;
+	JoystickButton *toteLifterUp;
+	JoystickButton *toteLifterDown;
+	JoystickButton *zeroLifter;
+	JoystickButton *canArmOverrideUp;
+	JoystickButton *canArmOverrideDown;
 
-		JoystickButton *toteLifterUp;
-		JoystickButton *toteLifterDown;
-		JoystickButton *toteLifterFloor;
-		JoystickButton *toteLifterCarry;
-		JoystickButton *toteLifterLift;
-
-		JoystickButton *moveArmsUp;
-		JoystickButton *moveArmsKnock;
-		JoystickButton *collect;
-		JoystickButton *wristOpen;
-		JoystickButton *wristClose;
-
-	public:
-		OI();
-		~OI();
-		Joystick *getJoystickLeft();
-		Joystick *getJoystickRight();
-		Joystick *getJoystickOperator();
-		double getAnalogValue(int input);
-		bool getUnactuate();
-		void registerButtonListeners();
-		bool isJoystickButtonPressed(bool isLeft, int val);
-	};
+	OI();
+	~OI();
+	Joystick *getJoystickLeft();
+	Joystick *getJoystickRight();
+	Joystick *getJoystickOperator();
+	double getAnalogValue(int input);
+	bool getUnactuate();
+	void registerButtonListeners();
+	bool isJoystickButtonPressed(bool isLeft, int val);
+	void createButton(std::string key, Button *b, Command *c);
+	void createSwitch(std::string key, Button *b, Command *on, Command *off);
+};
 
 #endif

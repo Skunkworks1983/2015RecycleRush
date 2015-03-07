@@ -1,15 +1,18 @@
+#include <Commands/ToteLifting/LiftToHeight.h>
+#include <Commands/ToteLifting/zeroing/ZeroElevator.h>
 #include <Subsystems/ToteLifterino.h>
 #include "../RobotMap.h"
-#include "../Commands/ToteHandling/LiftToHeight.h"
 #include "WPILib.h"
 
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
-
 	SAFE_INIT(TOTE_LIFTER_RIGHT_PORT,
 			rightMotor = new CANTalon(TOTE_LIFTER_RIGHT_PORT););
 	SAFE_INIT(TOTE_LIFTER_LEFT_PORT,
 			leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
+
+	SAFE_INIT(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT,
+			topInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT););
 
 	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
@@ -19,14 +22,19 @@ ToteLifterino::ToteLifterino() :
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
 	encoder->Reset();
+
+	ignoreInput = true; //topInput->Get() && botInput->Get();
 }
 
 void ToteLifterino::InitDefaultCommand() {
-	//SetDefaultCommand(new LiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 }
 
-bool ToteLifterino::getElevatorDigitalInput() {
-	return elevatorTopInput->Get();
+void ToteLifterino::setZeroed(bool zeroed) {
+	this->zeroed = zeroed;
+}
+
+bool ToteLifterino::getMagInput() {
+	return topInput->Get();
 }
 
 CANTalon *ToteLifterino::getLeftMotor() {
@@ -37,7 +45,7 @@ CANTalon *ToteLifterino::getRightMotor() {
 	return rightMotor;
 }
 
-float ToteLifterino::getPosition() {
+double ToteLifterino::getPosition() {
 	return encoder->Get();
 }
 
@@ -49,10 +57,6 @@ PIDController *ToteLifterino::getPID() {
 	return pid;
 }
 
-bool ToteLifterino::isToteUnder() {
-	return toteUnderInput->Get();
-}
-
 void ToteLifterino::enablePID(bool enable) {
 	if (enable && !pid->IsEnabled()) {
 		pid->Enable();
@@ -62,13 +66,19 @@ void ToteLifterino::enablePID(bool enable) {
 	}
 }
 
-//disables the pid
 void ToteLifterino::setMotorSpeed(double speed) {
 	if (speed < -1) {
 		speed = -1;
 	} else if (speed > 1) {
 		speed = 1;
 	}
+
+	if (!ignoreInput) {
+		if ((topInput->Get() && speed > 0)) {
+			speed = 0;
+		}
+	}
+
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
@@ -79,8 +89,10 @@ void ToteLifterino::setSetPoints(double setPoint) {
 }
 
 bool ToteLifterino::closeEnough(float destination) {
-	SmartDashboard::PutBoolean("closeEnough", pid->OnTarget());
-	return pid->OnTarget();
+	bool close = encoder->Get() < destination + TOTE_LIFTER_TOLERANCE
+			&& encoder->Get() > destination - TOTE_LIFTER_TOLERANCE;
+	SmartDashboard::PutBoolean("closeEnough", close);
+	return close;
 }
 
 bool ToteLifterino::lowerThan(double height) {
@@ -88,6 +100,13 @@ bool ToteLifterino::lowerThan(double height) {
 }
 
 void ToteLifterino::PIDWrite(float f) {
+	if (!ignoreInput) {
+		if (topInput->Get() && f > 0) {
+			f = 0;
+		}
+	} else {
+		SmartDashboard::PutString("LifterStatus", "Ignoring Input!");
+	}
 	leftMotor->Set(f);
 	rightMotor->Set(-f);
 	SmartDashboard::PutNumber("MotorValue", f);

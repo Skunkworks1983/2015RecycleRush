@@ -4,12 +4,12 @@
 BestDrive::BestDrive(float distance, Direction direction) {
 	Requires(driveBae);
 	this->direction = direction;
-	targetDistance = distance;
+	targetDistance = distance * DRIVE_BASE_TICKS_PER_INCH;
 }
 
 // Called just before this Command runs the first time
 void BestDrive::Initialize() {
-	driveBae->startRotPID();
+	//driveBae->startRotPID();
 	driveBae->zeroEncoders();
 	driveBae->setModeAll(CANSpeedController::kPosition);
 	driveBae->enablePIDAll(true);
@@ -52,14 +52,17 @@ void BestDrive::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BestDrive::IsFinished() {
-	return driveBae->withinThreshhold(AUTO_DRIVE_THRESHHOLD, targetDistance);
+	return driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
+			> targetDistance - 30
+			&& driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
+					< targetDistance + 30;
+	//return driveBae->withinThreshhold(AUTO_DRIVE_THRESHHOLD, targetDistance);
 }
 
 // Called once after isFinished returns true
 void BestDrive::End() {
 	driveBae->setAll(0);
 	driveBae->enablePIDAll(false);
-
 }
 
 // Called when another command which requires one or more of the same

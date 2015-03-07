@@ -3,14 +3,17 @@
 
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
+#include "Arms/Induct.h"
+#include "Arms/MoveWrist.h"
 
-class Collect: public CommandGroup
-{
+
 /*!
  * Toggles the wrists and induct so that a can can be collected
  */
+class Collect: public CommandGroup {
 public:
-	Collect();
+	Collect(Induct::State direction = Induct::forward, MoveWrist::State state =
+			MoveWrist::close);
 };
 
 #endif

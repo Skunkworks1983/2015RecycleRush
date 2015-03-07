@@ -10,6 +10,7 @@ MecanumDrive::MecanumDrive() :
 void MecanumDrive::Initialize() {
 	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
 	driveBae->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
+	driveBae->stopRotPID();
 }
 
 void MecanumDrive::Execute() {
@@ -39,6 +40,11 @@ void MecanumDrive::Execute() {
 
 	// Cube inputs for fine control
 	clockwise = pow(clockwise, 3.0);
+	/*
+	 #if COMPETITION_BOT
+	 clockwise *= .8;	//competition bot drives faster
+	 #endif
+	 */
 	forward = pow(forward, 3.0);
 	right = pow(right, 3.0);
 
@@ -46,7 +52,6 @@ void MecanumDrive::Execute() {
 #if FIELD_ORIENTED
 		// Field-oriented corrections
 		double theta = driveBae->getGyro()->GetYaw();
-		//SmartDashboard::PutNumber("Gyro Angle", theta);
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
 		right = -forward * sin(theta) + right * cos(theta);
@@ -61,8 +66,8 @@ void MecanumDrive::Execute() {
 	forward *= DRIVE_ASPECT_RATIO;
 
 	driveBae->setForward(-forward);
-	driveBae->setRight(-right);
-	if(clockwise != 0) {
+	driveBae->setRight(right);
+	if (clockwise != 0) {
 		driveBae->setClockwise(-clockwise);
 	}
 	driveBae->execute();

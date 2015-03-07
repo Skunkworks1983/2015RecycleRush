@@ -7,14 +7,13 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
+
 /*!
  *the wheels spin to intake or expell the recycle bin.
  */
-class CanIntakerino: public Subsystem
-{
+class CanIntakerino: public Subsystem {
 private:
-	CAN_MOTOR_TYPE *grabMotorLeft;
-	CAN_MOTOR_TYPE *grabMotorRight;
+	CAN_MOTOR_TYPE *grabMotorLeft;CAN_MOTOR_TYPE *grabMotorRight;
 
 public:
 	CanIntakerino();

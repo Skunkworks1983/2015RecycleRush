@@ -10,20 +10,16 @@
  */
 class DriveBae: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	PIDController *rotPID;
+	PIDController *rotPID, *strafePID;
 
-	DRIVE_MOTOR_TYPE *motorFrontLeft;
-	DRIVE_MOTOR_TYPE *motorFrontRight;
-	DRIVE_MOTOR_TYPE *motorBackLeft;
-	DRIVE_MOTOR_TYPE *motorBackRight;
+	DRIVE_MOTOR_TYPE *motorFrontLeft;DRIVE_MOTOR_TYPE *motorFrontRight;DRIVE_MOTOR_TYPE *motorBackLeft;DRIVE_MOTOR_TYPE *motorBackRight;
 
 	IMU *gyro;
 	SerialPort *serialPort;
 	bool gyroEnabled;
 
-	double forward;
-	double right;
-	double clockwise;
+	double forward, right, clockwise;
+
 
 public:
 	DriveBae();
@@ -32,7 +28,8 @@ public:
 	enum MotorSide {
 		FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
 	};
-
+	void enableStrafePID(bool state);
+	void setStrafeSetPoint(double setPoint);
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void InitDefaultCommand();
@@ -60,6 +57,7 @@ public:
 	void setForward(double f);
 	void setRight(double r);
 	void setClockwise(double c);
+	double getForward();
 	double getClockwise();
 	void execute();
 	virtual void PIDWrite(float f);

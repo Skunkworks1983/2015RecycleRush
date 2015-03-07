@@ -10,6 +10,11 @@
 
 #include "WPILib.h"
 
+/*
+ * This is only used if you do not want the subsystem
+ * to be a subclass of PIDSource/PIDOutput
+ */
+
 class DoubleMotorPIDWrapper {
 private:
 	SpeedController *motor1, *motor2;
@@ -28,9 +33,15 @@ public:
 	void setI(double i);
 	void setD(double d);
 
-	double getP(){return motor1pid->GetP();}
-	double getI(){return motor1pid->GetI();}
-	double getD(){return motor1pid->GetD();}
+	double getP() {
+		return motor1pid->GetP();
+	}
+	double getI() {
+		return motor1pid->GetI();
+	}
+	double getD() {
+		return motor1pid->GetD();
+	}
 
 	float getSetPoint();
 

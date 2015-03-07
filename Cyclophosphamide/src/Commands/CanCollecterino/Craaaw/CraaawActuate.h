@@ -4,16 +4,16 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class CraaawActuate: public CommandBase
-{
 /*!
  * Checks if the craaaw is unactuated and actuates it
  */
+
+class CraaawActuate: public CommandBase {
 private:
-	bool waitForInput;
+	DoubleSolenoid::Value value;
 
 public:
-	CraaawActuate(bool waitForInput);
+	CraaawActuate(DoubleSolenoid::Value value);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

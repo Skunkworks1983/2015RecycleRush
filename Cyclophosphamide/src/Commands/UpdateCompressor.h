@@ -4,8 +4,7 @@
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class UpdateCompressor: public CommandBase
-{
+class UpdateCompressor: public CommandBase {
 private:
 	int ticksSinceUpdate;
 public:

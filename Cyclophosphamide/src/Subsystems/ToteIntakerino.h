@@ -21,35 +21,16 @@ private:
 	bool hasTote;
 	bool isWindingDown;
 public:
-	/**
-	 * Default constructor
-	 */
+
 	ToteIntakerino();
-	/**
-	 * Does nothing because call creates circular dependencies and compile errors
-	 */
+
 	void InitDefaultCommand();
-	
+
 	/**
 	 * Sets the speed of rollers that pull the tote in
 	 * @param speed value to set the motor to
 	 */
-	void setMotor(float speed);
-
-	/**
-	 * Stop the motors and keeps them at their current position
-	 */
-	void hold();
-
-	/**
-	 * Tells if a tote is loaded based on the work done by the PID
-	 */
-	bool isLoaded();
-
-	Encoder *getEncoder();
-
-	virtual void PIDWrite(float f);
-	virtual double PIDGet();
+	void setMotors(float speed);
 };
 
 #endif

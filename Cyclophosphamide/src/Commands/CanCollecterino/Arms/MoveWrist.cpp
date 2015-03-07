@@ -1,17 +1,28 @@
 #include <Commands/CanCollecterino/Arms/MoveWrist.h>
 
-MoveWrist::MoveWrist(bool open) {
-	Requires(canCollecterino);
+MoveWrist::MoveWrist(State state) {
+	Requires(canWristerino);
+	this->state = state;
+	//setpoint = open ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse;
 }
 
 void MoveWrist::Initialize() {
-	canCollecterino->setWrist(setpoint);
-	if (canCollecterino->getWristToggle()) {
-		setpoint = DoubleSolenoid::kForward;
-	} else {
-		setpoint = DoubleSolenoid::kReverse;
+	switch (state) {
+	case toggle:
+		if (canWristerino->getWristToggle()) {
+			canWristerino->setWrist(DoubleSolenoid::kForward);
+		} else {
+			canWristerino->setWrist(DoubleSolenoid::kReverse);
+		}
+		canWristerino->doTheToggleWrist();
+		break;
+	case open:
+		canWristerino->setWrist(DoubleSolenoid::kForward);
+		break;
+	case close:
+		canWristerino->setWrist(DoubleSolenoid::kReverse);
+		break;
 	}
-	canCollecterino->doTheToggleWrist();
 }
 
 void MoveWrist::Execute() {

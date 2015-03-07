@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ZeroGyro: public CommandBase
-{
+class ZeroGyro: public CommandBase {
 private:
 	bool firstIteration;
 public:

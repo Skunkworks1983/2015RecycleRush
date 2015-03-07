@@ -1,11 +1,15 @@
+#include <CANSpeedController.h>
 #include <Commands/Automatic/TimedDrive.h>
+#include <RobotMap.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/DriveBae.h>
+#include <Timer.h>
 #include <chrono>
 #include <cmath>
 
 TimedDrive::TimedDrive(float t, float theta) {
 	Requires(driveBae);
 	duration = (long) t * 1000;
-	timePassed = 0;
 	targetTime = 0;
 
 	// Using forward as zero heading with clockwise as positive
@@ -18,20 +22,17 @@ TimedDrive::TimedDrive(float t, float theta) {
 
 void TimedDrive::Initialize() {
 	driveBae->setModeAll(CANSpeedController::kPosition);
+	driveBae->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
+			backSlashSpeed);
 	targetTime = getTime() + duration;
 }
 
 void TimedDrive::Execute() {
-	timePassed = getTime();
-	driveBae->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
-			backSlashSpeed);
+	SmartDashboard::PutNumber("TimedDrive ms left", targetTime - GetTime());
 }
 
 bool TimedDrive::IsFinished() {
-	if (timePassed > targetTime) {
-		return true;
-	}
-	return false;
+	return getTime() + duration > targetTime;
 }
 
 void TimedDrive::End() {
@@ -39,7 +40,7 @@ void TimedDrive::End() {
 }
 
 void TimedDrive::Interrupted() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
+	End();
 }
 
 unsigned long TimedDrive::getTime() {

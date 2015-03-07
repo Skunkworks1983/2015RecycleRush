@@ -1,11 +1,9 @@
 #ifndef TURN_DEGREE_H
 #define TURN_DEGREE_H
 
-#include "../../CommandBase.h"
-#include "WPILib.h"
+#include <CommandBase.h>
 
-class TurnTo: public CommandBase
-{
+class TurnTo: public CommandBase {
 private:
 	float targetAngle;
 	float angleRemaining;

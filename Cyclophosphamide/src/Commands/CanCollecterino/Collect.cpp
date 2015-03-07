@@ -1,8 +1,7 @@
 #include <Commands/CanCollecterino/Collect.h>
-#include "Arms/Induct.h"
-#include "Arms/MoveWrist.h"
-Collect::Collect() {
-	AddSequential(new MoveWrist(false));
-	AddSequential(new Induct());
+
+Collect::Collect(Induct::State direction, MoveWrist::State state) {
+	AddSequential(new MoveWrist(state));
+	AddSequential(new Induct(direction));
 }
 
