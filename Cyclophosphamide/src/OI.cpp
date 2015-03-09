@@ -10,15 +10,14 @@
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Score.h>
 #include <Commands/ToteIntake/OldToteIntake.h>
+#include <Commands/ToteLifting/LiftToHeight.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
-#include <DoubleSolenoid.h>
 #include <Joystick.h>
 #include <OI.h>
 #include <RobotMap.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <utilities/AnalogRangeIOButton.h>
 #include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
@@ -46,11 +45,11 @@ OI::OI() {
 	// Scoring
 	// TODO tune upper and lower thresholds
 	floorLoader = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis,
-			0.75f, 0.9f);
-	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.4f,
-			0.6f);
-	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.1f,
-			0.35f);
+			0.5f, 0.9f);
+	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -0.25f,
+			0.25f);
+	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -1.0f,
+			-0.4f);
 
 	// Overrides
 	canArmOverrideUp = new JoystickButton(op, 3);
@@ -115,7 +114,7 @@ void OI::registerButtonListeners() {
 	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
 	createSwitch("collect Fwd", canCollectFwd,
 			new Collect(Induct::forward, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::open));
+			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
 			new Collect(Induct::reverse, MoveWrist::close),
 			new Collect(Induct::stopped, MoveWrist::open));
@@ -130,8 +129,9 @@ void OI::registerButtonListeners() {
 	createSwitch("align tote Rvs", alignToteRvs,
 			new OldToteIntake(OldToteIntake::reverse),
 			new OldToteIntake(OldToteIntake::stopped));
-	createButton("lifter load", loadPos,
-			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
+	//createButton("lifter load", loadPos,
+	//		new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
+	loadPos->WhenPressed(new LiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 

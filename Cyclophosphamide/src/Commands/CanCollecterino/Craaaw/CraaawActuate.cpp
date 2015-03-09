@@ -10,10 +10,10 @@ void CraaawActuate::Initialize() {
 	DoubleSolenoid::Value theRealValue;
 	switch (value) {
 	case CraaawActuate::open:
-		theRealValue = DoubleSolenoid::Value::kForward;
+		theRealValue = DoubleSolenoid::Value::kReverse;
 		break;
 	case CraaawActuate::close:
-		theRealValue = DoubleSolenoid::Value::kReverse;
+		theRealValue = DoubleSolenoid::Value::kForward;
 		break;
 	case CraaawActuate::toggle:
 		theRealValue =
@@ -30,7 +30,7 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	return IsTimedOut();
+	return true;
 }
 
 void CraaawActuate::End() {

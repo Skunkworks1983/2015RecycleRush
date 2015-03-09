@@ -44,7 +44,7 @@ DriveBae::DriveBae() :
 //	strafePID = new PIDController(DRIVE_STRAFE_P, DRIVE_STRAFE_I,
 //	DRIVE_STRAFE_D, &VisionRunner::getInstance(), new StrafePIDOutput(this));
 
-	strafePID->SetOutputRange(-1, 1);
+//	strafePID->SetOutputRange(-1, 1);
 
 	forward = 0.0;
 	right = 0.0;

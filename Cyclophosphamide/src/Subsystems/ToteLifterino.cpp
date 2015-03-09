@@ -107,6 +107,7 @@ void ToteLifterino::PIDWrite(float f) {
 	} else {
 		SmartDashboard::PutString("LifterStatus", "Ignoring Input!");
 	}
+//	std::cout << "PIDWrite: " <<  f << std::endl;
 	leftMotor->Set(f);
 	rightMotor->Set(-f);
 	SmartDashboard::PutNumber("MotorValue", f);
