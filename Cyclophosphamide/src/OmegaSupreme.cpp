@@ -93,19 +93,19 @@ void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	//((ScriptRunner*) chooser->GetSelected())->startCommand();
 
-	autonomousCommand = (Command *) chooser->GetSelected();
+	//autonomousCommand = (Command *) chooser->GetSelected();
 	//autonomousCommand = new SimpleDriveForward(24);
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifterino->getEncoder()->Reset();
-	//autonomousCommand = Autonomous::createStartWithCan();
+	autonomousCommand = Autonomous::createStartWithCan();
 	autonomousCommand->Start();
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	if (!autonomousCommand->IsRunning()) {
+	/*if (!autonomousCommand->IsRunning()) {
 		autonomousCommand->Start();
-	}
+	}*/
 	WatchDogg();
 }
 
@@ -115,7 +115,7 @@ void OmegaSupreme::TeleopInit() {
 	}
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
-	CommandBase::driveBae->zeroPIDOutput();
+	//CommandBase::driveBae->zeroPIDOutput();
 	CommandBase::toteLifterino->getEncoder()->Reset();
 }
 

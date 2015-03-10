@@ -11,8 +11,9 @@ public:
 	};
 private:
 	State value;
+	float timeout;
 public:
-	CraaawActuate(State value);
+	CraaawActuate(State value, float timeout = -1);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

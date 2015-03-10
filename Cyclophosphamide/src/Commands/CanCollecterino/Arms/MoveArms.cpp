@@ -3,6 +3,7 @@
 MoveArms::MoveArms(float setpoint) {
 	Requires(canCollecterino);
 	this->setpoint = setpoint;
+	SetTimeout(3);
 }
 
 void MoveArms::Initialize() {
@@ -24,7 +25,7 @@ void MoveArms::Execute() {
 }
 
 bool MoveArms::IsFinished() {
-	return canCollecterino->armsWithinBounds();
+	return canCollecterino->armsWithinBounds() || IsTimedOut();
 }
 
 void MoveArms::End() {

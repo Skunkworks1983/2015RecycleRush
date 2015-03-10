@@ -24,9 +24,10 @@ Autonomous *Autonomous::createStartWithCan() {
 	cmd->AddSequential(new MoveWrist(MoveWrist::State::open));
 	cmd->AddSequential(new MoveArms(CAN_POT_UP_POSITION));
 	cmd->AddSequential(new MoveArmsFancy(MoveArmsFancy::down), 2.0);
+	cmd->AddSequential(new Induct(Induct::State::forward, 1.0));
 	cmd->AddSequential(new MoveArmsFancy(MoveArmsFancy::up), 2.0);
 	cmd->AddSequential(new CraaawActuate(CraaawActuate::close));
 	cmd->AddSequential(new MoveWrist(MoveWrist::open));
-	//cmd->AddSequential(new TurnTo(50));
+	cmd->AddSequential(new WaitCommand(30.0));
 	return cmd;
 }

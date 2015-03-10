@@ -1,9 +1,12 @@
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 
-CraaawActuate::CraaawActuate(State value) {
+CraaawActuate::CraaawActuate(State value, float timeout) {
 	Requires(craaaw);
 	this->value = value;
-	SetTimeout(CRAAAW_TIMEOUT);
+	this->timeout = timeout;
+	if (timeout != -1) {
+		SetTimeout(timeout);
+	}
 }
 
 void CraaawActuate::Initialize() {
@@ -30,7 +33,11 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	return true;
+	if (timeout == -1) {
+		return true;
+	} else {
+		return IsTimedOut();
+	}
 }
 
 void CraaawActuate::End() {
