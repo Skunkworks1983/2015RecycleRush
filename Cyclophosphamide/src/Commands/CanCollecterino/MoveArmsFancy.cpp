@@ -14,7 +14,7 @@ MoveArmsFancy::MoveArmsFancy(State state) {
 //		AddSequential(new Induct(Induct::forward, CAN_INDUCT_UP_TIMEOUT)); Probably not be needed with fancy craaaw
 		break;
 	case State::down:
-		AddSequential(new MoveWrist(MoveWrist::close));
+		AddSequential(new MoveWrist(MoveWrist::open));
 		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
 		break;
 	case State::toggle:
