@@ -7,6 +7,7 @@
 
 CanToCraaawTransfer::CanToCraaawTransfer() {
 	AddSequential(new CraaawActuate(CraaawActuate::close));
+	AddSequential(new WaitCommand(.25));
 	AddSequential(new MoveWrist(MoveWrist::open));
 	AddSequential(new LiftRelative(BOUNCE_HEIGHT));
 	AddSequential(new LiftRelative(-BOUNCE_HEIGHT));

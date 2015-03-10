@@ -3,6 +3,7 @@
 #include "MoveWrist.h"
 
 Whack::Whack() {
-	AddSequential(new MoveArms(CAN_POT_KNOCK_POSITION));
+	AddParallel(new MoveArms(CAN_POT_KNOCK_POSITION));
+	AddSequential(new WaitCommand(.3));
 	AddSequential(new MoveWrist(MoveWrist::close));
 }
