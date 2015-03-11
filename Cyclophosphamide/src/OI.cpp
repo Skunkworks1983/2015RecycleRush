@@ -129,9 +129,8 @@ void OI::registerButtonListeners() {
 	createSwitch("align tote Rvs", alignToteRvs,
 			new OldToteIntake(OldToteIntake::reverse),
 			new OldToteIntake(OldToteIntake::stopped));
-	//createButton("lifter load", loadPos,
-	//		new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
-	loadPos->WhenPressed(new LiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
+	createButton("lifter load", loadPos,
+			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 
