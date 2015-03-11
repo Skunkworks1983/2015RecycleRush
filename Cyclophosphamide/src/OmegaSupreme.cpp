@@ -112,11 +112,12 @@ void OmegaSupreme::AutonomousPeriodic() {
 void OmegaSupreme::TeleopInit() {
 	if (autonomousCommand != NULL) {
 		autonomousCommand->Cancel();
+	} else {
+		CommandBase::toteLifterino->getEncoder()->Reset();
 	}
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
-	//CommandBase::driveBae->zeroPIDOutput();
-	CommandBase::toteLifterino->getEncoder()->Reset();
+	CommandBase::driveBae->zeroPIDOutput();
 }
 
 void OmegaSupreme::TeleopPeriodic() {
