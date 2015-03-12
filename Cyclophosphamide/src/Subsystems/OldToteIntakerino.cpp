@@ -1,4 +1,5 @@
 #include <CANTalon.h>
+#include <Commands/ToteIntake/OldToteIntake.h>
 #include <Encoder.h>
 #include <PIDController.h>
 #include <RobotMap.h>
