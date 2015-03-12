@@ -11,7 +11,7 @@
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/Scheduler.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/OldToteIntake.h>
 #include <Commands/ToteLifting/DownUp.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <DigitalInput.h>
@@ -95,38 +95,31 @@ void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	//((ScriptRunner*) chooser->GetSelected())->startCommand();
 
-	autonomousCommand = (Command *) chooser->GetSelected();
+	//autonomousCommand = (Command *) chooser->GetSelected();
 	//autonomousCommand = new SimpleDriveForward(24);
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifterino->getEncoder()->Reset();
-	//autonomousCommand = Autonomous::createStartWithCan();
+	autonomousCommand = Autonomous::createStartWithCan();
 	autonomousCommand->Start();
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	if (!autonomousCommand->IsRunning()) {
+	/*if (!autonomousCommand->IsRunning()) {
 		autonomousCommand->Start();
-	}
+	}*/
 	WatchDogg();
 }
 
 void OmegaSupreme::TeleopInit() {
 	if (autonomousCommand != NULL) {
 		autonomousCommand->Cancel();
+	} else {
+		CommandBase::toteLifterino->getEncoder()->Reset();
 	}
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
 	CommandBase::driveBae->zeroPIDOutput();
-	CommandBase::toteLifterino->getEncoder()->Reset();
-	SmartDashboard::PutData(CommandBase::craaaw);
-	SmartDashboard::PutData("Can up", new MoveArmsFancy(true));
-	SmartDashboard::PutData("Can down", new MoveArmsFancy(false));
-	SmartDashboard::PutData("Tote intake", new ToteIntake(ToteIntake::forward));
-	SmartDashboard::PutData("Get next tote", new DownUp(DownUp::load));
-	SmartDashboard::PutData("Get last tote", new DownUp(DownUp::carry));
-	SmartDashboard::PutData("Reset Elevator Encoder",
-			new ResetElevatorEncoder());
 }
 
 void OmegaSupreme::TeleopPeriodic() {
@@ -147,8 +140,7 @@ void OmegaSupreme::TeleopPeriodic() {
 			CommandBase::canCollecterino->getLiftPot()->GetValue());
 
 	SmartDashboard::PutNumber("elevatorEnc",
-			CommandBase::toteLifterino->getEncoder()->Get());
-
+			CommandBase::toteLifterino->getEncoder()->PIDGet());
 	SmartDashboard::PutNumber("driveEncoder",
 			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
 
@@ -157,6 +149,10 @@ void OmegaSupreme::TeleopPeriodic() {
 
 	SmartDashboard::PutNumber("Gyro Angle",
 			CommandBase::driveBae->getGyro()->GetYaw());
+
+	SmartDashboard::PutNumber("xAxisJoystick",
+			CommandBase::oi->getJoystickOperator()->GetAxis(
+					Joystick::AxisType::kXAxis));
 	WatchDogg();
 }
 
@@ -180,21 +176,6 @@ void OmegaSupreme::TestPeriodic() {
 void OmegaSupreme::WatchDogg() {
 // there are now doggs to watch
 // lmao XDDD
-	/*if (CommandBase::stackPusher->getValue()
-	 == DoubleSolenoid::kForward&& CommandBase::canCollecterino->getArmPID()->GetSetpoint() == CAN_POT_UP_POSITION) {
-	 CommandBase::canCollecterino->disableArms();
-	 }
-	 if (CommandBase::toteIntakerino->isLoaded()
-	 && (CommandBase::toteLifterino->getPID()->GetSetpoint()
-	 < TOTE_LIFTER_STACK_HEIGHT
-	 && CommandBase::toteLifterino->getEncoder()->Get()
-	 >= TOTE_LIFTER_STACK_HEIGHT - 100)) {
-	 CommandBase::toteLifterino->enablePID(false);
-	 } else if (CommandBase::toteIntakerino->isLoaded()
-	 && (CommandBase::toteLifterino->getPID()->GetSetpoint()
-	 < TOTE_LIFTER_STACK_HEIGHT)) {
-	 CommandBase::toteLifterino->setSetPoints(TOTE_LIFTER_STACK_HEIGHT);
-	 }*/
 }
 
 START_ROBOT_CLASS(OmegaSupreme);

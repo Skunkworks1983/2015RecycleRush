@@ -1,10 +1,10 @@
-#ifndef TOTE_INTAKE_H
-#define TOTE_INTAKE_H
+#ifndef NEW_TOTE_INTAKE_H
+#define NEW_TOTE_INTAKE_H
 
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ToteIntake: public CommandBase {
+class NewToteIntake: public CommandBase {
 public:
 	enum Direction {
 		forward, reverse, stopped
@@ -12,7 +12,7 @@ public:
 private:
 	Direction direction;
 public:
-	ToteIntake(Direction direction, double timeout = 0);
+	NewToteIntake(Direction direction, double timeout = 0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -14,5 +14,10 @@ Craaaw::~Craaaw() {
 }
 
 void Craaaw::setActuated(DoubleSolenoid::Value value) {
+	isActuated = value == DoubleSolenoid::Value::kForward ? true : false;
 	craaawLocker->Set(value);
+}
+
+bool Craaaw::isOpen() {
+	return isActuated;
 }

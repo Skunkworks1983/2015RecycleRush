@@ -9,16 +9,15 @@
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/OldToteIntake.h>
+#include <Commands/ToteLifting/LiftToHeight.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
-#include <DoubleSolenoid.h>
 #include <Joystick.h>
 #include <OI.h>
 #include <RobotMap.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <utilities/AnalogRangeIOButton.h>
 #include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
@@ -46,11 +45,11 @@ OI::OI() {
 	// Scoring
 	// TODO tune upper and lower thresholds
 	floorLoader = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis,
-			0.75f, 0.9f);
-	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.4f,
-			0.6f);
-	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.1f,
-			0.35f);
+			0.5f, 0.9f);
+	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -0.25f,
+			0.25f);
+	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -1.0f,
+			-0.4f);
 
 	// Overrides
 	canArmOverrideUp = new JoystickButton(op, 3);
@@ -110,26 +109,26 @@ double OI::getAnalogValue(int input) {
 
 void OI::registerButtonListeners() {
 	// Can manipulation
-	createSwitch("canArms", canArms, new MoveArmsFancy(true),
-			new MoveArmsFancy(false));
+	createSwitch("canArms", canArms, new MoveArmsFancy(MoveArmsFancy::up),
+			new MoveArmsFancy(MoveArmsFancy::down));
 	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
 	createSwitch("collect Fwd", canCollectFwd,
 			new Collect(Induct::forward, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::open));
+			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
 			new Collect(Induct::reverse, MoveWrist::close),
 			new Collect(Induct::stopped, MoveWrist::open));
 	createSwitch("toggle craaaw", craaawToggle,
-			new CraaawActuate(DoubleSolenoid::kReverse),
-			new CraaawActuate(DoubleSolenoid::kForward));
+			new CraaawActuate(CraaawActuate::open),
+			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
 	createSwitch("align tote Fwd", alignToteFwd,
-			new ToteIntake(ToteIntake::forward),
-			new ToteIntake(ToteIntake::stopped));
+			new OldToteIntake(OldToteIntake::forward),
+			new OldToteIntake(OldToteIntake::stopped));
 	createSwitch("align tote Rvs", alignToteRvs,
-			new ToteIntake(ToteIntake::reverse),
-			new ToteIntake(ToteIntake::stopped));
+			new OldToteIntake(OldToteIntake::reverse),
+			new OldToteIntake(OldToteIntake::stopped));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,

@@ -3,15 +3,24 @@
 #include "Arms/MoveArms.h"
 #include "Arms/Induct.h"
 #include "Arms/MoveWrist.h"
+#include "Arms/ToggleArms.h"
 #include "Craaaw/CraaawActuate.h"
 
-MoveArmsFancy::MoveArmsFancy(bool up) {
-	if (up) {
-		AddParallel(new CraaawActuate(DoubleSolenoid::kReverse));
+MoveArmsFancy::MoveArmsFancy(State state) {
+	switch (state) {
+	case State::up:
+		AddParallel(new CraaawActuate(CraaawActuate::open));
 		AddSequential(new MoveArms(CAN_POT_UP_POSITION));
 //		AddSequential(new Induct(Induct::forward, CAN_INDUCT_UP_TIMEOUT)); Probably not be needed with fancy craaaw
-	} else {
-		AddSequential(new MoveWrist(MoveWrist::close));
+		break;
+	case State::down:
+		AddSequential(new MoveWrist(MoveWrist::open));
 		AddSequential(new MoveArms(CAN_POT_DOWN_POSITION));
+		break;
+	case State::toggle:
+		AddParallel(new CraaawActuate(CraaawActuate::open));
+		AddSequential(new MoveWrist(MoveWrist::close));
+		AddSequential(new ToggleArms());
+		break;
 	}
 }

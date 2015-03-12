@@ -4,7 +4,8 @@
 #include <Subsystems/CanCollecterino.h>
 #include <Subsystems/CanWristerino.h>
 #include <Subsystems/Craaaw.h>
-#include "Subsystems/ToteIntakerino.h"
+#include "Subsystems/OldToteIntakerino.h"
+#include "Subsystems/NewToteIntakerino.h"
 #include "Subsystems/CanIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
@@ -24,7 +25,8 @@ class DriveBae;
 class CanCollecterino;
 class CanWristerino;
 class CanIntakerino;
-class ToteIntakerino;
+class OldToteIntakerino;
+class NewToteIntakerino;
 class ToteLifterino;
 class Craaaw;
 class Pneumatics;
@@ -40,7 +42,8 @@ public:
 	static CanCollecterino *canCollecterino;
 	static CanWristerino *canWristerino;
 	static CanIntakerino *canIntakerino;
-	static ToteIntakerino *toteIntakerino;
+	static NewToteIntakerino *newToteIntakerino;
+	static OldToteIntakerino *oldToteIntakerino;
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static Pneumatics *pneumatics;

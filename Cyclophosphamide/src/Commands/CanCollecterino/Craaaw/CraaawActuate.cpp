@@ -1,13 +1,31 @@
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 
-CraaawActuate::CraaawActuate(DoubleSolenoid::Value value) {
+CraaawActuate::CraaawActuate(State value, float timeout) {
 	Requires(craaaw);
 	this->value = value;
-	SetTimeout(CRAAAW_TIMEOUT);
+	this->timeout = timeout;
+	if (timeout != -1) {
+		SetTimeout(timeout);
+	}
 }
 
 void CraaawActuate::Initialize() {
-	craaaw->setActuated(value);
+	DoubleSolenoid::Value theRealValue;
+	switch (value) {
+	case CraaawActuate::open:
+		theRealValue = DoubleSolenoid::Value::kReverse;
+		break;
+	case CraaawActuate::close:
+		theRealValue = DoubleSolenoid::Value::kForward;
+		break;
+	case CraaawActuate::toggle:
+		theRealValue =
+				craaaw->isOpen() ?
+						DoubleSolenoid::Value::kReverse :
+						DoubleSolenoid::Value::kForward;
+		break;
+	}
+	craaaw->setActuated(theRealValue);
 }
 
 void CraaawActuate::Execute() {
@@ -15,7 +33,11 @@ void CraaawActuate::Execute() {
 }
 
 bool CraaawActuate::IsFinished() {
-	return IsTimedOut();
+	if (timeout == -1) {
+		return true;
+	} else {
+		return IsTimedOut();
+	}
 }
 
 void CraaawActuate::End() {

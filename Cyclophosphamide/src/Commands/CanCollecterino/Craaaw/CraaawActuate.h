@@ -9,11 +9,15 @@
  */
 
 class CraaawActuate: public CommandBase {
-private:
-	DoubleSolenoid::Value value;
-
 public:
-	CraaawActuate(DoubleSolenoid::Value value);
+	enum State {
+		open, close, toggle
+	};
+private:
+	State value;
+	float timeout;
+public:
+	CraaawActuate(State value, float timeout = -1);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

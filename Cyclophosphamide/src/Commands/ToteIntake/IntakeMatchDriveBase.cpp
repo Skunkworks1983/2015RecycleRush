@@ -9,7 +9,7 @@
 
 IntakeMatchDriveBase::IntakeMatchDriveBase() :
 		CommandBase("IntakeMatchDriveBase") {
-	Requires(toteIntakerino);
+	Requires(newToteIntakerino);
 }
 
 IntakeMatchDriveBase::~IntakeMatchDriveBase() {
@@ -21,7 +21,7 @@ void IntakeMatchDriveBase::Initialize() {
 }
 
 void IntakeMatchDriveBase::Execute() {
-	toteIntakerino->setMotors(-(CommandBase::driveBae->getForward() * INTAKE_MATCH_DRIVE_CONSTANT));
+	newToteIntakerino->setMotors(-(CommandBase::driveBae->getForward() * INTAKE_MATCH_DRIVE_CONSTANT));
 }
 
 bool IntakeMatchDriveBase::IsFinished() {
@@ -29,7 +29,7 @@ bool IntakeMatchDriveBase::IsFinished() {
 }
 
 void IntakeMatchDriveBase::End() {
-	toteIntakerino->setMotors(0);
+	newToteIntakerino->setMotors(0);
 }
 
 void IntakeMatchDriveBase::Interrupted() {

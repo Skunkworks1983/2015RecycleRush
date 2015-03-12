@@ -15,5 +15,6 @@ public:
 	Craaaw();
 	~Craaaw();
 	void setActuated(DoubleSolenoid::Value value);
+	bool isOpen();
 };
 #endif

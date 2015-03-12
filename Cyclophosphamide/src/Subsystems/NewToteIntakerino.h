@@ -3,16 +3,9 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-/**
- * Subsystem for loading totes from the human loader station
- * encoders runs off/on
- * PID setpoint 0 (ground level)
- */
+
 class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
-private:
-	/*
-	 * Motor that controls the rollers that pull the totes in
-	 */
+
 	CANTalon *toteIntakeMotor;
 
 	Encoder *encoder;
@@ -22,7 +15,7 @@ private:
 	bool isWindingDown;
 public:
 
-	ToteIntakerino();
+	NewToteIntakerino();
 
 	void InitDefaultCommand();
 

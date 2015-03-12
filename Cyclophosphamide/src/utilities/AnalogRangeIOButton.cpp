@@ -14,6 +14,7 @@ AnalogRangeIOButton::~AnalogRangeIOButton() {
 }
 
 bool AnalogRangeIOButton::Get() {
+	//double volts = OI::getJoystickOperator()->getAxis(Joystick::kXAxis)->get();
 	double volts = DriverStation::GetInstance()->GetStickAxis(port, axis);
 	return volts >= lowThreshold && volts <= highThreshold;
 }
