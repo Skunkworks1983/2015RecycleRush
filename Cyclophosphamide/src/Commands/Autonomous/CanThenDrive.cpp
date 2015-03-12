@@ -10,14 +10,13 @@
 #include <RobotMap.h>
 
 #define START_CAN_DISTANCE_1 30
-#define START_CAN_DISTANCE_2 50
+#define START_CAN_DISTANCE_2 30
 #define START_CAN_DISTANCE_3 15
 #define START_CAN_DISTANCE_FINAL 4.2
 #define START_CAN_ANGLE 50
 
-Autonomous *Autonomous::createStartWithCan() {
-	Autonomous *cmd = new Autonomous("Autonomous-StartWithCan");
-	SmartDashboard::PutBoolean("Should be turning", false);
+Autonomous *Autonomous::createStartWithCanThenDrive() {
+	Autonomous *cmd = new Autonomous("Autonomous-CanThenDrive");
 	cmd->AddSequential(new MoveWrist(MoveWrist::State::close));
 	cmd->AddSequential(new MoveArms(CAN_POT_KNOCK_POSITION));
 	cmd->AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_1, .25));
@@ -28,12 +27,10 @@ Autonomous *Autonomous::createStartWithCan() {
 	cmd->AddSequential(new Induct(Induct::State::forward, 1.0));
 	cmd->AddSequential(new MoveArmsFancy(MoveArmsFancy::up), 2.0);
 	cmd->AddParallel(new CanToCraaawTransfer());
-	//if(goToZone){
-		cmd->AddSequential(new WaitCommand(1.0));
-		SmartDashboard::PutBoolean("Should be turning", true);
-		cmd->AddSequential(new TurnTo(135));
-		cmd->AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_2, .25));
-	//}
+	cmd->AddSequential(new WaitCommand(1.0));
+	cmd->AddParallel(new TurnTo(135));
+	cmd->AddSequential(new WaitCommand(1.0));
+	cmd->AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_2, .25));
 	cmd->AddSequential(new WaitCommand(30.0));
 	return cmd;
 }

@@ -44,8 +44,8 @@ OI::OI() {
 
 	// Scoring
 	// TODO tune upper and lower thresholds
-	floorLoader = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis,
-			0.5f, 0.9f);
+	floorLoader = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, 0.5f,
+			0.9f);
 	carryPos = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -0.25f,
 			0.25f);
 	score = new AnalogRangeIOButton(OPERATOR_PORT, Joystick::kXAxis, -1.0f,
@@ -123,12 +123,10 @@ void OI::registerButtonListeners() {
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
-	createSwitch("align tote Fwd", alignToteFwd,
-			new OldToteIntake(OldToteIntake::forward),
-			new OldToteIntake(OldToteIntake::stopped));
-	createSwitch("align tote Rvs", alignToteRvs,
-			new OldToteIntake(OldToteIntake::reverse),
-			new OldToteIntake(OldToteIntake::stopped));
+	SAFE_BUTTON(alignToteFwd,
+			alignToteFwd->WhileHeld(new OldToteIntake(TOTE_INTAKE_MOTOR_FULL)));
+	SAFE_BUTTON(alignToteRvs,
+			alignToteRvs->WhileHeld(new OldToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,

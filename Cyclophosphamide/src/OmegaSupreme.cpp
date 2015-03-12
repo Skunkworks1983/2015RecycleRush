@@ -8,25 +8,20 @@
 #include <AnalogInput.h>
 #include <CANTalon.h>
 #include <Commands/Autonomous/Autonomous.h>
-#include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/Scheduler.h>
-#include <Commands/ToteIntake/OldToteIntake.h>
-#include <Commands/ToteLifting/DownUp.h>
-#include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <DigitalInput.h>
 #include <Encoder.h>
 #include <GyroDriver/IMU.h>
+#include <Joystick.h>
 #include <LiveWindow/LiveWindow.h>
 #include <OI.h>
 #include <OmegaSupreme.h>
 #include <RobotBase.h>
-#include <RobotMap.h>
 #include <stdio.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Subsystems/CanCollecterino.h>
-#include <Subsystems/Craaaw.h>
 #include <Subsystems/DriveBae.h>
 #include <Subsystems/ToteLifterino.h>
 #include <Timer.h>
@@ -56,6 +51,7 @@ void OmegaSupreme::RobotInit() {
 	// Create autonomous
 	chooser = new SendableChooser();
 	chooser->AddDefault("Start with can", Autonomous::createStartWithCan());
+	chooser->AddObject("Can then zone", Autonomous::createStartWithCanThenDrive());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
 	/*chooser->AddObject("Drive forward 24 inches",
@@ -69,7 +65,7 @@ void OmegaSupreme::RobotInit() {
 
 	CommandBase::oi->registerButtonListeners();
 
-	if (CommandBase::driveBae != NULL && FIELD_ORIENTED) {
+	if (CommandBase::driveBae != NULL) {
 		SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 		bool zeroed = false;
 		double initialTime = GetFPGATime();
