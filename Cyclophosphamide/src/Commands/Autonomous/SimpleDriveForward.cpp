@@ -10,7 +10,7 @@
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <RobotMap.h>
 
-#define SIMPLE_DRIVE_TO_AUTO_DISTANCE 42
+#define SIMPLE_DRIVE_TO_AUTO_DISTANCE 30
 
 Autonomous *Autonomous::createSimpleDriveForward() {
 	Autonomous *cmd = new Autonomous("Autonomous-SimpleDriveForward");

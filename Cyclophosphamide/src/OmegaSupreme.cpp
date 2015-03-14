@@ -50,8 +50,8 @@ void OmegaSupreme::RobotInit() {
 
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("Start with can", Autonomous::createStartWithCan());
-	chooser->AddObject("Can then zone", Autonomous::createStartWithCanThenDrive());
+	chooser->AddDefault("Can Then Zone", Autonomous::createStartWithCanThenDrive());
+	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
 	/*chooser->AddObject("Drive forward 24 inches",
