@@ -30,15 +30,12 @@
 OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
 	lw = NULL;
-	chooser = NULL;
 	autonomousCommand = NULL;
-//	VisionRunner *vision = new VisionRunner(320, 480);
-//	vision->ThreadStart();
+	shouldRun = true;
 }
 
 OmegaSupreme::~OmegaSupreme() {
 	delete autonomousCommand;
-	delete chooser;
 }
 
 void OmegaSupreme::RobotInit() {
@@ -48,20 +45,8 @@ void OmegaSupreme::RobotInit() {
 	input1 = new DigitalInput(1);
 	input2 = new DigitalInput(2);
 
-	// Create autonomous
-	chooser = new SendableChooser();
-	chooser->AddDefault("Can Then Zone", Autonomous::createStartWithCanThenDrive());
-	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
-	chooser->AddObject("Blank", new Autonomous());
-	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
-	/*chooser->AddObject("Drive forward 24 inches",
-	 Autonomous::createDriveDistance(24, BestDrive::forward));
-	 chooser->AddObject("Drive forward 1 second",
-	 Autonomous::createDriveDuration(1.0f, -90.0f));
-	 chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
-	SmartDashboard::PutData("Auto Modes", chooser);
-
-	//chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
+	out.open("autolog", std::ios::out);
+	out << "~~~~~~~STAAARTING LOG~~~~~~~" << std::endl;
 
 	CommandBase::oi->registerButtonListeners();
 
@@ -83,25 +68,42 @@ void OmegaSupreme::RobotInit() {
 	}
 	SmartDashboard::PutString("auto", "end of RobotInit!");
 	autonomousCommand = Autonomous::createStartWithCan();
+	out << "initialized auto" << std::endl;
 }
 
 void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
-	//((ScriptRunner*) chooser->GetSelected())->startCommand();
-
-	//autonomousCommand = (Command *) chooser->GetSelected();
-	//autonomousCommand = new SimpleDriveForward(24);
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifterino->getEncoder()->Reset();
-	autonomousCommand = Autonomous::createStartWithCan();
 	autonomousCommand->Start();
+	out << "Autonomous init ran" << std::endl;
+	out.flush();
+	running = autonomousCommand->IsRunning();
+	if (running) {
+		out << "~FIRST~ Running! ~FIRST~" << std::endl;
+	} else {
+		out << "~FIRST~ Not Running ~FIRST~" << std::endl;
+	}
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	/*if (!autonomousCommand->IsRunning()) {
+	if (!autonomousCommand->IsRunning() && shouldRun) {
 		autonomousCommand->Start();
-	}*/
+		out << "Did the should run" << std::endl;
+		out.flush();
+		shouldRun = false;
+	}
+
+	if (!autonomousCommand->IsRunning() && running) {
+		out << "Not Running" << std::endl;
+		out.flush();
+		running = false;
+	} else if (autonomousCommand->IsRunning() && !running) {
+		out << "Running!" << std::endl;
+		out.flush();
+		running = true;
+	}
 	WatchDogg();
 }
 
