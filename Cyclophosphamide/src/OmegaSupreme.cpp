@@ -31,11 +31,13 @@ OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
 	lw = NULL;
 	autonomousCommand = NULL;
+	chooser = NULL;
 	shouldRun = true;
 }
 
 OmegaSupreme::~OmegaSupreme() {
 	delete autonomousCommand;
+	delete chooser;
 }
 
 void OmegaSupreme::RobotInit() {
@@ -44,6 +46,14 @@ void OmegaSupreme::RobotInit() {
 
 	input1 = new DigitalInput(1);
 	input2 = new DigitalInput(2);
+
+	// Create autonomous
+	chooser = new SendableChooser();
+	chooser->AddDefault("Can Then Zone", Autonomous::createStartWithCanThenDrive());
+	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
+	chooser->AddObject("Blank", new Autonomous());
+	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
+	SmartDashboard::PutData("Auto Modes", chooser);
 
 	out.open("autolog", std::ios::out);
 	out << "~~~~~~~STAAARTING LOG~~~~~~~" << std::endl;
@@ -75,6 +85,7 @@ void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifterino->getEncoder()->Reset();
+	autonomousCommand = (Command *) chooser->GetSelected();
 	autonomousCommand->Start();
 	out << "Autonomous init ran" << std::endl;
 	out.flush();
@@ -89,6 +100,7 @@ void OmegaSupreme::AutonomousInit() {
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 	if (!autonomousCommand->IsRunning() && shouldRun) {
+		autonomousCommand = (Command *) chooser->GetSelected();
 		autonomousCommand->Start();
 		out << "Did the should run" << std::endl;
 		out.flush();
