@@ -6,14 +6,10 @@
 
 class OldToteIntake : public CommandBase
 {
-public:
-	enum Direction {
-		forward, reverse, stopped
-	};
 private:
-	Direction direction;
+	float speed;
 public:
-	OldToteIntake(Direction direction);
+	OldToteIntake(float speed);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
