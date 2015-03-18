@@ -1,3 +1,8 @@
 Cyclophosphamide/sysProps.xml
 Cyclophosphamide/sysProps.xml
 Doxyfile
+*.html
+/Cyclophosphamide/html/*.html
+/Cyclophosphamide/html/*.png
+/Cyclophosphamide/latex/*.tex
+/Cyclophosphamide/latex/*.eps
