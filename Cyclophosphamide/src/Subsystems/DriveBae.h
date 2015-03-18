@@ -20,6 +20,7 @@ private:
 
 	double forward, right, clockwise;
 
+	DigitalInput *lightSensor;
 
 public:
 	DriveBae();
@@ -65,6 +66,8 @@ public:
 	virtual double PIDGet();
 
 	DRIVE_MOTOR_TYPE *getMotor(MotorSide side);
+
+	bool getLightSensor();
 };
 
 #endif
