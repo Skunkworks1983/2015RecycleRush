@@ -14,6 +14,7 @@
 #include "WPILib.h"
 #include "Subsystems/ToteLifterino.h"
 #include "Subsystems/Pneumatics.h"
+#include "Subsystems/AutoCanGrabber.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -47,6 +48,7 @@ public:
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static Pneumatics *pneumatics;
+	static AutoCanGrabber *autoCanGrabber;
 };
 
 #endif

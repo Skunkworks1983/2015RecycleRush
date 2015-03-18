@@ -11,6 +11,7 @@ NewToteIntakerino* CommandBase::newToteIntakerino = NULL;
 ToteLifterino* CommandBase::toteLifterino = NULL;
 Craaaw* CommandBase::craaaw = NULL;
 Pneumatics* CommandBase::pneumatics = NULL;
+AutoCanGrabber* CommandBase::autoCanGrabber = NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name) {
