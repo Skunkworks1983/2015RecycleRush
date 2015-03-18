@@ -25,6 +25,7 @@ private:
 	std::ofstream out;
 	bool running;
 	bool shouldRun;
+	SendableChooser *chooser;
 
 public:
 	OmegaSupreme();

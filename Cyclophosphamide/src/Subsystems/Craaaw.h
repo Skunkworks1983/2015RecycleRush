@@ -4,9 +4,6 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
-/**
- * pneumatics Craw, if they actuate then the claw will close the wrist.
- */
 class Craaaw: public Subsystem {
 private:
 	DoubleSolenoid *craaawLocker;

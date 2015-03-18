@@ -1,14 +1,14 @@
 s	tl	0		stacker down
 s	ti			stacker intake
-s	db	45 		reverse 
-s	dl	33 		left 
+s	db	45 		reverse 45
+s	dl	33 		left 33
 s	tl	0 		stacker down
 s	ti			stacker intake
-s	db	45 		reverse 
-s	dl	33		left 
+s	db	45 		reverse 45
+s	dl	33		left 33
 s	tl	0		stacker down
 s	ti			stacker intake
-s	db	107		reverse 
-s	tl	0		stacker down 
-s	to			stacker expell 
+s	db	107		reverse 107 :)
+s	tl	0		stacker down vanilla
+s	to			stacker expell :(
 s	ts			toteintake stop

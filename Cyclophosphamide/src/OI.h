@@ -30,6 +30,8 @@ public:
 	JoystickButton *zeroLifter;
 	JoystickButton *canArmOverrideUp;
 	JoystickButton *canArmOverrideDown;
+	JoystickButton *toteLifterUpDriver;
+	JoystickButton *toteLifterDownDriver;
 
 	AnalogRangeIOButton *score;
 	AnalogRangeIOButton *floorLoader;

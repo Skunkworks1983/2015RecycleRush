@@ -88,12 +88,6 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 					Autonomous::createDriveDuration(AUTONOMOUS_DEFAULT_TIME,
 							BestDrive::Direction::forward)));
 	chooser->AddObject("Blank", new Autonomous());
-	chooser->AddDefault("Blank", new Autonomous());
-	chooser->AddObject("Drive forward 360 ticks",
-			Autonomous::createDriveDistance(360.0f, BestDrive::forward));
-	chooser->AddObject("Drive forward 1 second",
-			Autonomous::createDriveDuration(1.0f, -90.0f));
-	chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));
 	DIR * dp;
 	struct dirent * ep;
 	dp = opendir(scriptLocations);

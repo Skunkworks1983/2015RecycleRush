@@ -3,9 +3,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-/**
- * Pneumatics give air pressure to go on or off.
- */
+
 class Pneumatics: public Subsystem {
 private:
 	DigitalInput *pressureSwitch;

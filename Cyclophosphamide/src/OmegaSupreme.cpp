@@ -31,11 +31,13 @@ OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
 	lw = NULL;
 	autonomousCommand = NULL;
+	chooser = NULL;
 	shouldRun = true;
 }
 
 OmegaSupreme::~OmegaSupreme() {
 	delete autonomousCommand;
+	delete chooser;
 }
 
 void OmegaSupreme::RobotInit() {
@@ -45,26 +47,16 @@ void OmegaSupreme::RobotInit() {
 	input1 = new DigitalInput(1);
 	input2 = new DigitalInput(2);
 
-<<<<<<< HEAD
 	// Create autonomous
-
 	chooser = new SendableChooser();
-	chooser->AddDefault("Start with can", Autonomous::createStartWithCan());
+	chooser->AddDefault("Can Then Zone", Autonomous::createStartWithCanThenDrive());
+	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
-	/*chooser->AddObject("Drive forward 24 inches",
-	 Autonomous::createDriveDistance(24, BestDrive::forward));
-	 chooser->AddObject("Drive forward 1 second",
-	 Autonomous::createDriveDuration(1.0f, -90.0f));
-	 chooser->AddObject("Turn 90 degrees", Autonomous::createTurnTo(90.0));*/
 	SmartDashboard::PutData("Auto Modes", chooser);
 
-	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
-	SmartDashboard::PutData("Auto Modes", chooser);
-=======
 	out.open("autolog", std::ios::out);
 	out << "~~~~~~~STAAARTING LOG~~~~~~~" << std::endl;
->>>>>>> master
 
 	CommandBase::oi->registerButtonListeners();
 
@@ -93,6 +85,7 @@ void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifterino->getEncoder()->Reset();
+	autonomousCommand = (Command *) chooser->GetSelected();
 	autonomousCommand->Start();
 	out << "Autonomous init ran" << std::endl;
 	out.flush();
@@ -107,6 +100,7 @@ void OmegaSupreme::AutonomousInit() {
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 	if (!autonomousCommand->IsRunning() && shouldRun) {
+		autonomousCommand = (Command *) chooser->GetSelected();
 		autonomousCommand->Start();
 		out << "Did the should run" << std::endl;
 		out.flush();
