@@ -63,6 +63,8 @@ OI::OI() {
 	leftLoadButton = new JoystickButton(joystickRight, 5);
 	rightLoadButton = new JoystickButton(joystickRight, 6);
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
+	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
+	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
 }
 
 OI::~OI() {
@@ -87,6 +89,8 @@ OI::~OI() {
 	delete zeroLifter;
 	delete canArmOverrideUp;
 	delete canArmOverrideDown;
+	delete toteLifterUpDriver;
+	delete toteLifterDownDriver;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -158,6 +162,14 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(rightLoadButton,
 			rightLoadButton->WhenPressed(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	createButton("whack mode", moveArmsWhackMode, new Whack());
+	SAFE_BUTTON(toteLifterUpDriver,
+			toteLifterUpDriver->WhenPressed(new LiftToHeightVelocity(.5)));
+	SAFE_BUTTON(toteLifterUpDriver,
+			toteLifterUpDriver->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteLifterDownDriver,
+			toteLifterDownDriver->WhenPressed(new LiftToHeightVelocity(-.5)));
+	SAFE_BUTTON(toteLifterDownDriver,
+			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
