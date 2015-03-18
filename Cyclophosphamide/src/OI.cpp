@@ -6,6 +6,7 @@
 #include <Commands/CanCollecterino/Arms/Whack.h>
 #include <Commands/CanCollecterino/CanToCraaawTransfer.h>
 #include <Commands/CanCollecterino/Collect.h>
+#include <Commands/CanCollecterino/IndexTote.h>
 #include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
 #include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/Score.h>
@@ -65,6 +66,7 @@ OI::OI() {
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
 	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
+	toteIndex = new JoystickButton(joystickLeft, 1);
 }
 
 OI::~OI() {
@@ -91,6 +93,7 @@ OI::~OI() {
 	delete canArmOverrideDown;
 	delete toteLifterUpDriver;
 	delete toteLifterDownDriver;
+	delete toteIndex;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -170,6 +173,7 @@ void OI::registerButtonListeners() {
 			toteLifterDownDriver->WhenPressed(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
 			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
+	SAFE_BUTTON(toteIndex, toteIndex->WhenReleased(new IndexTote()));
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
