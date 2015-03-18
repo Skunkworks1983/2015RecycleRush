@@ -8,17 +8,25 @@
 #ifndef OMEGA_SUPREME_H_
 #define OMEGA_SUPREME_H_
 
-#include "WPILib.h"
-#include "Commands/Command.h"
-#include "CommandBase.h"
+#include <IterativeRobot.h>
+#include <iostream>
+#include <fstream>
+
+class Command;
+class DigitalInput;
+class LiveWindow;
 
 class OmegaSupreme: public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
-	SendableChooser *chooser;
 	int PIDChange;
 	DigitalInput *input1, *input2;
+	std::ofstream out;
+	bool running;
+	bool shouldRun;
+	SendableChooser *chooser;
+
 public:
 	OmegaSupreme();
 	~OmegaSupreme();
