@@ -41,8 +41,6 @@ DriveBae::DriveBae() :
 		rotPID->Disable();
 	}
 
-	lightSensor = new DigitalInput(DOESNT_EXIST);
-
 //	strafePID = new PIDController(DRIVE_STRAFE_P, DRIVE_STRAFE_I,
 //	DRIVE_STRAFE_D, &VisionRunner::getInstance(), new StrafePIDOutput(this));
 
@@ -277,8 +275,4 @@ DRIVE_MOTOR_TYPE *DriveBae::getMotor(MotorSide side) {
 	case MotorSide::BACK_RIGHT:
 		return motorBackRight;
 	}
-}
-
-bool DriveBae::getLightSensor() {
-	return lightSensor->Get();
 }
