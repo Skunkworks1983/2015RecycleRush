@@ -5,7 +5,9 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
-
+/**
+ * The DriveBae drives with  field centric.
+ */
 class DriveBae: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	PIDController *rotPID, *strafePID;
@@ -18,6 +20,7 @@ private:
 
 	double forward, right, clockwise;
 
+	DigitalInput *lightSensor;
 
 public:
 	DriveBae();
@@ -63,6 +66,8 @@ public:
 	virtual double PIDGet();
 
 	DRIVE_MOTOR_TYPE *getMotor(MotorSide side);
+
+	bool getLightSensor();
 };
 
 #endif
