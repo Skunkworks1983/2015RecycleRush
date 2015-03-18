@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Subsystems/CanCollecterino.h>
+#include <Subsystems/ArmLifter.h>
 #include <Subsystems/DriveBae.h>
 #include <Subsystems/ToteLifterino.h>
 #include <Timer.h>
@@ -139,13 +139,13 @@ void OmegaSupreme::TeleopPeriodic() {
 			CommandBase::toteLifterino->getRightMotor()->GetOutputCurrent());
 
 	SmartDashboard::PutNumber("armPot",
-			CommandBase::canCollecterino->getLiftPot()->PIDGet());
+			CommandBase::armLifter->getLiftPot()->PIDGet());
 
 	SmartDashboard::PutBoolean("Digital input1", input1->Get());
 	SmartDashboard::PutBoolean("Digital input2", input2->Get());
 
 	SmartDashboard::PutNumber("Can arm pot",
-			CommandBase::canCollecterino->getLiftPot()->GetValue());
+			CommandBase::armLifter->getLiftPot()->GetValue());
 
 	SmartDashboard::PutNumber("elevatorEnc",
 			CommandBase::toteLifterino->getEncoder()->PIDGet());

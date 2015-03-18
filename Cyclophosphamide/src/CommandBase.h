@@ -1,12 +1,12 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include <Subsystems/CanCollecterino.h>
-#include <Subsystems/CanWristerino.h>
+#include <Subsystems/ArmIntakerino.h>
+#include <Subsystems/ArmLifter.h>
+#include <Subsystems/ArmWristerino.h>
 #include <Subsystems/Craaaw.h>
 #include "Subsystems/OldToteIntakerino.h"
 #include "Subsystems/NewToteIntakerino.h"
-#include "Subsystems/CanIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveBae.h"
@@ -22,9 +22,9 @@
  */
 
 class DriveBae;
-class CanCollecterino;
-class CanWristerino;
-class CanIntakerino;
+class ArmLifter;
+class ArmWristerino;
+class ArmIntakerino;
 class OldToteIntakerino;
 class NewToteIntakerino;
 class ToteLifterino;
@@ -39,9 +39,9 @@ public:
 	// Create a single static instance of all of your subsystems
 	static DriveBae *driveBae;
 	static Craaaw *craaaw;
-	static CanCollecterino *canCollecterino;
-	static CanWristerino *canWristerino;
-	static CanIntakerino *canIntakerino;
+	static ArmLifter *armLifter;
+	static ArmWristerino *armWristerino;
+	static ArmIntakerino *armIntakerino;
 	static NewToteIntakerino *newToteIntakerino;
 	static OldToteIntakerino *oldToteIntakerino;
 	static ToteLifterino *toteLifterino;

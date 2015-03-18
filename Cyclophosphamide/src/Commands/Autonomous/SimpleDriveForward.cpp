@@ -1,13 +1,13 @@
+#include <Commands/Armerino/Arms/Induct.h>
+#include <Commands/Armerino/Arms/MoveArms.h>
+#include <Commands/Armerino/Arms/MoveWrist.h>
+#include <Commands/Armerino/Craaaw/CraaawActuate.h>
+#include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/BestDrive.h>
 #include <Commands/Automatic/TurnTo.h>
 #include <Commands/Automatic/TurnToThenDrive.h>
 #include <Commands/Autonomous/Autonomous.h>
-#include <Commands/CanCollecterino/Arms/Induct.h>
-#include <Commands/CanCollecterino/Arms/MoveArms.h>
-#include <Commands/CanCollecterino/Arms/MoveWrist.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
-#include <Commands/CanCollecterino/Craaaw/CraaawActuate.h>
-#include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <RobotMap.h>
 
 #define SIMPLE_DRIVE_TO_AUTO_DISTANCE 30

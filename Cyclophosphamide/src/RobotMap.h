@@ -159,6 +159,7 @@
 #define CAN_UP_SPEED 1.0
 #define CAN_DOWN_SPEED -1.0
 #define CAN_GRAB_SPEED 1.0
+#define TOTE_EXPEL_SPEED 0.2
 
 #define CAN_ARM_P 0.7
 #define CAN_ARM_I 0.0

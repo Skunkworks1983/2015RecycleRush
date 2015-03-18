@@ -1,10 +1,10 @@
+#include <Commands/Armerino/Arms/Induct.h>
+#include <Commands/Armerino/Arms/MoveArms.h>
+#include <Commands/Armerino/Arms/MoveWrist.h>
+#include <Commands/Armerino/CanToCraaawTransfer.h>
+#include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Autonomous/GetCan.h>
-#include <Commands/CanCollecterino/Arms/Induct.h>
-#include <Commands/CanCollecterino/Arms/MoveArms.h>
-#include <Commands/CanCollecterino/Arms/MoveWrist.h>
-#include <Commands/CanCollecterino/CanToCraaawTransfer.h>
-#include <Commands/CanCollecterino/MoveArmsFancy.h>
 #include <Commands/WaitCommand.h>
 #include <RobotMap.h>
 #include <SmartDashboard/SmartDashboard.h>
