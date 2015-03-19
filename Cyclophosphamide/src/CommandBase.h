@@ -5,8 +5,7 @@
 #include <Subsystems/ArmLifter.h>
 #include <Subsystems/ArmWristerino.h>
 #include <Subsystems/Craaaw.h>
-#include "Subsystems/OldToteIntakerino.h"
-#include "Subsystems/NewToteIntakerino.h"
+#include "Subsystems/ToteIntakerino.h"
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveBae.h"
@@ -26,8 +25,7 @@ class DriveBae;
 class ArmLifter;
 class ArmWristerino;
 class ArmIntakerino;
-class OldToteIntakerino;
-class NewToteIntakerino;
+class ToteIntakerino;
 class ToteLifterino;
 class Craaaw;
 class Pneumatics;
@@ -43,8 +41,7 @@ public:
 	static ArmLifter *armLifter;
 	static ArmWristerino *armWristerino;
 	static ArmIntakerino *armIntakerino;
-	static NewToteIntakerino *newToteIntakerino;
-	static OldToteIntakerino *oldToteIntakerino;
+	static ToteIntakerino *toteIntakerino;
 	static ToteLifterino *toteLifterino;
 	static OI *oi;
 	static Pneumatics *pneumatics;

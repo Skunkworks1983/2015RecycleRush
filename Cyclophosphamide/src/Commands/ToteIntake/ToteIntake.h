@@ -4,12 +4,12 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class OldToteIntake : public CommandBase
+class ToteIntake : public CommandBase
 {
 private:
 	float speed;
 public:
-	OldToteIntake(float speed);
+	ToteIntake(float speed);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

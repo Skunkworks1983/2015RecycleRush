@@ -3,7 +3,9 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
-
+/**
+ * arm set value to lift, using PID.
+ */
 class ArmLifter: public Subsystem {
 private:
 	CAN_MOTOR_TYPE *liftMotorLeft;CAN_MOTOR_TYPE *liftMotorRight;

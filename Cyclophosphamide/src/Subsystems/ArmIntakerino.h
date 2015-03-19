@@ -3,7 +3,9 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
-
+/**
+ * left and right motor setting value.
+ */
 class ArmIntakerino: public Subsystem {
 private:
 	CAN_MOTOR_TYPE *grabMotorLeft;CAN_MOTOR_TYPE *grabMotorRight;

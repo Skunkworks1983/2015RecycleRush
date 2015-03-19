@@ -17,6 +17,11 @@ void ArmWristerino::InitDefaultCommand() {
 }
 
 void ArmWristerino::setWrist(DoubleSolenoid::Value value) {
+	if (value == DoubleSolenoid::kForward) {
+		toggleWrist = true;
+	} else {
+		toggleWrist = false;
+	}
 	wrists->Set(value);
 }
 

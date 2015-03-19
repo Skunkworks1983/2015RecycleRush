@@ -1,5 +1,5 @@
-#ifndef OLD_CRATE_INTAKERINO_H
-#define OLD_CRATE_INTAKERINO_H
+#ifndef TOTE_INTAKERINO_H
+#define TOTE_INTAKERINO_H
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
@@ -9,8 +9,9 @@
  *
  * Subsystem for loading totes from the human loader station
  */
-class OldToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
+class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
 private:
+	// RIP in peace Kaeden's documentation
 	/**
 	 * Motor that controls the rollers that pull the totes in
 	 */
@@ -18,16 +19,11 @@ private:
 
 	Encoder *encoder;
 	PIDController *pid;
-
-	bool hasTote;
-	bool isWindingDown;
-
-	unsigned long startAutoTime;
 public:
 	/**
 	 * Default constructor
 	 */
-	OldToteIntakerino();
+	ToteIntakerino();
 	/**
 	 * Does nothing because call creates circular dependencies and compile errors
 	 */
@@ -39,22 +35,13 @@ public:
 	 */
 	void setMotor(float speed);
 
-	/**
-	 * Stop the motors and keeps them at their current position
-	 */
-	void hold();
-
-	/**
-	 * Tells if a tote is loaded based on the work done by the PID
-	 */
-	bool isLoaded();
+	double getRPM();
 
 	Encoder *getEncoder();
 
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
 	PIDController *getPID();
-	unsigned long getTime();
 };
 
 #endif

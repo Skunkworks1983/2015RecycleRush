@@ -4,6 +4,9 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
+/**
+ * pneumatics, both motor set value and air pressure goes forward either true of false?
+ */
 class Craaaw: public Subsystem {
 private:
 	DoubleSolenoid *craaawLocker;

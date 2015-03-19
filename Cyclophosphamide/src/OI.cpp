@@ -10,7 +10,7 @@
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/TurnToThenDrive.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/OldToteIntake.h>
+#include <Commands/ToteIntake/ToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeight.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
@@ -66,7 +66,10 @@ OI::OI() {
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
 	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
-	toteIndex = new JoystickButton(joystickLeft, 1);
+	toteIndex = new JoystickButton(joystickLeft, 2);
+	toteIndexFwd = new JoystickButton(joystickLeft, 5);
+	toteIndexRv = new JoystickButton(joystickLeft, 6);
+	wristToggleDriver = new JoystickButton(joystickRight, 1);
 }
 
 OI::~OI() {
@@ -94,6 +97,9 @@ OI::~OI() {
 	delete toteLifterUpDriver;
 	delete toteLifterDownDriver;
 	delete toteIndex;
+	delete toteIndexFwd;
+	delete toteIndexRv;
+	delete wristToggleDriver;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -124,16 +130,16 @@ void OI::registerButtonListeners() {
 			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
 			new Collect(Induct::reverse, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::open));
+			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("toggle craaaw", craaawToggle,
 			new CraaawActuate(CraaawActuate::open),
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
 	SAFE_BUTTON(alignToteFwd,
-			alignToteFwd->WhileHeld(new OldToteIntake(TOTE_INTAKE_MOTOR_FULL)));
+			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL)));
 	SAFE_BUTTON(alignToteRvs,
-			alignToteRvs->WhileHeld(new OldToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
+			alignToteRvs->WhileHeld(new ToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
@@ -168,8 +174,13 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteLifterUpDriver,
 			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
-			toteLifterDownDriver->WhileHeld(new LiftToHeightVelocity(-.5)));
-	SAFE_BUTTON(toteIndex, toteIndex->WhenReleased(new IndexTote()));
+			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
+	createButton("index tote", toteIndex, new IndexTote());
+	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::forward, Induct::tote)));
+	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
+	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenPressed(new Induct(Induct::reverse, Induct::tote)));
+	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
+	createButton("hold tote", wristToggleDriver, new MoveWrist(MoveWrist::toggle));
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
