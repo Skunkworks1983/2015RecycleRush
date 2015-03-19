@@ -11,6 +11,7 @@
  */
 class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
 private:
+	// RIP in peace Kaeden's documentation
 	/**
 	 * Motor that controls the rollers that pull the totes in
 	 */
@@ -18,11 +19,6 @@ private:
 
 	Encoder *encoder;
 	PIDController *pid;
-
-	bool hasTote;
-	bool isWindingDown;
-
-	unsigned long startAutoTime;
 public:
 	/**
 	 * Default constructor
@@ -39,22 +35,13 @@ public:
 	 */
 	void setMotor(float speed);
 
-	/**
-	 * Stop the motors and keeps them at their current position
-	 */
-	void hold();
-
-	/**
-	 * Tells if a tote is loaded based on the work done by the PID
-	 */
-	bool isLoaded();
+	double getRPM();
 
 	Encoder *getEncoder();
 
 	virtual void PIDWrite(float f);
 	virtual double PIDGet();
 	PIDController *getPID();
-	unsigned long getTime();
 };
 
 #endif
