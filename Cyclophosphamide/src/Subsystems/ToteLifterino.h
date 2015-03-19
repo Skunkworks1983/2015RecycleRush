@@ -5,7 +5,10 @@
 #include "WPILib.h"
 #include "robotmap.h"
 #include "../utilities/DoubleMotorPIDWrapper.h"
-
+/**
+ * Tote lift using pid that have the range that it will go up and down, and value of speed.
+ * set it to zeroed
+ */
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	DigitalInput *topInput;

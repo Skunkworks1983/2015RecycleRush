@@ -11,8 +11,8 @@
 #include <Commands/Subsystem.h>
 #include "wpilib.h"
 #include <robotmap.h>
-/*
- *
+/*auto can graber is pneumatics (double solenoid)
+ *using switch statement if to grab, air pressure go forward if retract then reverse.
  */
 class AutoCanGrabber: public Subsystem {
 private:

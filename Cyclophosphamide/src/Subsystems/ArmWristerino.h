@@ -3,7 +3,9 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-
+/**
+ * wrist pneumatics set value.
+ */
 class ArmWristerino: public Subsystem {
 private:
 	DoubleSolenoid *wrists;

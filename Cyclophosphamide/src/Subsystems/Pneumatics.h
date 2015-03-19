@@ -3,7 +3,9 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-
+/**
+ * compressor will actuate and  get value pressure.
+ */
 class Pneumatics: public Subsystem {
 private:
 	DigitalInput *pressureSwitch;
