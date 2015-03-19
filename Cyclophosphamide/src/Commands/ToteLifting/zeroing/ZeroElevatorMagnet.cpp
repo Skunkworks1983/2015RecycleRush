@@ -15,7 +15,7 @@ void ZeroElevatorMag::Initialize() {
 void ZeroElevatorMag::Execute() {
 	//not tested, needs to be tested
 	if (!triggered) {
-		if (toteLifterino->getMagInput()) {
+		if (toteLifterino->getElevatorInput()) {
 			triggered = true;
 			toteLifterino->getEncoder()->Reset();
 			toteLifterino->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED_MAG);

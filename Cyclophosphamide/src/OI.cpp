@@ -22,7 +22,7 @@
 #include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
-#define VIRTUAL_OI true
+#define VIRTUAL_OI false
 #define OPERATOR_PORT 2
 
 OI::OI() {
@@ -166,13 +166,9 @@ void OI::registerButtonListeners() {
 			rightLoadButton->WhenPressed(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	createButton("whack mode", moveArmsWhackMode, new Whack());
 	SAFE_BUTTON(toteLifterUpDriver,
-			toteLifterUpDriver->WhenPressed(new LiftToHeightVelocity(.5)));
-	SAFE_BUTTON(toteLifterUpDriver,
-			toteLifterUpDriver->WhenReleased(new LiftToHeightVelocity(0)));
+			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
-			toteLifterDownDriver->WhenPressed(new LiftToHeightVelocity(-.5)));
-	SAFE_BUTTON(toteLifterDownDriver,
-			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
+			toteLifterDownDriver->WhileHeld(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteIndex, toteIndex->WhenReleased(new IndexTote()));
 }
 

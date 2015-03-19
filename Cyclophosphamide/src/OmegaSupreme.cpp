@@ -44,12 +44,10 @@ void OmegaSupreme::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 
-	input1 = new DigitalInput(1);
-	input2 = new DigitalInput(2);
-
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("Can Then Zone", Autonomous::createStartWithCanThenDrive());
+	chooser->AddDefault("Can Then Zone",
+			Autonomous::createStartWithCanThenDrive());
 	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
@@ -79,6 +77,9 @@ void OmegaSupreme::RobotInit() {
 	SmartDashboard::PutString("auto", "end of RobotInit!");
 	autonomousCommand = Autonomous::createStartWithCan();
 	out << "initialized auto" << std::endl;
+	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
+	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);
+	SmartDashboard::PutNumber("D", TOTE_LIFTER_PID_D);
 }
 
 void OmegaSupreme::AutonomousInit() {
@@ -128,39 +129,16 @@ void OmegaSupreme::TeleopInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBae->getGyro()->ZeroYaw();
 	CommandBase::driveBae->zeroPIDOutput();
+
 }
 
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
-	SmartDashboard::PutNumber("motorLEFTCurrentOMG",
-			CommandBase::toteLifterino->getLeftMotor()->GetOutputCurrent());
-	SmartDashboard::PutNumber("motorRIGHTCurrentOMG",
-			CommandBase::toteLifterino->getRightMotor()->GetOutputCurrent());
-
-	SmartDashboard::PutNumber("armPot",
-			CommandBase::armLifter->getLiftPot()->PIDGet());
-
-	SmartDashboard::PutBoolean("Digital input1", input1->Get());
-	SmartDashboard::PutBoolean("Digital input2", input2->Get());
-
-	SmartDashboard::PutNumber("Can arm pot",
-			CommandBase::armLifter->getLiftPot()->GetValue());
-
-	SmartDashboard::PutNumber("elevatorEnc",
-			CommandBase::toteLifterino->getEncoder()->PIDGet());
-	SmartDashboard::PutNumber("driveEncoder",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
-
-	SmartDashboard::PutNumber("lifter pos",
-			CommandBase::toteLifterino->getPosition());
-
-	SmartDashboard::PutNumber("Gyro Angle",
-			CommandBase::driveBae->getGyro()->GetYaw());
-
-	SmartDashboard::PutNumber("xAxisJoystick",
-			CommandBase::oi->getJoystickOperator()->GetAxis(
-					Joystick::AxisType::kXAxis));
+	SmartDashboard::PutBoolean("ElevatorSensor",
+			CommandBase::toteLifterino->getElevatorInput());
+	SmartDashboard::PutBoolean("CraaawSensor",
+				CommandBase::toteLifterino->getCraaawInput());
 	WatchDogg();
 }
 

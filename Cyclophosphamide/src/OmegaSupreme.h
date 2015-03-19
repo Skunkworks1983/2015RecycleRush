@@ -21,7 +21,6 @@ private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	int PIDChange;
-	DigitalInput *input1, *input2;
 	std::ofstream out;
 	bool running;
 	bool shouldRun;

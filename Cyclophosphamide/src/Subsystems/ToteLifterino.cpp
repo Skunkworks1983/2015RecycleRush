@@ -12,13 +12,14 @@ ToteLifterino::ToteLifterino() :
 			leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
 
 	SAFE_INIT(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT,
-			topInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT););
+			elevatorInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT););
+	craaawInput = new DigitalInput(0);
 
 	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
 	TOTE_LIFTER_PID_D, this, this);
 
-	pid->SetOutputRange(-0.8, 0.8);
+	pid->SetOutputRange(-0.8, 1.0);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
 	encoder->Reset();
@@ -33,8 +34,12 @@ void ToteLifterino::setZeroed(bool zeroed) {
 	this->zeroed = zeroed;
 }
 
-bool ToteLifterino::getMagInput() {
-	return topInput->Get();
+bool ToteLifterino::getElevatorInput() {
+	return !elevatorInput->Get();
+}
+
+bool ToteLifterino::getCraaawInput() {
+	return !craaawInput->Get();
 }
 
 CANTalon *ToteLifterino::getLeftMotor() {
@@ -73,12 +78,6 @@ void ToteLifterino::setMotorSpeed(double speed) {
 		speed = 1;
 	}
 
-	if (!ignoreInput) {
-		if ((topInput->Get() && speed > 0)) {
-			speed = 0;
-		}
-	}
-
 	enablePID(false);
 	leftMotor->Set(speed);
 	rightMotor->Set(-speed);
@@ -101,7 +100,7 @@ bool ToteLifterino::lowerThan(double height) {
 
 void ToteLifterino::PIDWrite(float f) {
 	if (!ignoreInput) {
-		if (topInput->Get() && f > 0) {
+		if (getCraaawInput() && f > 0) {
 			f = 0;
 		}
 	} else {

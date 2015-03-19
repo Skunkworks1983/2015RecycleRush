@@ -16,7 +16,7 @@ Pneumatics::Pneumatics() :
 
 void Pneumatics::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new UpdateCompressor);
+	//SetDefaultCommand(new UpdateCompressor);
 }
 
 void Pneumatics::setState(bool state) {

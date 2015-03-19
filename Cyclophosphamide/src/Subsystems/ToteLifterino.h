@@ -8,7 +8,7 @@
 
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
-	DigitalInput *topInput;
+	DigitalInput *elevatorInput, *craaawInput;
 	CANTalon *rightMotor, *leftMotor;
 	PIDController *pid;
 	Encoder *encoder;
@@ -16,7 +16,8 @@ private:
 public:
 	ToteLifterino();
 	void InitDefaultCommand();
-	bool getMagInput();
+	bool getElevatorInput();
+	bool getCraaawInput();
 	void setZeroed(bool zeroed);
 	bool lowerThan(double height);
 	CANTalon *getLeftMotor();
