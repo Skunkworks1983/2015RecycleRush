@@ -26,7 +26,6 @@ void ZeroElevatorMag::Execute() {
 		if (toteLifterino->getPosition() == -TOTE_LIFTER_MAG_SENSOR_POSITION) {
 			toteLifterino->getEncoder()->Reset();
 			toteLifterino->setMotorSpeed(0);
-			toteLifterino->setZeroed(true);
 			zeroed = true;
 		}
 	}

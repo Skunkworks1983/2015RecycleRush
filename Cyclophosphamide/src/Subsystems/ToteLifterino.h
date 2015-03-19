@@ -5,9 +5,12 @@
 #include "WPILib.h"
 #include "robotmap.h"
 #include "../utilities/DoubleMotorPIDWrapper.h"
-/**
- * Tote lift using pid that have the range that it will go up and down, and value of speed.
- * set it to zeroed
+
+/*
+ * Subsystem that handles the vertical motion of two CANTalon motor controllers.
+ * Positions are set using a setPoint in the PIDController.
+ * If failure were to occur in the encoder/zeroing, setMotorSpeed is used for manual control with no safeties
+ * Safeties include: mag sensor at top elevator, and craaaw, as well as encoder input limit at TOTE_LIFTER_MAX_DISTANCE
  */
 class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
 private:
@@ -15,21 +18,31 @@ private:
 	CANTalon *rightMotor, *leftMotor;
 	PIDController *pid;
 	Encoder *encoder;
-	bool ignoreInput, zeroed;
+	bool dontUseMagOnPID;
 public:
 	ToteLifterino();
+	~ToteLifterino();
 	void InitDefaultCommand();
+
 	bool getElevatorInput();
 	bool getCraaawInput();
-	void setZeroed(bool zeroed);
-	bool lowerThan(double height);
+
 	CANTalon *getLeftMotor();
 	CANTalon *getRightMotor();
-	double getPosition();
+
 	Encoder *getEncoder();
 	PIDController *getPID();
+
+	double getPosition();
 	bool closeEnough(float destination);
+	/*
+	 * For Manual Control
+	 */
 	void setMotorSpeed(double speed);
+
+	/*
+	 * For PID Control
+	 */
 	void setSetPoints(double setPoint);
 	void enablePID(bool enable);
 	virtual void PIDWrite(float f);

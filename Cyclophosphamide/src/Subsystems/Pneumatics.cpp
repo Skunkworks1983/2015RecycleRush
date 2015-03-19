@@ -14,6 +14,12 @@ Pneumatics::Pneumatics() :
 
 }
 
+Pneumatics::~Pneumatics(){
+	delete pressureSwitch;
+	delete relay;
+}
+
+
 void Pneumatics::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	SetDefaultCommand(new UpdateCompressor);

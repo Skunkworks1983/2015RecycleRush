@@ -24,6 +24,7 @@ public:
 	 * Default constructor
 	 */
 	ToteIntakerino();
+	~ToteIntakerino();
 	/**
 	 * Does nothing because call creates circular dependencies and compile errors
 	 */

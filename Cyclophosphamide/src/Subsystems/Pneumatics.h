@@ -12,6 +12,7 @@ private:
 	Compressor *relay;
 public:
 	Pneumatics();
+	~Pneumatics();
 	void InitDefaultCommand();
 	void setState(bool state);
 	bool isBelowPressure();

@@ -25,6 +25,13 @@ ToteIntakerino::ToteIntakerino() :
 	pid->Enable();
 }
 
+ToteIntakerino::~ToteIntakerino(){
+	delete encoder;
+	delete pid;
+	delete toteIntakeMotor;
+}
+
+
 void ToteIntakerino::InitDefaultCommand() {
 	SetDefaultCommand(new ToteIntake(TOTE_INTAKE_MOTOR_SLOW));
 }

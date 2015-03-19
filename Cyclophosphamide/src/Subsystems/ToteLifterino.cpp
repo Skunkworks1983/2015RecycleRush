@@ -1,8 +1,9 @@
-#include <Commands/ToteLifting/LiftToHeight.h>
-#include <Commands/ToteLifting/zeroing/ZeroElevator.h>
+#include <CANTalon.h>
+#include <DigitalInput.h>
+#include <Encoder.h>
+#include <PIDController.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include <Subsystems/ToteLifterino.h>
-#include "../RobotMap.h"
-#include "WPILib.h"
 
 ToteLifterino::ToteLifterino() :
 		Subsystem("ToteLifterino") {
@@ -11,27 +12,33 @@ ToteLifterino::ToteLifterino() :
 	SAFE_INIT(TOTE_LIFTER_LEFT_PORT,
 			leftMotor = new CANTalon(TOTE_LIFTER_LEFT_PORT););
 
-	SAFE_INIT(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT,
-			elevatorInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_TOP_INPUT_PORT););
-	craaawInput = new DigitalInput(0);
+	SAFE_INIT(TOTE_LIFTER_ELEVATOR_INPUT_PORT,
+			elevatorInput = new DigitalInput(TOTE_LIFTER_ELEVATOR_INPUT_PORT););
+	SAFE_INIT(TOTE_LIFTER_CRAAAW_INPUT_PORT,
+			craaawInput = new DigitalInput(TOTE_LIFTER_CRAAAW_INPUT_PORT););
 
 	encoder = new Encoder(TOTE_LIFTER_ENCODER_PORTS);
+
 	pid = new PIDController(TOTE_LIFTER_PID_P, TOTE_LIFTER_PID_I,
 	TOTE_LIFTER_PID_D, this, this);
-
 	pid->SetOutputRange(-0.8, 1.0);
 	pid->SetInputRange(0, TOTE_LIFTER_MAX_DISTANCE);
 	pid->SetPercentTolerance(.75);
 	encoder->Reset();
 
-	ignoreInput = true; //topInput->Get() && botInput->Get();
+	dontUseMagOnPID = true; //topInput->Get() && botInput->Get();
+}
+
+ToteLifterino::~ToteLifterino() {
+	delete rightMotor;
+	delete leftMotor;
+	delete craaawInput;
+	delete elevatorInput;
+	delete pid;
+	delete encoder;
 }
 
 void ToteLifterino::InitDefaultCommand() {
-}
-
-void ToteLifterino::setZeroed(bool zeroed) {
-	this->zeroed = zeroed;
 }
 
 bool ToteLifterino::getElevatorInput() {
@@ -51,7 +58,7 @@ CANTalon *ToteLifterino::getRightMotor() {
 }
 
 double ToteLifterino::getPosition() {
-	return encoder->Get();
+	return encoder->PIDGet();
 }
 
 Encoder *ToteLifterino::getEncoder() {
@@ -94,12 +101,8 @@ bool ToteLifterino::closeEnough(float destination) {
 	return close;
 }
 
-bool ToteLifterino::lowerThan(double height) {
-	return encoder->Get() < height;
-}
-
 void ToteLifterino::PIDWrite(float f) {
-	if (!ignoreInput) {
+	if (!dontUseMagOnPID) {
 		if (getCraaawInput() && f > 0) {
 			f = 0;
 		}

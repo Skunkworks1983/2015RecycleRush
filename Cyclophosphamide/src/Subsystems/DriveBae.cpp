@@ -62,6 +62,7 @@ DriveBae::~DriveBae() {
 	delete serialPort;
 	delete gyro;
 	delete strafePID;
+	delete lightSensor;
 }
 
 void DriveBae::InitDefaultCommand() {

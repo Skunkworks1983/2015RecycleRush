@@ -28,12 +28,10 @@ bool ZeroElevator::IsFinished() {
 // Called once after isFinished returns true
 void ZeroElevator::End() {
 	toteLifterino->getEncoder()->Reset();
-	toteLifterino->setZeroed(true);
 	toteLifterino->setMotorSpeed(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ZeroElevator::Interrupted() {
-	toteLifterino->setZeroed(false);
 }
