@@ -10,7 +10,7 @@
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/TurnToThenDrive.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/OldToteIntake.h>
+#include <Commands/ToteIntake/ToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeight.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
@@ -137,9 +137,9 @@ void OI::registerButtonListeners() {
 
 	// Loading/stacking
 	SAFE_BUTTON(alignToteFwd,
-			alignToteFwd->WhileHeld(new OldToteIntake(TOTE_INTAKE_MOTOR_FULL)));
+			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL)));
 	SAFE_BUTTON(alignToteRvs,
-			alignToteRvs->WhileHeld(new OldToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
+			alignToteRvs->WhileHeld(new ToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
