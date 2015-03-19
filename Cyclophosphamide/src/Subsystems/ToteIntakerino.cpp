@@ -9,8 +9,8 @@
 
 // TODO tune these
 // TODO move these to RobotMap.h
-#define TOTE_INTAKE_RPM 10
-#define TOTE_INTAKE_P 0.005
+#define TOTE_INTAKE_RPM 2.0
+#define TOTE_INTAKE_P 0.1
 #define TOTE_INTAKE_I 0.0
 #define TOTE_INTAKE_D 0.0
 
@@ -33,10 +33,11 @@ ToteIntakerino::~ToteIntakerino(){
 
 
 void ToteIntakerino::InitDefaultCommand() {
-	SetDefaultCommand(new ToteIntake(TOTE_INTAKE_MOTOR_SLOW));
+	SetDefaultCommand(new ToteIntake(TOTE_INTAKE_RPM));
 }
 
 void ToteIntakerino::PIDWrite(float output) {
+	//SmartDashboard::PutNumber("intake output", output);
 	toteIntakeMotor->Set(output);
 }
 
@@ -45,7 +46,7 @@ double ToteIntakerino::PIDGet() {
 }
 
 double ToteIntakerino::getRPM() {
-	return encoder->Get() / TOTE_INTAKE_ENCODER_TICKS_PER_REV * 60.0;
+	return encoder->GetRate() / TOTE_INTAKE_ENCODER_TICKS_PER_REV / 60.0;
 }
 
 // Put methods for controlling this subsystem
