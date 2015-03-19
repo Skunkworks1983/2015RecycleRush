@@ -11,9 +11,10 @@ public:
 	};
 private:
 	State state;
+	bool override;
 
 public:
-	MoveWrist(State state);
+	MoveWrist(State state, bool override = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

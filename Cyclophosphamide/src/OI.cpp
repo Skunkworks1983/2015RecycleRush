@@ -130,7 +130,7 @@ void OI::registerButtonListeners() {
 			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
 			new Collect(Induct::reverse, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::open));
+			new Collect(Induct::stopped, MoveWrist::close));
 	createSwitch("toggle craaaw", craaawToggle,
 			new CraaawActuate(CraaawActuate::open),
 			new CraaawActuate(CraaawActuate::close));
