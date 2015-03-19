@@ -33,6 +33,9 @@ public:
 	JoystickButton *toteLifterUpDriver;
 	JoystickButton *toteLifterDownDriver;
 	JoystickButton *toteIndex;
+	JoystickButton *toteIndexFwd;
+	JoystickButton *toteIndexRv;
+	JoystickButton *wristToggleDriver;
 
 	AnalogRangeIOButton *score;
 	AnalogRangeIOButton *floorLoader;

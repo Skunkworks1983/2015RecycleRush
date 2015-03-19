@@ -66,7 +66,10 @@ OI::OI() {
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
 	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
-	toteIndex = new JoystickButton(joystickLeft, 1);
+	toteIndex = new JoystickButton(joystickLeft, 2);
+	toteIndexFwd = new JoystickButton(joystickLeft, 5);
+	toteIndexRv = new JoystickButton(joystickLeft, 6);
+	wristToggleDriver = new JoystickButton(joystickRight, 1);
 }
 
 OI::~OI() {
@@ -94,6 +97,9 @@ OI::~OI() {
 	delete toteLifterUpDriver;
 	delete toteLifterDownDriver;
 	delete toteIndex;
+	delete toteIndexFwd;
+	delete toteIndexRv;
+	delete wristToggleDriver;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -173,7 +179,12 @@ void OI::registerButtonListeners() {
 			toteLifterDownDriver->WhenPressed(new LiftToHeightVelocity(-.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
 			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
-	SAFE_BUTTON(toteIndex, toteIndex->WhenReleased(new IndexTote()));
+	createButton("index tote", toteIndex, new IndexTote());
+	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::forward, Induct::tote)));
+	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
+	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenPressed(new Induct(Induct::reverse, Induct::tote)));
+	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
+	createButton("hold tote", wristToggleDriver, new MoveWrist(MoveWrist::toggle));
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {

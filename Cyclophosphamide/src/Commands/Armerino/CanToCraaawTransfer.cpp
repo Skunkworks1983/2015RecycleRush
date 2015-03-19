@@ -1,5 +1,6 @@
 #include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
+#include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/Craaaw/CraaawActuate.h>
 #include <Commands/ToteLifting/LiftToHeight.h>
@@ -12,4 +13,5 @@ CanToCraaawTransfer::CanToCraaawTransfer() {
 	AddSequential(new WaitCommand(.25));
 	AddSequential(new MoveWrist(MoveWrist::open));
 	AddSequential(new LiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
+	AddParallel(new MoveArmsFancy(MoveArmsFancy::down));
 }
