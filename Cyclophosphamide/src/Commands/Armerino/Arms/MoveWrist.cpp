@@ -19,7 +19,7 @@ void MoveWrist::Initialize() {
 		break;
 	case open:
 		// TODO is it sketchy to use two subsystems?
-		if(!override && !armLifter->getSetpoint()>CAN_POT_DOWN_POSITION){
+		if(override || !armLifter->getSetpoint()>CAN_POT_DOWN_POSITION){
 			armWristerino->setWrist(DoubleSolenoid::kForward);
 		}
 		break;
