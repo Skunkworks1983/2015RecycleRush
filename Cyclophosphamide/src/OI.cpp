@@ -10,15 +10,14 @@
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/TurnToThenDrive.h>
 #include <Commands/Score.h>
+#include <Commands/ToteIntake/EnableIntake.h>
 #include <Commands/ToteIntake/ToteIntake.h>
-#include <Commands/ToteLifting/LiftToHeight.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <Joystick.h>
 #include <OI.h>
 #include <RobotMap.h>
-#include <SmartDashboard/SmartDashboard.h>
 #include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
@@ -136,6 +135,10 @@ void OI::registerButtonListeners() {
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
+	SAFE_BUTTON(alignToteFwd,
+				alignToteFwd->WhenPressed(new EnableIntake(true)));
+		SAFE_BUTTON(alignToteRvs,
+				alignToteRvs->WhenPressed(new EnableIntake(true)));
 	SAFE_BUTTON(alignToteFwd,
 			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL)));
 	SAFE_BUTTON(alignToteRvs,

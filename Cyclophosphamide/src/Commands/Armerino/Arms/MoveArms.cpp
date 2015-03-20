@@ -29,7 +29,7 @@ bool MoveArms::IsFinished() {
 }
 
 void MoveArms::End() {
-
+	armLifter->disableArms();
 }
 
 void MoveArms::Interrupted() {
