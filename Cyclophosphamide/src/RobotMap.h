@@ -122,7 +122,7 @@
 
 #if COMPETITION_BOT	//TODO: find out if this is needed still
 
-#define CAN_POT_UP_POSITION 3.92
+#define CAN_POT_UP_POSITION 4.250 //3.92
 #define CAN_POT_DOWN_POSITION 1.44
 
 #else

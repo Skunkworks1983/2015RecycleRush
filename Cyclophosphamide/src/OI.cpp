@@ -154,7 +154,8 @@ void OI::registerButtonListeners() {
 
 	// Overrides
 	createSwitch("wrist override", wristOverride,
-			new MoveWrist(MoveWrist::close), new MoveWrist(MoveWrist::open));
+			new MoveWrist(MoveWrist::close, true),
+			new MoveWrist(MoveWrist::open, true));
 	createSwitch("lifter up override", toteLifterUp,
 			new LiftToHeightVelocity(.5), new LiftToHeightVelocity(0)); // TODO sketchy
 	createSwitch("lifter down override", toteLifterDown,
@@ -176,11 +177,17 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteLifterDownDriver,
 			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
 	createButton("index tote", toteIndex, new IndexTote());
-	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::forward, Induct::tote)));
-	SAFE_BUTTON(toteIndexFwd, toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
-	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenPressed(new Induct(Induct::reverse, Induct::tote)));
-	SAFE_BUTTON(toteIndexRv, toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
-	createButton("hold tote", wristToggleDriver, new MoveWrist(MoveWrist::toggle));
+	SAFE_BUTTON(toteIndexFwd,
+			toteIndexFwd->WhenPressed(
+					new Induct(Induct::forward, Induct::tote)));
+	SAFE_BUTTON(toteIndexFwd,
+			toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
+	SAFE_BUTTON(toteIndexRv,
+			toteIndexRv->WhenPressed(new Induct(Induct::reverse, Induct::tote)));
+	SAFE_BUTTON(toteIndexRv,
+			toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
+	createButton("hold tote", wristToggleDriver,
+			new MoveWrist(MoveWrist::toggle));
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
