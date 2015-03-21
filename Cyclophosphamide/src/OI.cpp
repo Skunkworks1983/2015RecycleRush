@@ -8,7 +8,6 @@
 #include <Commands/Armerino/Craaaw/CraaawActuate.h>
 #include <Commands/Armerino/IndexTote.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
-#include <Commands/Automatic/TurnToThenDrive.h>
 #include <Commands/Score.h>
 #include <Commands/ToteIntake/EnableIntake.h>
 #include <Commands/ToteIntake/ToteIntake.h>

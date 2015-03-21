@@ -11,7 +11,6 @@ Pneumatics::Pneumatics() :
 	SAFE_INIT(COMPRESSOR_RELAY_PORT,
 			relay = new Compressor(COMPRESSOR_RELAY_PORT););
 	LiveWindow::GetInstance()->AddActuator("Pneumatics", "Compressor", relay);
-
 }
 
 Pneumatics::~Pneumatics(){
