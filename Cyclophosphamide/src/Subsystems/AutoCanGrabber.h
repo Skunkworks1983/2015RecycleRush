@@ -15,12 +15,14 @@
  *using switch statement if to grab, air pressure go forward if retract then reverse.
  */
 class AutoCanGrabber: public Subsystem {
+public:
+	enum GrabberState {
+		GRAB, RETRACT, TOGGLE
+	};
 private:
 	DoubleSolenoid *solenoid;
+	bool grabLast;
 public:
-	enum GrabberState{
-		GRAB,RETRACT
-	};
 	AutoCanGrabber();
 	virtual ~AutoCanGrabber();
 	void actuate(GrabberState state);

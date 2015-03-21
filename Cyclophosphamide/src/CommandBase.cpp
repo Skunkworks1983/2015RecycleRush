@@ -43,4 +43,5 @@ void CommandBase::init() {
 	oi = new OI();
 	craaaw = new Craaaw();
 	pneumatics = new Pneumatics();
+	autoCanGrabber = new AutoCanGrabber();
 }

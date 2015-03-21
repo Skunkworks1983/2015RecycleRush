@@ -30,10 +30,10 @@ public:
 	JoystickButton *canArmOverrideDown;
 	JoystickButton *toteLifterUpDriver;
 	JoystickButton *toteLifterDownDriver;
-	JoystickButton *toteIndex;
 	JoystickButton *toteIndexFwd;
 	JoystickButton *toteIndexRv;
 	JoystickButton *wristToggleDriver;
+	JoystickButton *toggleAutoZone;
 
 	AnalogRangeIOButton *score;
 	AnalogRangeIOButton *floorLoader;

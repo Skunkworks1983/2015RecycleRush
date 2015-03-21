@@ -2,13 +2,14 @@
 #include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveArms.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
+#include <Commands/Armerino/Arms/RampInduct.h>
 #include <Commands/Armerino/Arms/Whack.h>
 #include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/CollectCan.h>
 #include <Commands/Armerino/Craaaw/CraaawActuate.h>
 #include <Commands/Armerino/IndexTote.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
-#include <Commands/Automatic/TurnToThenDrive.h>
+#include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Score.h>
 #include <Commands/ToteIntake/EnableIntake.h>
 #include <Commands/ToteIntake/ToteIntake.h>
@@ -18,6 +19,7 @@
 #include <Joystick.h>
 #include <OI.h>
 #include <RobotMap.h>
+#include <Subsystems/AutoCanGrabber.h>
 #include <string>
 
 #define SAFE_BUTTON(name, cmd) {if (name!=NULL){cmd;}}
@@ -35,6 +37,7 @@ OI::OI() {
 	canCollectRvs = new JoystickButton(op, 12);
 	canToCraaawTransfer = new JoystickButton(op, 10);
 	craaawToggle = new JoystickButton(op, 14);
+	toggleAutoZone = new JoystickButton(joystickLeft, 2);
 
 	// Tote stacking
 	alignToteFwd = new JoystickButton(op, 7);
@@ -63,7 +66,6 @@ OI::OI() {
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
 	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
-	toteIndex = new JoystickButton(joystickLeft, 2);
 	toteIndexFwd = new JoystickButton(joystickRight, 5);
 	toteIndexRv = new JoystickButton(joystickRight, 3);
 	wristToggleDriver = new JoystickButton(joystickRight, 1);
@@ -91,10 +93,10 @@ OI::~OI() {
 	delete canArmOverrideDown;
 	delete toteLifterUpDriver;
 	delete toteLifterDownDriver;
-	delete toteIndex;
 	delete toteIndexFwd;
 	delete toteIndexRv;
 	delete wristToggleDriver;
+	delete toggleAutoZone;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -122,19 +124,17 @@ void OI::registerButtonListeners() {
 	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
 	createSwitch("collect Fwd", canCollectFwd,
 			new Collect(CAN_GRAB_SPEED, MoveWrist::close),
-			new Collect(-CAN_GRAB_SPEED, MoveWrist::close));
+			new Collect(0, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
 			new Collect(-CAN_GRAB_SPEED, MoveWrist::close),
-			new Collect(CAN_GRAB_SPEED, MoveWrist::close));
+			new Collect(0, MoveWrist::close));
 	createSwitch("toggle craaaw", craaawToggle,
 			new CraaawActuate(CraaawActuate::open),
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
-	SAFE_BUTTON(alignToteFwd,
-				alignToteFwd->WhenPressed(new EnableIntake(true)));
-		SAFE_BUTTON(alignToteRvs,
-				alignToteRvs->WhenPressed(new EnableIntake(true)));
+	SAFE_BUTTON(alignToteFwd, alignToteFwd->WhenPressed(new EnableIntake(true)));
+	SAFE_BUTTON(alignToteRvs, alignToteRvs->WhenPressed(new EnableIntake(true)));
 	SAFE_BUTTON(alignToteFwd,
 			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL)));
 	SAFE_BUTTON(alignToteRvs,
@@ -143,6 +143,11 @@ void OI::registerButtonListeners() {
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
+
+	createButton("toggleAutoZone", toggleAutoZone,
+				new GrabCenterCan(AutoCanGrabber::GrabberState::TOGGLE));
+
+
 
 	// Scoring
 	createButton("floor loader", floorLoader,
@@ -171,13 +176,10 @@ void OI::registerButtonListeners() {
 			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
 			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
-	createButton("index tote", toteIndex, new IndexTote());
 	SAFE_BUTTON(toteIndexFwd,
-			toteIndexFwd->WhenPressed(
-					new Induct(TOTE_INDEX_SPEED)));
+			toteIndexFwd->WhenPressed( new RampInduct(TOTE_INDEX_SPEED,0.5)));
 	SAFE_BUTTON(toteIndexFwd,
-				toteIndexFwd->WhenReleased(
-						new Induct(TOTE_EXPEL_SPEED, 0.1)));
+			toteIndexFwd->WhenReleased( new Induct(TOTE_EXPEL_SPEED, 0.2)));
 	SAFE_BUTTON(toteIndexRv,
 			toteIndexRv->WhileHeld(new Induct(TOTE_EXPEL_SPEED)));
 	createButton("hold tote", wristToggleDriver,

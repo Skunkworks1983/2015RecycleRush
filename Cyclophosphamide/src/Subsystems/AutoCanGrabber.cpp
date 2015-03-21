@@ -11,7 +11,7 @@
 AutoCanGrabber::AutoCanGrabber() :
 		Subsystem("AutoCanGrabber") {
 	solenoid = new DoubleSolenoid(AUTO_CAN_GRABBER_SOLENOID_PORT_A,
-			AUTO_CAN_GRABBER_SOLENOID_PORT_B);
+	AUTO_CAN_GRABBER_SOLENOID_PORT_B);
 }
 
 AutoCanGrabber::~AutoCanGrabber() {
@@ -22,9 +22,20 @@ void AutoCanGrabber::actuate(GrabberState state) {
 	switch (state) {
 	case GRAB:
 		solenoid->Set(DoubleSolenoid::Value::kForward);
+		grabLast = GRAB;
 		break;
 	case RETRACT:
 		solenoid->Set(DoubleSolenoid::Value::kReverse);
+		grabLast = RETRACT;
+		break;
+	case TOGGLE:
+		if (grabLast) {
+			solenoid->Set(DoubleSolenoid::Value::kReverse);
+			grabLast = false;
+		} else {
+			solenoid->Set(DoubleSolenoid::Value::kForward);
+			grabLast = true;
+		}
 		break;
 	default:
 		//nothing?
