@@ -11,16 +11,16 @@ private:
 	CANTalon *slaveMotor;
 	PIDSource *input;
 	pthread_t stallThread;
-	int directionMag, pdirectionMag;
-	float currentThreshold;
-	bool stalled, usingCANTalon, directionSwitch, stalledStart;
+	float currentThreshold, moveThreshold;
+	bool stalled, usingCANTalon;
 
 	static void *InitHelper(void *classref);
 	void* StallCheck(void*);
 	void ThreadInit();
 	unsigned long getTime();
 public:
-	StallableMotor(PIDSource *input, float currentThreshold, CANTalon *motor,
+	StallableMotor(PIDSource *input, float moveThreshold,
+			float currentThreshold, CANTalon *motor,
 			CANTalon *slaveMotor = NULL);
 	StallableMotor(CANTalon *motor, float currentThreshold);
 	~StallableMotor();

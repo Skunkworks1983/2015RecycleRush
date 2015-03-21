@@ -184,11 +184,14 @@ void OI::registerButtonListeners() {
 			toteIndexFwd->WhenPressed(
 					new Induct(Induct::forward, Induct::tote)));
 	SAFE_BUTTON(toteIndexFwd,
-			toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
+				toteIndexFwd->WhenReleased(
+						new Induct(Induct::reverse, 0.1, Induct::tote)));
+//	SAFE_BUTTON(toteIndexFwd,
+//			toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
 	SAFE_BUTTON(toteIndexRv,
-			toteIndexRv->WhenPressed(new Induct(Induct::reverse, Induct::tote)));
-	SAFE_BUTTON(toteIndexRv,
-			toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
+			toteIndexRv->WhileHeld(new Induct(Induct::reverse, Induct::tote)));
+//	SAFE_BUTTON(toteIndexRv,
+//			toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
 	createButton("hold tote", wristToggleDriver,
 			new MoveWrist(MoveWrist::toggle));
 }
