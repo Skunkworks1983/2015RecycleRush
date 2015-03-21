@@ -61,11 +61,11 @@ void OmegaSupreme::RobotInit() {
 	if (CommandBase::driveBae != NULL) {
 		SmartDashboard::PutData("Zero yaw", new ZeroGyro);
 		bool zeroed = false;
-		double initialTime = GetFPGATime();
+		double initialTime = Time::getTime();
 		while (!zeroed) {
 			bool isCalibrating =
 					CommandBase::driveBae->getGyro()->IsCalibrating();
-			if (!isCalibrating /*|| GetFPGATime() - initialTime > GYRO_TIMEOUT*/) {
+			if (!isCalibrating || Time::getTime() - initialTime > GYRO_TIMEOUT) {
 				Wait(0.2);
 				CommandBase::driveBae->getGyro()->ZeroYaw();
 				//CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
