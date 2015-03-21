@@ -135,11 +135,6 @@ void OmegaSupreme::TeleopInit() {
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
-	SmartDashboard::PutBoolean("ElevatorSensor",
-			CommandBase::toteLifterino->getElevatorInput());
-	SmartDashboard::PutBoolean("CraaawSensor",
-			CommandBase::toteLifterino->getCraaawInput());
-
 	WatchDogg();
 }
 

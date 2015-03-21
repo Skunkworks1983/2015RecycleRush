@@ -20,3 +20,12 @@ void ArmIntakerino::setGrab(float value) {
 	grabMotorLeft->Set(value);
 	grabMotorRight->Set(-value);
 }
+
+CAN_MOTOR_TYPE *ArmIntakerino::getRight() {
+	return grabMotorRight;
+}
+
+CAN_MOTOR_TYPE *ArmIntakerino::getLeft() {
+	return grabMotorLeft;
+}
+

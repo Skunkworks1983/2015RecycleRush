@@ -9,7 +9,7 @@
  *
  * Subsystem for loading totes from the human loader station
  */
-class ToteIntakerino: public Subsystem, public PIDOutput, public PIDSource {
+class ToteIntakerino: public Subsystem{
 private:
 	// RIP in peace Kaeden's documentation
 	/**
@@ -18,7 +18,6 @@ private:
 	CANTalon *toteIntakeMotor;
 
 	Encoder *encoder;
-	PIDController *pid;
 public:
 	/**
 	 * Default constructor
@@ -39,10 +38,6 @@ public:
 	double getRPM();
 
 	Encoder *getEncoder();
-
-	virtual void PIDWrite(float f);
-	virtual double PIDGet();
-	PIDController *getPID();
 };
 
 #endif

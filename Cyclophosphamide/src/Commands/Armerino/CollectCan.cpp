@@ -2,5 +2,5 @@
 
 Collect::Collect(float speed, MoveWrist::State state) {
 	AddSequential(new MoveWrist(state));
-	AddSequential(new Induct(CAN_GRAB_SPEED));
+	AddSequential(new Induct(speed));
 }

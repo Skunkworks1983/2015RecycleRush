@@ -15,6 +15,8 @@ public:
 	~ArmIntakerino();
 
 	void setGrab(float value);
+	CAN_MOTOR_TYPE *getLeft();
+	CAN_MOTOR_TYPE *getRight();
 };
 
 #endif

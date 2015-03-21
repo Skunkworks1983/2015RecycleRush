@@ -15,8 +15,9 @@ ArmLifter::ArmLifter() :
 	SAFE_INIT(CAN_SENSOR_PORT, canSensor = new DigitalInput(CAN_SENSOR_PORT););
 
 	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
-			new StallableMotor(liftPot, 0.8, STALLABLE_POT_MOVE_THRESHOLD,
-					liftMotorRight, liftMotorLeft));
+			new StallableMotor(liftPot, 420, 20, liftMotorRight,
+					liftMotorLeft));
+
 	armPID->SetOutputRange(-.7, .7);
 	armPID->SetInputRange(CAN_POT_DOWN_POSITION, CAN_POT_UP_POSITION);
 	armPID->SetPercentTolerance(5);
@@ -36,7 +37,6 @@ void ArmLifter::InitDefaultCommand() {
 }
 
 void ArmLifter::setArms(float value) {
-	setpoint = value;
 	armPID->SetSetpoint(value);
 	armPID->Enable();
 }
@@ -69,10 +69,15 @@ bool ArmLifter::getToggleArms() {
 	return toggleArms;
 }
 
+AnalogInput *ArmLifter::getPot(){
+	return liftPot;
+}
+
+
 void ArmLifter::getDatStatus() {
 
 }
 
 double ArmLifter::getSetpoint() {
-	return setpoint;
+	return armPID->GetSetpoint();
 }

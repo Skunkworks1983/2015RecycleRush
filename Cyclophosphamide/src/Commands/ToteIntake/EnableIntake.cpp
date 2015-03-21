@@ -10,9 +10,9 @@ EnableIntake::EnableIntake(bool enable)
 void EnableIntake::Initialize()
 {
 	if(enable){
-		toteIntakerino->getPID()->Enable();
+		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
 	} else {
-		toteIntakerino->getPID()->Disable();
+		toteIntakerino->setMotor(0);
 	}
 }
 

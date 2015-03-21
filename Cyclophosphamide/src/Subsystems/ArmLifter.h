@@ -3,9 +3,11 @@
 
 #include "WPILib.h"
 #include "RobotMap.h"
+
 /**
  * arm set value to lift, using PID.
  */
+
 class ArmLifter: public Subsystem {
 private:
 	CAN_MOTOR_TYPE *liftMotorLeft;CAN_MOTOR_TYPE *liftMotorRight;
@@ -15,7 +17,6 @@ private:
 
 	DigitalInput *canSensor;
 
-	float setpoint;
 	bool toggleArms;
 public:
 	ArmLifter();
@@ -37,6 +38,8 @@ public:
 
 	void getDatStatus();
 	double getSetpoint();
+
+	AnalogInput *getPot();
 };
 
 #endif
