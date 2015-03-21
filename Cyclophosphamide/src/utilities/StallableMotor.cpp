@@ -13,6 +13,7 @@ StallableMotor::StallableMotor(PIDSource *input, float moveThreshold,
 	this->currentThreshold = currentThreshold;
 	this->moveThreshold = moveThreshold;
 	this->input = input;
+	stalled = false;
 	usingCANTalon = false;
 	stalled = false;
 	ThreadInit();
@@ -26,6 +27,7 @@ StallableMotor::~StallableMotor() {
 StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
 	this->motor = motor;
 	this->currentThreshold = currentThreshold;
+	stalled = false;
 	moveThreshold = STALLABLE_ENC_MOVE_THRESHOLD;
 	usingCANTalon = true;
 	stalled = false;
@@ -83,10 +85,12 @@ void* StallableMotor::StallCheck(void*) {
 
 void StallableMotor::PIDWrite(float output) {
 	if (!stalled) {
-		motor->SetControlMode(CANSpeedController::kPosition);
+		motor->EnableControl();
+		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(output);
 		if (slaveMotor != NULL) {
-			slaveMotor->SetControlMode(CANSpeedController::kPosition);
+			slaveMotor->EnableControl();
+			slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
 			slaveMotor->Set(-output);
 		}
 	} else if (stalled) {

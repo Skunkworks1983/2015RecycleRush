@@ -7,8 +7,6 @@
 #include <chrono>
 #include <cmath>
 
-// TODO tune these
-// TODO move these to RobotMap.h
 #define TOTE_INTAKE_P 0.5
 #define TOTE_INTAKE_I 0.0
 #define TOTE_INTAKE_D 0.0
