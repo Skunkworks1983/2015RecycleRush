@@ -8,7 +8,7 @@
 
 class Collect: public CommandGroup {
 public:
-	Collect(Induct::State direction = Induct::forward, MoveWrist::State state =
+	Collect(float speed = CAN_GRAB_SPEED, MoveWrist::State state =
 			MoveWrist::close);
 };
 

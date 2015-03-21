@@ -125,11 +125,11 @@ void OI::registerButtonListeners() {
 			new MoveArmsFancy(MoveArmsFancy::down));
 	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
 	createSwitch("collect Fwd", canCollectFwd,
-			new Collect(Induct::forward, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::close));
+			new Collect(CAN_GRAB_SPEED, MoveWrist::close),
+			new Collect(-CAN_GRAB_SPEED, MoveWrist::close));
 	createSwitch("collect Rvs", canCollectRvs,
-			new Collect(Induct::reverse, MoveWrist::close),
-			new Collect(Induct::stopped, MoveWrist::close));
+			new Collect(-CAN_GRAB_SPEED, MoveWrist::close),
+			new Collect(CAN_GRAB_SPEED, MoveWrist::close));
 	createSwitch("toggle craaaw", craaawToggle,
 			new CraaawActuate(CraaawActuate::open),
 			new CraaawActuate(CraaawActuate::close));
@@ -182,16 +182,12 @@ void OI::registerButtonListeners() {
 	createButton("index tote", toteIndex, new IndexTote());
 	SAFE_BUTTON(toteIndexFwd,
 			toteIndexFwd->WhenPressed(
-					new Induct(Induct::forward, Induct::tote)));
+					new Induct(TOTE_INDEX_SPEED)));
 	SAFE_BUTTON(toteIndexFwd,
 				toteIndexFwd->WhenReleased(
-						new Induct(Induct::reverse, 0.1, Induct::tote)));
-//	SAFE_BUTTON(toteIndexFwd,
-//			toteIndexFwd->WhenPressed(new Induct(Induct::stopped)));
+						new Induct(TOTE_EXPEL_SPEED, 0.1)));
 	SAFE_BUTTON(toteIndexRv,
-			toteIndexRv->WhileHeld(new Induct(Induct::reverse, Induct::tote)));
-//	SAFE_BUTTON(toteIndexRv,
-//			toteIndexRv->WhenReleased(new Induct(Induct::stopped)));
+			toteIndexRv->WhileHeld(new Induct(TOTE_EXPEL_SPEED)));
 	createButton("hold tote", wristToggleDriver,
 			new MoveWrist(MoveWrist::toggle));
 }
