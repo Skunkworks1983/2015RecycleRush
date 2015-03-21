@@ -1,4 +1,10 @@
-#include "StallableMotor.h"
+#include <CANSpeedController.h>
+#include <CANTalon.h>
+#include <PIDSource.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <utilities/StallableMotor.h>
+#include <utilities/Time.h>
+#include <cstdlib>
 
 StallableMotor::StallableMotor(PIDSource *input, float moveThreshold,
 		float currentThreshold, CANTalon *motor, CANTalon *slaveMotor) {
@@ -8,6 +14,7 @@ StallableMotor::StallableMotor(PIDSource *input, float moveThreshold,
 	this->moveThreshold = moveThreshold;
 	this->input = input;
 	usingCANTalon = false;
+	stalled = false;
 	ThreadInit();
 }
 
@@ -21,6 +28,7 @@ StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
 	this->currentThreshold = currentThreshold;
 	moveThreshold = STALLABLE_ENC_MOVE_THRESHOLD;
 	usingCANTalon = true;
+	stalled = false;
 	ThreadInit();
 }
 
@@ -52,9 +60,9 @@ void* StallableMotor::StallCheck(void*) {
 				SmartDashboard::PutNumber("Position Difference",
 						currentPosition - prevPosition);
 				if (startTime == 0) {
-					startTime = getTime();
+					startTime = Time::getTime();
 				}
-				double dtime = getTime() - startTime;
+				double dtime = Time::getTime() - startTime;
 				SmartDashboard::PutNumber("Stall Time", dtime);
 				if (dtime >= STALLABLE_TIME_STOP) {
 					stalled = true;
@@ -91,11 +99,4 @@ void StallableMotor::PIDWrite(float output) {
 			slaveMotor->Disable();
 		}
 	}
-}
-
-unsigned long StallableMotor::getTime() {
-	using namespace std::chrono;
-	unsigned long ms = duration_cast<milliseconds>(
-			high_resolution_clock::now().time_since_epoch()).count();
-	return ms;
 }

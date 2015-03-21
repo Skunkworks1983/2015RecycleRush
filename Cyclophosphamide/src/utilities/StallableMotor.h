@@ -17,7 +17,6 @@ private:
 	static void *InitHelper(void *classref);
 	void* StallCheck(void*);
 	void ThreadInit();
-	unsigned long getTime();
 public:
 	StallableMotor(PIDSource *input, float moveThreshold,
 			float currentThreshold, CANTalon *motor,
