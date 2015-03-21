@@ -15,8 +15,6 @@ public:
 	JoystickButton *alignToteFwd;
 	JoystickButton *alignToteRvs;
 	JoystickButton *canToCraaawTransfer;
-	JoystickButton *leftLoadButton;
-	JoystickButton *rightLoadButton;
 	JoystickButton *loadPos;
 	JoystickButton *floorPos;
 	JoystickButton *moveArmsWhackMode;

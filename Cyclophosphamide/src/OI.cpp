@@ -60,14 +60,12 @@ OI::OI() {
 	zeroLifter = new JoystickButton(op, 16);
 
 	// Driver buttons
-	leftLoadButton = new JoystickButton(joystickRight, 5);
-	rightLoadButton = new JoystickButton(joystickRight, 6);
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
 	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
 	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
 	toteIndex = new JoystickButton(joystickLeft, 2);
-	toteIndexFwd = new JoystickButton(joystickLeft, 5);
-	toteIndexRv = new JoystickButton(joystickLeft, 6);
+	toteIndexFwd = new JoystickButton(joystickRight, 5);
+	toteIndexRv = new JoystickButton(joystickRight, 3);
 	wristToggleDriver = new JoystickButton(joystickRight, 1);
 }
 
@@ -77,8 +75,6 @@ OI::~OI() {
 	delete canToCraaawTransfer;
 	delete score;
 	delete floorLoader;
-	delete leftLoadButton;
-	delete rightLoadButton;
 	delete carryPos;
 	delete loadPos;
 	delete floorPos;
@@ -170,10 +166,6 @@ void OI::registerButtonListeners() {
 			new MoveArms(CAN_POT_DOWN_POSITION));
 
 	// Special driver buttons
-	SAFE_BUTTON(leftLoadButton,
-			leftLoadButton->WhenPressed(new TurnToThenDrive(LOAD_LEFT_ANGLE)));
-	SAFE_BUTTON(rightLoadButton,
-			rightLoadButton->WhenPressed(new TurnToThenDrive(LOAD_RIGHT_ANGLE)));
 	createButton("whack mode", moveArmsWhackMode, new Whack());
 	SAFE_BUTTON(toteLifterUpDriver,
 			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
