@@ -5,19 +5,11 @@
 #include "WPILib.h"
 
 class Induct: public CommandBase {
-public:
-	enum State {
-		forward, reverse, stopped
-	};
-	enum Mode {
-		tote, can
-	};
 private:
-	State state;
-	Mode mode;
+	float speed;
 public:
-	Induct(State state, Mode mode = can);
-	Induct(State state, double timeout, Mode mode = can);
+	Induct(float speed);
+	Induct(float speed, double timeout);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

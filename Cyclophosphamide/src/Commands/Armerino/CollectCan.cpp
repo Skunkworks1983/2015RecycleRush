@@ -1,6 +1,6 @@
 #include <Commands/Armerino/CollectCan.h>
 
-Collect::Collect(Induct::State direction, MoveWrist::State state) {
+Collect::Collect(float speed, MoveWrist::State state) {
 	AddSequential(new MoveWrist(state));
-	AddSequential(new Induct(direction));
+	AddSequential(new Induct(CAN_GRAB_SPEED));
 }

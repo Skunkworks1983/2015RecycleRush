@@ -19,7 +19,7 @@ GetCan::GetCan() {
 	AddSequential(new MoveArms(CAN_POT_UP_POSITION));
 	AddSequential(new MoveArmsFancy(MoveArmsFancy::down), 2.0);
 	AddSequential(new MoveWrist(MoveWrist::State::close));
-	AddSequential(new Induct(Induct::State::forward, 1.0));
+	AddSequential(new Induct(CAN_GRAB_SPEED, 1.0));
 	AddSequential(new MoveArmsFancy(MoveArmsFancy::up), 2.0);
 	AddParallel(new CanToCraaawTransfer());
 	AddSequential(new WaitCommand(1.0));

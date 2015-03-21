@@ -1,16 +1,14 @@
 #include <Commands/Armerino/Arms/Induct.h>
 
-Induct::Induct(State state, Mode mode) {
+Induct::Induct(float speed) {
 	Requires(armIntakerino);
-	this->state = state;
-	this->mode = mode;
+	this->speed = speed;
 	SetTimeout(5.0);
 }
 
-Induct::Induct(State state, double timeout, Mode mode) {
+Induct::Induct(float speed, double timeout) {
 	Requires(armIntakerino);
-	this->state = state;
-	this->mode = mode;
+	this->speed = speed;
 	SetTimeout(timeout);
 }
 
@@ -19,22 +17,7 @@ void Induct::Initialize() {
 }
 
 void Induct::Execute() {
-	switch (state) {
-	case forward:
-		armIntakerino->setGrab(CAN_GRAB_SPEED);
-		break;
-	case reverse:
-		if (mode == tote) {
-			armIntakerino->setGrab(TOTE_EXPEL_SPEED);
-		}
-		else {
-			armIntakerino->setGrab(-CAN_GRAB_SPEED);
-		}
-		break;
-	case stopped:
-		armIntakerino->setGrab(0);
-		break;
-	}
+	armIntakerino->setGrab(speed);
 }
 
 bool Induct::IsFinished() {
