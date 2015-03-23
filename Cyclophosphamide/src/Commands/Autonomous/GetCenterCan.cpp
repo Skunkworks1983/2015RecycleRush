@@ -1,17 +1,18 @@
 #include <Commands/AutoCanGrabber/GrabCenterCan.h>
-#include <Commands/Automatic/TurnTo.h>
+#include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Autonomous/Autonomous.h>
-#include <Commands/Autonomous/GetCan.h>
-#include <Commands/WaitCommand.h>
 #include <Subsystems/AutoCanGrabber.h>
 
 #define MOVE_TO_TOTES_DISTANCE 420
+#define MOVE_SPEED .75
 
 Autonomous *Autonomous::createGetCenterCan() {
 	Autonomous *cmd = new Autonomous("Autonomous-GetCenterCan");
-	cmd->AddSequential(new SimpleDriveForward(MOVE_TO_TOTES_DISTANCE));
+	cmd->AddSequential(
+			new SimpleDriveForward(MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
 	cmd->AddSequential(new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
-	cmd->AddSequential(new SimpleDriveForward(-MOVE_TO_TOTES_DISTANCE));
+	cmd->AddSequential(
+			new SimpleDriveForward(-MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
 	//cmd->AddSequential(new WaitCommand(0.5));
 
 	//possibly need to make this happen back and forth multiple times to dislodge the can from mechanism

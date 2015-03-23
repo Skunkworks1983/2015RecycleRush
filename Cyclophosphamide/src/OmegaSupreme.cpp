@@ -6,18 +6,17 @@
  */
 
 #include <AnalogInput.h>
-#include <CANTalon.h>
 #include <Commands/Autonomous/Autonomous.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/Scheduler.h>
-#include <DigitalInput.h>
 #include <Encoder.h>
 #include <GyroDriver/IMU.h>
-#include <Joystick.h>
 #include <LiveWindow/LiveWindow.h>
 #include <OI.h>
 #include <OmegaSupreme.h>
+#include <PIDController.h>
 #include <RobotBase.h>
+#include <RobotMap.h>
 #include <stdio.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
@@ -25,7 +24,7 @@
 #include <Subsystems/DriveBae.h>
 #include <Subsystems/ToteLifterino.h>
 #include <Timer.h>
-#include <Utility.h>
+#include <utilities/Time.h>
 
 OmegaSupreme::OmegaSupreme() {
 	PIDChange = 0;
