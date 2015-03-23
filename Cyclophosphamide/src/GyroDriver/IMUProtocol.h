@@ -137,7 +137,7 @@ public:
 
 		// Footer
 		encodeTermination(protocol_buffer, YPR_UPDATE_MESSAGE_LENGTH,
-				YPR_UPDATE_MESSAGE_LENGTH - 4);
+		YPR_UPDATE_MESSAGE_LENGTH - 4);
 
 		return YPR_UPDATE_MESSAGE_LENGTH;
 	}
@@ -176,7 +176,7 @@ public:
 
 		// Footer
 		encodeTermination(protocol_buffer, QUATERNION_UPDATE_MESSAGE_LENGTH,
-				QUATERNION_UPDATE_MESSAGE_LENGTH - 4);
+		QUATERNION_UPDATE_MESSAGE_LENGTH - 4);
 
 		return QUATERNION_UPDATE_MESSAGE_LENGTH;
 	}
@@ -213,7 +213,7 @@ public:
 
 		// Footer
 		encodeTermination(protocol_buffer, GYRO_UPDATE_MESSAGE_LENGTH,
-				GYRO_UPDATE_MESSAGE_LENGTH - 4);
+		GYRO_UPDATE_MESSAGE_LENGTH - 4);
 
 		return GYRO_UPDATE_MESSAGE_LENGTH;
 	}
@@ -232,7 +232,7 @@ public:
 
 		// Footer
 		encodeTermination(protocol_buffer, STREAM_CMD_MESSAGE_LENGTH,
-				STREAM_CMD_MESSAGE_LENGTH - 4);
+		STREAM_CMD_MESSAGE_LENGTH - 4);
 
 		return STREAM_CMD_MESSAGE_LENGTH;
 	}
@@ -268,7 +268,7 @@ public:
 
 		// Footer
 		encodeTermination(protocol_buffer, STREAM_RESPONSE_MESSAGE_LENGTH,
-				STREAM_RESPONSE_MESSAGE_LENGTH - 4);
+		STREAM_RESPONSE_MESSAGE_LENGTH - 4);
 
 		return STREAM_RESPONSE_MESSAGE_LENGTH;
 	}

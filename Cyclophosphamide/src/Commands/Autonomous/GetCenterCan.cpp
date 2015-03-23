@@ -9,10 +9,10 @@
 Autonomous *Autonomous::createGetCenterCan() {
 	Autonomous *cmd = new Autonomous("Autonomous-GetCenterCan");
 	cmd->AddSequential(
-			new SimpleDriveForward(MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
+			new SimpleDriveForward(-MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
 	cmd->AddSequential(new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
 	cmd->AddSequential(
-			new SimpleDriveForward(-MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
+			new SimpleDriveForward(MOVE_TO_TOTES_DISTANCE, MOVE_SPEED));
 	//cmd->AddSequential(new WaitCommand(0.5));
 
 	//possibly need to make this happen back and forth multiple times to dislodge the can from mechanism

@@ -4,8 +4,7 @@
 #include "../../CommandBase.h"
 #include "WPILib.h"
 
-class ToteIntake : public CommandBase
-{
+class ToteIntake: public CommandBase {
 private:
 	float speed;
 public:

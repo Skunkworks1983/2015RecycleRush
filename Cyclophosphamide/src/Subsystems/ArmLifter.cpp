@@ -69,10 +69,9 @@ bool ArmLifter::getToggleArms() {
 	return toggleArms;
 }
 
-AnalogInput *ArmLifter::getPot(){
+AnalogInput *ArmLifter::getPot() {
 	return liftPot;
 }
-
 
 void ArmLifter::getDatStatus() {
 

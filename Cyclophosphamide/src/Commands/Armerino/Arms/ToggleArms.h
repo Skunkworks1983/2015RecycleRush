@@ -4,8 +4,7 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class ToggleArms: public CommandBase
-{
+class ToggleArms: public CommandBase {
 public:
 	ToggleArms();
 	void Initialize();

@@ -7,8 +7,7 @@
 /**
  * Enables or disables the PID on the tote intake
  */
-class EnableIntake: public CommandBase
-{
+class EnableIntake: public CommandBase {
 private:
 	bool enable;
 public:

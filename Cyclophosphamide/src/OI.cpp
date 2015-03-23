@@ -145,9 +145,7 @@ void OI::registerButtonListeners() {
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 
 	createButton("toggleAutoZone", toggleAutoZone,
-				new GrabCenterCan(AutoCanGrabber::GrabberState::TOGGLE));
-
-
+			new GrabCenterCan(AutoCanGrabber::GrabberState::TOGGLE));
 
 	// Scoring
 	createButton("floor loader", floorLoader,

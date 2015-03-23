@@ -13,11 +13,10 @@ Pneumatics::Pneumatics() :
 	LiveWindow::GetInstance()->AddActuator("Pneumatics", "Compressor", relay);
 }
 
-Pneumatics::~Pneumatics(){
+Pneumatics::~Pneumatics() {
 	delete pressureSwitch;
 	delete relay;
 }
-
 
 void Pneumatics::InitDefaultCommand() {
 	// Set the default command for a subsystem here.

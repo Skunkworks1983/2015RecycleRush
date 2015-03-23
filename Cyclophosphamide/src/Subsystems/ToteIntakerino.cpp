@@ -16,14 +16,13 @@ ToteIntakerino::ToteIntakerino() :
 	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT_OLD,
 			toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT_OLD););
 	encoder = new Encoder(TOTE_INTAKE_ENCODER_PORT);
-	encoder->SetDistancePerPulse(1/TOTE_INTAKE_ENCODER_TICKS_PER_REV);
+	encoder->SetDistancePerPulse(1 / TOTE_INTAKE_ENCODER_TICKS_PER_REV);
 }
 
-ToteIntakerino::~ToteIntakerino(){
+ToteIntakerino::~ToteIntakerino() {
 	delete encoder;
 	delete toteIntakeMotor;
 }
-
 
 void ToteIntakerino::InitDefaultCommand() {
 	//SetDefaultCommand(new ToteIntake(TOTE_INTAKE_RPM));

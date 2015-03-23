@@ -60,8 +60,7 @@ void* StallableMotor::StallCheck(void*) {
 			} else {
 				currentPosition = input->PIDGet();
 			}
-			if (abs(currentPosition - prevPosition)
-					< moveThreshold) {
+			if (abs(currentPosition - prevPosition) < moveThreshold) {
 				SmartDashboard::PutNumber("Position Difference",
 						currentPosition - prevPosition);
 				if (startTime == 0) {

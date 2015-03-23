@@ -107,10 +107,14 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorBackLeft->Set(-speedBackLeft);
 	motorBackRight->Set(speedBackRight);
 
-	SmartDashboard::PutNumber("Front Left Motor", motorFrontLeft->GetOutputCurrent());
-	SmartDashboard::PutNumber("Front Right Motor", motorFrontRight->GetOutputCurrent());
-	SmartDashboard::PutNumber("Back Left Motor", motorBackLeft->GetOutputCurrent());
-	SmartDashboard::PutNumber("Back Right Motor", motorBackRight->GetOutputCurrent());
+	SmartDashboard::PutNumber("Front Left Motor",
+			motorFrontLeft->GetOutputCurrent());
+	SmartDashboard::PutNumber("Front Right Motor",
+			motorFrontRight->GetOutputCurrent());
+	SmartDashboard::PutNumber("Back Left Motor",
+			motorBackLeft->GetOutputCurrent());
+	SmartDashboard::PutNumber("Back Right Motor",
+			motorBackRight->GetOutputCurrent());
 	/*
 	 if (speedFrontLeft == 0 && speedFrontRight == 0 && speedBackLeft == 0
 	 && speedBackRight == 0) {
@@ -125,7 +129,7 @@ double DriveBae::getForward() {
 	return forward;
 }
 
-double DriveBae::getRight(){
+double DriveBae::getRight() {
 	return right;
 }
 

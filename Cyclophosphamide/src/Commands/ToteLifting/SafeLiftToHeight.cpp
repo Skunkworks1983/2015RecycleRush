@@ -6,7 +6,7 @@
 #include <RobotMap.h>
 
 SafeLiftToHeight::SafeLiftToHeight(double destination, bool isCraaawSafe) {
-	if(destination==TOTE_LIFTER_LOAD_HEIGHT){
+	if (destination == TOTE_LIFTER_LOAD_HEIGHT) {
 		AddSequential(new ToteIntake(TOTE_INTAKE_MOTOR_FULL));
 	} else {
 		AddSequential(new ToteIntake(0));

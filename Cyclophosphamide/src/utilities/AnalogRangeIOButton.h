@@ -16,7 +16,8 @@ public:
 	 * @param highThreshold
 	 */
 
-	AnalogRangeIOButton(int port, Joystick::AxisType axis, double lowThreshold, double highThreshold);
+	AnalogRangeIOButton(int port, Joystick::AxisType axis, double lowThreshold,
+			double highThreshold);
 	virtual ~AnalogRangeIOButton();
 	virtual bool Get();
 };

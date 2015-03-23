@@ -1,15 +1,13 @@
 #include "EnableIntake.h"
 
-EnableIntake::EnableIntake(bool enable)
-{
+EnableIntake::EnableIntake(bool enable) {
 	Requires(toteIntakerino);
 	this->enable = enable;
 }
 
 // Called just before this Command runs the first time
-void EnableIntake::Initialize()
-{
-	if(enable){
+void EnableIntake::Initialize() {
+	if (enable) {
 		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
 	} else {
 		toteIntakerino->setMotor(0);
@@ -17,26 +15,22 @@ void EnableIntake::Initialize()
 }
 
 // Called repeatedly when this Command is scheduled to run
-void EnableIntake::Execute()
-{
+void EnableIntake::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool EnableIntake::IsFinished()
-{
+bool EnableIntake::IsFinished() {
 	return true;
 }
 
 // Called once after isFinished returns true
-void EnableIntake::End()
-{
+void EnableIntake::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void EnableIntake::Interrupted()
-{
+void EnableIntake::Interrupted() {
 
 }

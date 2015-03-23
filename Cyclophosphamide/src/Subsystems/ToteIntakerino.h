@@ -9,7 +9,7 @@
  *
  * Subsystem for loading totes from the human loader station
  */
-class ToteIntakerino: public Subsystem{
+class ToteIntakerino: public Subsystem {
 private:
 	// RIP in peace Kaeden's documentation
 	/**

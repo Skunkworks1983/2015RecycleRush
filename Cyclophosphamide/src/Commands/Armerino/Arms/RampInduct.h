@@ -16,7 +16,7 @@
 class RampInduct: public CommandBase {
 private:
 	float maxSpeed;
-	double startTime, currentTime,time;
+	double startTime, currentTime, time;
 	bool isRamped;
 public:
 	RampInduct(float maxSpeed, double time);
