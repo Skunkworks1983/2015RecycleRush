@@ -51,6 +51,8 @@ DriveBae::DriveBae() :
 	forward = 0.0;
 	right = 0.0;
 	clockwise = 0.0;
+
+	accel = new BuiltInAccelerometer();
 }
 
 DriveBae::~DriveBae() {
@@ -79,6 +81,10 @@ void DriveBae::enableStrafePID(bool state) {
 	} else {
 		strafePID->Disable();
 	}
+}
+
+Accelerometer *DriveBae::getBuiltInAccel() {
+	return accel;
 }
 
 void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,

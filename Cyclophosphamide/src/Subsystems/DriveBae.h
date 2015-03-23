@@ -23,7 +23,7 @@ private:
 	double forward, right, clockwise;
 
 	DigitalInput *lightSensor;
-
+	Accelerometer *accel;
 public:
 	DriveBae();
 	~DriveBae();
@@ -70,6 +70,7 @@ public:
 	DRIVE_MOTOR_TYPE *getMotor(MotorSide side);
 
 	bool getLightSensor();
+	Accelerometer *getBuiltInAccel();
 };
 
 #endif
