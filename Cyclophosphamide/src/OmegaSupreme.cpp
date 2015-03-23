@@ -135,6 +135,8 @@ void OmegaSupreme::TeleopInit() {
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
+	SmartDashboard::PutNumber("ElevatorError", CommandBase::toteLifterino->getPID()->GetError());
+
 	WatchDogg();
 }
 

@@ -41,7 +41,11 @@ bool LiftToHeight::IsFinished() {
 
 // Called once after isFinished returns true
 void LiftToHeight::End() {
-	toteLifterino->setSetPoints(toteLifterino->getEncoder()->PIDGet());
+	//toteLifterino->getPID()->Disable();
+	toteLifterino->setSetPoints(
+			toteLifterino->getEncoder()->PIDGet()
+					+ (TOTE_LIFTER_TICKS_PER_INCH * .25));
+	//toteLifterino->getPID()->Enable();
 }
 
 // Called when another command which requires one or more of the same

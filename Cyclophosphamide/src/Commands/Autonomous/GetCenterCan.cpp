@@ -5,13 +5,20 @@
 #include <Commands/WaitCommand.h>
 #include <Subsystems/AutoCanGrabber.h>
 
+#define MOVE_TO_TOTES_DISTANCE 420
+
 Autonomous *Autonomous::createGetCenterCan() {
 	Autonomous *cmd = new Autonomous("Autonomous-GetCenterCan");
+	cmd->AddSequential(new SimpleDriveForward(MOVE_TO_TOTES_DISTANCE));
 	cmd->AddSequential(new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
-	cmd->AddSequential(new WaitCommand(0.5));
+	cmd->AddSequential(new SimpleDriveForward(-MOVE_TO_TOTES_DISTANCE));
+	//cmd->AddSequential(new WaitCommand(0.5));
+
+	//possibly need to make this happen back and forth multiple times to dislodge the can from mechanism
 	cmd->AddSequential(
 			new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
-	cmd->AddSequential(new TurnTo(30));
-	cmd->AddSequential(new GetCan());
+
+	//cmd->AddSequential(new TurnTo(30));	//TODO: maybe?
+	//cmd->AddSequential(new GetCan());
 	return cmd;
 }

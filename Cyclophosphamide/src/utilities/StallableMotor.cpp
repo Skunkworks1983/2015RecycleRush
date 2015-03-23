@@ -16,12 +16,9 @@ StallableMotor::StallableMotor(PIDSource *input, float moveThreshold,
 	stalled = false;
 	usingCANTalon = false;
 	stalled = false;
+	motor->SetControlMode(CANSpeedController::kPercentVbus);
+	slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
 	ThreadInit();
-}
-
-StallableMotor::~StallableMotor() {
-	delete motor;
-	delete slaveMotor;
 }
 
 StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
@@ -32,6 +29,12 @@ StallableMotor::StallableMotor(CANTalon *motor, float currentThreshold) {
 	usingCANTalon = true;
 	stalled = false;
 	ThreadInit();
+}
+
+StallableMotor::~StallableMotor() {
+	delete motor;
+	delete slaveMotor;
+	delete input;
 }
 
 void StallableMotor::ThreadInit() {
@@ -86,19 +89,15 @@ void* StallableMotor::StallCheck(void*) {
 void StallableMotor::PIDWrite(float output) {
 	if (!stalled) {
 		motor->EnableControl();
-		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(output);
 		if (slaveMotor != NULL) {
 			slaveMotor->EnableControl();
-			slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
 			slaveMotor->Set(-output);
 		}
 	} else if (stalled) {
-		motor->SetControlMode(CANSpeedController::kPercentVbus);
 		motor->Set(0);
 		motor->Disable();
 		if (slaveMotor != NULL) {
-			slaveMotor->SetControlMode(CANSpeedController::kPercentVbus);
 			slaveMotor->Set(0);
 			slaveMotor->Disable();
 		}

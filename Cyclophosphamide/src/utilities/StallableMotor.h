@@ -23,7 +23,6 @@ public:
 			CANTalon *slaveMotor = NULL);
 	StallableMotor(CANTalon *motor, float currentThreshold);
 	~StallableMotor();
-
 	void ThreadKill();
 	void PIDWrite(float output);
 };
