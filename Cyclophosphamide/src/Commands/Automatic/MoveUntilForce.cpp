@@ -5,8 +5,9 @@
  *      Author: s-4020395
  */
 
-#include <Commands/Automatic/BestDrive.h>
 #include <Commands/Automatic/MoveUntilForce.h>
+#include <interfaces/Accelerometer.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include <Subsystems/DriveBae.h>
 
 MoveUntilForce::MoveUntilForce(double speed, double gForce, ForceAxis axis) :
@@ -15,6 +16,7 @@ MoveUntilForce::MoveUntilForce(double speed, double gForce, ForceAxis axis) :
 	this->speed = speed;
 	this->gForce = gForce;
 	this->axis = axis;
+	measuredMax = 0;
 }
 
 MoveUntilForce::~MoveUntilForce() {
@@ -22,25 +24,44 @@ MoveUntilForce::~MoveUntilForce() {
 
 // Called just before this Command runs the first time
 void MoveUntilForce::Initialize() {
-	driveBae->setSpeed(speed, speed, speed, speed);
+	SmartDashboard::PutNumber("MoveUntilForceSpeed", -speed);
+	driveBae->setSpeed(-speed, -speed, -speed, -speed);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveUntilForce::Execute() {
 	// ayy lma0
-//TODO: add debug functions to see how much force is on each
+	switch (axis) {
+	case X:
+		measuredMax =
+				measuredMax > driveBae->getBuiltInAccel()->GetX() ?
+						driveBae->getBuiltInAccel()->GetX() : measuredMax;
+		break;
+	case Y:
+		measuredMax =
+				measuredMax > driveBae->getBuiltInAccel()->GetY() ?
+						driveBae->getBuiltInAccel()->GetY() : measuredMax;
+		break;
+	case Z:
+		measuredMax =
+				measuredMax > driveBae->getBuiltInAccel()->GetZ() ?
+						driveBae->getBuiltInAccel()->GetZ() : measuredMax;
+		break;
+	}
+	SmartDashboard::PutNumber("MaxGForce", measuredMax);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveUntilForce::IsFinished() {
 	switch (axis) {
 	case X:
-		return driveBae->getBuiltInAccel()->GetX() >= gForce;
+		return driveBae->getBuiltInAccel()->GetX() <= gForce;
 	case Y:
-		return driveBae->getBuiltInAccel()->GetY() >= gForce;
+		return driveBae->getBuiltInAccel()->GetY() <= gForce;
 	case Z:
-		return driveBae->getBuiltInAccel()->GetZ() >= gForce;
+		return driveBae->getBuiltInAccel()->GetZ() <= gForce;
 	}
+	return false;
 }
 
 // Called once after isFinished returns true

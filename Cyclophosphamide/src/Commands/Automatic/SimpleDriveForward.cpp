@@ -19,6 +19,18 @@ SimpleDriveForward::SimpleDriveForward(float targetInch, double speed) {
 	driveBae->enablePIDAll(true);
 }
 
+SimpleDriveForward::SimpleDriveForward(float targetInch, double speed,
+		double timeout) {
+	SetTimeout(timeout);
+	this->timeout = timeout;
+	this->speed = speed;
+	driveBae->zeroEncoders();
+	this->targetTicks = (targetInch * DRIVE_BASE_TICKS_PER_INCH);
+	SmartDashboard::PutString("DriveForwardStatus", "Constructor!");
+	driveBae->setModeAll(CANSpeedController::kPercentVbus);
+	driveBae->enablePIDAll(true);
+}
+
 // Called just before this Command runs the first time
 void SimpleDriveForward::Initialize() {
 	driveBae->zeroEncoders();
@@ -50,10 +62,14 @@ bool SimpleDriveForward::IsFinished() {
 		pos *= -1;	//wtf fabs doesn't work...
 	}
 
+	if (targetTicks < 0) {
+		targetTicks *= -1;
+	}
+
 	double diff = targetTicks - pos;
 
 	SmartDashboard::PutNumber("ughAuto", diff);
-	return diff < 200;
+	return diff < 200 || (timeout > 0 && IsTimedOut());
 	//return driveBae->withinThreshhold(AUTO_DRIVE_THRESHOLD, targetTicks);
 }
 
@@ -69,4 +85,5 @@ void SimpleDriveForward::Interrupted() {
 	SmartDashboard::PutString("DriveForwardStatus",
 			SmartDashboard::GetString("DriveForwardStatus")
 					+ " then Interupted!");
+	End();
 }

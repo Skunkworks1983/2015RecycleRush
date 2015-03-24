@@ -6,6 +6,7 @@
  */
 
 #include <AnalogInput.h>
+#include <Commands/Automatic/MoveUntilForce.h>
 #include <Commands/Autonomous/Autonomous.h>
 #include <Commands/Drivebase/ZeroGyro.h>
 #include <Commands/Scheduler.h>
@@ -50,6 +51,9 @@ void OmegaSupreme::RobotInit() {
 	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
+	chooser->AddObject("driveTillForce",
+			new MoveUntilForce(-.4, -.75, MoveUntilForce::ForceAxis::Y));
+	chooser->AddObject("getCenterCan", Autonomous::createGetCenterCan());
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	out.open("autolog", std::ios::out);
@@ -74,7 +78,7 @@ void OmegaSupreme::RobotInit() {
 		}
 	}
 	SmartDashboard::PutString("auto", "end of RobotInit!");
-	autonomousCommand = Autonomous::createStartWithCan();
+	//autonomousCommand = Autonomous::createStartWithCan();
 	out << "initialized auto" << std::endl;
 	SmartDashboard::PutNumber("P", TOTE_LIFTER_PID_P);
 	SmartDashboard::PutNumber("I", TOTE_LIFTER_PID_I);

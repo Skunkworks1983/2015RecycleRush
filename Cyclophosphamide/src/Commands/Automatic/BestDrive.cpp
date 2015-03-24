@@ -61,6 +61,7 @@ bool BestDrive::IsFinished() {
 
 // Called once after isFinished returns true
 void BestDrive::End() {
+	driveBae->zeroEncoders();
 	driveBae->setAll(0);
 	driveBae->enablePIDAll(false);
 }

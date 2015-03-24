@@ -8,16 +8,18 @@
 #ifndef SRC_COMMANDS_AUTOMATIC_MOVEUNTILTOTES_H_
 #define SRC_COMMANDS_AUTOMATIC_MOVEUNTILTOTES_H_
 
+#include <CommandBase.h>
+
 /*
  *
  */
-class MoveUntilForce: public CommandBase {
+class MoveUntilForce : public CommandBase {
 public:
 	enum ForceAxis {
 		X, Y, Z
 	};
 private:
-	double speed, gForce;
+	double speed, gForce, measuredMax;
 	ForceAxis axis;
 public:
 	MoveUntilForce(double speed, double gForce, ForceAxis axis);
