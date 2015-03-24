@@ -173,7 +173,7 @@ void OI::registerButtonListeners() {
 	SAFE_BUTTON(toteLifterUpDriver,
 			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
 	SAFE_BUTTON(toteLifterDownDriver,
-			toteLifterDownDriver->WhenReleased(new LiftToHeightVelocity(0)));
+			toteLifterDownDriver->WhileHeld(new LiftToHeightVelocity(-0.5)));
 	SAFE_BUTTON(toteIndexFwd,
 			toteIndexFwd->WhenPressed( new RampInduct(TOTE_INDEX_SPEED,0.5)));
 	SAFE_BUTTON(toteIndexFwd,

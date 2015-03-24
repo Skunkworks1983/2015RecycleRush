@@ -5,15 +5,10 @@
 
 class TimedDrive: public CommandBase {
 private:
-	long targetTime;
-	long duration;
 	double forwardSlashSpeed;
 	double backSlashSpeed;
-
-	// TODO remove when we get encoders
-	unsigned long getTime();
 public:
-	TimedDrive(float duration, float heading);
+	TimedDrive(float duration, float heading, float speed = AUTO_DRIVE_SPEED);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

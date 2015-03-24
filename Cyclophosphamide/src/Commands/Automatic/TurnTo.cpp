@@ -3,6 +3,7 @@
 
 TurnTo::TurnTo(float targetAngle) {
 	Requires(driveBae);
+	SetTimeout(2.0);
 	this->targetAngle = targetAngle;
 	this->angleRemaining = 0;
 }
@@ -18,7 +19,7 @@ void TurnTo::Execute() {
 }
 
 bool TurnTo::IsFinished() {
-	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
+	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD || IsTimedOut();
 }
 
 void TurnTo::End() {
@@ -27,6 +28,5 @@ void TurnTo::End() {
 }
 
 void TurnTo::Interrupted() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBae->zeroPIDOutput();
+	End();
 }

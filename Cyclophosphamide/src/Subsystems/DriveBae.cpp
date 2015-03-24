@@ -21,6 +21,7 @@ DriveBae::DriveBae() :
 	motorFrontRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
+	enablePIDAll(false);
 	//setModeAll(CANSpeedController::kPosition);
 
 	// Initialize gyro stuff
