@@ -7,21 +7,20 @@
 #include <chrono>
 #include <cmath>
 
-TimedDrive::TimedDrive(float t, float theta, float speed) {
+TimedDrive::TimedDrive(float t, float speed, DriveBae::MotorSide side, bool test) {
 	Requires(driveBae);
 	SetTimeout(t);
-
-	// Using forward as zero heading with clockwise as positive
-	double heading = theta * M_PI / 180.0;
-	double forward = speed * sin(heading);
-	double right = speed * cos(heading);
-	backSlashSpeed = forward + right;
-	forwardSlashSpeed = forward - right;
+	this->speed = speed;
+	this->side = side;
+	this->test = test;
 }
 
 void TimedDrive::Initialize() {
-	driveBae->setSpeed(backSlashSpeed, forwardSlashSpeed, forwardSlashSpeed,
-			backSlashSpeed);
+	if(test){
+		driveBae->getMotor(side)->Set(-speed);
+	} else {
+		driveBae->setAll(-speed);
+	}
 }
 
 void TimedDrive::Execute() {
@@ -33,7 +32,7 @@ bool TimedDrive::IsFinished() {
 }
 
 void TimedDrive::End() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBae->setAll(0.0);
 }
 
 void TimedDrive::Interrupted() {

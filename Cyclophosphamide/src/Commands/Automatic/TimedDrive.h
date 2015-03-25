@@ -5,10 +5,11 @@
 
 class TimedDrive: public CommandBase {
 private:
-	double forwardSlashSpeed;
-	double backSlashSpeed;
+	double speed;
+	DriveBae::MotorSide side;
+	bool test;
 public:
-	TimedDrive(float duration, float heading, float speed = AUTO_DRIVE_SPEED);
+	TimedDrive(float duration, float speed, DriveBae::MotorSide side = DriveBae::MotorSide::FRONT_LEFT, bool test = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

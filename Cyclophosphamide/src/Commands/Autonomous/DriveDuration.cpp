@@ -10,6 +10,6 @@
 
 Autonomous *Autonomous::createDriveDuration(float duration, float heading) {
 	Autonomous *cmd = new Autonomous("Autonomous-DriveDuration");
-	cmd->AddSequential(new TimedDrive(duration, heading));
+	//cmd->AddSequential(new TimedDrive(duration, heading));
 	return cmd;
 }

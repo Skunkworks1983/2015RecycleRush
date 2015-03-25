@@ -21,19 +21,19 @@ AutoCanGrabber::~AutoCanGrabber() {
 void AutoCanGrabber::actuate(GrabberState state) {
 	switch (state) {
 	case GRAB:
-		solenoid->Set(DoubleSolenoid::Value::kForward);
-		grabLast = GRAB;
+		solenoid->Set(DoubleSolenoid::Value::kReverse);
+		grabLast = true;
 		break;
 	case RETRACT:
-		solenoid->Set(DoubleSolenoid::Value::kReverse);
-		grabLast = RETRACT;
+		solenoid->Set(DoubleSolenoid::Value::kForward);
+		grabLast = false;
 		break;
 	case TOGGLE:
 		if (grabLast) {
-			solenoid->Set(DoubleSolenoid::Value::kReverse);
+			solenoid->Set(DoubleSolenoid::Value::kForward);
 			grabLast = false;
 		} else {
-			solenoid->Set(DoubleSolenoid::Value::kForward);
+			solenoid->Set(DoubleSolenoid::Value::kReverse);
 			grabLast = true;
 		}
 		break;
