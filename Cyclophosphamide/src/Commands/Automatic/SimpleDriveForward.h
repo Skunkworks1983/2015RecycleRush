@@ -6,7 +6,7 @@
 class SimpleDriveForward: public CommandBase {
 private:
 	float targetTicks;
-	double speed, startingPos, timeout = -420;
+	double speed, startingPos, timeout = -420, signedSpeed;
 public:
 	SimpleDriveForward(float target, double speed);
 	SimpleDriveForward(float targetInch, double speed, double timeout);

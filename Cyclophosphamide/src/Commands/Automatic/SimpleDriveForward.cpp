@@ -16,7 +16,7 @@ SimpleDriveForward::SimpleDriveForward(float targetInch, double speed) {
 	this->targetTicks = (targetInch * DRIVE_BASE_TICKS_PER_INCH);
 	SmartDashboard::PutString("DriveForwardStatus", "Constructor!");
 	driveBae->setModeAll(CANSpeedController::kPercentVbus);
-	driveBae->enablePIDAll(true);
+	driveBae->enablePIDAll(false);
 }
 
 SimpleDriveForward::SimpleDriveForward(float targetInch, double speed,
@@ -28,7 +28,7 @@ SimpleDriveForward::SimpleDriveForward(float targetInch, double speed,
 	this->targetTicks = (targetInch * DRIVE_BASE_TICKS_PER_INCH);
 	SmartDashboard::PutString("DriveForwardStatus", "Constructor!");
 	driveBae->setModeAll(CANSpeedController::kPercentVbus);
-	driveBae->enablePIDAll(true);
+	driveBae->enablePIDAll(false);
 }
 
 // Called just before this Command runs the first time
@@ -37,23 +37,17 @@ void SimpleDriveForward::Initialize() {
 	startingPos =
 			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition();
 	SmartDashboard::PutNumber("start", startingPos);
-	double signedSpeed = targetTicks < 0 ? speed : -speed;
-	driveBae->setSpeed(signedSpeed, signedSpeed, signedSpeed, signedSpeed);
+	signedSpeed = targetTicks < 0 ? speed : -speed;
+	driveBae->setAll(signedSpeed);
 	///driveBae->setSpeed(speed, speed, speed, speed);
 	SmartDashboard::PutString("DriveForwardStatus", "Initialize!");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SimpleDriveForward::Execute() {
-	SmartDashboard::PutString("DriveForwardStatus", "Execute!");
-}
-
-// Make this return true when this Command no longer needs to run execute()
-bool SimpleDriveForward::IsFinished() {
-	SmartDashboard::PutNumber("Target", targetTicks);
-	SmartDashboard::PutNumber("DriveEnc",
+	driveBae->setAll(signedSpeed);
+	SmartDashboard::PutNumber("newDriveEnc",
 			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
-
 	double pos =
 			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
 					- startingPos;
@@ -67,8 +61,33 @@ bool SimpleDriveForward::IsFinished() {
 	}
 
 	double diff = targetTicks - pos;
+	SmartDashboard::PutNumber("SimpleDriveForwardDiff", diff);
+	SmartDashboard::PutString("DriveForwardStatus", "Execute!");
+
+}
+
+// Make this return true when this Command no longer needs to run execute()
+bool SimpleDriveForward::IsFinished() {
+	SmartDashboard::PutNumber("Target", targetTicks);
+	SmartDashboard::PutNumber("DriveEnc",
+			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
+
+	double pos =
+			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
+					- startingPos;
+
+	if (pos < 0) {
+		pos *= -1.0;	//wtf fabs doesn't work...
+	}
+
+	if (targetTicks < 0) {
+		targetTicks *= -1.0;
+	}
+
+	double diff = targetTicks - pos;
 
 	SmartDashboard::PutNumber("ughAuto", diff);
+	SmartDashboard::PutBoolean("timeoutya", (timeout > 0 && IsTimedOut()));
 	return diff < 200 || (timeout > 0 && IsTimedOut());
 	//return driveBae->withinThreshhold(AUTO_DRIVE_THRESHOLD, targetTicks);
 }
