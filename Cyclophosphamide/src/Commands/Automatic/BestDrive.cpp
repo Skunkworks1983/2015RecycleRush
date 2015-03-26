@@ -17,6 +17,8 @@ void BestDrive::Initialize() {
 	switch (direction) {
 	case forward:
 		driveBae->setAll(targetDistance);
+		driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->Set(
+				-targetDistance);
 		break;
 	case backward:
 		driveBae->setAll(-targetDistance);
@@ -46,8 +48,9 @@ void BestDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void BestDrive::Execute() {
-	// ayy lma0
-
+	SmartDashboard::PutNumber("Front left PID error",
+			driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->Get()
+					- driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->GetSetpoint());
 }
 
 // Make this return true when this Command no longer needs to run execute()

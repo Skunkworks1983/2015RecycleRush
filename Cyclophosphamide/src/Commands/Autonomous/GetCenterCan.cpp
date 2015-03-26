@@ -10,20 +10,17 @@
 
 Autonomous *Autonomous::createGetCenterCan() {
 	Autonomous *cmd = new Autonomous("Autonomous-GetCenterCan");
-	cmd->AddSequential(
-			new TimedDrive(0.5, -MOVE_SPEED));
+	cmd->AddSequential(new TimedDrive(0.5, -MOVE_SPEED));
 	cmd->AddSequential(new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
 	cmd->AddSequential(new WaitCommand(1.0));
+	cmd->AddSequential(new TimedDrive(0.5, -1.0));
 	cmd->AddSequential(new TimedDrive(2.5, MOVE_SPEED));
 
 	//possibly need to make this happen back and forth multiple times to dislodge the can from mechanism
-	cmd->AddSequential(
-			new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
 	cmd->AddSequential(new WaitCommand(1.0));
-	cmd->AddSequential(new TimedDrive(0.5, -MOVE_SPEED));
-	cmd->AddSequential(new WaitCommand(30.0));
-
-	//cmd->AddSequential(new TurnTo(30));	//TODO: maybe?
-	//cmd->AddSequential(new GetCan());
+	cmd->AddSequential(new TimedDrive(1.0, -MOVE_SPEED));
+	cmd->AddSequential(
+				new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
+	cmd->AddSequential(new WaitCommand(420.0));
 	return cmd;
 }

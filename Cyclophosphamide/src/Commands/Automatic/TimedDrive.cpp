@@ -16,6 +16,7 @@ TimedDrive::TimedDrive(float t, float speed, DriveBae::MotorSide side, bool test
 }
 
 void TimedDrive::Initialize() {
+	driveBae->setModeAll(CANSpeedController::kPercentVbus);
 	if(test){
 		driveBae->getMotor(side)->Set(-speed);
 	} else {

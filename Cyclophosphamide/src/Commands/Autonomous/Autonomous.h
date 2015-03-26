@@ -17,6 +17,7 @@ public:
 	static Autonomous *createStartWithCanThenDrive();
 	static Autonomous *createSimpleDriveForward();
 	static Autonomous *createGetCenterCan();
+	static Autonomous *createShimmyTest();
 
 	Autonomous();
 	Autonomous(char *style);

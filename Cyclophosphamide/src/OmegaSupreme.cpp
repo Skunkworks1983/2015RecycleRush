@@ -50,14 +50,14 @@ void OmegaSupreme::RobotInit() {
 			Autonomous::createStartWithCanThenDrive());
 	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
-	chooser->AddObject("Drive forward", Autonomous::createSimpleDriveForward());
+	chooser->AddObject("Simple drive forward", Autonomous::createSimpleDriveForward());
+	chooser->AddObject("Best drive forward",
+			Autonomous::createDriveDistance(20.0, BestDrive::forward));
 	chooser->AddObject("driveTillForce",
 			new MoveUntilForce(-.4, -.75, MoveUntilForce::ForceAxis::Y));
 	chooser->AddObject("getCenterCan", Autonomous::createGetCenterCan());
+	chooser->AddObject("shimmy test", Autonomous::createShimmyTest());
 	SmartDashboard::PutData("Auto Modes", chooser);
-
-	out.open("autolog", std::ios::out);
-	out << "~~~~~~~STAAARTING LOG~~~~~~~" << std::endl;
 
 	CommandBase::oi->registerButtonListeners();
 
@@ -74,12 +74,8 @@ void OmegaSupreme::RobotInit() {
 				//CommandBase::driveBae->startRotPID(); // enable the pid. May want to move this
 				zeroed = true;
 			}
-			SmartDashboard::PutString("auto", "zeroing");
 		}
 	}
-	SmartDashboard::PutString("auto", "end of RobotInit!");
-	//autonomousCommand = Autonomous::createStartWithCan();
-	out << "initialized auto" << std::endl;
 
 	SmartDashboard::PutData("Front left",
 			new TimedDrive(1.0, .2, DriveBae::MotorSide::FRONT_LEFT, true));
@@ -97,14 +93,6 @@ void OmegaSupreme::AutonomousInit() {
 	CommandBase::toteLifterino->getEncoder()->Reset();
 	autonomousCommand = (Command *) chooser->GetSelected();
 	autonomousCommand->Start();
-	out << "Autonomous init ran" << std::endl;
-	out.flush();
-	running = autonomousCommand->IsRunning();
-	if (running) {
-		out << "~FIRST~ Running! ~FIRST~" << std::endl;
-	} else {
-		out << "~FIRST~ Not Running ~FIRST~" << std::endl;
-	}
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
@@ -112,19 +100,7 @@ void OmegaSupreme::AutonomousPeriodic() {
 	if (!autonomousCommand->IsRunning() && shouldRun) {
 		autonomousCommand = (Command *) chooser->GetSelected();
 		autonomousCommand->Start();
-		out << "Did the should run" << std::endl;
-		out.flush();
 		shouldRun = false;
-	}
-
-	if (!autonomousCommand->IsRunning() && running) {
-		out << "Not Running" << std::endl;
-		out.flush();
-		running = false;
-	} else if (autonomousCommand->IsRunning() && !running) {
-		out << "Running!" << std::endl;
-		out.flush();
-		running = true;
 	}
 	WatchDogg();
 }
@@ -143,9 +119,6 @@ void OmegaSupreme::TeleopInit() {
 
 void OmegaSupreme::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-
-	SmartDashboard::PutNumber("ElevatorError",
-			CommandBase::toteLifterino->getPID()->GetError());
 
 	SmartDashboard::PutNumber("Front left enc ;)",
 			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
@@ -167,8 +140,6 @@ void OmegaSupreme::TestInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	//SmartDashboard::PutData(CommandBase::pneumatics);
 	//SmartDashboard::PutData("Run compressor", new UpdateCompressor());
-//	Command *cmd = new FollowVision(true);
-//	cmd->Start();
 }
 
 void OmegaSupreme::TestPeriodic() {

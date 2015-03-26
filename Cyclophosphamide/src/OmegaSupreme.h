@@ -21,8 +21,6 @@ private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	int PIDChange;
-	std::ofstream out;
-	bool running;
 	bool shouldRun;
 	SendableChooser *chooser;
 
