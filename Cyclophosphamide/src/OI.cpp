@@ -133,10 +133,12 @@ void OI::registerButtonListeners() {
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
-	SAFE_BUTTON(alignToteFwd, alignToteFwd->WhenPressed(new EnableIntake(true)));
-	SAFE_BUTTON(alignToteRvs, alignToteRvs->WhenPressed(new EnableIntake(true)));
+//	SAFE_BUTTON(alignToteFwd,
+//			alignToteFwd->WhenPressed(new ToteIntake(TOTE_INTAKE_MOTOR_FULL + .2)));
+//	SAFE_BUTTON(alignToteRvs,
+//			alignToteRvs->WhenPressed(new EnableIntake(false)));
 	SAFE_BUTTON(alignToteFwd,
-			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL)));
+			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL *2)));
 	SAFE_BUTTON(alignToteRvs,
 			alignToteRvs->WhileHeld(new ToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,

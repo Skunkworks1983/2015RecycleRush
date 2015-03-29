@@ -11,7 +11,6 @@ LiftToHeightVelocity::LiftToHeightVelocity(double speed) :
 		CommandBase("LiftToHeightVelocity") {
 	Requires(toteLifterino);
 	this->speed = speed;
-	toteLifterino->enablePID(false);
 }
 
 LiftToHeightVelocity::~LiftToHeightVelocity() {

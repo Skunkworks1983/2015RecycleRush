@@ -21,7 +21,7 @@ DriveBae::DriveBae() :
 	motorFrontRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackLeft->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
 	motorBackRight->ConfigEncoderCodesPerRev(ENCODER_TICKS_PER_REV);
-	enablePIDAll(false);
+	enablePIDAll(true);
 	//setModeAll(CANSpeedController::kPosition);
 
 	// Initialize gyro stuff
@@ -203,10 +203,10 @@ void DriveBae::enablePIDAll(bool state) {
 		motorBackLeft->EnableControl();
 		motorBackRight->EnableControl();
 	} else {
-		motorFrontLeft->Disable();
+		/*motorFrontLeft->Disable();
 		motorFrontRight->Disable();
 		motorBackLeft->Disable();
-		motorBackRight->Disable();
+		motorBackRight->Disable();*/
 	}
 }
 

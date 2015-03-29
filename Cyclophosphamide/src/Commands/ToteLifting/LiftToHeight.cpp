@@ -4,13 +4,12 @@ LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifterino);
 	this->destination = destination;
-	SetTimeout(TOTE_LIFTER_TIMEOUT);
 }
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
 	if (destination > toteLifterino->getEncoder()->PIDGet()
-			&& toteLifterino->getCraaawInput()) {
+			&& toteLifterino->getCraaawInput() && destination != TOTE_LIFTER_CARRY_HEIGHT) {
 		destination = toteLifterino->getEncoder()->PIDGet();
 	}
 
@@ -27,7 +26,7 @@ void LiftToHeight::Execute() {
 	if (destination == TOTE_LIFTER_FLOOR_HEIGHT
 			&& toteLifterino->closeEnough(destination)) {
 		toteLifterino->enablePID(false);
-	}
+	}	//TODO: remove this useless garbage
 
 }
 
