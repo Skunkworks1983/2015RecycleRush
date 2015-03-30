@@ -198,7 +198,7 @@ void OI::createSwitch(std::string key, Button *b, Command *on, Command *off) {
 	SAFE_BUTTON(b, b->WhenReleased(off));
 #if VIRTUAL_OI
 	SmartDashboard::PutData(key + " ON", on);
-	SmartDashboard::PutData(key + " OFF", on);
+	SmartDashboard::PutData(key + " OFF", off);
 #endif
 }
 
