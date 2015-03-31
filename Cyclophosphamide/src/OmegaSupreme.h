@@ -35,7 +35,7 @@ public:
 	virtual void TestInit();
 	virtual void TestPeriodic();
 	virtual void DisabledInit();
-	void WatchDogg();
+	void WatchDog();
 };
 
 #endif /* PROTOBOT_H_ */
