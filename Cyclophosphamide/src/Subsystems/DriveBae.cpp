@@ -26,7 +26,7 @@ DriveBae::DriveBae() :
 
 	// Initialize gyro stuff
 	serialPort = new SerialPort(57600, SerialPort::kMXP);
-	uint8_t update_rate_hz = 50; // ayy lmao
+	uint8_t update_rate_hz = 50;
 	gyro = new IMU(serialPort, update_rate_hz);
 	gyroEnabled = true; //gyro != NULL;
 

@@ -102,7 +102,7 @@ void OmegaSupreme::AutonomousPeriodic() {
 		autonomousCommand->Start();
 		shouldRun = false;
 	}
-	WatchDogg();
+	WatchDog();
 }
 
 void OmegaSupreme::TeleopInit() {
@@ -148,7 +148,7 @@ void OmegaSupreme::TeleopPeriodic() {
 			CommandBase::toteLifterino->getEncoder()->PIDGet() / TOTE_LIFTER_TICKS_PER_INCH);
 	SmartDashboard::PutNumber("ElevatorEnc Rotation",
 			CommandBase::toteLifterino->getEncoder()->PIDGet() / TOTE_LIFTER_TICKS_PER_REV);
-	WatchDogg();
+	WatchDog();
 
 }
 
@@ -167,9 +167,8 @@ void OmegaSupreme::TestPeriodic() {
 	lw->Run();
 }
 
-void OmegaSupreme::WatchDogg() {
+void OmegaSupreme::WatchDog() {
 // there are now doggs to watch
-// lmao XDDD
 }
 
 START_ROBOT_CLASS(OmegaSupreme);

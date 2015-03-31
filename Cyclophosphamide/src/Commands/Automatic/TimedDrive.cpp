@@ -25,7 +25,7 @@ void TimedDrive::Initialize() {
 }
 
 void TimedDrive::Execute() {
-	//ayy lmao
+
 }
 
 bool TimedDrive::IsFinished() {
