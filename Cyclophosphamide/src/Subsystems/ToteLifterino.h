@@ -1,10 +1,10 @@
 #ifndef ToteLifterino_H
 #define ToteLifterino_H
 
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "robotmap.h"
-#include "../utilities/DoubleMotorPIDWrapper.h"
+#include <Commands/Subsystem.h>
+#include <PIDOutput.h>
+#include <PIDSource.h>
+#include <robotmap.h>
 
 /*
  * Subsystem that handles the vertical motion of two CANTalon motor controllers.

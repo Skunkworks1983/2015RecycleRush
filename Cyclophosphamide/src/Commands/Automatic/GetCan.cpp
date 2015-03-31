@@ -3,11 +3,10 @@
 #include <Commands/Armerino/Arms/MoveWrist.h>
 #include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
+#include <Commands/Automatic/GetCan.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
-#include <Commands/Autonomous/GetCan.h>
 #include <Commands/WaitCommand.h>
 #include <RobotMap.h>
-#include <SmartDashboard/SmartDashboard.h>
 
 #define START_CAN_DISTANCE_1 30
 

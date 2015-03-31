@@ -1,7 +1,7 @@
+#include <Commands/Automatic/GetCan.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/Automatic/TurnTo.h>
 #include <Commands/Autonomous/Autonomous.h>
-#include <Commands/Autonomous/GetCan.h>
 #include <Commands/WaitCommand.h>
 
 #define BOT_TO_AUTO_ZONE_DIST 30

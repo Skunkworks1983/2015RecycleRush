@@ -7,11 +7,9 @@
 #include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/CollectCan.h>
 #include <Commands/Armerino/Craaaw/CraaawActuate.h>
-#include <Commands/Armerino/IndexTote.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/EnableIntake.h>
 #include <Commands/ToteIntake/ToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
@@ -133,10 +131,6 @@ void OI::registerButtonListeners() {
 			new CraaawActuate(CraaawActuate::close));
 
 	// Loading/stacking
-//	SAFE_BUTTON(alignToteFwd,
-//			alignToteFwd->WhenPressed(new ToteIntake(TOTE_INTAKE_MOTOR_FULL + .2)));
-//	SAFE_BUTTON(alignToteRvs,
-//			alignToteRvs->WhenPressed(new EnableIntake(false)));
 	SAFE_BUTTON(alignToteFwd,
 			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL *2)));
 	SAFE_BUTTON(alignToteRvs,

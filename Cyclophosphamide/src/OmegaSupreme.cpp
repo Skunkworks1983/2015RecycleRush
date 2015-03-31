@@ -45,18 +45,11 @@ void OmegaSupreme::RobotInit() {
 	lw = LiveWindow::GetInstance();
 	// Create autonomous
 	chooser = new SendableChooser();
-	chooser->AddDefault("getCenterCan", Autonomous::createGetCenterCan());
-	chooser->AddObject("Can Then Zone",
-			Autonomous::createStartWithCanThenDrive());
-	chooser->AddObject("Just Get Can", Autonomous::createStartWithCan());
+	chooser->AddDefault("Get Center Can", Autonomous::createGetCenterCan());
+	chooser->AddObject("Pickup Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
-	chooser->AddObject("Simple drive forward",
+	chooser->AddObject("Drive Into Auto Zone",
 			Autonomous::createSimpleDriveForward());
-	chooser->AddObject("Best drive forward",
-			Autonomous::createDriveDistance(20.0, BestDrive::forward));
-	chooser->AddObject("driveTillForce",
-			new MoveUntilForce(-.4, -.75, MoveUntilForce::ForceAxis::Y));
-	chooser->AddObject("shimmy test", Autonomous::createShimmyTest());
 	SmartDashboard::PutData("Auto Modes", chooser);
 
 	CommandBase::oi->registerButtonListeners();
@@ -102,7 +95,6 @@ void OmegaSupreme::AutonomousPeriodic() {
 		autonomousCommand->Start();
 		shouldRun = false;
 	}
-	WatchDogg();
 }
 
 void OmegaSupreme::TeleopInit() {
@@ -114,9 +106,6 @@ void OmegaSupreme::TeleopInit() {
 	CommandBase::driveBae->setModeAll(
 			CANSpeedController::ControlMode::kPercentVbus);
 	Scheduler::GetInstance()->RemoveAll();
-//	CommandBase::driveBae->getGyro()->ZeroYaw();
-//	CommandBase::driveBae->zeroPIDOutput();
-
 }
 
 void OmegaSupreme::TeleopPeriodic() {
@@ -131,25 +120,6 @@ void OmegaSupreme::TeleopPeriodic() {
 			}
 		}
 	}
-
-//CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->Set(.5);
-	SmartDashboard::PutNumber("Front left enc ;)",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
-	SmartDashboard::PutNumber("Front right enc ;)",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::FRONT_RIGHT)->GetEncPosition());
-	SmartDashboard::PutNumber("Back left enc ;)",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::BACK_LEFT)->GetEncPosition());
-	SmartDashboard::PutNumber("Back right enc ;)",
-			CommandBase::driveBae->getMotor(DriveBae::MotorSide::BACK_RIGHT)->GetEncPosition());
-
-	SmartDashboard::PutNumber("ElevatorEnc",
-			CommandBase::toteLifterino->getEncoder()->PIDGet());
-	SmartDashboard::PutNumber("ElevatorEnc Inches",
-			CommandBase::toteLifterino->getEncoder()->PIDGet() / TOTE_LIFTER_TICKS_PER_INCH);
-	SmartDashboard::PutNumber("ElevatorEnc Rotation",
-			CommandBase::toteLifterino->getEncoder()->PIDGet() / TOTE_LIFTER_TICKS_PER_REV);
-	WatchDogg();
-
 }
 
 void OmegaSupreme::DisabledInit() {
@@ -158,18 +128,11 @@ void OmegaSupreme::DisabledInit() {
 
 void OmegaSupreme::TestInit() {
 	Scheduler::GetInstance()->RemoveAll();
-//SmartDashboard::PutData(CommandBase::pneumatics);
-//SmartDashboard::PutData("Run compressor", new UpdateCompressor());
 }
 
 void OmegaSupreme::TestPeriodic() {
 	Scheduler::GetInstance()->Run();
 	lw->Run();
-}
-
-void OmegaSupreme::WatchDogg() {
-// there are now doggs to watch
-// lmao XDDD
 }
 
 START_ROBOT_CLASS(OmegaSupreme);
