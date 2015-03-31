@@ -8,11 +8,11 @@
 #include <Commands/Automatic/MoveUntilForce.h>
 #include <interfaces/Accelerometer.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Subsystems/DriveBae.h>
+#include <Subsystems/DriveBase.h>
 
 MoveUntilForce::MoveUntilForce(double speed, double gForce, ForceAxis axis) :
 		CommandBase("Move Until Totes") {
-	Requires(driveBae);
+	Requires(driveBase);
 	this->speed = speed;
 	this->gForce = gForce;
 	this->axis = axis;
@@ -25,7 +25,7 @@ MoveUntilForce::~MoveUntilForce() {
 // Called just before this Command runs the first time
 void MoveUntilForce::Initialize() {
 	SmartDashboard::PutNumber("MoveUntilForceSpeed", -speed);
-	driveBae->setSpeed(-speed, -speed, -speed, -speed);
+	driveBase->setSpeed(-speed, -speed, -speed, -speed);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,18 +34,18 @@ void MoveUntilForce::Execute() {
 	switch (axis) {
 	case X:
 		measuredMax =
-				measuredMax > driveBae->getBuiltInAccel()->GetX() ?
-						driveBae->getBuiltInAccel()->GetX() : measuredMax;
+				measuredMax > driveBase->getBuiltInAccel()->GetX() ?
+						driveBase->getBuiltInAccel()->GetX() : measuredMax;
 		break;
 	case Y:
 		measuredMax =
-				measuredMax > driveBae->getBuiltInAccel()->GetY() ?
-						driveBae->getBuiltInAccel()->GetY() : measuredMax;
+				measuredMax > driveBase->getBuiltInAccel()->GetY() ?
+						driveBase->getBuiltInAccel()->GetY() : measuredMax;
 		break;
 	case Z:
 		measuredMax =
-				measuredMax > driveBae->getBuiltInAccel()->GetZ() ?
-						driveBae->getBuiltInAccel()->GetZ() : measuredMax;
+				measuredMax > driveBase->getBuiltInAccel()->GetZ() ?
+						driveBase->getBuiltInAccel()->GetZ() : measuredMax;
 		break;
 	}
 	SmartDashboard::PutNumber("MaxGForce", measuredMax);
@@ -55,20 +55,20 @@ void MoveUntilForce::Execute() {
 bool MoveUntilForce::IsFinished() {
 	switch (axis) {
 	case X:
-		return driveBae->getBuiltInAccel()->GetX() <= gForce;
+		return driveBase->getBuiltInAccel()->GetX() <= gForce;
 	case Y:
-		return driveBae->getBuiltInAccel()->GetY() <= gForce;
+		return driveBase->getBuiltInAccel()->GetY() <= gForce;
 	case Z:
-		return driveBae->getBuiltInAccel()->GetZ() <= gForce;
+		return driveBase->getBuiltInAccel()->GetZ() <= gForce;
 	}
 	return false;
 }
 
 // Called once after isFinished returns true
 void MoveUntilForce::End() {
-	driveBae->setAll(0);
-	driveBae->setSpeed(0, 0, 0, 0);
-	driveBae->enablePIDAll(false);
+	driveBase->setAll(0);
+	driveBase->setSpeed(0, 0, 0, 0);
+	driveBase->enablePIDAll(false);
 }
 
 // Called when another command which requires one or more of the same

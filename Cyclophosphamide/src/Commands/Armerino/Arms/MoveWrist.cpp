@@ -1,7 +1,7 @@
 #include <Commands/Armerino/Arms/MoveWrist.h>
 
 MoveWrist::MoveWrist(State state, bool override) {
-	Requires(armWristerino);
+	Requires(armWrist);
 	this->state = state;
 	this->override = override;
 	//setpoint = open ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse;
@@ -10,21 +10,21 @@ MoveWrist::MoveWrist(State state, bool override) {
 void MoveWrist::Initialize() {
 	switch (state) {
 	case toggle:
-		if (armWristerino->getWristToggle()) {
-			armWristerino->setWrist(DoubleSolenoid::kForward);
+		if (armWrist->getWristToggle()) {
+			armWrist->setWrist(DoubleSolenoid::kForward);
 		} else {
-			armWristerino->setWrist(DoubleSolenoid::kReverse);
+			armWrist->setWrist(DoubleSolenoid::kReverse);
 		}
-		armWristerino->doTheToggleWrist();
+		armWrist->doTheToggleWrist();
 		break;
 	case open:
 		// TODO is it sketchy to use two subsystems?
 		if (override || armLifter->getPot()->PIDGet() >= CAN_POT_KNOCK_POSITION) {
-			armWristerino->setWrist(DoubleSolenoid::kForward);
+			armWrist->setWrist(DoubleSolenoid::kForward);
 		}
 		break;
 	case close:
-		armWristerino->setWrist(DoubleSolenoid::kReverse);
+		armWrist->setWrist(DoubleSolenoid::kReverse);
 		break;
 	}
 }

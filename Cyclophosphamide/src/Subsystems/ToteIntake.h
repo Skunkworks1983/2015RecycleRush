@@ -1,15 +1,14 @@
 #ifndef TOTE_INTAKERINO_H
 #define TOTE_INTAKERINO_H
 
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include <Commands/Subsystem.h>
 
 /**
  * By Kaeden Wile
  *
  * Subsystem for loading totes from the human loader station
  */
-class ToteIntakerino: public Subsystem {
+class ToteIntake: public Subsystem {
 private:
 	// RIP in peace Kaeden's documentation
 	/**
@@ -22,8 +21,8 @@ public:
 	/**
 	 * Default constructor
 	 */
-	ToteIntakerino();
-	~ToteIntakerino();
+	ToteIntake();
+	~ToteIntake();
 	/**
 	 * Does nothing because call creates circular dependencies and compile errors
 	 */

@@ -1,28 +1,28 @@
 #include <Commands/ToteLifting/LiftRelative.h>
 
 LiftRelative::LiftRelative(float delta) {
-	Requires(toteLifterino);
+	Requires(toteLifter);
 	this->delta = delta;
 	this->destination = 0;
 }
 
 void LiftRelative::Initialize() {
 	destination =
-			toteLifterino->getPID()->GetSetpoint()+delta*TOTE_LIFTER_TICKS_PER_INCH;
-	toteLifterino->setSetPoints(destination);
+			toteLifter->getPID()->GetSetpoint()+delta*TOTE_LIFTER_TICKS_PER_INCH;
+	toteLifter->setSetPoints(destination);
 }
 
 void LiftRelative::Execute() {
 	SmartDashboard::PutNumber("Destination", destination);
 	if (destination == TOTE_LIFTER_FLOOR_HEIGHT
-			&& toteLifterino->closeEnough(destination)) {
-		toteLifterino->enablePID(false);
+			&& toteLifter->closeEnough(destination)) {
+		toteLifter->enablePID(false);
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftRelative::IsFinished() {
-	return toteLifterino->getPID()->OnTarget();
+	return toteLifter->getPID()->OnTarget();
 }
 
 // Called once after isFinished returns true

@@ -4,13 +4,13 @@
 
 MecanumDrive::MecanumDrive() :
 		CommandBase("MecanumDrive") {
-	Requires(driveBae);
+	Requires(driveBase);
 }
 
 void MecanumDrive::Initialize() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBae->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
-	driveBae->stopRotPID();
+	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
+	driveBase->stopRotPID();
 }
 
 void MecanumDrive::Execute() {
@@ -30,12 +30,12 @@ void MecanumDrive::Execute() {
 	}
 	if (fabs(clockwise) < JOYSTICK_ROT_DEADBAND) {
 		clockwise = 0;
-		driveBae->startRotPID();
+		driveBase->startRotPID();
 	} else {
 		double sign = clockwise > 0 ? 1.0 : -1.0;
 		clockwise -= JOYSTICK_ROT_DEADBAND * sign;
-		driveBae->stopRotPID();
-		driveBae->zeroPIDOutput();
+		driveBase->stopRotPID();
+		driveBase->zeroPIDOutput();
 	}
 
 	// Cube inputs for fine control
@@ -48,10 +48,10 @@ void MecanumDrive::Execute() {
 	forward = pow(forward, 3.0);
 	right = pow(right, 3.0);
 
-	if (driveBae->isGyroEnabled()) {
+	if (driveBase->isGyroEnabled()) {
 #if FIELD_ORIENTED
 		// Field-oriented corrections
-		double theta = driveBae->getGyro()->GetYaw();
+		double theta = driveBase->getGyro()->GetYaw();
 		theta *= M_PI / 180.0;
 		double temp = forward * cos(theta) + right * sin(theta);
 		right = -forward * sin(theta) + right * cos(theta);
@@ -65,12 +65,12 @@ void MecanumDrive::Execute() {
 	 */
 	forward *= DRIVE_ASPECT_RATIO;
 
-	driveBae->setForward(-forward);
-	driveBae->setRight(right);
+	driveBase->setForward(-forward);
+	driveBase->setRight(right);
 	if (clockwise != 0) {
-		driveBae->setClockwise(-clockwise);
+		driveBase->setClockwise(-clockwise);
 	}
-	driveBae->execute();
+	driveBase->execute();
 }
 
 bool MecanumDrive::IsFinished() {
@@ -78,9 +78,9 @@ bool MecanumDrive::IsFinished() {
 }
 
 void MecanumDrive::End() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }
 
 void MecanumDrive::Interrupted() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 }

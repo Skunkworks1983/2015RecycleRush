@@ -5,12 +5,13 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "GyroDriver/IMU.h"
+
 /**
  * The DriveBase consists of four independent talonSRX motorcontrollers.
  * This driveBae class is designed for a 4 mechanum wheel drivebase for any degree movement.
  * Using the FIELD_ORIENTED define, it also has field oriented support, currently not used.
  */
-class DriveBae: public Subsystem, public PIDOutput, public PIDSource {
+class DriveBase: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	PIDController *rotPID, *strafePID;
 
@@ -25,8 +26,8 @@ private:
 	DigitalInput *lightSensor;
 	Accelerometer *accel;
 public:
-	DriveBae();
-	~DriveBae();
+	DriveBase();
+	~DriveBase();
 
 	enum MotorSide {
 		FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT

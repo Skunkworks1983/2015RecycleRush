@@ -6,13 +6,13 @@
  */
 
 #include <Commands/Armerino/Arms/RampInduct.h>
-#include <Subsystems/ArmIntakerino.h>
+#include <Subsystems/ArmIntake.h>
 #include <utilities/Time.h>
 
 #define NO_MOVE_SPEED .5
 
 RampInduct::RampInduct(float maxSpeed, double time) {
-	Requires(armIntakerino);
+	Requires(armIntake);
 	this->maxSpeed = maxSpeed;
 	this->time = time * 1000;
 }
@@ -23,7 +23,7 @@ void RampInduct::Initialize() {
 
 void RampInduct::Execute() {
 	currentTime = Time::getTime();
-	armIntakerino->setGrab(
+	armIntake->setGrab(
 			!isRamped ?
 					(((currentTime - startTime) / time)
 							* (maxSpeed - NO_MOVE_SPEED) + NO_MOVE_SPEED) :
@@ -35,10 +35,10 @@ bool RampInduct::IsFinished() {
 }
 
 void RampInduct::End() {
-	armIntakerino->setGrab(0);
+	armIntake->setGrab(0);
 }
 
 void RampInduct::Interrupted() {
-	armIntakerino->setGrab(0);
+	armIntake->setGrab(0);
 }
 

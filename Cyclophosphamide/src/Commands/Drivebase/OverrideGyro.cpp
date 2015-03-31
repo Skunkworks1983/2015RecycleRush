@@ -1,19 +1,19 @@
 #include "OverrideGyro.h"
 
 OverrideGyro::OverrideGyro(bool override) {
-	Requires(driveBae);
+	Requires(driveBase);
 	this->override = override;
 }
 
 // Called just before this Command runs the first time
 void OverrideGyro::Initialize() {
 	if (override) {
-		driveBae->stopRotPID();
-		driveBae->setGyroEnabled(false);
+		driveBase->stopRotPID();
+		driveBase->setGyroEnabled(false);
 	} else {
-		driveBae->setGyroEnabled(true);
-		driveBae->zeroPIDOutput();
-		driveBae->startRotPID();
+		driveBase->setGyroEnabled(true);
+		driveBase->zeroPIDOutput();
+		driveBase->startRotPID();
 	}
 }
 

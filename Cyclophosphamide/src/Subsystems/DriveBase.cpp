@@ -3,11 +3,11 @@
 #include <PIDController.h>
 #include <SerialPort.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Subsystems/DriveBae.h>
+#include <Subsystems/DriveBase.h>
 #include <cmath>
 #include <cstdint>
 
-DriveBae::DriveBae() :
+DriveBase::DriveBase() :
 		Subsystem("DriveBae") {
 	SAFE_INIT(DRIVE_MOTOR_FRONT_LEFT_PORT,
 			motorFrontLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_FRONT_LEFT_PORT););
@@ -56,7 +56,7 @@ DriveBae::DriveBae() :
 	accel = new BuiltInAccelerometer();
 }
 
-DriveBae::~DriveBae() {
+DriveBase::~DriveBase() {
 	delete motorFrontLeft;
 	delete motorFrontRight;
 	delete motorBackLeft;
@@ -68,15 +68,15 @@ DriveBae::~DriveBae() {
 	delete lightSensor;
 }
 
-void DriveBae::InitDefaultCommand() {
+void DriveBase::InitDefaultCommand() {
 	SetDefaultCommand(new MecanumDrive());
 }
 
-void DriveBae::setStrafeSetPoint(double setPoint) {
+void DriveBase::setStrafeSetPoint(double setPoint) {
 	strafePID->SetSetpoint(setPoint);
 }
 
-void DriveBae::enableStrafePID(bool state) {
+void DriveBase::enableStrafePID(bool state) {
 	if (state) {
 		strafePID->Enable();
 	} else {
@@ -84,11 +84,11 @@ void DriveBae::enableStrafePID(bool state) {
 	}
 }
 
-Accelerometer *DriveBae::getBuiltInAccel() {
+Accelerometer *DriveBase::getBuiltInAccel() {
 	return accel;
 }
 
-void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
+void DriveBase::setSpeed(double speedFrontLeft, double speedFrontRight,
 		double speedBackLeft, double speedBackRight) {
 	// Normalize to the max
 	double max = fabs(speedFrontLeft);
@@ -113,66 +113,57 @@ void DriveBae::setSpeed(double speedFrontLeft, double speedFrontRight,
 	motorFrontRight->Set(speedFrontRight);
 	motorBackLeft->Set(-speedBackLeft);
 	motorBackRight->Set(speedBackRight);
-
-	/*
-	 if (speedFrontLeft == 0 && speedFrontRight == 0 && speedBackLeft == 0
-	 && speedBackRight == 0) {
-	 motorFrontLeft->StopMotor();
-	 motorFrontRight->StopMotor();
-	 motorBackLeft->StopMotor();
-	 motorBackRight->StopMotor();
-	 }*/
 }
 
-double DriveBae::getForward() {
+double DriveBase::getForward() {
 	return forward;
 }
 
-double DriveBae::getRight() {
+double DriveBase::getRight() {
 	return right;
 }
 
-IMU *DriveBae::getGyro() {
+IMU *DriveBase::getGyro() {
 	return gyro;
 }
 
-void DriveBae::setGyroEnabled(bool enable) {
+void DriveBase::setGyroEnabled(bool enable) {
 	gyroEnabled = enable;
 }
 
-bool DriveBae::isGyroEnabled() {
+bool DriveBase::isGyroEnabled() {
 	return gyroEnabled;
 }
 
-void DriveBae::setPIDAll(double P, double I, double D) {
+void DriveBase::setPIDAll(double P, double I, double D) {
 	motorFrontLeft->SetPID(P, I, D);
 	motorFrontRight->SetPID(P, I, D);
 	motorBackLeft->SetPID(P, I, D);
 	motorBackRight->SetPID(P, I, D);
 }
 
-void DriveBae::setAll(double setPoint) {
+void DriveBase::setAll(double setPoint) {
 	motorFrontLeft->Set(-setPoint);
 	motorFrontRight->Set(setPoint);
 	motorBackLeft->Set(-setPoint);
 	motorBackRight->Set(setPoint);
 }
 
-void DriveBae::setModeAll(CANSpeedController::ControlMode mode) {
+void DriveBase::setModeAll(CANSpeedController::ControlMode mode) {
 	motorFrontLeft->SetControlMode(mode);
 	motorFrontRight->SetControlMode(mode);
 	motorBackLeft->SetControlMode(mode);
 	motorBackRight->SetControlMode(mode);
 }
 
-void DriveBae::zeroEncoders() {
+void DriveBase::zeroEncoders() {
 	motorFrontLeft->SetPosition(0);
 	motorFrontRight->SetPosition(0);
 	motorBackLeft->SetPosition(0);
 	motorBackRight->SetPosition(0);
 }
 
-bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance) {
+bool DriveBase::withinThreshhold(double driveThreshhold, double targetDistance) {
 	SmartDashboard::PutNumber("backLeft",
 			fabs(motorBackLeft->GetEncPosition()) - targetDistance);
 	SmartDashboard::PutNumber("frontLeft",
@@ -196,7 +187,7 @@ bool DriveBae::withinThreshhold(double driveThreshhold, double targetDistance) {
 	return false;
 }
 
-void DriveBae::enablePIDAll(bool state) {
+void DriveBase::enablePIDAll(bool state) {
 	if (state) {
 		motorFrontLeft->EnableControl();
 		motorFrontRight->EnableControl();
@@ -210,41 +201,41 @@ void DriveBae::enablePIDAll(bool state) {
 	}
 }
 
-void DriveBae::setTargetAngle(double theta) {
+void DriveBase::setTargetAngle(double theta) {
 	rotPID->SetSetpoint(theta);
 }
 
-void DriveBae::stopRotPID() {
+void DriveBase::stopRotPID() {
 	rotPID->Disable();
 }
 
-void DriveBae::startRotPID() {
+void DriveBase::startRotPID() {
 	if (gyroEnabled) {
 		rotPID->Enable();
 	}
 }
 
-double DriveBae::getError() {
+double DriveBase::getError() {
 	return (gyro->GetYaw() - rotPID->GetSetpoint());
 }
 
-void DriveBae::setForward(double f) {
+void DriveBase::setForward(double f) {
 	forward = f;
 }
 
-void DriveBae::setRight(double r) {
+void DriveBase::setRight(double r) {
 	right = r;
 }
 
-void DriveBae::setClockwise(double c) {
+void DriveBase::setClockwise(double c) {
 	clockwise = c;
 }
 
-double DriveBae::getClockwise() {
+double DriveBase::getClockwise() {
 	return clockwise;
 }
 
-void DriveBae::execute() {
+void DriveBase::execute() {
 // 'Kinematic transformation'
 	double frontLeft = forward + clockwise - right;
 	double frontRight = forward - clockwise - right;
@@ -254,28 +245,28 @@ void DriveBae::execute() {
 	setSpeed(frontLeft, frontRight, backLeft, backRight);
 }
 
-void DriveBae::PIDWrite(float output) {
+void DriveBase::PIDWrite(float output) {
 	output /= 180.0;
 	setClockwise(-output);
 }
 
-double DriveBae::PIDGet() {
+double DriveBase::PIDGet() {
 	return gyro->GetYaw();
 }
 
-double DriveBae::getSetpoint() {
+double DriveBase::getSetpoint() {
 	return rotPID->GetSetpoint();
 }
 
-void DriveBae::setSetpoint(float f) {
+void DriveBase::setSetpoint(float f) {
 	rotPID->SetSetpoint(f);
 }
 
-void DriveBae::zeroPIDOutput() {
+void DriveBase::zeroPIDOutput() {
 	rotPID->SetSetpoint(gyro->GetYaw());
 }
 
-DRIVE_MOTOR_TYPE *DriveBae::getMotor(MotorSide side) {
+DRIVE_MOTOR_TYPE *DriveBase::getMotor(MotorSide side) {
 	switch (side) {
 	case MotorSide::FRONT_LEFT:
 		return motorFrontLeft;
@@ -288,6 +279,6 @@ DRIVE_MOTOR_TYPE *DriveBae::getMotor(MotorSide side) {
 	}
 }
 
-bool DriveBae::getLightSensor() {
+bool DriveBase::getLightSensor() {
 	return lightSensor->Get();
 }

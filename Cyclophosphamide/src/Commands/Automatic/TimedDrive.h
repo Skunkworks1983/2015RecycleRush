@@ -6,10 +6,10 @@
 class TimedDrive: public CommandBase {
 private:
 	double speed;
-	DriveBae::MotorSide side;
+	DriveBase::MotorSide side;
 	bool test;
 public:
-	TimedDrive(float duration, float speed, DriveBae::MotorSide side = DriveBae::MotorSide::FRONT_LEFT, bool test = false);
+	TimedDrive(float duration, float speed, DriveBase::MotorSide side = DriveBase::MotorSide::FRONT_LEFT, bool test = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

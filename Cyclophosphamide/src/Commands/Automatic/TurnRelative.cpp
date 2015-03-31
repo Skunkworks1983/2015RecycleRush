@@ -1,7 +1,7 @@
 #include "TurnRelative.h"
 
 TurnRelative::TurnRelative(float delta) {
-	Requires(driveBae);
+	Requires(driveBase);
 	SetTimeout(1.0);
 	this->delta = delta;
 	this->targetAngle = 0;
@@ -9,26 +9,26 @@ TurnRelative::TurnRelative(float delta) {
 
 // Called just before this Command runs the first time
 void TurnRelative::Initialize() {
-	driveBae->startRotPID();
-	targetAngle = driveBae->getGyro()->GetYaw() + delta;
-	driveBae->setTargetAngle(targetAngle);
+	driveBase->startRotPID();
+	targetAngle = driveBase->getGyro()->GetYaw() + delta;
+	driveBase->setTargetAngle(targetAngle);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TurnRelative::Execute() {
-	driveBae->execute();
+	driveBase->execute();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnRelative::IsFinished() {
-	return fabs(targetAngle - driveBae->getGyro()->GetYaw())
+	return fabs(targetAngle - driveBase->getGyro()->GetYaw())
 			<= AUTO_TURN_GYRO_THRESHOLD || IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void TurnRelative::End() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBae->zeroPIDOutput();
+	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->zeroPIDOutput();
 }
 
 // Called when another command which requires one or more of the same

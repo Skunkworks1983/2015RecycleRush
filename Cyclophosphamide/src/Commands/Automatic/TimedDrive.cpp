@@ -2,13 +2,13 @@
 #include <Commands/Automatic/TimedDrive.h>
 #include <RobotMap.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Subsystems/DriveBae.h>
+#include <Subsystems/DriveBase.h>
 #include <Timer.h>
 #include <chrono>
 #include <cmath>
 
-TimedDrive::TimedDrive(float t, float speed, DriveBae::MotorSide side, bool test) {
-	Requires(driveBae);
+TimedDrive::TimedDrive(float t, float speed, DriveBase::MotorSide side, bool test) {
+	Requires(driveBase);
 	SetTimeout(t);
 	this->speed = speed;
 	this->side = side;
@@ -16,11 +16,11 @@ TimedDrive::TimedDrive(float t, float speed, DriveBae::MotorSide side, bool test
 }
 
 void TimedDrive::Initialize() {
-	driveBae->setModeAll(CANSpeedController::kPercentVbus);
+	driveBase->setModeAll(CANSpeedController::kPercentVbus);
 	if(test){
-		driveBae->getMotor(side)->Set(-speed);
+		driveBase->getMotor(side)->Set(-speed);
 	} else {
-		driveBae->setAll(-speed);
+		driveBase->setAll(-speed);
 	}
 }
 
@@ -33,7 +33,7 @@ bool TimedDrive::IsFinished() {
 }
 
 void TimedDrive::End() {
-	driveBae->setAll(0.0);
+	driveBase->setAll(0.0);
 }
 
 void TimedDrive::Interrupted() {

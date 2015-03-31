@@ -1,17 +1,14 @@
 #include <CANTalon.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/RunToteIntake.h>
 #include <Encoder.h>
-#include <PIDController.h>
 #include <RobotMap.h>
-#include <Subsystems/ToteIntakerino.h>
-#include <chrono>
-#include <cmath>
+#include <Subsystems/ToteIntake.h>
 
 #define TOTE_INTAKE_P 0.5
 #define TOTE_INTAKE_I 0.0
 #define TOTE_INTAKE_D 0.0
 
-ToteIntakerino::ToteIntakerino() :
+ToteIntake::ToteIntake() :
 		Subsystem("ToteIntakerino") {
 	SAFE_INIT(TOTE_INTAKE_MOTOR_PORT_OLD,
 			toteIntakeMotor = new CANTalon(TOTE_INTAKE_MOTOR_PORT_OLD););
@@ -19,26 +16,26 @@ ToteIntakerino::ToteIntakerino() :
 	encoder->SetDistancePerPulse(1 / TOTE_INTAKE_ENCODER_TICKS_PER_REV);
 }
 
-ToteIntakerino::~ToteIntakerino() {
+ToteIntake::~ToteIntake() {
 	delete encoder;
 	delete toteIntakeMotor;
 }
 
-void ToteIntakerino::InitDefaultCommand() {
+void ToteIntake::InitDefaultCommand() {
 	//SetDefaultCommand(new ToteIntake(TOTE_INTAKE_RPM));
 }
 
-double ToteIntakerino::getRPM() {
+double ToteIntake::getRPM() {
 	return encoder->GetRate(); /// TOTE_INTAKE_ENCODER_TICKS_PER_REV / 60.0;
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void ToteIntakerino::setMotor(float speed) {
+void ToteIntake::setMotor(float speed) {
 	toteIntakeMotor->Set(speed);
 }
 
-Encoder *ToteIntakerino::getEncoder() {
+Encoder *ToteIntake::getEncoder() {
 	return encoder;
 }

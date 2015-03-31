@@ -2,20 +2,20 @@
 #include <cmath>
 
 TurnTo::TurnTo(float targetAngle) {
-	Requires(driveBae);
+	Requires(driveBase);
 	SetTimeout(2.0);
 	this->targetAngle = targetAngle;
 	this->angleRemaining = 0;
 }
 
 void TurnTo::Initialize() {
-	driveBae->startRotPID();
-	driveBae->setTargetAngle(targetAngle);
+	driveBase->startRotPID();
+	driveBase->setTargetAngle(targetAngle);
 }
 
 void TurnTo::Execute() {
-	angleRemaining = targetAngle - driveBae->getGyro()->GetYaw();
-	driveBae->execute();
+	angleRemaining = targetAngle - driveBase->getGyro()->GetYaw();
+	driveBase->execute();
 }
 
 bool TurnTo::IsFinished() {
@@ -23,8 +23,8 @@ bool TurnTo::IsFinished() {
 }
 
 void TurnTo::End() {
-	driveBae->setSpeed(0.0, 0.0, 0.0, 0.0);
-	driveBae->zeroPIDOutput();
+	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+	driveBase->zeroPIDOutput();
 }
 
 void TurnTo::Interrupted() {

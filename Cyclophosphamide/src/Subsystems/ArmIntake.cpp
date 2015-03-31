@@ -1,9 +1,7 @@
-#include "../RobotMap.h"
-#include <Math.h>
-#include <Subsystems/ArmIntakerino.h>
-#include "../utilities/StallableMotor.h"
+#include <CANTalon.h>
+#include <Subsystems/ArmIntake.h>
 
-ArmIntakerino::ArmIntakerino() :
+ArmIntake::ArmIntake() :
 		Subsystem("CanIntakerino") {
 	SAFE_INIT(CAN_MOTOR_GRAB_LEFT_PORT,
 			grabMotorLeft = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_LEFT_PORT););
@@ -11,21 +9,21 @@ ArmIntakerino::ArmIntakerino() :
 			grabMotorRight = new CAN_MOTOR_TYPE(CAN_MOTOR_GRAB_RIGHT_PORT););
 }
 
-ArmIntakerino::~ArmIntakerino() {
+ArmIntake::~ArmIntake() {
 	delete grabMotorLeft;
 	delete grabMotorRight;
 }
 
-void ArmIntakerino::setGrab(float value) {
+void ArmIntake::setGrab(float value) {
 	grabMotorLeft->Set(value);
 	grabMotorRight->Set(-value);
 }
 
-CAN_MOTOR_TYPE *ArmIntakerino::getRight() {
+CAN_MOTOR_TYPE *ArmIntake::getRight() {
 	return grabMotorRight;
 }
 
-CAN_MOTOR_TYPE *ArmIntakerino::getLeft() {
+CAN_MOTOR_TYPE *ArmIntake::getLeft() {
 	return grabMotorLeft;
 }
 

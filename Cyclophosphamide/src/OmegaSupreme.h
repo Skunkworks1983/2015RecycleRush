@@ -9,8 +9,8 @@
 #define OMEGA_SUPREME_H_
 
 #include <IterativeRobot.h>
-#include <iostream>
-#include <fstream>
+
+class SendableChooser;
 
 class Command;
 class DigitalInput;
@@ -20,10 +20,8 @@ class OmegaSupreme: public IterativeRobot {
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
-	int PIDChange;
-	bool shouldRun;
 	SendableChooser *chooser;
-
+	bool shouldRun;
 public:
 	OmegaSupreme();
 	~OmegaSupreme();

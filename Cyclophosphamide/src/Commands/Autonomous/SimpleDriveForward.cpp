@@ -1,7 +1,7 @@
 #include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveArms.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
-#include <Commands/Armerino/Craaaw/CraaawActuate.h>
+#include <Commands/Armerino/Craaaw/ActuateCanStabilizer.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Automatic/BestDrive.h>
 #include <Commands/Automatic/TurnTo.h>

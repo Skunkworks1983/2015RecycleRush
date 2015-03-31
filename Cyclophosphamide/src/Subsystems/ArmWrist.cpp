@@ -1,22 +1,22 @@
-#include <Subsystems/ArmWristerino.h>
+#include <Subsystems/ArmWrist.h>
 #include "../RobotMap.h"
 
-ArmWristerino::ArmWristerino() :
+ArmWrist::ArmWrist() :
 		Subsystem("CanWristerino") {
 	SAFE_INIT(CAN_WRIST_SOLENOID_PORT,
 			wrists = new DoubleSolenoid(CAN_WRIST_SOLENOID_PORT););
 	toggleWrist = true;
 }
 
-ArmWristerino::~ArmWristerino() {
+ArmWrist::~ArmWrist() {
 	delete wrists;
 }
 
-void ArmWristerino::InitDefaultCommand() {
+void ArmWrist::InitDefaultCommand() {
 
 }
 
-void ArmWristerino::setWrist(DoubleSolenoid::Value value) {
+void ArmWrist::setWrist(DoubleSolenoid::Value value) {
 	if (value == DoubleSolenoid::kForward) {
 		toggleWrist = true;
 	} else {
@@ -25,7 +25,7 @@ void ArmWristerino::setWrist(DoubleSolenoid::Value value) {
 	wrists->Set(value);
 }
 
-void ArmWristerino::doTheToggleWrist() {
+void ArmWrist::doTheToggleWrist() {
 	if (toggleWrist) {
 		toggleWrist = false;
 	} else {
@@ -33,6 +33,6 @@ void ArmWristerino::doTheToggleWrist() {
 	}
 }
 
-bool ArmWristerino::getWristToggle() {
+bool ArmWrist::getWristToggle() {
 	return toggleWrist;
 }

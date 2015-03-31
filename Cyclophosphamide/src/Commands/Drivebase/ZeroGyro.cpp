@@ -1,7 +1,7 @@
 #include <Commands/Drivebase/ZeroGyro.h>
 
 ZeroGyro::ZeroGyro() {
-	Requires(driveBae);
+	Requires(driveBase);
 	firstIteration = true;
 }
 
@@ -11,10 +11,10 @@ void ZeroGyro::Initialize() {
 
 void ZeroGyro::Execute() {
 	if (firstIteration) {
-		bool is_calibrating = driveBae->getGyro()->IsCalibrating();
+		bool is_calibrating = driveBase->getGyro()->IsCalibrating();
 		if (!is_calibrating) {
 			Wait(0.3);
-			driveBae->getGyro()->ZeroYaw();
+			driveBase->getGyro()->ZeroYaw();
 			firstIteration = false;
 		}
 	}
@@ -27,11 +27,11 @@ bool ZeroGyro::IsFinished() {
 
 // Called once after isFinished returns true
 void ZeroGyro::End() {
-	driveBae->setTargetAngle(0.0);
+	driveBase->setTargetAngle(0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ZeroGyro::Interrupted() {
-	driveBae->setTargetAngle(0.0);
+	driveBase->setTargetAngle(0.0);
 }

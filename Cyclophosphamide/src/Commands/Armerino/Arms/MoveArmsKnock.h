@@ -4,12 +4,12 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class Whack: public CommandGroup {
+class MoveArmsKnock: public CommandGroup {
 public:
 	/**
 	 * Tobacco is whacko if you're a teen
 	 */
-	Whack();
+	MoveArmsKnock();
 };
 
 #endif

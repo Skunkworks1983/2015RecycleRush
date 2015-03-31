@@ -4,9 +4,9 @@
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"
 
-class CanToCraaawTransfer: public CommandGroup {
+class TransferCan: public CommandGroup {
 public:
-	CanToCraaawTransfer();
+	TransferCan();
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 
 ResetElevatorEncoder::ResetElevatorEncoder() {
-	Requires(toteLifterino);
+	Requires(toteLifter);
 }
 
 // Called just before this Command runs the first time
@@ -10,8 +10,8 @@ void ResetElevatorEncoder::Initialize() {
 	/*
 	 * Why would we ever want to zero the encoder unless it was below the previous value??
 	 */
-	if (toteLifterino->getEncoder()->PIDGet() < 0) {
-		toteLifterino->getEncoder()->Reset();
+	if (toteLifter->getEncoder()->PIDGet() < 0) {
+		toteLifter->getEncoder()->Reset();
 	}
 }
 

@@ -1,17 +1,17 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include <Subsystems/ArmIntakerino.h>
+#include <Subsystems/ArmIntake.h>
 #include <Subsystems/ArmLifter.h>
-#include <Subsystems/ArmWristerino.h>
-#include <Subsystems/Craaaw.h>
-#include "Subsystems/ToteIntakerino.h"
+#include <Subsystems/ArmWrist.h>
+#include <Subsystems/CanStabilizer.h>
+#include <Subsystems/DriveBase.h>
+#include <Subsystems/ToteIntake.h>
+#include <Subsystems/ToteLifter.h>
 #include <string>
 #include "Commands/Command.h"
-#include "Subsystems/DriveBae.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems/ToteLifterino.h"
 #include "Subsystems/Pneumatics.h"
 #include "Subsystems/AutoCanGrabber.h"
 
@@ -21,13 +21,13 @@
  * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
  */
 
-class DriveBae;
+class DriveBase;
 class ArmLifter;
-class ArmWristerino;
-class ArmIntakerino;
-class ToteIntakerino;
-class ToteLifterino;
-class Craaaw;
+class ArmWrist;
+class ArmIntake;
+class ToteIntake;
+class ToteLifter;
+class CanStabilizer;
 class Pneumatics;
 class CommandBase: public Command {
 public:
@@ -36,13 +36,13 @@ public:
 	~CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static DriveBae *driveBae;
-	static Craaaw *craaaw;
+	static DriveBase *driveBase;
+	static CanStabilizer *canStabilizer;
 	static ArmLifter *armLifter;
-	static ArmWristerino *armWristerino;
-	static ArmIntakerino *armIntakerino;
-	static ToteIntakerino *toteIntakerino;
-	static ToteLifterino *toteLifterino;
+	static ArmWrist *armWrist;
+	static ArmIntake *armIntake;
+	static ToteIntake *toteIntake;
+	static ToteLifter *toteLifter;
 	static OI *oi;
 	static Pneumatics *pneumatics;
 	static AutoCanGrabber *autoCanGrabber;

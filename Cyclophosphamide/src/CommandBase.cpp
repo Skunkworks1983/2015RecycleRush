@@ -1,14 +1,14 @@
 #include <CommandBase.h>
 
 // Initialize a single static instance of all of your subsystems to NULL
-DriveBae* CommandBase::driveBae = NULL;
+DriveBase* CommandBase::driveBase = NULL;
 OI* CommandBase::oi = NULL;
 ArmLifter* CommandBase::armLifter = NULL;
-ArmWristerino* CommandBase::armWristerino = NULL;
-ArmIntakerino* CommandBase::armIntakerino = NULL;
-ToteIntakerino* CommandBase::toteIntakerino = NULL;
-ToteLifterino* CommandBase::toteLifterino = NULL;
-Craaaw* CommandBase::craaaw = NULL;
+ArmWrist* CommandBase::armWrist = NULL;
+ArmIntake* CommandBase::armIntake = NULL;
+ToteIntake* CommandBase::toteIntake = NULL;
+ToteLifter* CommandBase::toteLifter = NULL;
+CanStabilizer* CommandBase::canStabilizer = NULL;
 Pneumatics* CommandBase::pneumatics = NULL;
 AutoCanGrabber* CommandBase::autoCanGrabber = NULL;
 
@@ -18,30 +18,29 @@ CommandBase::CommandBase(char const *name) :
 
 CommandBase::CommandBase() :
 		Command() {
-
 }
 
 CommandBase::~CommandBase() {
-	delete driveBae;
+	delete driveBase;
 	delete armLifter;
-	delete armWristerino;
-	delete armIntakerino;
-	delete toteIntakerino;
-	delete toteLifterino;
+	delete armWrist;
+	delete armIntake;
+	delete toteIntake;
+	delete toteLifter;
 	delete oi;
-	delete craaaw;
+	delete canStabilizer;
 	delete pneumatics;
 }
 
 void CommandBase::init() {
-	driveBae = new DriveBae();
+	driveBase = new DriveBase();
 	armLifter = new ArmLifter();
-	armWristerino = new ArmWristerino();
-	armIntakerino = new ArmIntakerino();
-	toteIntakerino = new ToteIntakerino();
-	toteLifterino = new ToteLifterino();
+	armWrist = new ArmWrist();
+	armIntake = new ArmIntake();
+	toteIntake = new ToteIntake();
+	toteLifter = new ToteLifter();
 	oi = new OI();
-	craaaw = new Craaaw();
+	canStabilizer = new CanStabilizer();
 	pneumatics = new Pneumatics();
 	autoCanGrabber = new AutoCanGrabber();
 }

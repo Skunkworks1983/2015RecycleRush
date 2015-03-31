@@ -1,12 +1,12 @@
 #include "UnrustleGyro.h"
 
 UnrustleGyro::UnrustleGyro() {
-	Requires(driveBae);
+	Requires(driveBase);
 }
 
 // Called just before this Command runs the first time
 void UnrustleGyro::Initialize() {
-	driveBae->zeroPIDOutput();
+	driveBase->zeroPIDOutput();
 }
 
 // Called repeatedly when this Command is scheduled to run

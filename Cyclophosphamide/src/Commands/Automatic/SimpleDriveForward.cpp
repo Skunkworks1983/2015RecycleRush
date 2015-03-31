@@ -3,20 +3,20 @@
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <RobotMap.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Subsystems/DriveBae.h>
+#include <Subsystems/DriveBase.h>
 #include <string>
 
 #define AUTO_DRIVE_THRESHOLD 30
 #define FABS(a) a < 0 ? -1*a : a
 
 SimpleDriveForward::SimpleDriveForward(float targetInch, double speed) {
-	Requires(driveBae);
+	Requires(driveBase);
 	this->speed = speed;
-	driveBae->zeroEncoders();
+	driveBase->zeroEncoders();
 	this->targetTicks = (targetInch * DRIVE_BASE_TICKS_PER_INCH);
 	SmartDashboard::PutString("DriveForwardStatus", "Constructor!");
-	driveBae->setModeAll(CANSpeedController::kPercentVbus);
-	driveBae->enablePIDAll(false);
+	driveBase->setModeAll(CANSpeedController::kPercentVbus);
+	driveBase->enablePIDAll(false);
 }
 
 SimpleDriveForward::SimpleDriveForward(float targetInch, double speed,
@@ -24,32 +24,32 @@ SimpleDriveForward::SimpleDriveForward(float targetInch, double speed,
 	SetTimeout(timeout);
 	this->timeout = timeout;
 	this->speed = speed;
-	driveBae->zeroEncoders();
+	driveBase->zeroEncoders();
 	this->targetTicks = (targetInch * DRIVE_BASE_TICKS_PER_INCH);
 	SmartDashboard::PutString("DriveForwardStatus", "Constructor!");
-	driveBae->setModeAll(CANSpeedController::kPercentVbus);
-	driveBae->enablePIDAll(false);
+	driveBase->setModeAll(CANSpeedController::kPercentVbus);
+	driveBase->enablePIDAll(false);
 }
 
 // Called just before this Command runs the first time
 void SimpleDriveForward::Initialize() {
-	driveBae->zeroEncoders();
+	driveBase->zeroEncoders();
 	startingPos =
-			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition();
+			driveBase->getMotor(DriveBase::MotorSide::FRONT_LEFT)->GetEncPosition();
 	SmartDashboard::PutNumber("start", startingPos);
 	signedSpeed = targetTicks < 0 ? speed : -speed;
-	driveBae->setAll(signedSpeed);
+	driveBase->setAll(signedSpeed);
 	///driveBae->setSpeed(speed, speed, speed, speed);
 	SmartDashboard::PutString("DriveForwardStatus", "Initialize!");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SimpleDriveForward::Execute() {
-	driveBae->setAll(signedSpeed);
+	driveBase->setAll(signedSpeed);
 	SmartDashboard::PutNumber("newDriveEnc",
-			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
+			driveBase->getMotor(DriveBase::MotorSide::FRONT_LEFT)->GetEncPosition());
 	double pos =
-			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
+			driveBase->getMotor(DriveBase::MotorSide::FRONT_LEFT)->GetEncPosition()
 					- startingPos;
 
 	if (pos < 0) {
@@ -70,10 +70,10 @@ void SimpleDriveForward::Execute() {
 bool SimpleDriveForward::IsFinished() {
 	SmartDashboard::PutNumber("Target", targetTicks);
 	SmartDashboard::PutNumber("DriveEnc",
-			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition());
+			driveBase->getMotor(DriveBase::MotorSide::FRONT_LEFT)->GetEncPosition());
 
 	double pos =
-			driveBae->getMotor(DriveBae::MotorSide::FRONT_LEFT)->GetEncPosition()
+			driveBase->getMotor(DriveBase::MotorSide::FRONT_LEFT)->GetEncPosition()
 					- startingPos;
 
 	if (pos < 0) {
@@ -95,7 +95,7 @@ bool SimpleDriveForward::IsFinished() {
 // Called once after isFinished returns true
 void SimpleDriveForward::End() {
 	SmartDashboard::PutString("DriveForwardStatus", "End!");
-	driveBae->setSpeed(0, 0, 0, 0);
+	driveBase->setSpeed(0, 0, 0, 0);
 }
 
 // Called when another command which requires one or more of the same

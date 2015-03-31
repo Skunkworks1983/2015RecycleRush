@@ -1,16 +1,16 @@
 #include <Buttons/JoystickButton.h>
 #include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveArms.h>
+#include <Commands/Armerino/Arms/MoveArmsKnock.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
 #include <Commands/Armerino/Arms/RampInduct.h>
-#include <Commands/Armerino/Arms/Whack.h>
-#include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/CollectCan.h>
-#include <Commands/Armerino/Craaaw/CraaawActuate.h>
+#include <Commands/Armerino/Craaaw/ActuateCanStabilizer.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
+#include <Commands/Armerino/TransferCan.h>
 #include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/ToteIntake.h>
+#include <Commands/ToteIntake/RunToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
@@ -119,7 +119,7 @@ void OI::registerButtonListeners() {
 	// Can manipulation
 	createSwitch("canArms", canArms, new MoveArmsFancy(MoveArmsFancy::up),
 			new MoveArmsFancy(MoveArmsFancy::down));
-	createButton("transfer", canToCraaawTransfer, new CanToCraaawTransfer());
+	createButton("transfer", canToCraaawTransfer, new TransferCan());
 	createSwitch("collect Fwd", canCollectFwd,
 			new Collect(CAN_GRAB_SPEED, MoveWrist::close),
 			new Collect(0, MoveWrist::close));
@@ -127,14 +127,14 @@ void OI::registerButtonListeners() {
 			new Collect(-CAN_GRAB_SPEED, MoveWrist::close),
 			new Collect(0, MoveWrist::close));
 	createSwitch("toggle craaaw", craaawToggle,
-			new CraaawActuate(CraaawActuate::open),
-			new CraaawActuate(CraaawActuate::close));
+			new ActuateCanStabilizer(ActuateCanStabilizer::open),
+			new ActuateCanStabilizer(ActuateCanStabilizer::close));
 
 	// Loading/stacking
 	SAFE_BUTTON(alignToteFwd,
-			alignToteFwd->WhileHeld(new ToteIntake(TOTE_INTAKE_MOTOR_FULL *2)));
+			alignToteFwd->WhileHeld(new RunToteIntake(TOTE_INTAKE_MOTOR_FULL *2)));
 	SAFE_BUTTON(alignToteRvs,
-			alignToteRvs->WhileHeld(new ToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
+			alignToteRvs->WhileHeld(new RunToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
@@ -165,7 +165,7 @@ void OI::registerButtonListeners() {
 			new MoveArms(CAN_POT_DOWN_POSITION));
 
 	// Special driver buttons
-	createButton("whack mode", moveArmsWhackMode, new Whack());
+	createButton("whack mode", moveArmsWhackMode, new MoveArmsKnock());
 	SAFE_BUTTON(toteLifterUpDriver,
 			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
 	SAFE_BUTTON(toteLifterDownDriver,

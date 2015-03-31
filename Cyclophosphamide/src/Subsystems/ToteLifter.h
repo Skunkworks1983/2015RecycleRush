@@ -12,7 +12,7 @@
  * If failure were to occur in the encoder/zeroing, setMotorSpeed is used for manual control with no safeties
  * Safeties include: mag sensor at top elevator, and craaaw, as well as encoder input limit at TOTE_LIFTER_MAX_DISTANCE
  */
-class ToteLifterino: public Subsystem, public PIDOutput, public PIDSource {
+class ToteLifter: public Subsystem, public PIDOutput, public PIDSource {
 private:
 	DigitalInput *elevatorInput, *craaawInput;
 	CANTalon *rightMotor, *leftMotor;
@@ -20,8 +20,8 @@ private:
 	Encoder *encoder;
 	bool dontUseMagOnPID;
 public:
-	ToteLifterino();
-	~ToteLifterino();
+	ToteLifter();
+	~ToteLifter();
 	void InitDefaultCommand();
 
 	bool getElevatorInput();

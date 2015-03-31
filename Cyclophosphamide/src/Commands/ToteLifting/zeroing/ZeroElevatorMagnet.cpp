@@ -1,31 +1,31 @@
 #include <Commands/ToteLifting/zeroing/ZeroElevatorMagnet.h>
 
 ZeroElevatorMag::ZeroElevatorMag() {
-	Requires(toteLifterino);
+	Requires(toteLifter);
 	triggered = false;
 	zeroed = false;
 }
 
 // Called just before this Command runs the first time
 void ZeroElevatorMag::Initialize() {
-	toteLifterino->setMotorSpeed(TOTE_LIFTER_ZERO_SPEED_MAG);
+	toteLifter->setMotorSpeed(TOTE_LIFTER_ZERO_SPEED_MAG);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ZeroElevatorMag::Execute() {
 	//not tested, needs to be tested
 	if (!triggered) {
-		if (toteLifterino->getElevatorInput()) {
+		if (toteLifter->getElevatorInput()) {
 			triggered = true;
-			toteLifterino->getEncoder()->Reset();
-			toteLifterino->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED_MAG);
+			toteLifter->getEncoder()->Reset();
+			toteLifter->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED_MAG);
 		}
 	}
 
 	if (triggered) {
-		if (toteLifterino->getPosition() == -TOTE_LIFTER_MAG_SENSOR_POSITION) {
-			toteLifterino->getEncoder()->Reset();
-			toteLifterino->setMotorSpeed(0);
+		if (toteLifter->getPosition() == -TOTE_LIFTER_MAG_SENSOR_POSITION) {
+			toteLifter->getEncoder()->Reset();
+			toteLifter->setMotorSpeed(0);
 			zeroed = true;
 		}
 	}

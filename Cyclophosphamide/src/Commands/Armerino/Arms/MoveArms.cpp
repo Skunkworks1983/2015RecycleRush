@@ -16,7 +16,7 @@ void MoveArms::Initialize() {
 
 void MoveArms::Execute() {
 	if (setpoint == CAN_POT_DOWN_POSITION) {
-		if (CommandBase::driveBae->getGyro()->GetPitch() >= ARMS_ARE_BREAKING_PITCH_THRESHOLD) {
+		if (CommandBase::driveBase->getGyro()->GetPitch() >= ARMS_ARE_BREAKING_PITCH_THRESHOLD) {
 			//if the arms are pushing the robot up
 			setpoint = CAN_POT_UP_POSITION;
 			armLifter->setArms(setpoint);

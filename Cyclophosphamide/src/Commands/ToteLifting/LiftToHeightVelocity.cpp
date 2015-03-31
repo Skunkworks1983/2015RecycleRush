@@ -9,7 +9,7 @@
 
 LiftToHeightVelocity::LiftToHeightVelocity(double speed) :
 		CommandBase("LiftToHeightVelocity") {
-	Requires(toteLifterino);
+	Requires(toteLifter);
 	this->speed = speed;
 }
 
@@ -17,7 +17,7 @@ LiftToHeightVelocity::~LiftToHeightVelocity() {
 }
 
 void LiftToHeightVelocity::Initialize() {
-	toteLifterino->setMotorSpeed(speed);
+	toteLifter->setMotorSpeed(speed);
 }
 
 void LiftToHeightVelocity::Execute() {
@@ -31,9 +31,9 @@ bool LiftToHeightVelocity::IsFinished() {
 }
 
 void LiftToHeightVelocity::End() {
-	toteLifterino->setMotorSpeed(0);
+	toteLifter->setMotorSpeed(0);
 }
 
 void LiftToHeightVelocity::Interrupted() {
-	toteLifterino->setMotorSpeed(0);
+	toteLifter->setMotorSpeed(0);
 }

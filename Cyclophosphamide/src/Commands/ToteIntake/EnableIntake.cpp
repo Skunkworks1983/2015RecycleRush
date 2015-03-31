@@ -1,16 +1,16 @@
 #include "EnableIntake.h"
 
 EnableIntake::EnableIntake(bool enable) {
-	Requires(toteIntakerino);
+	Requires(toteIntake);
 	this->enable = enable;
 }
 
 // Called just before this Command runs the first time
 void EnableIntake::Initialize() {
 	if (enable) {
-		toteIntakerino->setMotor(TOTE_INTAKE_MOTOR_FULL);
+		toteIntake->setMotor(TOTE_INTAKE_MOTOR_FULL);
 	} else {
-		toteIntakerino->setMotor(0);
+		toteIntake->setMotor(0);
 	}
 }
 

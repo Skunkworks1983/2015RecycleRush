@@ -4,15 +4,16 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 /**
- * wrist pneumatics set value.
+ * Subsystem composed of two solenoids for clamping the recycling can for pickup.
+ * Needed to be separate for requires conflicts.
  */
-class ArmWristerino: public Subsystem {
+class ArmWrist: public Subsystem {
 private:
 	DoubleSolenoid *wrists;
 	bool toggleWrist;
 public:
-	ArmWristerino();
-	~ArmWristerino();
+	ArmWrist();
+	~ArmWrist();
 	void InitDefaultCommand();
 
 	void setWrist(DoubleSolenoid::Value value);

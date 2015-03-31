@@ -1,21 +1,21 @@
 #include <Commands/ToteLifting/zeroing/ZeroElevator.h>
 
 ZeroElevator::ZeroElevator() {
-	Requires(toteLifterino);
+	Requires(toteLifter);
 	zeroCount = 0;
 }
 
 // Called just before this Command runs the first time
 void ZeroElevator::Initialize() {
-	toteLifterino->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED);
-	oldEncoderTick = toteLifterino->getEncoder()->PIDGet();
+	toteLifter->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED);
+	oldEncoderTick = toteLifter->getEncoder()->PIDGet();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ZeroElevator::Execute() {
 	//not tested, needs to be tested
-	if (toteLifterino->getEncoder()->PIDGet() == oldEncoderTick) {
-		toteLifterino->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED / (zeroCount)); //less and less motor power if it is zeroed
+	if (toteLifter->getEncoder()->PIDGet() == oldEncoderTick) {
+		toteLifter->setMotorSpeed(-TOTE_LIFTER_ZERO_SPEED / (zeroCount)); //less and less motor power if it is zeroed
 		zeroCount++;
 	}
 }
@@ -27,8 +27,8 @@ bool ZeroElevator::IsFinished() {
 
 // Called once after isFinished returns true
 void ZeroElevator::End() {
-	toteLifterino->getEncoder()->Reset();
-	toteLifterino->setMotorSpeed(0);
+	toteLifter->getEncoder()->Reset();
+	toteLifter->setMotorSpeed(0);
 }
 
 // Called when another command which requires one or more of the same

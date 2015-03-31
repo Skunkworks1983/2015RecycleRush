@@ -4,7 +4,7 @@
 #include "../../../CommandBase.h"
 #include "WPILib.h"
 
-class CraaawActuate: public CommandBase {
+class ActuateCanStabilizer: public CommandBase {
 public:
 	enum State {
 		open, close, toggle
@@ -13,7 +13,7 @@ private:
 	State value;
 	float timeout;
 public:
-	CraaawActuate(State value, float timeout = -1);
+	ActuateCanStabilizer(State value, float timeout = -1);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

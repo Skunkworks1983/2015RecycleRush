@@ -1,8 +1,8 @@
 #include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveArms.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
-#include <Commands/Armerino/CanToCraaawTransfer.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
+#include <Commands/Armerino/TransferCan.h>
 #include <Commands/Automatic/GetCan.h>
 #include <Commands/Automatic/SimpleDriveForward.h>
 #include <Commands/WaitCommand.h>
@@ -20,6 +20,6 @@ GetCan::GetCan() {
 	AddSequential(new MoveWrist(MoveWrist::State::close));
 	AddSequential(new Induct(CAN_GRAB_SPEED, 1.0));
 	AddSequential(new MoveArmsFancy(MoveArmsFancy::up), 2.0);
-	AddParallel(new CanToCraaawTransfer());
+	AddParallel(new TransferCan());
 	AddSequential(new WaitCommand(1.0));
 }
