@@ -121,6 +121,8 @@ void OmegaSupreme::TeleopPeriodic() {
 			}
 		}
 	}
+	SmartDashboard::PutNumber("ArmPot", CommandBase::armLifter->getLiftPot()->PIDGet());
+	SmartDashboard::PutNumber("Elevator Encoder", CommandBase::toteLifter->getEncoder()->PIDGet());
 }
 
 void OmegaSupreme::DisabledInit() {

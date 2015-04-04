@@ -11,6 +11,7 @@ void MecanumDrive::Initialize() {
 	driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
 	driveBase->setModeAll(CANSpeedController::ControlMode::kPercentVbus);
 	driveBase->stopRotPID();
+	driveBase->zeroPIDOutput();
 }
 
 void MecanumDrive::Execute() {

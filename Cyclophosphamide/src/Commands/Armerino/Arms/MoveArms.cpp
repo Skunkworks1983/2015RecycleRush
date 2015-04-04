@@ -29,9 +29,9 @@ bool MoveArms::IsFinished() {
 }
 
 void MoveArms::End() {
-	armLifter->disableArms();
+	//armLifter->disableArms();
 }
 
 void MoveArms::Interrupted() {
-	armLifter->disableArms();
+	End();
 }

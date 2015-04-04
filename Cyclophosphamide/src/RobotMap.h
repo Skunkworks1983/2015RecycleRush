@@ -58,7 +58,7 @@
 // Tote Lifter
 
 #define TOTE_LIFTER_LEFT_PORT 3
-#define TOTE_LIFTER_RIGHT_PORT 5	//diff from practice
+#define TOTE_LIFTER_RIGHT_PORT 12	//now same as practice bot whoohoo
 #define TOTE_LIFTER_ENCODER_PORTS 8,9
 #define TOTE_LIFTER_CRAAAW_INPUT_PORT 0
 #define TOTE_LIFTER_ELEVATOR_INPUT_PORT 1
@@ -138,7 +138,7 @@
 #define TOTE_INDEX_SPEED 1.0
 
 #define CAN_ARM_P 0.7
-#define CAN_ARM_I 0.0
+#define CAN_ARM_I 0.00005
 #define CAN_ARM_D 0.0
 
 // Auto Canerino

@@ -8,6 +8,7 @@ LiftToHeight::LiftToHeight(double destination) :
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
+	SmartDashboard::PutNumber("Destination START", destination);
 	if (destination > toteLifter->getEncoder()->PIDGet()
 			&& toteLifter->getCraaawInput() && destination != TOTE_LIFTER_CARRY_HEIGHT) {
 		destination = toteLifter->getEncoder()->PIDGet();

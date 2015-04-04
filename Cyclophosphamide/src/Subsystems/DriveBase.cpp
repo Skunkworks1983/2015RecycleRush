@@ -32,15 +32,12 @@ DriveBase::DriveBase() :
 
 	rotPID = new PIDController(DRIVE_ROT_P, DRIVE_ROT_I, DRIVE_ROT_D, gyro,
 			this);
+	rotPID->Disable();
 
 	rotPID->SetOutputRange(-180.0, 180.0);
 	rotPID->SetInputRange(-180.0, 180.0);
 	rotPID->SetContinuous(true);
 	rotPID->SetSetpoint(gyro->GetYaw());
-
-	if (!gyroEnabled) {
-		rotPID->Disable();
-	}
 
 	lightSensor = new DigitalInput(DOESNT_EXIST);
 
