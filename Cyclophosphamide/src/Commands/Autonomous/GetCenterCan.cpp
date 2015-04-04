@@ -1,6 +1,7 @@
 #include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Autonomous/Autonomous.h>
+#include <Commands/Drivebase/UnrustleGyro.h>
 #include <Commands/WaitCommand.h>
 #include <Subsystems/AutoCanGrabber.h>
 
@@ -10,6 +11,7 @@
 
 Autonomous *Autonomous::createGetCenterCan() {
 	Autonomous *cmd = new Autonomous("Autonomous-GetCenterCan");
+	cmd->AddParallel(new UnrustleGyro());
 	cmd->AddParallel(new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
 	cmd->AddSequential(new TimedDrive(1.000, -MOVE_SPEED));	//TODO: maybe change this? works with 1.0 tho..
 	cmd->AddSequential(new TimedDrive(1.350, .7));

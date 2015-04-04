@@ -17,15 +17,17 @@ TimedDrive::TimedDrive(float t, float speed, DriveBase::MotorSide side, bool tes
 
 void TimedDrive::Initialize() {
 	driveBase->setModeAll(CANSpeedController::kPercentVbus);
+	driveBase->startRotPID();
 	if(test){
 		driveBase->getMotor(side)->Set(-speed);
 	} else {
-		driveBase->setAll(-speed);
+		//driveBase->setAll(-speed);
+		driveBase->setForward(speed);
 	}
 }
 
 void TimedDrive::Execute() {
-
+	driveBase->execute();
 }
 
 bool TimedDrive::IsFinished() {
@@ -34,6 +36,7 @@ bool TimedDrive::IsFinished() {
 
 void TimedDrive::End() {
 	driveBase->setAll(0.0);
+	driveBase->stopRotPID();
 }
 
 void TimedDrive::Interrupted() {
