@@ -44,7 +44,8 @@ void OmegaSupreme::RobotInit() {
 	lw = LiveWindow::GetInstance();
 
 	chooser = new SendableChooser();
-	chooser->AddDefault("Get Center Can", Autonomous::createGetCenterCan());
+	chooser->AddDefault("Straight Center", Autonomous::createStraightGetCenterCan());
+	chooser->AddObject("Get Center Can", Autonomous::createGetCenterCan());
 	chooser->AddObject("Pickup Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive Into Auto Zone",
