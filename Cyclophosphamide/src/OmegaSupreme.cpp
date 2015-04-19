@@ -5,8 +5,9 @@
  *      Author: Administrator
  */
 
-#include <CANTalon.h>
-#include <Commands/Automatic/MoveUntilForce.h>
+#include <AnalogInput.h>
+#include <CANSpeedController.h>
+#include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Automatic/TimedDrive.h>
 #include <Commands/Autonomous/Autonomous.h>
 #include <Commands/Drivebase/ZeroGyro.h>
@@ -16,12 +17,13 @@
 #include <LiveWindow/LiveWindow.h>
 #include <OI.h>
 #include <OmegaSupreme.h>
-#include <PIDController.h>
 #include <RobotBase.h>
 #include <RobotMap.h>
 #include <stdio.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/ArmLifter.h>
+#include <Subsystems/AutoCanGrabber.h>
 #include <Subsystems/DriveBase.h>
 #include <Subsystems/ToteLifter.h>
 #include <Timer.h>
@@ -45,7 +47,6 @@ void OmegaSupreme::RobotInit() {
 
 	chooser = new SendableChooser();
 	chooser->AddDefault("Straight Center", Autonomous::createStraightGetCenterCan());
-	chooser->AddObject("Get Center Can", Autonomous::createGetCenterCan());
 	chooser->AddObject("Pickup Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive Into Auto Zone",
@@ -80,6 +81,10 @@ void OmegaSupreme::RobotInit() {
 			new TimedDrive(1.0, .2, DriveBase::MotorSide::BACK_LEFT, true));
 	SmartDashboard::PutData("Back right",
 			new TimedDrive(1.0, .2, DriveBase::MotorSide::BACK_RIGHT, true));
+
+	SmartDashboard::PutData("up", new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
+	SmartDashboard::PutData("down", new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
+
 }
 
 void OmegaSupreme::AutonomousInit() {
