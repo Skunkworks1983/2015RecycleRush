@@ -12,8 +12,6 @@ ArmLifter::ArmLifter() :
 
 	SAFE_INIT(CAN_LIFT_POT_PORT, liftPot = new AnalogInput(CAN_LIFT_POT_PORT););
 
-	SAFE_INIT(CAN_SENSOR_PORT, canSensor = new DigitalInput(CAN_SENSOR_PORT););
-
 	armPID = new PIDController(CAN_ARM_P, CAN_ARM_I, CAN_ARM_D, liftPot,
 			new StallableMotor(liftPot, 420, 20, liftMotorRight,
 					liftMotorLeft));
@@ -28,7 +26,6 @@ ArmLifter::ArmLifter() :
 ArmLifter::~ArmLifter() {
 	delete liftMotorLeft;
 	delete liftMotorRight;
-	delete canSensor;
 	delete armPID;
 }
 

@@ -34,6 +34,7 @@ OmegaSupreme::OmegaSupreme() {
 	autonomousCommand = NULL;
 	chooser = NULL;
 	shouldRun = true;
+	useSuperAuto = false;
 }
 
 OmegaSupreme::~OmegaSupreme() {
@@ -46,7 +47,8 @@ void OmegaSupreme::RobotInit() {
 	lw = LiveWindow::GetInstance();
 
 	chooser = new SendableChooser();
-	chooser->AddDefault("Straight Center", Autonomous::createStraightGetCenterCan());
+	chooser->AddDefault("Straight Center",
+			Autonomous::createStraightGetCenterCan());
 	chooser->AddObject("Pickup Can", Autonomous::createStartWithCan());
 	chooser->AddObject("Blank", new Autonomous());
 	chooser->AddObject("Drive Into Auto Zone",
@@ -82,29 +84,61 @@ void OmegaSupreme::RobotInit() {
 	SmartDashboard::PutData("Back right",
 			new TimedDrive(1.0, .2, DriveBase::MotorSide::BACK_RIGHT, true));
 
-	SmartDashboard::PutData("up", new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
-	SmartDashboard::PutData("down", new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
+	SmartDashboard::PutData("up",
+			new GrabCenterCan(AutoCanGrabber::GrabberState::RETRACT));
+	SmartDashboard::PutData("down",
+			new GrabCenterCan(AutoCanGrabber::GrabberState::GRAB));
 
+	if (useSuperAuto) {
+		CommandBase::driveBase->setSpeed(0.0, 0.0, 0.0, 0.0);
+		CommandBase::driveBase->setModeAll(
+				CANSpeedController::ControlMode::kPercentVbus);
+		CommandBase::driveBase->zeroPIDOutput();
+		CommandBase::driveBase->startRotPID();
+
+		CommandBase::autoCanGrabber->actuate(
+				AutoCanGrabber::GrabberState::GRAB);
+
+		CommandBase::driveBase->enablePIDAll(false);
+		CommandBase::driveBase->setForward(-.750);
+		CommandBase::driveBase->execute();
+	}
 }
 
 void OmegaSupreme::AutonomousInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	SmartDashboard::PutString("auto", "insideAutoInit!");
 	CommandBase::toteLifter->getEncoder()->Reset();
-	autonomousCommand = (Command *) chooser->GetSelected();
+	if (useSuperAuto) {
+		autonomousCommand = Autonomous::createSuperAuto();
+	} else {
+		autonomousCommand = (Command*) chooser->GetSelected();
+	}
 	autonomousCommand->Start();
 }
 
 void OmegaSupreme::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 	if (!autonomousCommand->IsRunning() && shouldRun) {
-		autonomousCommand = (Command *) chooser->GetSelected();
+		if (useSuperAuto) {
+			autonomousCommand = Autonomous::createSuperAuto();
+		} else {
+			autonomousCommand = (Command*) chooser->GetSelected();
+		}
 		autonomousCommand->Start();
 		shouldRun = false;
+	}
+	if (useSuperAuto) {
+		CommandBase::driveBase->execute();
 	}
 }
 
 void OmegaSupreme::TeleopInit() {
+	if (useSuperAuto) {
+		CommandBase::driveBase->setForward(0);
+		CommandBase::driveBase->execute();
+		CommandBase::driveBase->stopRotPID();
+	}
 	if (autonomousCommand != NULL) {
 		autonomousCommand->Cancel();
 	} else {
@@ -127,8 +161,12 @@ void OmegaSupreme::TeleopPeriodic() {
 			}
 		}
 	}
-	SmartDashboard::PutNumber("ArmPot", CommandBase::armLifter->getLiftPot()->PIDGet());
-	SmartDashboard::PutNumber("Elevator Encoder", CommandBase::toteLifter->getEncoder()->PIDGet());
+	SmartDashboard::PutNumber("magSensor",
+			CommandBase::toteLifter->getCraaawInput());
+	SmartDashboard::PutNumber("ArmPot",
+			CommandBase::armLifter->getLiftPot()->PIDGet());
+	SmartDashboard::PutNumber("Elevator Encoder",
+			CommandBase::toteLifter->getEncoder()->PIDGet());
 }
 
 void OmegaSupreme::DisabledInit() {

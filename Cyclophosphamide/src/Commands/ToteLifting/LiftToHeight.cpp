@@ -3,16 +3,19 @@
 LiftToHeight::LiftToHeight(double destination) :
 		CommandBase("LiftToHeight") {
 	Requires(toteLifter);
+	this->initial = destination;
 	this->destination = destination;
 }
 
 // Called just before this Command runs the first time
 void LiftToHeight::Initialize() {
+	destination = initial;
 	SmartDashboard::PutNumber("Destination START", destination);
 	if (destination > toteLifter->getEncoder()->PIDGet()
 			&& toteLifter->getCraaawInput() && destination != TOTE_LIFTER_CARRY_HEIGHT) {
 		destination = toteLifter->getEncoder()->PIDGet();
 	}
+	SmartDashboard::PutNumber("Initialize Destination", destination);
 
 	toteLifter->setSetPoints(destination);
 	toteLifter->enablePID(true);
@@ -45,6 +48,7 @@ void LiftToHeight::End() {
 	toteLifter->setSetPoints(
 			toteLifter->getEncoder()->PIDGet()
 					+ (TOTE_LIFTER_TICKS_PER_INCH * .25));
+	SmartDashboard::PutNumber("ENDING SETPOINT", toteLifter->getPID()->GetSetpoint());
 	//toteLifterino->getPID()->Enable();
 }
 

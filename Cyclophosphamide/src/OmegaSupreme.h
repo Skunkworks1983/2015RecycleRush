@@ -22,6 +22,7 @@ private:
 	LiveWindow *lw;
 	SendableChooser *chooser;
 	bool shouldRun;
+	bool useSuperAuto;
 public:
 	OmegaSupreme();
 	~OmegaSupreme();

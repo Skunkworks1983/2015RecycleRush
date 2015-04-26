@@ -17,6 +17,7 @@ LiftToHeightVelocity::~LiftToHeightVelocity() {
 }
 
 void LiftToHeightVelocity::Initialize() {
+	toteLifter->enablePID(false);
 	toteLifter->setMotorSpeed(speed);
 }
 

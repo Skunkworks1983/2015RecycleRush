@@ -82,6 +82,7 @@ void* StallableMotor::StallCheck(void*) {
 			startTime = 0;
 			stalled = false;
 		}
+		stalled = false;		//TODO: remove this
 	}
 }
 

@@ -16,6 +16,9 @@ TimedDrive::TimedDrive(float t, float speed, DriveBase::MotorSide side, bool tes
 }
 
 void TimedDrive::Initialize() {
+	driveBase->setForward(-speed);
+	driveBase->zeroPIDOutput();
+	driveBase->stopRotPID();
 	driveBase->setModeAll(CANSpeedController::kPercentVbus);
 	if(test){
 		driveBase->getMotor(side)->Set(-speed);

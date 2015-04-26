@@ -15,6 +15,7 @@ public:
 	static Autonomous *createStartWithCanThenDrive();
 	static Autonomous *createSimpleDriveForward();
 	static Autonomous *createStraightGetCenterCan();
+	static Autonomous *createSuperAuto();
 
 	Autonomous();
 	Autonomous(char *style);

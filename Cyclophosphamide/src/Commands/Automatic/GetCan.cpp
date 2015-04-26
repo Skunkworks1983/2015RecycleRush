@@ -4,7 +4,7 @@
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Armerino/TransferCan.h>
 #include <Commands/Automatic/GetCan.h>
-#include <Commands/Automatic/SimpleDriveForward.h>
+#include <Commands/Automatic/TimedDrive.h>
 #include <Commands/WaitCommand.h>
 #include <RobotMap.h>
 
@@ -13,7 +13,7 @@
 GetCan::GetCan() {
 	AddSequential(new MoveWrist(MoveWrist::State::close));
 	AddSequential(new MoveArms(CAN_POT_KNOCK_POSITION));
-	AddSequential(new SimpleDriveForward(START_CAN_DISTANCE_1, .25));
+	AddSequential(new TimedDrive(1.5, .25));
 	AddSequential(new MoveWrist(MoveWrist::State::open));
 	AddSequential(new MoveArms(CAN_POT_UP_POSITION));
 	AddSequential(new MoveArmsFancy(MoveArmsFancy::down), 2.0);

@@ -1,17 +1,15 @@
 #include <Buttons/JoystickButton.h>
-#include <Commands/Armerino/Arms/Induct.h>
 #include <Commands/Armerino/Arms/MoveArms.h>
 #include <Commands/Armerino/Arms/MoveArmsKnock.h>
 #include <Commands/Armerino/Arms/MoveWrist.h>
-#include <Commands/Armerino/Arms/RampInduct.h>
 #include <Commands/Armerino/CollectCan.h>
 #include <Commands/Armerino/Craaaw/ActuateCanStabilizer.h>
 #include <Commands/Armerino/MoveArmsFancy.h>
 #include <Commands/Armerino/TransferCan.h>
 #include <Commands/AutoCanGrabber/GrabCenterCan.h>
 #include <Commands/Score.h>
-#include <Commands/ToteIntake/RunToteIntake.h>
 #include <Commands/ToteLifting/LiftToHeightVelocity.h>
+#include <Commands/ToteLifting/PIDHoldLiftToHeightVelocity.h>
 #include <Commands/ToteLifting/SafeLiftToHeight.h>
 #include <Commands/ToteLifting/zeroing/ResetElevatorEncoder.h>
 #include <Joystick.h>
@@ -35,11 +33,8 @@ OI::OI() {
 	canCollectRvs = new JoystickButton(op, 12);
 	canToCraaawTransfer = new JoystickButton(op, 10);
 	craaawToggle = new JoystickButton(op, 14);
-	toggleAutoZone = new JoystickButton(joystickLeft, 2);
 
 	// Tote stacking
-	alignToteFwd = new JoystickButton(op, 7);
-	alignToteRvs = new JoystickButton(op, 8);
 	loadPos = new JoystickButton(op, 6);
 	floorPos = new JoystickButton(op, 5);
 
@@ -62,16 +57,14 @@ OI::OI() {
 
 	// Driver buttons
 	moveArmsWhackMode = new JoystickButton(joystickLeft, 1);
-	toteLifterUpDriver = new JoystickButton(joystickLeft, 4);
-	toteLifterDownDriver = new JoystickButton(joystickLeft, 5);
-	toteIndexFwd = new JoystickButton(joystickRight, 5);
-	toteIndexRv = new JoystickButton(joystickRight, 3);
+	toteLifterUpDriver = new JoystickButton(joystickLeft, 5);
+	toteLifterDownDriver = new JoystickButton(joystickLeft, 4);
+	toggleCanBurgle = new JoystickButton(joystickLeft, 2);
+	scoreOverride = new JoystickButton(joystickLeft, 3);
 	wristToggleDriver = new JoystickButton(joystickRight, 1);
 }
 
 OI::~OI() {
-	delete alignToteFwd;
-	delete alignToteRvs;
 	delete canToCraaawTransfer;
 	delete score;
 	delete floorLoader;
@@ -91,10 +84,8 @@ OI::~OI() {
 	delete canArmOverrideDown;
 	delete toteLifterUpDriver;
 	delete toteLifterDownDriver;
-	delete toteIndexFwd;
-	delete toteIndexRv;
 	delete wristToggleDriver;
-	delete toggleAutoZone;
+	delete toggleCanBurgle;
 }
 
 Joystick *OI::getJoystickOperator() {
@@ -131,16 +122,12 @@ void OI::registerButtonListeners() {
 			new ActuateCanStabilizer(ActuateCanStabilizer::close));
 
 	// Loading/stacking
-	SAFE_BUTTON(alignToteFwd,
-			alignToteFwd->WhileHeld(new RunToteIntake(TOTE_INTAKE_MOTOR_FULL *2)));
-	SAFE_BUTTON(alignToteRvs,
-			alignToteRvs->WhileHeld(new RunToteIntake(-TOTE_INTAKE_MOTOR_FULL)));
 	createButton("lifter load", loadPos,
 			new SafeLiftToHeight(TOTE_LIFTER_LOAD_HEIGHT));
 	createButton("lifter floor", floorPos,
 			new SafeLiftToHeight(TOTE_LIFTER_FLOOR_HEIGHT));
 
-	createButton("toggleAutoZone", toggleAutoZone,
+	createButton("toggleAutoZone", toggleCanBurgle,
 			new GrabCenterCan(AutoCanGrabber::GrabberState::TOGGLE));
 
 	// Scoring
@@ -167,17 +154,13 @@ void OI::registerButtonListeners() {
 	// Special driver buttons
 	createButton("whack mode", moveArmsWhackMode, new MoveArmsKnock());
 	SAFE_BUTTON(toteLifterUpDriver,
-			toteLifterUpDriver->WhileHeld(new LiftToHeightVelocity(.5)));
+			toteLifterUpDriver->WhileHeld(new PIDHoldLiftToHeightVelocity(.75)));
 	SAFE_BUTTON(toteLifterDownDriver,
-			toteLifterDownDriver->WhileHeld(new LiftToHeightVelocity(-0.5)));
-	SAFE_BUTTON(toteIndexFwd,
-			toteIndexFwd->WhenPressed( new RampInduct(TOTE_INDEX_SPEED,0.5)));
-	SAFE_BUTTON(toteIndexFwd,
-			toteIndexFwd->WhenReleased( new Induct(TOTE_EXPEL_SPEED, 0.2)));
-	SAFE_BUTTON(toteIndexRv,
-			toteIndexRv->WhileHeld(new Induct(TOTE_EXPEL_SPEED)));
-	createButton("hold tote", wristToggleDriver,
+			toteLifterDownDriver->WhileHeld(
+					new PIDHoldLiftToHeightVelocity(-0.75)));
+	createButton("Driver toggle wrist", wristToggleDriver,
 			new MoveWrist(MoveWrist::toggle));
+	createButton("Drive score override", scoreOverride, new Score());
 }
 
 void OI::createButton(std::string key, Button *b, Command *c) {
